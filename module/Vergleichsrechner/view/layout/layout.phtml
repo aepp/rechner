@@ -41,12 +41,14 @@
                	</div>
                	<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 					<?php 
-						echo $this->navigation('navigation')    
-							->menu()
-						    ->setMinDepth(0)
-						    ->setMaxDepth(0)
-						    ->setUlClass('nav navbar-nav')
-						    ->render();
+						if($user = $this->identity()){
+							echo $this->navigation('navigation')    
+								->menu()
+							    ->setMinDepth(0)
+							    ->setMaxDepth(0)
+							    ->setUlClass('nav navbar-nav')
+							    ->render();
+						}
 					?>
 					<ul class="nav navbar-nav navbar-right">
 	                	<?php 
