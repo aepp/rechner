@@ -1,0 +1,10 @@
+config/
+/install.bat
+/update.bat
+/cmd.bat
+.settings/
+public/.htaccess
+db/
+/composer.lock
+vendor/doctrine/doctrine-module/bin/cmd.bat
+vendor/doctrine/doctrine-module/bin/commands.txt

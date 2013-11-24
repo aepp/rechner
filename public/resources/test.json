@@ -1,0 +1,17 @@
+{
+    "Result": "OK",
+    "Records": [
+        {
+            "userId": 1,
+            "userEmail": "admin"
+        },
+        {
+            "userId": 2,
+            "userEmail": "aepp"
+        },
+        {
+            "userId": 3,
+            "userEmail": "test"
+        }
+    ]
+}

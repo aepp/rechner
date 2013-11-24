@@ -1,0 +1,9 @@
+<div class="container">
+	<h2><?php echo sprintf($this->translate('Produkt hizufügen')) ?></h2>
+
+		<?php	
+			echo $this->form()->openTag($form);
+			echo $this->formrow($form->get('produktKtegorie'), 'prepend');
+			echo $this->form()->closeTag();
+		?>
+</div>

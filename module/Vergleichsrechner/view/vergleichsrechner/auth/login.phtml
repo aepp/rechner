@@ -1,0 +1,33 @@
+<div class="container">
+	<?php
+		echo $this->headLink()->prependStylesheet($this->basePath() . '/css/login.css');
+		
+		$form = $this->form;
+		//$form->setAttribute('action', $this->url('login', array('controller' => 'auth', 'action' => 'login')));
+		$form->setAttribute('class', 'form-login');
+		$form->prepare();
+	?>
+		
+	<?php	
+		echo $this->form()->openTag($form);
+		echo "<h2>Please login</h2>";
+		echo $this->formRow($form->get('userEmail'));
+		echo $this->formRow($form->get('userPassword'));
+		echo $this->formCheckbox($form->get('rememberme'))." Remember me?";
+		echo $this->formSubmit($form->get('submit'));
+		echo $this->form()->closeTag();
+	?>
+</div>
+
+<?php // view helper
+	try{
+	    if ($user = $this->identity()) {
+// 	        echo 'Logged in as ' . $this->escapeHtml($user->getUserEmail());
+?>                
+<?php
+	    } else {
+// 	        echo 'Not logged in';
+	    }
+    } catch (RuntimeException $re){
+	}
+?>

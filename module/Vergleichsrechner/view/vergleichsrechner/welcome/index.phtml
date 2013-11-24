@@ -1,0 +1,31 @@
+<div class="jumbotron">
+    <h1><?php echo sprintf($this->translate('Willkommen zur Admin-Konsole'), '<span class="zf-green">', '</span>') ?></h1>
+</div>
+
+<div class="row">
+
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?php echo $this->translate('Produktverwaltung') ?></h3>
+            </div>
+            <div class="panel-body">
+                <p><?php echo sprintf($this->translate('Hier kannst du die neue Produkte hinzufügen oder vorhandene bearbeiten.')) ?></p>
+                <p><a class="btn btn-success pull-right" href="produkt"><?php echo $this->translate('Produktverwaltung') ?> &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?php echo $this->translate('Datenbankverwaltung') ?></h3>
+            </div>
+            <div class="panel-body">
+                <p><?php echo sprintf($this->translate('Hier kannst du die Datenbanktabellen verwalten und befüllen.')) ?></p>
+                <p><a class="btn btn-success pull-right" href="database"><?php echo $this->translate('Datenbankverwaltung') ?> &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+    
+</div>
