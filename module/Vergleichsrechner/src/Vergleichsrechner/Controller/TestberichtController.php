@@ -8,7 +8,7 @@ use Zend\Json\Json;
 use Vergleichsrechner\Entity\Testbericht;
 
 /**
- * {0}
+ * TestberichtController
  * 
  * @author A. Epp
  * @version 1.0
@@ -20,7 +20,7 @@ class TestberichtController extends BaseController
 	 */
     public function indexAction()
     {
-     	// TODO Auto-generated {0}::indexAction() default action
+     	// TODO Auto-generated TestberichtController::indexAction() default action
     	return new ViewModel();
     }
     

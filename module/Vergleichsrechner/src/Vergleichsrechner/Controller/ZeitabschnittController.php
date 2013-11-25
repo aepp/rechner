@@ -7,6 +7,7 @@ use Zend\View\Model\JsonModel;
 use Zend\Json\Json;
 use Vergleichsrechner\Entity\Zeitabschnitt;
 
+require __DIR__.'/../Exception/ErrorHandler.php';
 /**
  * ZeitabschnittController
  * 

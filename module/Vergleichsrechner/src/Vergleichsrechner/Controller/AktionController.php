@@ -6,7 +6,6 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Json\Json;
 use Vergleichsrechner\Entity\Aktion;
-use Vergleichsrechner\Controller\BaseController;
 
 require __DIR__.'/../Exception/ErrorHandler.php';
 

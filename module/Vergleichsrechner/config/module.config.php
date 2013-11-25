@@ -235,7 +235,7 @@ return array(
         												'action' => '[a-zA-Z][a-zA-Z0-9_-]*'
         										),
         										'defaults' => array(
-        												'controller' => 'Testbericht',
+        												'controller' => 'Zeitabschnitt',
         												'action' => 'index',
         										),
         								),

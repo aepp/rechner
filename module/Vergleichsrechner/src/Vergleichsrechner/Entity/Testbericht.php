@@ -9,7 +9,9 @@ use Zend\Form\Annotation;
  * Testbericht
  *
  * @ORM\Table(name="testbericht")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\TestberichtRepository")
+ * @Annotation\Name("testbericht")
+ * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
 class Testbericht
 {
