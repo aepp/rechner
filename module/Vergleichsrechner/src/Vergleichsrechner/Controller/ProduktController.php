@@ -20,7 +20,7 @@ class ProduktController extends BaseController
 	 */
     public function indexAction()
     {
-     	// TODO Auto-generated {0}::indexAction() default action
+     	// TODO Auto-generated ProduktController::indexAction() default action
     	return new ViewModel();
     }
     
@@ -28,7 +28,6 @@ class ProduktController extends BaseController
     {
     	$forms = $this->getServiceLocator()->get('FormElementManager');
 		$form = $forms->get('AddProductForm', array('name' => 'formName', 'options' => array()));
-    	// TODO Auto-generated {0}::indexAction() default action
 		return new ViewModel(array(
 				'form' => $form,
 		));

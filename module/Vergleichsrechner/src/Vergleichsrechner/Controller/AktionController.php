@@ -23,7 +23,7 @@ class AktionController extends BaseController
 	 */
     public function indexAction()
     {
-     	// TODO Auto-generated {0}::indexAction() default action
+     	// TODO Auto-generated AktionController::indexAction() default action
     	return new ViewModel();
     }
     
