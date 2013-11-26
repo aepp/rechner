@@ -162,7 +162,81 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 					'property' => 'aktionBeschreibung',
 					'empty_option'  => '--- Bitte wählen ---',
 			));
-		
+		$produktKtofuehrKost
+			->setName('produktKtofuehrKost')
+			->setLabel('Kontoführungskosten')
+			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setAttributes(array(
+					'class' => 'form-control',
+					'id' => 'produktHoechstanlage'
+			));	
+		$produktZinsgutschrift
+			->setName('produktZinsgutschrift')
+			->setLabel('Zinsgutschrift')
+			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setAttributes(array(
+					'class' => 'form-control',
+					'id' => 'produktZinsgutschrift'
+			))
+			->setOptions(array(
+					'object_manager' => $this->getObjectManager(),
+					'target_class' => 'Vergleichsrechner\Entity\Zeitabschnitt',
+					'property' => 'zeitabschnittName',
+					'empty_option'  => '--- Bitte wählen ---',
+			));		
+		$produktVerfuegbarkeit
+			->setName('produktVerfuegbarkeit')
+			->setLabel('Verfügbarkeit')
+			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setAttributes(array(
+					'class' => 'form-control',
+					'id' => 'produktVerfuegbarkeit'
+			))
+			->setOptions(array(
+					'object_manager' => $this->getObjectManager(),
+					'target_class' => 'Vergleichsrechner\Entity\Zeitabschnitt',
+					'property' => 'zeitabschnittName',
+					'empty_option'  => '--- Bitte wählen ---',
+			));					
+		$produktKuendbarkeit
+			->setName('produktKuendbarkeit')
+			->setLabel('Kündbarkeit')
+			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setAttributes(array(
+					'class' => 'form-control',
+					'id' => 'produktKuendbarkeit'
+			))
+			->setOptions(array(
+					'object_manager' => $this->getObjectManager(),
+					'target_class' => 'Vergleichsrechner\Entity\Zeitabschnitt',
+					'property' => 'zeitabschnittName',
+					'empty_option'  => '--- Bitte wählen ---',
+			));					
+		$produktHasOnlineBanking	
+			->setName('produktHasOnlineBanking')
+			->setLabel('Online-Banking?')
+			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setValueOptions($jaNein);
+		$legitimationId
+			->setName('legitimationId')
+			->setLabel('Kündbarkeit')
+			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setAttributes(array(
+					'class' => 'form-control',
+					'id' => 'legitimationId'
+			))
+			->setOptions(array(
+					'object_manager' => $this->getObjectManager(),
+					'target_class' => 'Vergleichsrechner\Entity\Legitimation',
+					'property' => 'legitimationName',
+					'empty_option'  => '--- Bitte wählen ---',
+			));		
+		$produktHasAltersbeschraenkung
+			->setName('produktHasAltersbeschraenkung')
+			->setLabel('Altersbeschränung?')
+			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setValueOptions($jaNein);	
+				
 		/*
 		 * Setting up the form
 		 */		
@@ -182,14 +256,14 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$this->add($produktHasGesetzlEinlagvers);
 		$this->add($einlagensicherungLandId);
 		$this->add($aktionId);
-// 		$this->add($produktKtofuehrKostFllg);
-// 		$this->add($produktZinsgutschrift);
-// 		$this->add($produktVerfuegbarkeit);
-// 		$this->add($produktKuendbarkeit);
-// 		$this->add($produktHasOnlineBanking);
-// 		$this->add($legitimationId);
-// 		$this->add($produktHasAltersbeschraenkung);
-// 		$this->add($produktGueltigSeit);
+		$this->add($produktKtofuehrKostFllg);
+		$this->add($produktZinsgutschrift);
+		$this->add($produktVerfuegbarkeit);
+		$this->add($produktKuendbarkeit);
+		$this->add($produktHasOnlineBanking);
+		$this->add($legitimationId);
+		$this->add($produktHasAltersbeschraenkung);
+		$this->add($produktGueltigSeit);
 // 		$this->add($produktCheck);
 // 		$this->add($produktTipp);
 // 		$this->add($produktUrl);
