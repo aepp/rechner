@@ -19,7 +19,7 @@ class WelcomeController extends AbstractActionController
 	 */
     public function indexAction()
     {
-     	// TODO Auto-generated {0}::indexAction() default action
+     	// TODO Auto-generated WelcomeController::indexAction() default action
     	return new ViewModel();
     }
 }

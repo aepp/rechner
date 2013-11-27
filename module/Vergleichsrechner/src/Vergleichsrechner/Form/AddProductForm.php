@@ -9,6 +9,7 @@ use DoctrineModule\Form\Element\ObjectSelect;
 use Doctrine\Common\Persistence\ObjectManager;
 use Vergleichsrechner\Entity\Kategorie;
 use DoctrineModule\Form\Element\ObjectMultiCheckbox;
+use Zend\Text\Table\Table;
 
 class AddProductForm extends Form implements ObjectManagerAwareInterface
 {

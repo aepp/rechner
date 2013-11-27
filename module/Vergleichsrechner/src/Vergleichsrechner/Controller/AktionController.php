@@ -32,7 +32,6 @@ class AktionController extends BaseController
     	$response = $this->getResponse();
     	if ($request->isPost()) {
     		$em = $this->getEntityManager();
-    		$em->flush();
     		$records = $em->getRepository('Vergleichsrechner\Entity\Aktion')
     					  ->findAllJT($_GET['jtSorting'], $_GET['jtStartIndex'], $_GET['jtPageSize']);
     		$json = array();

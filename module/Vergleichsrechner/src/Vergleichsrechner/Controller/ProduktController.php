@@ -23,7 +23,11 @@ class ProduktController extends BaseController
     public function indexAction()
     {
      	// TODO Auto-generated ProduktController::indexAction() default action
-    	return new ViewModel();
+    	$em = $this->getEntityManager();
+    	$produkte = $em->getRepository('Vergleichsrechner\Entity\Produkt')->findAll();
+    	return new ViewModel(array(
+				'produkte' => $produkte,
+		));
     }
     
     public function addAction()

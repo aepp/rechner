@@ -1,15 +1,40 @@
-<div class="container">
-	<h2><?php echo sprintf($this->translate('Produktübersicht')) ?></h2>
-	
-	<div class="row">
-	
-	    <div class="col-md-3">
-	    	<p><a class="btn btn-success pull-left" href="produkt/add"><?php echo $this->translate('Produkt hizufügen') ?> &raquo;</a></p>
-	    </div>
-	    
-	</div>
-	
-	<div class="row">
-	
-	</div>
+<?php 
+	echo $this->headLink()
+		->prependStylesheet($this->basePath() . '/css/product-overview.css')
+?>
+<div class="text-center">
+  	<h2><?php echo sprintf($this->translate('Produktübersicht')) ?></h2>
+</div>	
+<div class="text-center">
+	<a class="btn btn-success" href="produkt/add"><?php echo $this->translate('Produkt hizufügen') ?></a>
+</div>	
+<div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Produktname</th>
+				<th>Kategorie</th>
+				<th>Bank</th>
+				<th>Produkt-URL</th>
+				<th>Klickout-URL</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach($produkte as $produkt): ?>
+				<tr>
+					<td><?php echo $produkt->getProduktName(); ?></td>				
+					<td><?php echo $produkt->getKategorie()->getKategorieName() ?></td>				
+					<td>	
+						<img 
+							alt="<?php echo $produkt->getBank()->getBankName() ?>" 
+							src="uploads/bank-logo/<?php echo $produkt->getBank()->getBankLogo() ?>"
+							class="bank-logo-preview"
+						/>
+					</td>				
+					<td><?php echo $produkt->getProduktUrl() ?></td>				
+					<td><?php echo $produkt->getProduktKlickoutUrl() ?></td>				
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
 </div>
