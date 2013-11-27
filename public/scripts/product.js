@@ -1,19 +1,20 @@
 $(document).ready(function() {
     $('#produktInsert').unbind('click').click(function(event){
-//    	if($('#addProductForm').validationEngine('validate')){
-	    	$.ajax({ type : 'POST',
+    	if($('#addProductForm').validationEngine('validate')){
+	    	$.ajax({ 
+	    		type : 'POST',
 			    url : 'insert',
-			    processData : { mod : '' } ,
-			    success : function ( json ){
-			    	alert(json.result);
+			    data : $("#addProductForm").serialize(),
+			    success : function (response){
+			    	
 			    },
-			    error : function (){
-		    		alert("error<br />") ;
+			    error : function (response){
+		    		alert("Error occcured") ;
 			    },
-	//		    always : function (){
-	//		    	
-	//		    }
+			    always : function (){
+			    	
+			    }
 	    	});
-//    	}
+    	}
     });
 });

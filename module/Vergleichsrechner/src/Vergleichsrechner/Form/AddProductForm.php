@@ -34,7 +34,7 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		 */
 		$kategorie = new ObjectSelect();
 		$produktart = new ObjectSelect();
-		$produktame = new Element\Text();
+		$produktName = new Element\Text();
 		$bank = new ObjectSelect();
 		$produktHasOnlineAbschluss = new Element\Radio();
 		$produktMindestanlage = new Element\Text();
@@ -53,7 +53,7 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$produktGueltigSeit = new Element\DateSelect();
 		$produktCheck = new Element\Text();
 		$produktTipp = new Element\Radio();
-		$produktInformationen = new Element\Text();
+		$produktInformationen = new Element\Textarea();
 		$produktUrl = new Element\Text();
 		$produktKlickoutUrl = new Element\Text();
 		$ktozugriffe = new ObjectMultiCheckbox();
@@ -88,13 +88,13 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 					'property' => 'produktartName',
 					'empty_option'  => '--- Bitte wählen ---',
 			));						
-		$produktame	
-			->setName('produktame')
+		$produktName	
+			->setName('produktName')
 			->setLabel('Produktname')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
 					'class' => 'form-control validate[required]',
-					'id' => 'produktame'
+					'id' => 'produktName'
 			));	
 		$bank	
 			->setName('bank')
@@ -289,7 +289,14 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 					'target_class' => 'Vergleichsrechner\Entity\Kontozugriff',
 					'property' => 'kontozugriffName',
 			));
-		
+		$produktInformationen
+			->setName('produktInformationen')
+			->setLabel('Informationen')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control',
+					'id' => 'produktInformationen'
+			));		
 		$produktInsert
 			->setName('produktInsert')
 			->setLabel('Produkt anlegen')
@@ -322,7 +329,7 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		 */
 		$this->add($kategorie);
 		$this->add($produktart);
-		$this->add($produktame);
+		$this->add($produktName);
 		$this->add($bank);
 		$this->add($produktHasOnlineAbschluss);
 		$this->add($produktMindestanlage);
@@ -341,6 +348,7 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$this->add($produktGueltigSeit);
 		$this->add($produktCheck);
 		$this->add($produktTipp);
+		$this->add($produktInformationen);
 		$this->add($produktUrl);
 		$this->add($produktKlickoutUrl);
 		$this->add($produktInsert);

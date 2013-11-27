@@ -39,41 +39,42 @@ class ProduktController extends BaseController
     	$request = $this->getRequest();
     	$response = $this->getResponse();
     	
-    	$success = true;
+    	$result = null;
+    	$error = null;
     	
-    	if ($request->isPost()) {
+    	if ($request->isXmlHttpRequest()) {
     		try{
 	    		$em = $this->getEntityManager();
 	    		
 	    		$produkt = new Produkt();
 	    		
-	    		$_POST['aktion'] = 24;
-	    		$_POST['kategorie'] = 1;
-	    		$_POST['produktart'] = 1;
-	    		$_POST['produktame'] = 1;
-	    		$_POST['bank'] = 14;
-	    		$_POST['produktHasOnlineAbschluss'] = false;
-	    		$_POST['produktMindestanlage'] = 0;
-	    		$_POST['produktHoechstanlage'] = 0;
-	    		$_POST['produktHasGesetzlEinlagvers'] = true;
-	    		$_POST['einlagensicherungLand'] = 1;
-	    		$_POST['produktKtofuehrKost'] = 100;
-	    		$_POST['produktKtofuehrKostFllg'] = 1;
-	    		$_POST['produktZinsgutschrift'] = 1;
-	    		$_POST['produktVerfuegbarkeit'] = 1;
-	    		$_POST['produktKuendbarkeit'] = 1;
-	    		$_POST['produktHasOnlineBanking'] = true;
-	    		$_POST['legitimation'] = 1;
-	    		$_POST['produktHasAltersbeschraenkung'] = false;
-	    		$_POST['produktGueltigSeit'] = new \DateTime("2012-12-12");
-	    		$_POST['produktCheck'] = 1.1;
-	    		$_POST['produktTipp'] = true;
-	    		$_POST['produktInformationen'] = "BLA";
-	    		$_POST['produktUrl'] = "www.foo";
-	    		$_POST['produktKlickoutUrl'] = "www.bar";
-	    		$_POST['produktName'] = "test";
-	    		$_POST['ktozugriffe'] = [1, 2];
-	    		
+// 	    		$_POST['aktion'] = 24;
+// 	    		$_POST['kategorie'] = 1;
+// 	    		$_POST['produktart'] = 1;
+// 	    		$_POST['produktame'] = 1;
+// 	    		$_POST['bank'] = 14;
+// 	    		$_POST['produktHasOnlineAbschluss'] = false;
+// 	    		$_POST['produktMindestanlage'] = 0;
+// 	    		$_POST['produktHoechstanlage'] = 0;
+// 	    		$_POST['produktHasGesetzlEinlagvers'] = true;
+// 	    		$_POST['einlagensicherungLand'] = 1;
+// 	    		$_POST['produktKtofuehrKost'] = 100;
+// 	    		$_POST['produktKtofuehrKostFllg'] = 1;
+// 	    		$_POST['produktZinsgutschrift'] = 1;
+// 	    		$_POST['produktVerfuegbarkeit'] = 1;
+// 	    		$_POST['produktKuendbarkeit'] = 1;
+// 	    		$_POST['produktHasOnlineBanking'] = true;
+// 	    		$_POST['legitimation'] = 1;
+// 	    		$_POST['produktHasAltersbeschraenkung'] = false;
+// 	    		$_POST['produktGueltigSeit'] = new \DateTime("2012-12-12");
+// 	    		$_POST['produktCheck'] = 1.1;
+// 	    		$_POST['produktTipp'] = true;
+// 	    		$_POST['produktInformationen'] = "BLA";
+// 	    		$_POST['produktUrl'] = "www.foo";
+// 	    		$_POST['produktKlickoutUrl'] = "www.bar";
+// 	    		$_POST['produktName'] = "test";
+// 	    		$_POST['ktozugriffe'] = [1, 2];
+// 	    		var_dump($request->getPost('kategorie'));
 				$kategorie = $em->find('Vergleichsrechner\Entity\Kategorie', $_POST['kategorie']);
 				$produktart = $em->find('Vergleichsrechner\Entity\Produktart', $_POST['produktart']);
 				$produktName = $_POST['produktName'];
@@ -92,7 +93,7 @@ class ProduktController extends BaseController
 				$produktHasOnlineBanking = $_POST['produktHasOnlineBanking'];
 				$legitimation = $em->find('Vergleichsrechner\Entity\Legitimation', $_POST['legitimation']);
 				$produktHasAltersbeschraenkung = $_POST['produktHasAltersbeschraenkung'];
-				$produktGueltigSeit = $_POST['produktGueltigSeit'];
+				$produktGueltigSeit = new \DateTime($_POST['year'].'-'.$_POST['month'].'-'.$_POST['day']);
 				$produktCheck = $_POST['produktCheck'];
 				$produktTipp = $_POST['produktTipp'];
 				$produktInformationen = $_POST['produktInformationen'];
@@ -140,7 +141,8 @@ class ProduktController extends BaseController
     		}
     	}
     	return new JsonModel(array(
-            'result'=> $success,
+            'result'=> $result,
+			'error' => $error
         ));
     }
     
