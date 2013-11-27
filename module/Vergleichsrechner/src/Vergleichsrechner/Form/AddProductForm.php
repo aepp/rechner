@@ -28,27 +28,27 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 							'0' => 'Nein',
 					),
 		);
-		
+		$labelAttributes = array('class' => 'col-sm-3 control-label');
 		/*
 		 * Setting up the form elements
 		 */
-		$kategorieId = new ObjectSelect();
-		$produktartId = new ObjectSelect();
+		$kategorie = new ObjectSelect();
+		$produktart = new ObjectSelect();
 		$produktame = new Element\Text();
-		$bankId = new ObjectSelect();
+		$bank = new ObjectSelect();
 		$produktHasOnlineAbschluss = new Element\Radio();
 		$produktMindestanlage = new Element\Text();
 		$produktHoechstanlage = new Element\Text();
 		$produktHasGesetzlEinlagvers = new Element\Radio();
-		$einlagensicherungLandId = new ObjectSelect();
-		$aktionId = new ObjectSelect();
+		$einlagensicherungLand = new ObjectSelect();
+		$aktion = new ObjectSelect();
 		$produktKtofuehrKost = new Element\Text();
 		$produktKtofuehrKostFllg = new ObjectSelect();
 		$produktZinsgutschrift = new ObjectSelect();
 		$produktVerfuegbarkeit = new ObjectSelect();
 		$produktKuendbarkeit = new ObjectSelect();
 		$produktHasOnlineBanking = new Element\Radio();
-		$legitimationId = new ObjectSelect();
+		$legitimation = new ObjectSelect();
 		$produktHasAltersbeschraenkung = new Element\Radio();
 		$produktGueltigSeit = new Element\DateSelect();
 		$produktCheck = new Element\Text();
@@ -56,15 +56,17 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$produktInformationen = new Element\Text();
 		$produktUrl = new Element\Text();
 		$produktKlickoutUrl = new Element\Text();
-		$kontozugriffe = new ObjectMultiCheckbox();
+		$ktozugriffe = new ObjectMultiCheckbox();
+		$produktInsert = new Element\Button();
+		$produktReset = new Element\Button();
 		
-		$kategorieId	
-			->setName('kategorieId')
+		$kategorie	
+			->setName('kategorie')
 			->setLabel('Kategorie')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'kategorieId'
+					'class' => 'form-control validate[required]',
+					'id' => 'kategorie',
 			))
 			->setOptions(array(
 					'object_manager' => $this->getObjectManager(),
@@ -72,13 +74,13 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 					'property' => 'kategorieName',
 					'empty_option'  => '--- Bitte wählen ---',
 			));
-		$produktartId	
-			->setName('produktartId')
+		$produktart	
+			->setName('produktart')
 			->setLabel('Produktart')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'produktartId'
+					'class' => 'form-control validate[required]',
+					'id' => 'produktart'
 			))
 			->setOptions(array(
 					'object_manager' => $this->getObjectManager(),
@@ -89,18 +91,18 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$produktame	
 			->setName('produktame')
 			->setLabel('Produktname')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
+					'class' => 'form-control validate[required]',
 					'id' => 'produktame'
 			));	
-		$bankId	
-			->setName('bankId')
+		$bank	
+			->setName('bank')
 			->setLabel('Bank')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'bankId'
+					'class' => 'form-control validate[required]',
+					'id' => 'bank'
 			))
 			->setOptions(array(
 					'object_manager' => $this->getObjectManager(),
@@ -111,12 +113,12 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$produktHasOnlineAbschluss	
 			->setName('produktHasOnlineAbschluss')
 			->setLabel('Online-Abschluss?')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setValueOptions($jaNein);
 		$produktMindestanlage
 			->setName('produktMindestanlage')
 			->setLabel('Mindestanlage')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
 					'class' => 'form-control',
 					'id' => 'produktMindestanlage'
@@ -124,7 +126,7 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$produktHoechstanlage
 			->setName('produktHoechstanlage')
 			->setLabel('Höchstanlage')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
 					'class' => 'form-control',
 					'id' => 'produktHoechstanlage'
@@ -132,15 +134,15 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$produktHasGesetzlEinlagvers
 			->setName('produktHasGesetzlEinlagvers')
 			->setLabel('Gesetzl. Einlagensicherung?')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setValueOptions($jaNein);		
-		$einlagensicherungLandId
-			->setName('einlagensicherungLandId')
+		$einlagensicherungLand
+			->setName('einlagensicherungLand')
 			->setLabel('Einlagensicherung Land')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'einlagensicherungLandId'
+					'class' => 'form-control validate[required]',
+					'id' => 'einlagensicherungLand'
 			))
 			->setOptions(array(
 					'object_manager' => $this->getObjectManager(),
@@ -148,13 +150,13 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 					'property' => 'einlagensicherungLandName',
 					'empty_option'  => '--- Bitte wählen ---',
 			));
-		$aktionId
-			->setName('aktionId')
+		$aktion
+			->setName('aktion')
 			->setLabel('Aktion')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
 					'class' => 'form-control',
-					'id' => 'aktionId'
+					'id' => 'aktion'
 			))
 			->setOptions(array(
 					'object_manager' => $this->getObjectManager(),
@@ -165,17 +167,17 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$produktKtofuehrKost
 			->setName('produktKtofuehrKost')
 			->setLabel('Kontoführungskosten')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
 					'class' => 'form-control',
-					'id' => 'produktHoechstanlage'
+					'id' => 'produktKtofuehrKost'
 			));	
 		$produktZinsgutschrift
 			->setName('produktZinsgutschrift')
 			->setLabel('Zinsgutschrift')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
+					'class' => 'form-control validate[required]',
 					'id' => 'produktZinsgutschrift'
 			))
 			->setOptions(array(
@@ -187,9 +189,9 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$produktVerfuegbarkeit
 			->setName('produktVerfuegbarkeit')
 			->setLabel('Verfügbarkeit')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
+					'class' => 'form-control validate[required]',
 					'id' => 'produktVerfuegbarkeit'
 			))
 			->setOptions(array(
@@ -201,9 +203,9 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$produktKuendbarkeit
 			->setName('produktKuendbarkeit')
 			->setLabel('Kündbarkeit')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
+					'class' => 'form-control validate[required]',
 					'id' => 'produktKuendbarkeit'
 			))
 			->setOptions(array(
@@ -215,15 +217,15 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$produktHasOnlineBanking	
 			->setName('produktHasOnlineBanking')
 			->setLabel('Online-Banking?')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setValueOptions($jaNein);
-		$legitimationId
-			->setName('legitimationId')
-			->setLabel('Kündbarkeit')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+		$legitimation
+			->setName('legitimation')
+			->setLabel('Legitimation')
+			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'legitimationId'
+					'class' => 'form-control validate[required]',
+					'id' => 'legitimation'
 			))
 			->setOptions(array(
 					'object_manager' => $this->getObjectManager(),
@@ -234,41 +236,115 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$produktHasAltersbeschraenkung
 			->setName('produktHasAltersbeschraenkung')
 			->setLabel('Altersbeschränung?')
-			->setLabelAttributes(array('class' => 'col-sm-2 control-label'))
+			->setLabelAttributes($labelAttributes)
 			->setValueOptions($jaNein);	
-				
+		$produktGueltigSeit
+			->setName('produktGueltigSeit')
+			->setLabel('Gültig seit')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control',
+					'id' => 'produktGueltigSeit'
+			))
+			->setOptions(array(
+					'min_year' => date('Y') - 5,
+					'max_year' => date('Y') + 2,
+			));		
+		$produktCheck
+			->setName('produktCheck')
+			->setLabel('Produktcheck')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control',
+					'id' => 'produktCheck'
+			));
+		$produktTipp
+			->setName('produktTipp')
+			->setLabel('Tipp?')
+			->setLabelAttributes($labelAttributes)
+			->setValueOptions($jaNein);
+		$produktUrl
+			->setName('produktUrl')
+			->setLabel('Produkt-URL')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control validate[required]',
+					'id' => 'produktUrl'
+		));
+		$produktKlickoutUrl
+			->setName('produktKlickoutUrl')
+			->setLabel('Klickout-URL')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control validate[required]',
+					'id' => 'produktKlickoutUrl'
+		));
+		$ktozugriffe
+			->setName('ktozugriffe')
+			->setLabel('Kontozugriff')
+			->setLabelAttributes($labelAttributes)
+			->setOptions(array(
+					'empty_option'  => '--- Bitte wählen ---',
+					'object_manager' => $this->getObjectManager(),
+					'target_class' => 'Vergleichsrechner\Entity\Kontozugriff',
+					'property' => 'kontozugriffName',
+			));
+		
+		$produktInsert
+			->setName('produktInsert')
+			->setLabel('Produkt anlegen')
+			->setAttributes(array(
+					'class' => 'btn btn-success btn-block',
+					'id' => 'produktInsert'
+			))
+			->setLabelAttributes($labelAttributes);
+		$produktReset
+			->setName('produktReset')
+			->setLabel('Eingaben löschen')
+			->setAttributes(array(
+					'class' => 'btn btn-danger btn-block',
+					'id' => 'produktReset'
+			))
+			->setLabelAttributes($labelAttributes);			
 		/*
 		 * Setting up the form
 		 */		
-		$this->setAttribute('method', 'post');
-		$this->setAttribute('role', 'form');
-		$this->setAttribute('class', 'form-horizontal');
+		$this
+			->setName('addProductForm')
+			->setAttributes(array(
+					'method' => 'post',
+					'role' =>'form',
+					'class' => 'form-horizontal'
+			));
+		
 		/*
 		 * Adding elements to the form
 		 */
-		$this->add($kategorieId);
-		$this->add($produktartId);
+		$this->add($kategorie);
+		$this->add($produktart);
 		$this->add($produktame);
-		$this->add($bankId);
+		$this->add($bank);
 		$this->add($produktHasOnlineAbschluss);
 		$this->add($produktMindestanlage);
 		$this->add($produktHoechstanlage);
 		$this->add($produktHasGesetzlEinlagvers);
-		$this->add($einlagensicherungLandId);
-		$this->add($aktionId);
-		$this->add($produktKtofuehrKostFllg);
+		$this->add($einlagensicherungLand);
+		$this->add($aktion);
+		$this->add($produktKtofuehrKost);
 		$this->add($produktZinsgutschrift);
 		$this->add($produktVerfuegbarkeit);
 		$this->add($produktKuendbarkeit);
 		$this->add($produktHasOnlineBanking);
-		$this->add($legitimationId);
+		$this->add($legitimation);
 		$this->add($produktHasAltersbeschraenkung);
+		$this->add($ktozugriffe);
 		$this->add($produktGueltigSeit);
-// 		$this->add($produktCheck);
-// 		$this->add($produktTipp);
-// 		$this->add($produktUrl);
-// 		$this->add($produktKlickoutUrl);
-// 		$this->add($kontozugriffe);
+		$this->add($produktCheck);
+		$this->add($produktTipp);
+		$this->add($produktUrl);
+		$this->add($produktKlickoutUrl);
+		$this->add($produktInsert);
+		$this->add($produktReset);
 // 		$this->setInputFilter($this->createInputFilter());
 	}
 		

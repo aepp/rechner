@@ -4,6 +4,8 @@ namespace Vergleichsrechner\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Form\Annotation;
+use Doctrine\Common\Collections;
+
 /**
  * Produkt
  *
@@ -24,22 +26,20 @@ class Produkt
     private $produktId;
 
     /**
-     * @var integer
+     * @var Kategorie
      *
-     * @ORM\Column(name="kategorie_id", type="integer", nullable=false)
      * @ORM\ManyToOne(targetEntity="Kategorie")
      * @ORM\JoinColumn(name="kategorie_id", referencedColumnName="kategorie_id")
      */
-    private $kategorieId;
+    private $kategorie;
 
     /**
-     * @var integer
+     * @var Produktart
      *
-     * @ORM\Column(name="produktart_id", type="integer", nullable=false)
      * @ORM\ManyToOne(targetEntity="Produktart")
      * @ORM\JoinColumn(name="produktart_id", referencedColumnName="produktart_id")
      */
-    private $produktartId;
+    private $produktart;
 
     /**
      * @var string
@@ -49,13 +49,12 @@ class Produkt
     private $produktName;
 
     /**
-     * @var integer
+     * @var Bank
      *
-     * @ORM\Column(name="bank_id", type="integer", nullable=false)
      * @ORM\ManyToOne(targetEntity="Bank")
      * @ORM\JoinColumn(name="bank_id", referencedColumnName="bank_id")
      */
-    private $bankId;
+    private $bank;
 
     /**
      * @var boolean
@@ -86,22 +85,20 @@ class Produkt
     private $produktHasGesetzlEinlagvers;
 
     /**
-     * @var integer
+     * @var EinlagensicherungLand
      *
-     * @ORM\Column(name="einlagensicherung_land_id", type="integer", nullable=false)
      * @ORM\ManyToOne(targetEntity="EinlagensicherungLand")
      * @ORM\JoinColumn(name="einlagensicherung_land_id", referencedColumnName="einlagensicherung_land_id")
      */
-    private $einlagensicherungLandId;
+    private $einlagensicherungLand;
 
     /**
-     * @var integer
+     * @var Aktion
      *
-     * @ORM\Column(name="aktion_id", type="integer", nullable=false)
      * @ORM\ManyToOne(targetEntity="Aktion")
      * @ORM\JoinColumn(name="aktion_id", referencedColumnName="aktion_id")
      */
-    private $aktionId;
+    private $aktion;
 
     /**
      * @var float
@@ -111,36 +108,32 @@ class Produkt
     private $produktKtofuehrKost;
 
     /**
-     * @var integer
+     * @var Zeitabschnitt
      *
-     * @ORM\Column(name="produkt_ktofuehr_kost_fllg", type="integer", nullable=true)
      * @ORM\ManyToOne(targetEntity="Zeitabschnitt")
      * @ORM\JoinColumn(name="produkt_ktofuehr_kost_fllg", referencedColumnName="zeitabschnitt_id")
      */
     private $produktKtofuehrKostFllg;
 
     /**
-     * @var integer
+     * @var Zeitabschnitt
      *
-     * @ORM\Column(name="produkt_zinsgutschrift", type="integer", nullable=true)
      * @ORM\ManyToOne(targetEntity="Zeitabschnitt")
      * @ORM\JoinColumn(name="produkt_zinsgutschrift", referencedColumnName="zeitabschnitt_id")
      */
     private $produktZinsgutschrift;
 
     /**
-     * @var integer
+     * @var Zeitabschnitt
      *
-     * @ORM\Column(name="produkt_verfuegbarkeit", type="integer", nullable=true)
      * @ORM\ManyToOne(targetEntity="Zeitabschnitt")
      * @ORM\JoinColumn(name="produkt_verfuegbarkeit", referencedColumnName="zeitabschnitt_id")
      */
     private $produktVerfuegbarkeit;
 
     /**
-     * @var integer
+     * @var Zeitabschnitt
      *
-     * @ORM\Column(name="produkt_kuendbarkeit", type="integer", nullable=true)
      * @ORM\ManyToOne(targetEntity="Zeitabschnitt")
      * @ORM\JoinColumn(name="produkt_kuendbarkeit", referencedColumnName="zeitabschnitt_id")
      */
@@ -149,23 +142,22 @@ class Produkt
     /**
      * @var boolean
      *
-     * @ORM\Column(name="produkt_has_online_banking", type="boolean", nullable=true)
+     * @ORM\Column(name="produkt_has_online_banking", type="boolean", nullable=false)
      */
     private $produktHasOnlineBanking;
 
     /**
-     * @var integer
+     * @var Legitimation
      *
-     * @ORM\Column(name="legitimation_id", type="integer", nullable=true)
      * @ORM\ManyToOne(targetEntity="Legitimation")
      * @ORM\JoinColumn(name="legitimation_id", referencedColumnName="legitimation_id")
      */
-    private $legitimationId;
+    private $legitimation;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="produkt_has_altersbeschraenkung", type="boolean", nullable=true)
+     * @ORM\Column(name="produkt_has_altersbeschraenkung", type="boolean", nullable=false)
      */
     private $produktHasAltersbeschraenkung;
 
@@ -200,26 +192,31 @@ class Produkt
     /**
      * @var string
      *
-     * @ORM\Column(name="produkt_url", type="text", nullable=true)
+     * @ORM\Column(name="produkt_url", type="text", nullable=false)
      */
     private $produktUrl;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="produkt_klickout_url", type="text", nullable=true)
+     * @ORM\Column(name="produkt_klickout_url", type="text", nullable=false)
      */
     private $produktKlickoutUrl;
 
     /**
+     * @var Collections\Collection
+     * 
+     * @ORM\ManyToMany(targetEntity="Kontozugriff")
      * @ORM\JoinTable(name="produkt_kontozugriff",
      *         joinColumns={@ORM\JoinColumn(name="produkt_id", referencedColumnName="produkt_id", onDelete="CASCADE")},
      *         inverseJoinColumns={@ORM\JoinColumn(name="kontozugriff_id", referencedColumnName="kontozugriff_id", onDelete="CASCADE")}
      * )
-     * @var Kontozugriff[]
      */
-    private $kontozugriffe;
+    private $ktozugriffe;
 
+    public function __construct() {
+    	$this->ktozugriffe  = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get produktId
@@ -232,49 +229,49 @@ class Produkt
     }
 
     /**
-     * Set kategorieId
+     * Set kategorie
      *
-     * @param integer $kategorieId
+     * @param Kategorie $kategorieId
      * @return Produkt
      */
-    public function setKategorieId($kategorieId)
+    public function setKategorie($kategorie)
     {
-        $this->kategorieId = $kategorieId;
+        $this->kategorie = $kategorie;
 
         return $this;
     }
 
     /**
-     * Get kategorieId
+     * Get kategorie
      *
-     * @return integer 
+     * @return Kategorie 
      */
-    public function getKategorieId()
+    public function getKategorie()
     {
-        return $this->kategorieId;
+        return $this->kategorie;
     }
 
     /**
-     * Set produktartId
+     * Set produktart
      *
-     * @param integer $produktartId
+     * @param Produktart $produktart
      * @return Produkt
      */
-    public function setProduktartId($produktartId)
+    public function setProduktart($produktart)
     {
-        $this->produktartId = $produktartId;
+        $this->produktart = $produktart;
 
         return $this;
     }
 
     /**
-     * Get produktartId
+     * Get produktart
      *
-     * @return integer 
+     * @return Produktart 
      */
-    public function getProduktartId()
+    public function getProduktart()
     {
-        return $this->produktartId;
+        return $this->produktart;
     }
 
     /**
@@ -301,26 +298,26 @@ class Produkt
     }
 
     /**
-     * Set bankId
+     * Set bank
      *
-     * @param integer $bankId
+     * @param Bank $bank
      * @return Produkt
      */
-    public function setBankId($bankId)
+    public function setBank($bank)
     {
-        $this->bankId = $bankId;
+        $this->bank = $bank;
 
         return $this;
     }
 
     /**
-     * Get bankId
+     * Get bank
      *
-     * @return integer 
+     * @return Bank 
      */
-    public function getBankId()
+    public function getBank()
     {
-        return $this->bankId;
+        return $this->bank;
     }
 
     /**
@@ -416,72 +413,49 @@ class Produkt
     }
 
     /**
-     * Set einlagensicherungLandId
+     * Set einlagensicherungLand
      *
-     * @param integer $einlagensicherungLandId
+     * @param EinlagensicherungLand $einlagensicherungLand
      * @return Produkt
      */
-    public function setEinlagensicherungLandId($einlagensicherungLandId)
+    public function setEinlagensicherungLand($einlagensicherungLand)
     {
-        $this->einlagensicherungLandId = $einlagensicherungLandId;
+        $this->einlagensicherungLand = $einlagensicherungLand;
 
         return $this;
     }
 
     /**
-     * Get einlagensicherungLandId
+     * Get einlagensicherungLand
      *
-     * @return integer 
+     * @return EinlagensicherungLand
      */
-    public function getEinlagensicherungLandId()
+    public function getEinlagensicherungLand()
     {
-        return $this->einlagensicherungLandId;
+        return $this->einlagensicherungLand;
     }
 
     /**
-     * Set produktAktion
+     * Set aktion
      *
-     * @param string $produktAktion
+     * @param Aktion $aktionId
      * @return Produkt
      */
-    public function setProduktAktion($produktAktion)
+    public function setAktion($aktion)
     {
-        $this->produktAktion = $produktAktion;
+        $this->aktion = $aktion;
 
         return $this;
     }
 
     /**
-     * Get produktAktion
+     * Get aktion
      *
-     * @return string 
+     * @return Aktion 
      */
-    public function getProduktAktion()
+    public function getAktion()
     {
-        return $this->produktAktion;
-    }
-
-    /**
-     * Set aktionId
-     *
-     * @param integer $aktionId
-     * @return Produkt
-     */
-    public function setAktionId($aktionId)
-    {
-        $this->aktionId = $aktionId;
-
-        return $this;
-    }
-
-    /**
-     * Get aktionId
-     *
-     * @return integer 
-     */
-    public function getAktionId()
-    {
-        return $this->aktionId;
+        return $this->aktion;
     }
 
     /**
@@ -510,7 +484,7 @@ class Produkt
     /**
      * Set produktKtofuehrKostFllg
      *
-     * @param integer $produktKtofuehrKostFllg
+     * @param Zeitabschnitt $produktKtofuehrKostFllg
      * @return Produkt
      */
     public function setProduktKtofuehrKostFllg($produktKtofuehrKostFllg)
@@ -523,7 +497,7 @@ class Produkt
     /**
      * Get produktKtofuehrKostFllg
      *
-     * @return integer 
+     * @return Zeitabschnitt 
      */
     public function getProduktKtofuehrKostFllg()
     {
@@ -533,7 +507,7 @@ class Produkt
     /**
      * Set produktZinsgutschrift
      *
-     * @param integer $produktZinsgutschrift
+     * @param Zeitabschnitt $produktZinsgutschrift
      * @return Produkt
      */
     public function setProduktZinsgutschrift($produktZinsgutschrift)
@@ -546,7 +520,7 @@ class Produkt
     /**
      * Get produktZinsgutschrift
      *
-     * @return integer 
+     * @return Zeitabschnitt 
      */
     public function getProduktZinsgutschrift()
     {
@@ -556,7 +530,7 @@ class Produkt
     /**
      * Set produktVerfuegbarkeit
      *
-     * @param integer $produktVerfuegbarkeit
+     * @param Zeitabschnitt $produktVerfuegbarkeit
      * @return Produkt
      */
     public function setProduktVerfuegbarkeit($produktVerfuegbarkeit)
@@ -569,7 +543,7 @@ class Produkt
     /**
      * Get produktVerfuegbarkeit
      *
-     * @return integer 
+     * @return Zeitabschnitt 
      */
     public function getProduktVerfuegbarkeit()
     {
@@ -579,7 +553,7 @@ class Produkt
     /**
      * Set produktKuendbarkeit
      *
-     * @param integer $produktKuendbarkeit
+     * @param Zeitabschnitt $produktKuendbarkeit
      * @return Produkt
      */
     public function setProduktKuendbarkeit($produktKuendbarkeit)
@@ -592,7 +566,7 @@ class Produkt
     /**
      * Get produktKuendbarkeit
      *
-     * @return integer 
+     * @return Zeitabschnitt 
      */
     public function getProduktKuendbarkeit()
     {
@@ -623,26 +597,26 @@ class Produkt
     }
 
     /**
-     * Set legitimationId
+     * Set legitimation
      *
-     * @param integer $legitimationId
+     * @param Legitimation $legitimation
      * @return Produkt
      */
-    public function setLegitimationId($legitimationId)
+    public function setLegitimation($legitimation)
     {
-        $this->legitimationId = $legitimationId;
+        $this->legitimation = $legitimation;
 
         return $this;
     }
 
     /**
-     * Get legitimationId
+     * Get legitimation
      *
-     * @return integer 
+     * @return Legitimation 
      */
-    public function getLegitimationId()
+    public function getLegitimation()
     {
-        return $this->legitimationId;
+        return $this->legitimation;
     }
 
     /**
@@ -807,25 +781,55 @@ class Produkt
     }
     
     /**
-     * Set kontozugriffe
+     * Set ktozugriffe
      *
-     * @param array $kontozugriffe
+     * @param Doctrine\Common\Collections\Collection $kontozugriffe
      * @return Produkt
      */
-    public function setKontozugriffe($kontozugriffe)
+    public function setKtozugriffe(Doctrine\Common\Collections\Collection $ktozugriffe)
     {
-    	$this->kontozugriffe = $kontozugriffe;
+    	$this->ktozugriffe = $ktozugriffe;
     
     	return $this;
     }    
     
     /**
-     * Get kontozugriffe
+     * Get ktozugriffe
      *
-     * @return array
+     * @return Doctrine\Common\Collections\Collection
      */
-    public function getKontozugriffe()
+    public function getKtozugriffe()
     {
-    	return $this->kontozugriffe;
+    	return $this->ktozugriffe;
     }
+    
+    /**
+     * Add ktozugriff
+     *
+     * @param Kontozugriff $ktozugriff
+     * @return Produkt
+     */
+    public function addKtozugriff(Kontozugriff $ktozugriff)
+    {
+    	if(!$this->ktozugriffe->contains($ktozugriff)){
+    		$this->ktozugriffe->add($ktozugriff);
+    		$ktozugriff->addProdukt($this);
+    	}
+    
+    	return $this;
+    }
+    
+    /**
+     * Remove ktozugriff
+     *
+     * @return Produkt
+     */
+    public function removeKtozugriffsart(Kontozugriff $ktozugriff)
+    {
+    	if($this->ktozugriffe->contains($ktozugriff)){
+    		$this->ktozugriffe->removeElement($ktozugriff);
+    		$ktozugriff->removeProdukt($this);
+    	}
+    	return $this;
+    }    
 }

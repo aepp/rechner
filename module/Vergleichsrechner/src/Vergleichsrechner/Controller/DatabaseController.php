@@ -8,7 +8,7 @@ use Zend\View\Model\JsonModel;
 use Zend\Json\Json;
 
 /**
- * {0}
+ * DatabaseController
  * 
  * @author A. Epp
  * @version 1.0

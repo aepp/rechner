@@ -4,6 +4,7 @@ namespace Vergleichsrechner\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Form\Annotation;
+use Doctrine\Common\Collections;
 
 /**
  * Kontozugriff
@@ -31,8 +32,17 @@ class Kontozugriff
      */
     private $kontozugriffName;
 
+    /**
+     * @var Collections\Collection
+     * 
+     * @ORM\ManyToMany(targetEntity="Produkt", mappedBy="ktozugriffe")
+     **/
+    private $produkte;
 
-
+    public function __construct() {
+    	$this->produkte = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get kontozugriffId
      *
@@ -66,10 +76,40 @@ class Kontozugriff
         return $this->kontozugriffName;
     }
 
+    
+    /**
+     * Add produkt
+     *
+     * @param Produkt $produkt
+     * @return Kontozugriff
+     */
+    public function addProdukt(Produkt $produkt)
+    {
+    	if(!$this->produkte->contains($produkt)){
+    		$this->produkte->add($produkt);
+    	}
+    
+    	return $this;
+    }
+    
     public function jsonSerialize() {
     	return [
 	    	'kontozugriffId' => $this->getKontozugriffId(),
 	    	'kontozugriffName' => $this->getKontozugriffName(),
     	];
     }
+
+    /**
+     * Remove produkt
+     * 
+     * @param Produkt $produkt
+     * @return Kontozugriff
+     */
+    public function removeProduct(Produkt $produkt)
+    {
+    	if($this->produkte->contains($produkt)){
+    		$this->produkte->removeElement($produkt);
+    	}
+    	return $this;
+    }    
 }

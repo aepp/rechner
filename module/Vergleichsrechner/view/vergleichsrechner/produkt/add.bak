@@ -1,0 +1,162 @@
+<?php 
+	echo $this->headScript()
+		->prependFile($this->basePath() . '/scripts/product.js');
+	$this->formRadio()->setSeparator('</div><div class="radio-inline">');
+?>
+
+<div class="container">
+	<h2><?php echo sprintf($this->translate('Produkt hizufügen')) ?></h2>
+	<?php echo $this->form()->openTag($form); ?>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('kategorie')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('kategorie')); ?>
+			</div>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktart')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('produktart')); ?>
+			</div>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktame')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('produktame')); ?>
+			</div>
+		</div>	
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('bank')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('bank')); ?>
+			</div>
+		</div>				
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktHasOnlineAbschluss')) ?>
+			<div class="col-sm-3">
+				<div class="radio-inline">
+					<?php echo $this->formradio($form->get('produktHasOnlineAbschluss')); ?>
+				</div>
+			</div>
+		</div>	
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktMindestanlage')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('produktMindestanlage')); ?>
+			</div>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktHoechstanlage')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('produktHoechstanlage')); ?>
+			</div>
+		</div>	
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktHasGesetzlEinlagvers')) ?>
+			<div class="col-sm-3">
+				<div class="radio-inline">
+					<?php echo $this->formradio($form->get('produktHasGesetzlEinlagvers')); ?>
+				</div>
+			</div>
+		</div>	
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('aktion')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('aktion')); ?>
+			</div>
+		</div>			
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktKtofuehrKost')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('produktKtofuehrKost')); ?>
+			</div>
+		</div>			
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktZinsgutschrift')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('produktZinsgutschrift')); ?>
+			</div>
+		</div>							
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktVerfuegbarkeit')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('produktVerfuegbarkeit')); ?>
+			</div>
+		</div>							
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktKuendbarkeit')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('produktKuendbarkeit')); ?>
+			</div>
+		</div>							
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktHasOnlineBanking')) ?>
+			<div class="col-sm-3">
+				<div class="radio-inline">
+					<?php echo $this->formradio($form->get('produktHasOnlineBanking')); ?>
+				</div>
+			</div>
+		</div>	
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('legitimation')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('legitimation')); ?>
+			</div>
+		</div>	
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktHasAltersbeschraenkung')) ?>
+			<div class="col-sm-3">
+				<div class="radio-inline">
+					<?php echo $this->formradio($form->get('produktHasAltersbeschraenkung')); ?>
+				</div>
+			</div>
+		</div>		
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('ktozugriffsart')) ?>
+			<div class="col-sm-7">
+				<div class="checkbox-inline">
+					<?php echo $this->formelement($form->get('ktozugriffsart')); ?>
+				</div>
+			</div>
+		</div>			
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktGueltigSeit')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formDateSelect($form->get('produktGueltigSeit'), IntlDateFormatter::LONG, 'de_DE'); ?>
+			</div>
+		</div>	
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktCheck')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('produktCheck')); ?>
+			</div>
+		</div>				
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktTipp')) ?>
+			<div class="col-sm-3">
+				<div class="radio-inline">
+					<?php echo $this->formradio($form->get('produktTipp')); ?>
+				</div>
+			</div>
+		</div>
+			<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktUrl')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('produktUrl')); ?>
+			</div>
+		</div>	
+			<div class="form-group">
+			<?php echo $this->formLabel($form->get('produktKlickoutUrl')) ?>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('produktKlickoutUrl')); ?>
+			</div>
+		</div>	
+		<div class="form-group">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-3">
+				<?php echo $this->formelement($form->get('produktInsert')); ?>
+				<?php echo $this->formelement($form->get('produktReset')); ?>
+			</div>
+		</div>		
+	<?php echo $this->form()->closeTag(); ?>
+</div>

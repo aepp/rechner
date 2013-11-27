@@ -1,65 +1,27 @@
-<?php $this->formRadio()->setSeparator('</div><div class="radio-inline">'); ?>
-
 <div class="container">
 	<h2><?php echo sprintf($this->translate('Produkt hizufügen')) ?></h2>
-	<?php echo $this->form()->openTag($form); ?>
-		<div class="form-group">
-			<?php echo $this->formLabel($form->get('kategorieId')) ?>
-			<div class="col-sm-3">
-				<?php echo $this->formelement($form->get('kategorieId')); ?>
-			</div>
-		</div>
-		<div class="form-group">
-			<?php echo $this->formLabel($form->get('produktartId')) ?>
-			<div class="col-sm-3">
-				<?php echo $this->formelement($form->get('produktartId')); ?>
-			</div>
-		</div>
-		<div class="form-group">
-			<?php echo $this->formLabel($form->get('produktame')) ?>
-			<div class="col-sm-3">
-				<?php echo $this->formelement($form->get('produktame')); ?>
-			</div>
-		</div>	
-		<div class="form-group">
-			<?php echo $this->formLabel($form->get('bankId')) ?>
-			<div class="col-sm-3">
-				<?php echo $this->formelement($form->get('bankId')); ?>
-			</div>
-		</div>				
-		<div class="form-group">
-			<?php echo $this->formLabel($form->get('produktHasOnlineAbschluss')) ?>
-			<div class="col-sm-3">
-				<div class="radio-inline">
-					<?php echo $this->formradio($form->get('produktHasOnlineAbschluss')); ?>
-				</div>
-			</div>
-		</div>	
-		<div class="form-group">
-			<?php echo $this->formLabel($form->get('produktMindestanlage')) ?>
-			<div class="col-sm-3">
-				<?php echo $this->formelement($form->get('produktMindestanlage')); ?>
-			</div>
-		</div>
-		<div class="form-group">
-			<?php echo $this->formLabel($form->get('produktHoechstanlage')) ?>
-			<div class="col-sm-3">
-				<?php echo $this->formelement($form->get('produktHoechstanlage')); ?>
-			</div>
-		</div>	
-		<div class="form-group">
-			<?php echo $this->formLabel($form->get('produktHasGesetzlEinlagvers')) ?>
-			<div class="col-sm-3">
-				<div class="radio-inline">
-					<?php echo $this->formradio($form->get('produktHasGesetzlEinlagvers')); ?>
-				</div>
-			</div>
-		</div>	
-		<div class="form-group">
-			<?php echo $this->formLabel($form->get('aktionId')) ?>
-			<div class="col-sm-3">
-				<?php echo $this->formelement($form->get('aktionId')); ?>
-			</div>
-		</div>								
+	<?php
+		echo $this->headScript()->prependFile($this->basePath() . '/scripts/product.js');
+		echo $this->form()->openTag($form);
+	?>
+	<?php foreach ($form as $element) :?>
+		    <div class="form-group">
+		        <?php 
+		            $type = $element->getAttribute('type');
+		            $name = $element->getAttribute('name'); 
+		            $label = $element->getLabel();
+		        ?>
+		        	<?php 
+		        		if($type != 'button') echo $this->formLabel($element); 
+		        		else { ?> <div class="col-sm-3"></div> <?php }
+		        	?>
+		        	<div class="col-sm-3">
+		        		<?php 
+		        			if($name == 'produktGueltigSeit') echo $this->formDateSelect($form->get('produktGueltigSeit'), IntlDateFormatter::LONG, 'de_DE');
+		        			else echo $this->formElement($element);
+	        			?>
+		        	</div>
+		    </div>
+	<?php endforeach; ?>
 	<?php echo $this->form()->closeTag(); ?>
 </div>
