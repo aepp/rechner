@@ -20,11 +20,12 @@ class ProduktController extends BaseController
 	 */
     public function indexAction()
     {
-    	$em = $this->getEntityManager();
-    	$produkte = $em->getRepository('Vergleichsrechner\Entity\Produkt')->findAll();
-    	return new ViewModel(array(
-    			'produkte' => $produkte
-    	));
+//     	$em = $this->getEntityManager();
+//     	$produkte = $em->getRepository('Vergleichsrechner\Entity\Produkt')->findAll();
+//     	return new ViewModel(array(
+//     			'produkte' => $produkte
+//     	));
+    	    	return new ViewModel();
     }
     
     /**
