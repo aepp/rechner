@@ -83,7 +83,11 @@
 		</div>
         <div class="container">
         	<div class="container">
-	        	<?php echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0)->setPartial('partial/breadcrumb.phtml'); ?>
+	        	<?php 
+		        	if($user = $this->identity()){	
+		        		echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0)->setPartial('partial/breadcrumb.phtml');
+		        	} 
+	        	?>
             </div>
             <div class="container">
             	<div class="alert" id="alert">
