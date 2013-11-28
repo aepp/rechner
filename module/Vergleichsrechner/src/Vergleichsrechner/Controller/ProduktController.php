@@ -20,18 +20,22 @@ class ProduktController extends BaseController
 	 */
     public function indexAction()
     {
+		$message = null;
+		$error = false;
+		$produkte = array();
+		
     	try{
 	    	$em = $this->getEntityManager();
 	    	$produkte = $em->getRepository('Vergleichsrechner\Entity\Produkt')->findAll();
-	    	return new ViewModel(array(
-	    			'produkte' => $produkte,
-	    			'message' => 'no error'
-	    	));
     	} catch (\Exception $e){
-    		return new ViewModel(array(
-    				'message' => $e->getMessage()
-    		));
+    		$message = $e->getMessage();
+    		$error = true;
     	}
+    	return new ViewModel(array(
+    			'produkte' => $produkte,
+    			'message' => $message,
+    			'error' => $error
+    	));
 //     	    	return new ViewModel();
     }
     
