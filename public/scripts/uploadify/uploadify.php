@@ -10,8 +10,11 @@ $targetFolder = '/uploads/bank-logo'; // Relative to the root
 
 if (!empty($_FILES)) {
 	$tempFile = $_FILES['Filedata']['tmp_name'];
+	echo $tempFile.'\n';
 	$targetPath = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
+	echo $targetPath.'\n';
 	$targetFile = rtrim($targetPath,'/') . '/' . $_FILES['Filedata']['name'];
+	echo $targetFile.'\n';
 	
 	// Validate the file type
 	$fileTypes = array('jpg','jpeg','gif','png'); // File extensions
