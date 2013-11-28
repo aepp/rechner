@@ -105,7 +105,7 @@ class Kontozugriff
      * @param Produkt $produkt
      * @return Kontozugriff
      */
-    public function removeProduct(Produkt $produkt)
+    public function removeProdukt(Produkt $produkt)
     {
     	if($this->produkte->contains($produkt)){
     		$this->produkte->removeElement($produkt);

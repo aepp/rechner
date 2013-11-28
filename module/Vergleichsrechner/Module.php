@@ -90,7 +90,7 @@ class Module
     {
     	return array(
     			'invokables' => array(
-    					'AddProductForm' => 'Vergleichsrechner\Form\AddProductForm',
+    					'ProduktForm' => 'Vergleichsrechner\Form\ProduktForm',
     					'LoginForm' => 'Vergleichsrechner\Form\LoginForm',
     			),
     			'initializers' => array(

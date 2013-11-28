@@ -11,7 +11,7 @@ use Vergleichsrechner\Entity\Kategorie;
 use DoctrineModule\Form\Element\ObjectMultiCheckbox;
 use Zend\Text\Table\Table;
 
-class AddProductForm extends Form implements ObjectManagerAwareInterface
+class ProduktForm extends Form implements ObjectManagerAwareInterface
 {
 	private $objectManager;
 	
@@ -58,8 +58,8 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$produktUrl = new Element\Text();
 		$produktKlickoutUrl = new Element\Text();
 		$ktozugriffe = new ObjectMultiCheckbox();
-		$produktInsert = new Element\Button();
-		$produktReset = new Element\Button();
+		$saveChanges = new Element\Button();
+		$discardChanges = new Element\Button();
 		
 		$kategorie	
 			->setName('kategorie')
@@ -298,20 +298,20 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 					'class' => 'form-control',
 					'id' => 'produktInformationen'
 			));		
-		$produktInsert
-			->setName('produktInsert')
+		$saveChanges
+			->setName('saveChanges')
 			->setLabel('Produkt anlegen')
 			->setAttributes(array(
 					'class' => 'btn btn-success btn-block',
-					'id' => 'produktInsert'
+					'id' => 'save-changes'
 			))
 			->setLabelAttributes($labelAttributes);
-		$produktReset
-			->setName('produktReset')
+		$discardChanges
+			->setName('discardChanges')
 			->setLabel('Eingaben löschen')
 			->setAttributes(array(
 					'class' => 'btn btn-danger btn-block',
-					'id' => 'produktReset'
+					'id' => 'discard-changes'
 			))
 			->setLabelAttributes($labelAttributes);			
 		/*
@@ -319,6 +319,7 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		 */		
 		$this
 			->setName('addProductForm')
+			->setLabel('Produkt hinzufügen')
 			->setAttributes(array(
 					'method' => 'post',
 					'role' =>'form',
@@ -352,8 +353,8 @@ class AddProductForm extends Form implements ObjectManagerAwareInterface
 		$this->add($produktInformationen);
 		$this->add($produktUrl);
 		$this->add($produktKlickoutUrl);
-		$this->add($produktInsert);
-		$this->add($produktReset);
+		$this->add($saveChanges);
+		$this->add($discardChanges);
 // 		$this->setInputFilter($this->createInputFilter());
 	}
 		

@@ -4,3 +4,6 @@
 	height: 50px;
 	width: auto;
 }
+.tablesorter-filter.disabled {
+  display: none;
+}

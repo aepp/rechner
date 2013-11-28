@@ -1,0 +1,13 @@
+<?php 
+	echo $this->headScript()
+		->prependFile($this->basePath() . '/scripts/product-overview.js');
+	echo $this->headLink()
+		->prependStylesheet($this->basePath() . '/css/product-overview.css');
+?>
+<div class="text-center">
+  	<h2><?php echo sprintf($this->translate('Produktübersicht')) ?></h2>
+</div>	
+<div class="text-center">
+	<a class="btn btn-success" href="produkt/create"><?php echo $this->translate('Produkt hizufügen') ?></a>
+</div>	
+<div id="produktTable"></div>

@@ -824,7 +824,7 @@ class Produkt
      *
      * @return Produkt
      */
-    public function removeKtozugriffsart(Kontozugriff $ktozugriff)
+    public function removeKtozugriff(Kontozugriff $ktozugriff)
     {
     	if($this->ktozugriffe->contains($ktozugriff)){
     		$this->ktozugriffe->removeElement($ktozugriff);

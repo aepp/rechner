@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    $(".editTableLink").on('click', function(event){
+    $(".editTableLink").unbind('click').click(function(event){
+    	$('.jumbotron').remove();
     	$('#navSelectTable').find('li.active').removeClass();
     	$(this).parent().addClass('active');
         var heading = $(this).text();
@@ -210,21 +211,21 @@ $(document).ready(function() {
 	            title: 'Logo',
 	            width: '45%',
 	            display: function (data) {
-	                return '<img src="uploads/bank-logo/'+data.record.bankLogo+'"/>';
+	                return '<img src="uploads/bank-logo/'+data.record.bankLogo+'" class="bank-logo-preview"/>';
 	            },
 	            input: function (data) {
 	                var preview =
 	                	'<div>';
 	                if(data.record){
 	                	preview +=
-		                		'<img id="logoPreview" src="uploads/bank-logo/'+data.record.bankLogo+'"/>'+
+		                		'<img id="logoPreview" src="uploads/bank-logo/'+data.record.bankLogo+'" class="bank-logo-preview"/>'+
 	                			'<br/>'+
 //	                			'<input type="text" id="bankLogo" name="bankLogo" value="'+data.record.bankLogo+'"  class="validate[required]"/>';
 	                			'<input type="text" id="bankLogo" name="bankLogo" value="'+data.record.bankLogo+'"/>';
 
 	            	} else {
 	                	preview +=
-		                		'<img id="logoPreview"/>'+
+		                		'<img id="logoPreview" class="bank-logo-preview"/>'+
 	                			'<br/>'+
 //	                			'<input type="text" id="bankLogo" name="bankLogo" class="validate[required]"/>';
 	                			'<input type="text" id="bankLogo" name="bankLogo"/>';

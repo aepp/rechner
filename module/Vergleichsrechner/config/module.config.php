@@ -65,16 +65,6 @@ return array(
         						),
         				),
         		), 
-        		'produkt' => array(
-        				'type'    => 'Literal',
-        				'options' => array(
-        						'route'    => '/produkt',
-        						'defaults' => array(
-        								'controller' => 'Produkt',
-        								'action' => 'index',
-        						),
-        				),
-        		),
         		'database' => array(
         				'type'    => 'Literal',
         				'options' => array(
@@ -270,10 +260,11 @@ return array(
         						'default' => array(
         								'type'    => 'Segment',
         								'options' => array(
-        										'route'    => '[/:action]',
+        										'route'    => '[/:action[/:produktId]]',
         										'constraints' => array(
         												'controller' => 'Produkt',
-        												'action' => '[a-zA-Z][a-zA-Z0-9_-]*'
+        												'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+        												'produktId' => '[0-9]*'
         										),
         										'defaults' => array(
         												'controller'    => 'Produkt',
@@ -302,7 +293,7 @@ return array(
 								array(
 										'label' => 'Produkt hinzufügen',
 										'route' => 'produkt',
-										'action' => 'add'
+										'action' => 'create'
 								),
 						),
 					),
