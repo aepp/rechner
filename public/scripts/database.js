@@ -51,7 +51,10 @@ $(document).ready(function() {
 //		                	alert($('input[name="bankLogo"]').val());
 		                	$('#logoPreview').attr('src', 'uploads/bank-logo/'+logoUploaded);
 
-		                },		                
+		                },		
+		                onUploadError : function(file, errorCode, errorMsg, errorString) {
+		                    alert('The file ' + file.name + ' could not be uploaded: ' + errorString);
+		                }, 
 		                width: 120
 		            });
 		    	};
