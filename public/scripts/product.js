@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	$('label[for="ktozugriffe"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('checkbox');
     $('#save-changes').unbind('click').click(function(event){
     	var produktId = $('.produktId').val();
     	var action = produktId == 0 ? 'insert' : '../insert/'+produktId;
