@@ -24,7 +24,8 @@ class ProduktController extends BaseController
 	    	$em = $this->getEntityManager();
 	    	$produkte = $em->getRepository('Vergleichsrechner\Entity\Produkt')->findAll();
 	    	return new ViewModel(array(
-	    			'produkte' => $produkte
+	    			'produkte' => $produkte,
+	    			'message' => 'no error'
 	    	));
     	} catch (\Exception $e){
     		return new ViewModel(array(
