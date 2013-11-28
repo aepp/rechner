@@ -45,6 +45,9 @@ $(document).ready(function() {
 		                    $('.swfupload').attr('width', '183px');
 		                    $('param[name="flashvars"]').val().replace('120','buttonWidth=183');
 		                }, 
+		                onUploadComplete : function(file) {
+		                    alert('The file ' + file.name + ' finished processing.');
+		                }, 
 		                onUploadSuccess: function (file, data, response) {
 		                	logoUploaded = file.name;
 		                	$('#bankLogo').val(logoUploaded);
@@ -149,7 +152,7 @@ $(document).ready(function() {
                 data.form.validationEngine('detach');
             },
             selectionChanged: function () {
-            	$('#tableContent').append('<a class="btn btn-alert" id="deleteSelectedButton" href="#">Ausgewählte Einträge löschen</button>');
+//            	$('#tableContent').append('<a class="btn btn-alert" id="deleteSelectedButton" href="#">Ausgewählte Einträge löschen</button>');
             	$('#tableContent').jtable('selectedRows');
             },
         });
