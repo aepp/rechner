@@ -32,6 +32,7 @@
 	        ->appendFile($this->basePath() . '/scripts/jquery-jtable/js/localization/jquery.jtable.de.js')
 	        ->appendFile($this->basePath() . '/scripts/jquery-validationEngine/js/languages/jquery.validationEngine-de.js')
 	        ->appendFile($this->basePath() . '/scripts/jquery-validationEngine/js/jquery.validationEngine.js')
+// 	        ->appendFile($this->basePath() . '/scripts/jquery/jquery.scrollTo.min.js')
 	        ->appendFile($this->basePath() . '/scripts/layout.js')
 // 	        ->prependFile($this->basePath() . '/scripts/layout.js')
 // 	        ->prependFile($this->basePath() . '/scripts/jquery-validationEngine/js/jquery.validationEngine.js')
@@ -83,6 +84,12 @@
         <div class="container">
         	<div class="container">
 	        	<?php echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0)->setPartial('partial/breadcrumb.phtml'); ?>
+            </div>
+            <div class="container">
+            	<div class="alert" id="alert">
+            		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            		<div id="alert-message"></div>
+            	</div>
             </div>
             <div class="container">
 	            <?php echo $this->content; ?>

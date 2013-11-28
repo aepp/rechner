@@ -323,7 +323,8 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setAttributes(array(
 					'method' => 'post',
 					'role' =>'form',
-					'class' => 'form-horizontal'
+					'class' => 'form-horizontal',
+					'id' => 'produkt-form'
 			));
 		
 		/*

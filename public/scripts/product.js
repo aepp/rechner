@@ -1,19 +1,31 @@
 $(document).ready(function() {
     $('#save-changes').unbind('click').click(function(event){
     	var produktId = $('.produktId').val();
-    	if($('#addProductForm').validationEngine('validate')){
+    	var action = produktId == 0 ? 'insert' : '../insert/'+produktId;
+    	if($('#produkt-form').validationEngine('validate')){
 	    	$.ajax({ 
 	    		type : 'POST',
-			    url : '../insert/'+produktId,
-			    data : $("#addProductForm").serialize(),
+			    url : action,
+			    data : $("#produkt-form").serialize(),
 			    success : function (response){
-			    	alert("Änderungen gespeichert!") ;
+			    	$('#alert')
+			    		.css('display', 'block')
+			    		.removeClass()
+			    		.addClass('alert alert-success alert-dismissable')
+			    		.find("#alert-message").text("Änderungen gespeichert!");
 			    },
 			    error : function (response){
-		    		alert("Error occcured") ;
+			    	$('#alert')
+			    		.css('display', 'block')
+			    		.removeClass()
+			    		.addClass('alert alert-danger alert-dismissable')
+			    		.find("#alert-message").text("Es ist ein Fehler augetretten!");
 			    },
-			    always : function (){
-			    	
+			    complete : function (){
+			        $('html, body').animate({
+//			            scrollTop: $("#alert").offset().top
+			        	scrollTop: 0
+			        }, 600);
 			    }
 	    	});
     	}

@@ -46,7 +46,7 @@ $(document).ready(function() {
 			} 
 		},
 	    textExtraction: {
-	        1 : function(node, table, cellIndex){ return $(node).find("span").html(); },
+	        1 : function(node, table, cellIndex){ return $(node).find("span").text(); },
 	    }
 	})	
 	.tablesorterPager({
@@ -58,12 +58,16 @@ $(document).ready(function() {
 	
 	$('.delete-produkt-button').unbind('click').click(function(event){
 		var produktId = $(this).parent().find('.produktId').val();
+		var tableRow = $(this).parent().parent();
+		
     	$.ajax({ 
     		type : 'POST',
-		    url : 'delete',
+		    url : 'produkt/delete/'+produktId,
 		    data : {produktId : produktId},
 		    success : function (response){
-		    	
+		    	alert("Produkt gelöscht!") ;
+		    	tableRow.remove();
+		    	$("#produkte-table").trigger("update");
 		    },
 		    error : function (response){
 	    		alert("Error occcured") ;

@@ -2,14 +2,10 @@
 
 namespace Vergleichsrechner\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Vergleichsrechner\Entity\Produkt;
-use DoctrineORMModuleTest\Assets\Entity\Date;
-use Doctrine\Common\Collections;
 use Zend\Json\Json;
-use DoctrineORMModuleTest\Assets\Entity\Product;
 
 /**
  * ProductController
@@ -20,7 +16,7 @@ use DoctrineORMModuleTest\Assets\Entity\Product;
 class ProduktController extends BaseController
 {
 	/**
-	 * The default action
+	 * List all products
 	 */
     public function indexAction()
     {
@@ -31,63 +27,69 @@ class ProduktController extends BaseController
     	));
     }
     
+    /**
+     * Build edit product form
+     */    
     public function editAction()
     {
     	$forms = $this->getServiceLocator()->get('FormElementManager');
 		$form = $forms->get('ProduktForm');
-		if($this->params()->fromRoute('produktId')){
-			$produktId = $this->params()->fromRoute('produktId');
-			
-			$em = $this->getEntityManager();
-			$produkt = $em->getRepository('Vergleichsrechner\Entity\Produkt')->find($produktId);
-			
-			$form->setLabel('Produkt bearbeitren');
-			$form->get('kategorie')->setAttribute('value', $produkt->getKategorie());
-			$form->get('produktart')->setAttribute('value', $produkt->getProduktart());
-			$form->get('produktName')->setAttribute('value', $produkt->getProduktName());
-			$form->get('bank')->setAttribute('value', $produkt->getBank());
-			$form->get('produktHasOnlineAbschluss')->setAttribute('value', $produkt->getProduktHasOnlineAbschluss());
-			$form->get('produktMindestanlage')->setAttribute('value', $produkt->getProduktMindestanlage());
-			$form->get('produktHoechstanlage')->setAttribute('value', $produkt->getProduktHoechstanlage());
-			$form->get('produktHasGesetzlEinlagvers')->setAttribute('value', $produkt->getProduktHasGesetzlEinlagvers());
-			$form->get('einlagensicherungLand')->setAttribute('value', $produkt->getEinlagensicherungLand());
-			$form->get('aktion')->setAttribute('value', $produkt->getAktion());
-			$form->get('produktKtofuehrKost')->setAttribute('value', $produkt->getProduktKtofuehrKost());
-			$form->get('produktZinsgutschrift')->setAttribute('value', $produkt->getProduktZinsgutschrift());
-			$form->get('produktVerfuegbarkeit')->setAttribute('value', $produkt->getProduktVerfuegbarkeit());
-			$form->get('produktKuendbarkeit')->setAttribute('value', $produkt->getProduktKuendbarkeit());
-			$form->get('produktHasOnlineBanking')->setAttribute('value', $produkt->getProduktHasOnlineBanking());
-			$form->get('legitimation')->setAttribute('value', $produkt->getLegitimation());
-			$form->get('produktHasAltersbeschraenkung')->setAttribute('value', $produkt->getProduktHasAltersbeschraenkung());
-			$form->get('ktozugriffe')->setAttribute('value', $produkt->getKtozugriffe());
-			$form->get('produktGueltigSeit')->setAttribute('value', $produkt->getProduktGueltigSeit());
-			$form->get('produktCheck')->setAttribute('value', $produkt->getProduktCheck());
-			$form->get('produktTipp')->setAttribute('value', $produkt->getProduktTipp());
-			$form->get('produktInformationen')->setAttribute('value', $produkt->getProduktInformationen());
-			$form->get('produktUrl')->setAttribute('value', $produkt->getProduktUrl());
-			$form->get('produktKlickoutUrl')->setAttribute('value', $produkt->getProduktKlickoutUrl());
-			$form->get('saveChanges')
-				->setLabel('Änderungen speichern');
-			$form->get('discardChanges')
-				->setLabel('Änderungen verwerfen');
-			 
-			return new ViewModel(array(
-					'form' => $form,
-					'produktId' => $produktId
-			));			
+		$produktId = 0;
+		$message = null;
+		
+		try{
+			if($this->params()->fromRoute('produktId')){
+				$produktId = $this->params()->fromRoute('produktId');
+				
+				$em = $this->getEntityManager();
+				$produkt = $em->getRepository('Vergleichsrechner\Entity\Produkt')->find($produktId);
+				
+				$form->setLabel('Produkt bearbeitren');
+				$form->get('kategorie')->setAttribute('value', $produkt->getKategorie());
+				$form->get('produktart')->setAttribute('value', $produkt->getProduktart());
+				$form->get('produktName')->setAttribute('value', $produkt->getProduktName());
+				$form->get('bank')->setAttribute('value', $produkt->getBank());
+				$form->get('produktHasOnlineAbschluss')->setAttribute('value', $produkt->getProduktHasOnlineAbschluss());
+				$form->get('produktMindestanlage')->setAttribute('value', $produkt->getProduktMindestanlage());
+				$form->get('produktHoechstanlage')->setAttribute('value', $produkt->getProduktHoechstanlage());
+				$form->get('produktHasGesetzlEinlagvers')->setAttribute('value', $produkt->getProduktHasGesetzlEinlagvers());
+				$form->get('einlagensicherungLand')->setAttribute('value', $produkt->getEinlagensicherungLand());
+				$form->get('aktion')->setAttribute('value', $produkt->getAktion());
+				$form->get('produktKtofuehrKost')->setAttribute('value', $produkt->getProduktKtofuehrKost());
+				$form->get('produktZinsgutschrift')->setAttribute('value', $produkt->getProduktZinsgutschrift());
+				$form->get('produktVerfuegbarkeit')->setAttribute('value', $produkt->getProduktVerfuegbarkeit());
+				$form->get('produktKuendbarkeit')->setAttribute('value', $produkt->getProduktKuendbarkeit());
+				$form->get('produktHasOnlineBanking')->setAttribute('value', $produkt->getProduktHasOnlineBanking());
+				$form->get('legitimation')->setAttribute('value', $produkt->getLegitimation());
+				$form->get('produktHasAltersbeschraenkung')->setAttribute('value', $produkt->getProduktHasAltersbeschraenkung());
+				$form->get('ktozugriffe')->setAttribute('value', $produkt->getKtozugriffe());
+				$form->get('produktGueltigSeit')->setAttribute('value', $produkt->getProduktGueltigSeit());
+				$form->get('produktCheck')->setAttribute('value', $produkt->getProduktCheck());
+				$form->get('produktTipp')->setAttribute('value', $produkt->getProduktTipp());
+				$form->get('produktInformationen')->setAttribute('value', $produkt->getProduktInformationen());
+				$form->get('produktUrl')->setAttribute('value', $produkt->getProduktUrl());
+				$form->get('produktKlickoutUrl')->setAttribute('value', $produkt->getProduktKlickoutUrl());
+				$form->get('saveChanges')->setLabel('Änderungen speichern');
+				$form->get('discardChanges')->setLabel('Änderungen verwerfen');
+				
+				$message = "Successful";
+			}
+		} catch (Exception $e){
+			$message = $e->getMessage();
 		}
 		return new ViewModel(array(
 				'form' => $form,
-		));
-		
+				'produktId' => $produktId,
+				'message' => $message
+		));	
     }    
+    /*
+     * Insert or update product
+     */
     public function insertAction()
     {
     	$request = $this->getRequest();
     	$response = $this->getResponse();
-    	
-    	$result = null;
-    	$error = null;
     	
     	if ($request->isXmlHttpRequest()) {
     		try{
@@ -173,13 +175,37 @@ class ProduktController extends BaseController
 				$em->persist($produkt);
 				$em->flush();
 				
+				$produktId = $produkt->getProduktId();
+	    		$message = "Successful!";
     		} catch (Exception $e){
-    			$result = false;
+    			$message = $e->getMessage();
     		}
     	}
     	return new JsonModel(array(
-            'result'=> $result,
-			'error' => $error
+            'message'=> $message,
+			'produktId' => $produktId
         ));
+    }
+    
+    /*
+     * Delete product
+     */
+    public function deleteAction()
+    {
+    	try{
+	    	$em = $this->getEntityManager();
+	    	$produktId = $this->params()->fromRoute('produktId');
+	    	$produkt = $em->getRepository('Vergleichsrechner\Entity\Produkt')->find($produktId);
+	    	$em->remove($produkt);
+	    	$em->flush();
+
+	    	$message = "Successful!";
+    	} catch (Exception $e){
+    		$message = $e->getMessage();
+    	}
+    	return new JsonModel(array(
+			'message'=> $message,
+			'produktId' => 0,
+    	));
     }
 }
