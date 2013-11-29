@@ -111,7 +111,7 @@ class Bank
      * @param Doctrine\Common\Collections\Collection $aktionen
      * @return Bank
      */
-    public function setAktionen(Doctrine\Common\Collections\Collection $aktionen)
+    public function setAktionen($aktionen)
     {
     	$this->aktionen = $aktionen;
     

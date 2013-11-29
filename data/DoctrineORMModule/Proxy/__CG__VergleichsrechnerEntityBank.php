@@ -64,10 +64,10 @@ class Bank extends \Vergleichsrechner\Entity\Bank implements \Doctrine\ORM\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'bankId', 'bankName', 'bankLogo');
+            return array('__isInitialized__', 'bankId', 'bankName', 'bankLogo', 'aktionen');
         }
 
-        return array('__isInitialized__', 'bankId', 'bankName', 'bankLogo');
+        return array('__isInitialized__', 'bankId', 'bankName', 'bankLogo', 'aktionen');
     }
 
     /**
@@ -230,6 +230,50 @@ class Bank extends \Vergleichsrechner\Entity\Bank implements \Doctrine\ORM\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getBankLogo', array());
 
         return parent::getBankLogo();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAktionen($aktionen)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAktionen', array($aktionen));
+
+        return parent::setAktionen($aktionen);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAktionen()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAktionen', array());
+
+        return parent::getAktionen();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addAktion(\Vergleichsrechner\Entity\Aktion $aktion)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addAktion', array($aktion));
+
+        return parent::addAktion($aktion);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeAktion(\Vergleichsrechner\Entity\Aktion $aktion)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeAktion', array($aktion));
+
+        return parent::removeAktion($aktion);
     }
 
     /**

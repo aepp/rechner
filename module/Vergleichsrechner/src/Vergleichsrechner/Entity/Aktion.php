@@ -205,7 +205,7 @@ class Aktion
      * @param Doctrine\Common\Collections\Collection $banken
      * @return Aktion
      */
-    public function setBanken(Doctrine\Common\Collections\Collection $banken)
+    public function setBanken($banken)
     {
     	$this->banken = $banken;
     

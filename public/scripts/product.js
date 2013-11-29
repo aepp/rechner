@@ -30,6 +30,9 @@ $(document).ready(function() {
 	    	minView: '2'
     });
 //    $('#produktGueltigSeit').parent().append('<span class="input-group-addon glyphicon glyphicon-th"></span>');
+    if($('#bank').val()){
+    	load_aktionen($('#bank').val());
+    }
     $('#save-changes').unbind('click').click(function(event){
     	var produktId = $('.produktId').val();
     	var action = produktId == 0 ? 'insert' : '../insert/'+produktId;
@@ -66,6 +69,53 @@ $(document).ready(function() {
     	}
     });
     $('#bank').change(function(event){
-    	alert($(this).val());
+    	load_aktionen($(this).val());
     });
+    function load_aktionen(bankId){
+    	var produktId = $('.produktId').val();
+    	var action = produktId == 0 ? 'loadAktionen' : '../loadAktionen/'+produktId;
+    	var alertClass = 'alert-success';
+    	$.ajax({ 
+    		type : 'POST',
+		    url : action,
+		    data : {bankId : bankId},
+		    success : function (response){
+		    	if(response.error){ 
+		    		alertClass = 'alert-danger';
+			    	$('#alert')
+			    		.css('display', 'block')
+			    		.removeClass()
+			    		.addClass('alert alert-dismissable')
+			    		.addClass(alertClass)
+			    		.find("#alert-message")
+			    		.text(response.message);
+	    		} else {
+	    			$('#aktion option').each(function() {
+    			        $(this).remove();
+	    			});
+	    			$('#aktion')
+	    				.append($('<option>', { value : '' })
+						.text('--- Bitte wählen ---')); 
+	    			$.each(response.aktionen, function(i, aktion) {   
+	    			     $('#aktion')
+	    			     	.append($('<option>', { value : aktion.aktionId })
+		     				.text(aktion.aktionName)); 
+	    			});
+	    			if(response.aktion){
+	    				$('#aktion').val(response.aktion.aktionId);
+	    			} else {
+	    			}
+	    		}
+		    },
+		    error : function (response){
+		    	$('#alert')
+		    		.css('display', 'block')
+		    		.removeClass()
+		    		.addClass('alert alert-danger alert-dismissable')
+		    		.find("#alert-message")
+		    		.text("Es ist ein Fehler augetretten!");
+		    },
+		    complete : function (){}
+    	});    	
+    };
 });

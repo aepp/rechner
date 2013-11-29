@@ -64,10 +64,10 @@ class Aktion extends \Vergleichsrechner\Entity\Aktion implements \Doctrine\ORM\P
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'aktionId', 'aktionName', 'aktionBeschreibung', 'aktionStartOn', 'aktionEndeOn', 'aktionIsZuende');
+            return array('__isInitialized__', 'aktionId', 'aktionName', 'aktionBeschreibung', 'aktionStartOn', 'aktionEndeOn', 'aktionIsZuende', 'banken');
         }
 
-        return array('__isInitialized__', 'aktionId', 'aktionName', 'aktionBeschreibung', 'aktionStartOn', 'aktionEndeOn', 'aktionIsZuende');
+        return array('__isInitialized__', 'aktionId', 'aktionName', 'aktionBeschreibung', 'aktionStartOn', 'aktionEndeOn', 'aktionIsZuende', 'banken');
     }
 
     /**
@@ -296,6 +296,50 @@ class Aktion extends \Vergleichsrechner\Entity\Aktion implements \Doctrine\ORM\P
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAktionIsZuende', array());
 
         return parent::getAktionIsZuende();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setBanken($banken)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setBanken', array($banken));
+
+        return parent::setBanken($banken);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getBanken()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getBanken', array());
+
+        return parent::getBanken();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addBank(\Vergleichsrechner\Entity\Bank $bank)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addBank', array($bank));
+
+        return parent::addBank($bank);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeBank(\Vergleichsrechner\Entity\Bank $bank)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeBank', array($bank));
+
+        return parent::removeBank($bank);
     }
 
     /**

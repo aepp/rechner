@@ -227,4 +227,39 @@ class ProduktController extends BaseController
 			'produktId' => 0,
     	));
     }
+    
+    public function loadAktionenAction()
+    {
+    	$message = null;
+    	$error = false;
+    	$produktAktion = null;
+    	
+    	try{
+    		$em = $this->getEntityManager();
+    		$produktId = $this->params()->fromRoute('produktId');
+    		$bankId = $this->params()->fromPost('bankId');
+    		if($produktId != null){
+    			$produkt = $em->getRepository('Vergleichsrechner\Entity\Produkt')->find($produktId);
+    			$produktAktion = $produkt->getAktion();
+    			if($produktAktion != null) $produktAktion = $produktAktion->jsonSerialize();
+    		}
+    		$bank = $em->getRepository('Vergleichsrechner\Entity\Bank')->find($bankId);
+    		$aktionen = $bank->getAktionen();
+    		$options = array();
+    		foreach ($aktionen as $aktion){
+    			array_push($options, $aktion->jsonSerialize());
+    		}
+    		$message = "Successful!";
+    	} catch (Exception $e){
+    		$message = $e->getMessage();
+    		$error = true;
+    	}
+    	return new JsonModel(array(
+			'message'=> $message,
+			'produktId' => $produktId,
+ 			'error' => $error,
+   			'aktionen' => $options,
+    		'aktion' => $produktAktion,
+    	));
+    }
 }
