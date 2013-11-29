@@ -9,44 +9,46 @@ use Zend\Form\Annotation;
  * Zinssatz
  *
  * @ORM\Table(name="zinssatz")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\ZinssatzRepository")
+ * @Annotation\Name("zeitabschnitt")
+ * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
 class Zinssatz
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="zinssatz_id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+	* @var integer
+	*
+	* @ORM\Column(name="zinssatz_id", type="integer", nullable=false)
+	* @ORM\Id
+	* @ORM\GeneratedValue(strategy="IDENTITY")
+	*/
     private $zinssatzId;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="zinssatz_name", type="string", length=100, nullable=true)
-     */
+	* @var string
+	*
+	* @ORM\Column(name="zinssatz_name", type="string", length=100, nullable=true)
+	*/
     private $zinssatzName;
 
 
 
     /**
-     * Get zinssatzId
-     *
-     * @return integer 
-     */
+	* Get zinssatzId
+	*
+	* @return integer
+	*/
     public function getZinssatzId()
     {
         return $this->zinssatzId;
     }
 
     /**
-     * Set zinssatzName
-     *
-     * @param string $zinssatzName
-     * @return Zinssatz
-     */
+	* Set zinssatzName
+	*
+	* @param string $zinssatzName
+	* @return Zinssatz
+	*/
     public function setZinssatzName($zinssatzName)
     {
         $this->zinssatzName = $zinssatzName;
@@ -55,12 +57,19 @@ class Zinssatz
     }
 
     /**
-     * Get zinssatzName
-     *
-     * @return string 
-     */
+	* Get zinssatzName
+	*
+	* @return string
+	*/
     public function getZinssatzName()
     {
         return $this->zinssatzName;
     }
+    
+    public function jsonSerialize() {
+    	return [
+	    	'zinssatzId' => $this->getZinssatzId(),
+	    	'zinssatzName' => $this->getZinssatzName(),
+    	];
+    }    
 }

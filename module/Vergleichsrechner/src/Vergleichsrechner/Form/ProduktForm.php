@@ -38,6 +38,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 		$produktName = new Element\Text();
 		$bank = new ObjectSelect();
 		$produktHasOnlineAbschluss = new Element\Radio();
+		$zinssatz = new ObjectSelect();
 		$produktMindestanlage = new Element\Text();
 		$produktHoechstanlage = new Element\Text();
 		$produktHasGesetzlEinlagvers = new Element\Radio();
@@ -121,8 +122,22 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Mindestanlage')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
+					'class' => 'form-control validate[required]',
 					'id' => 'produktMindestanlage'
+			));
+		$zinssatz
+			->setName('zinssatz')
+			->setLabel('Zinssatz')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control validate[required]',
+					'id' => 'zinssatz'
+			))
+			->setOptions(array(
+					'object_manager' => $this->getObjectManager(),
+					'target_class' => 'Vergleichsrechner\Entity\Zinssatz',
+					'property' => 'zinssatzName',
+					'empty_option'  => '--- Bitte wählen ---',
 			));
 		$produktHoechstanlage
 			->setName('produktHoechstanlage')
@@ -333,6 +348,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 		$this->add($produktName);
 		$this->add($bank);
 		$this->add($produktHasOnlineAbschluss);
+		$this->add($zinssatz);
 		$this->add($produktMindestanlage);
 		$this->add($produktHoechstanlage);
 		$this->add($produktHasGesetzlEinlagvers);

@@ -63,6 +63,7 @@ class ProduktController extends BaseController
 				$form->get('produktName')->setAttribute('value', $produkt->getProduktName());
 				$form->get('bank')->setAttribute('value', $produkt->getBank());
 				$form->get('produktHasOnlineAbschluss')->setAttribute('value', $produkt->getProduktHasOnlineAbschluss());
+				$form->get('zinssatz')->setAttribute('value', $produkt->getZinssatz());
 				$form->get('produktMindestanlage')->setAttribute('value', $produkt->getProduktMindestanlage());
 				$form->get('produktHoechstanlage')->setAttribute('value', $produkt->getProduktHoechstanlage());
 				$form->get('produktHasGesetzlEinlagvers')->setAttribute('value', $produkt->getProduktHasGesetzlEinlagvers());
@@ -85,7 +86,7 @@ class ProduktController extends BaseController
 				$form->get('saveChanges')->setLabel('Änderungen speichern');
 				$form->get('discardChanges')->setLabel('Änderungen verwerfen');
 				
-				$message = "Successful";
+				$message = "Form erfolgreich geladen!";
 			}
 		} catch (Exception $e){
 			$message = $e->getMessage();
@@ -137,6 +138,7 @@ class ProduktController extends BaseController
 				$produktUrl = $_POST['produktUrl'];
 				$produktKlickoutUrl = $_POST['produktKlickoutUrl'];
 				$ktozugriffeNew = $_POST['ktozugriffe'];
+				$zinssatz = $em->find('Vergleichsrechner\Entity\Zinssatz', $_POST['zinssatz']);
 				
 				$produktId = $this->params()->fromRoute('produktId');
 				if($produktId){
@@ -187,12 +189,13 @@ class ProduktController extends BaseController
 				$produkt->setProduktUrl($produktUrl);
 				$produkt->setProduktVerfuegbarkeit($produktVerfuegbarkeit);
 				$produkt->setProduktZinsgutschrift($produktZinsgutschrift);
+				$produkt->setZinssatz($zinssatz);
 				
 				$em->persist($produkt);
 				$em->flush();
 				
 				$produktId = $produkt->getProduktId();
-	    		$message = "Successful!";
+	    		$message = "Änderungen erfolgreich gespeichert!";
 	    		
     		} catch (Exception $e){
     			$message = $e->getMessage();
@@ -218,7 +221,7 @@ class ProduktController extends BaseController
 	    	$em->remove($produkt);
 	    	$em->flush();
 
-	    	$message = "Successful!";
+	    	$message = "Produkt erfolgreich gelöscht!";
     	} catch (Exception $e){
     		$message = $e->getMessage();
     	}
@@ -249,7 +252,7 @@ class ProduktController extends BaseController
     		foreach ($aktionen as $aktion){
     			array_push($options, $aktion->jsonSerialize());
     		}
-    		$message = "Successful!";
+    		$message = "Aktionen erfolgreich geladen!";
     	} catch (Exception $e){
     		$message = $e->getMessage();
     		$error = true;

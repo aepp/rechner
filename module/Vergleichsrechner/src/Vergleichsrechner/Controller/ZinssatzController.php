@@ -8,7 +8,7 @@ use Zend\Json\Json;
 use Vergleichsrechner\Entity\Zinssatz;
 
 /**
- * {0}
+ * ZinssatzController
  * 
  * @author A. Epp
  * @version 1.0
@@ -20,7 +20,7 @@ class ZinssatzController extends BaseController
 	 */
     public function indexAction()
     {
-     	// TODO Auto-generated {0}::indexAction() default action
+     	// TODO Auto-generated ZinssatzController::indexAction() default action
     	return new ViewModel();
     }
     

@@ -23,6 +23,7 @@ $(document).ready(function() {
 		    	formCreatedFunction = function (event, data){
 		    		data.form.parent().parent().css('min-width', '400px');
 		    		data.form.validationEngine();
+					$('#Edit-banken').val(data.record.banken[0].bankId);
 		            $("#logoUpload").uploadify({
 		                height: 35,
 		                width: 183,
@@ -143,11 +144,7 @@ $(document).ready(function() {
                 deleteAction: 'database/'+tableName+'/delete'
             },
             fields: tableFields,
-            formCreated: function (event, data) {
-    			data.form.parent().parent().css('min-width', '400px');
-    			data.form.validationEngine();
-    			$('#Edit-banken').val(data.record.banken[0].bankId);
-            },
+            formCreated: formCreatedFunction,
             formSubmitting: function (event, data) {
                 return data.form.validationEngine('validate');
     		},
@@ -406,4 +403,21 @@ $(document).ready(function() {
     	};
     	return fields;
     }  
+    function getFields_zinssatz(){
+    	fields = {
+			zinssatzId: {
+	            key: true,
+	            edit: false,
+	            list: true,
+	            title: 'ID',
+	            width: '5%',
+	        },
+	        zinssatzName: {
+	            title: 'Zinssatz',
+	            type: 'text',
+	            inputClass: 'validate[required]',
+	        },
+    	};
+    	return fields;
+    }     
 });

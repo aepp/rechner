@@ -62,7 +62,15 @@ class Produkt
      * @ORM\Column(name="produkt_has_online_abschluss", type="boolean", nullable=false)
      */
     private $produktHasOnlineAbschluss;
-
+    
+    /**
+     * @var Zinssatz
+     *
+     * @ORM\ManyToOne(targetEntity="Zinssatz")
+     * @ORM\JoinColumn(name="zinssatz_id", referencedColumnName="zinssatz_id")
+     */
+    private $zinssatz;
+    
     /**
      * @var float
      *
@@ -342,7 +350,30 @@ class Produkt
     {
         return $this->produktHasOnlineAbschluss;
     }
-
+    
+    /**
+     * Set zinssatz
+     *
+     * @param Zinssatz $zinssatz
+     * @return Produkt
+     */
+    public function setZinssatz($zinssatz)
+    {
+    	$this->zinssatz = $zinssatz;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get zinssatz
+     *
+     * @return Zinssatz
+     */
+    public function getZinssatz()
+    {
+    	return $this->zinssatz;
+    }
+    
     /**
      * Set produktMindestanlage
      *
