@@ -51,7 +51,7 @@ $(document).ready(function() {
 		                onUploadSuccess: function (file, data, response) {
 		                	logoUploaded = file.name;
 		                	$('#bankLogo').val(logoUploaded);
-		                	alert(response);
+		                	alert(data);
 //		                	alert($('input[name="bankLogo"]').val());
 		                	$('#logoPreview').attr('src', 'uploads/bank-logo/'+logoUploaded);
 
