@@ -1,6 +1,6 @@
 {
-    "name": "aepp/vergleichsrechner",
-    "description": "Verglecihsrechner",
+    "name": "Vergleichsrechner",
+    "description": "Backend Rechner vergleich24.at",
     "license": "MIT",
     "keywords": [
         "",

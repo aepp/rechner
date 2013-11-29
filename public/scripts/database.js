@@ -46,18 +46,18 @@ $(document).ready(function() {
 		                    $('param[name="flashvars"]').val().replace('120','buttonWidth=183');
 		                }, 
 		                onUploadComplete : function(file) {
-		                    alert('The file ' + file.name + ' finished processing.');
+//		                    alert('The file ' + file.name + ' finished processing.');
 		                }, 
 		                onUploadSuccess: function (file, data, response) {
 		                	logoUploaded = file.name;
 		                	$('#bankLogo').val(logoUploaded);
-		                	alert(data);
+//		                	alert(data);
 //		                	alert($('input[name="bankLogo"]').val());
 		                	$('#logoPreview').attr('src', 'uploads/bank-logo/'+logoUploaded);
 
 		                },		
 		                onUploadError : function(file, errorCode, errorMsg, errorString) {
-		                    alert('The file ' + file.name + ' could not be uploaded: ' + errorString);
+//		                    alert('The file ' + file.name + ' could not be uploaded: ' + errorString);
 		                }, 
 		                width: 120
 		            });
