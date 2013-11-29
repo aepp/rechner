@@ -143,7 +143,11 @@ $(document).ready(function() {
                 deleteAction: 'database/'+tableName+'/delete'
             },
             fields: tableFields,
-            formCreated: formCreatedFunction,
+            formCreated: function (event, data) {
+    			data.form.parent().parent().css('min-width', '400px');
+    			data.form.validationEngine();
+    			$('#Edit-banken').val(data.record.banken[0].bankId);
+            },
             formSubmitting: function (event, data) {
                 return data.form.validationEngine('validate');
     		},
@@ -173,11 +177,26 @@ $(document).ready(function() {
 	            title: 'ID',
 	            width: '5%',
 	        },
+	        aktionName: {
+	            title: 'Aktion',
+	            type: 'text',
+	            inputClass: 'validate[required]',
+	        },
 	        aktionBeschreibung: {
 	            title: 'Beschreibung',
 	            type: 'textarea',
-	            inputClass: 'validate[required]',
 	        },	
+	        banken: {
+	            title: 'Bank',
+	            options: 'database/bank/options',
+	            display: function (data) {
+                	var preview =
+                		'<img id="logoPreview" src="uploads/bank-logo/'+data.record.banken[0].bankLogo+'" class="bank-logo-preview"/>'+
+            			'<br/>'+
+            			data.record.banken[0].bankName;
+	                return preview;
+	            }
+	        },
 	        aktionStartOn: {
 	            title: 'Aktionsstart',
 	            type: 'date',
@@ -194,7 +213,8 @@ $(document).ready(function() {
 	            title: 'Aktion beendet?',
                 type: 'radiobutton',
                 options: { '1': 'Ja',
-                           '0': 'Nein'},
+                           '0': 'Nein'
+            	},
                 inputClass: 'validate[required]',
 	        },	
     	};

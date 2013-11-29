@@ -108,4 +108,27 @@ class BankController extends BaseController
     	}
     	return $response;
     }
+    
+    /*
+     * Returns a json-Object with list of Bank
+     * for select in Aktion-table
+     * 
+     */
+    public function optionsAction()
+    {
+    	$request = $this->getRequest();
+    	$response = $this->getResponse();
+    	if ($request->isPost()) {
+    		$em = $this->getEntityManager();
+    		$banken = $em->getRepository('Vergleichsrechner\Entity\Bank')->findAll();
+    		$options = array();
+    		$option = array();
+    		foreach ($banken as $bank){
+    			$option = array('Value' => $bank->getBankId(), 'DisplayText' => $bank->getBankName());
+    			array_push($options, $option);
+    		}
+    		$response->setContent(Json::encode(array('Result' => 'OK', 'Options' => $options)));
+    	}
+    	return $response;
+    }    
 }

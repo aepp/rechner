@@ -1,6 +1,12 @@
 <h2><?php echo sprintf($this->translate($form->getLabel())) ?></h2>
 <?php
-	echo $this->headScript()->prependFile($this->basePath() . '/scripts/product.js');
+	echo $this->headLink()
+		->prependStylesheet($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css');
+	echo $this->headScript()
+		->prependFile($this->basePath() . '/scripts/product.js')
+		->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-maxlength.min.js')
+		->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.de.js')
+		->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js');
 	echo $this->form()->openTag($form);
 ?>
 <input type="hidden" value="<?php echo $produktId ?>" class="produktId"/>
@@ -18,8 +24,9 @@
 	        	?>
 	        	<div class="col-sm-3">
 	        		<?php 
-	        			if($name == 'produktGueltigSeit') echo $this->formDateSelect($form->get('produktGueltigSeit'), IntlDateFormatter::LONG, 'de_DE');
-	        			else echo $this->formElement($element);
+// 	        			if($name == 'produktGueltigSeit') echo $this->formDateSelect($form->get('produktGueltigSeit'), IntlDateFormatter::LONG, 'de_DE');
+// 	        			else 
+	        				echo $this->formElement($element);
         			?>
 	        	</div>
 	    </div>

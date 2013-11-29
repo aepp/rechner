@@ -76,7 +76,20 @@ class Kontozugriff
         return $this->kontozugriffName;
     }
 
-    
+
+    /**
+     * Remove produkt
+     *
+     * @param Produkt $produkt
+     * @return Kontozugriff
+     */
+    public function removeProdukt(Produkt $produkt)
+    {
+    	if($this->produkte->contains($produkt)){
+    		$this->produkte->removeElement($produkt);
+    	}
+    	return $this;
+    }    
     /**
      * Add produkt
      *
@@ -98,18 +111,4 @@ class Kontozugriff
 	    	'kontozugriffName' => $this->getKontozugriffName(),
     	];
     }
-
-    /**
-     * Remove produkt
-     * 
-     * @param Produkt $produkt
-     * @return Kontozugriff
-     */
-    public function removeProdukt(Produkt $produkt)
-    {
-    	if($this->produkte->contains($produkt)){
-    		$this->produkte->removeElement($produkt);
-    	}
-    	return $this;
-    }    
 }

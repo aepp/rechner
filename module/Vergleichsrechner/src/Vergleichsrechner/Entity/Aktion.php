@@ -23,7 +23,14 @@ class Aktion
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $aktionId;
-
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aktion_name", type="text", nullable=false)
+     */
+    private $aktionName;
+    
     /**
      * @var string
      *
@@ -52,7 +59,20 @@ class Aktion
      */
     private $aktionIsZuende;
 
-
+    /**
+     * @var Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Bank")
+     * @ORM\JoinTable(name="aktion_bank",
+     *         joinColumns={@ORM\JoinColumn(name="aktion_id", referencedColumnName="aktion_id", onDelete="CASCADE")},
+     *         inverseJoinColumns={@ORM\JoinColumn(name="bank_id", referencedColumnName="bank_id", onDelete="CASCADE")}
+     * )
+     */
+    private $banken;
+    
+    public function __construct() {
+    	$this->banken  = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get aktionId
@@ -63,7 +83,30 @@ class Aktion
     {
         return $this->aktionId;
     }
-
+    
+    /**
+     * Set aktionName
+     *
+     * @param string $aktionName
+     * @return Aktion
+     */
+    public function setAktionName($aktionName)
+    {
+    	$this->aktionName = $aktionName;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get aktionName
+     *
+     * @return string
+     */
+    public function getAktionName()
+    {
+    	return $this->aktionName;
+    }
+    
     /**
      * Set aktionBeschreibung
      *
@@ -155,14 +198,73 @@ class Aktion
     {
         return $this->aktionIsZuende;
     }
+
+    /**
+     * Set banken
+     *
+     * @param Doctrine\Common\Collections\Collection $banken
+     * @return Aktion
+     */
+    public function setBanken(Doctrine\Common\Collections\Collection $banken)
+    {
+    	$this->banken = $banken;
     
+    	return $this;
+    }
+    
+    /**
+     * Get banken
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getBanken()
+    {
+    	return $this->banken;
+    }
+    
+    /**
+     * Add bank
+     *
+     * @param Bank $bank
+     * @return Aktion
+     */
+    public function addBank(Bank $bank)
+    {
+    	if(!$this->banken->contains($bank)){
+    		$this->banken->add($bank);
+    		$bank->addAktion($this);
+    	}
+    
+    	return $this;
+    }
+    
+    /**
+     * Remove bank
+     *
+     * @return Aktion
+     */
+    public function removeBank(Bank $bank)
+    {
+    	if($this->banken->contains($bank)){
+    		$this->banken->removeElement($bank);
+    		$bank->removeAktion($this);
+    	}
+    	return $this;
+    }
+        
     public function jsonSerialize() {
+    	$banken_json = array();
+    	foreach ($this->getBanken() as $bank){
+    		array_push($banken_json, $bank->jsonSerialize());
+    	}
     	return [
 	    	'aktionId' => $this->getAktionId(),
+	    	'aktionName' => $this->getAktionName(),
 	    	'aktionBeschreibung' => $this->getAktionBeschreibung(),
 	    	'aktionStartOn' => date_format($this->getAktionStartOn(), 'Y-m-d'),
 	    	'aktionEndeOn' => date_format($this->getAktionEndeOn(), 'Y-m-d'),
 	    	'aktionIsZuende' => $this->getAktionIsZuende() ? 1 : 0,
+	    	'banken' => $banken_json,
     	];
     }
 }

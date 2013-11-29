@@ -42,7 +42,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 		$produktHoechstanlage = new Element\Text();
 		$produktHasGesetzlEinlagvers = new Element\Radio();
 		$einlagensicherungLand = new ObjectSelect();
-		$aktion = new Element\Select();
+		$aktion = new ObjectSelect();
 		$produktKtofuehrKost = new Element\Text();
 		$produktKtofuehrKostFllg = new ObjectSelect();
 		$produktZinsgutschrift = new ObjectSelect();
@@ -160,8 +160,11 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 					'id' => 'aktion'
 			))
 			->setOptions(array(
+					'object_manager' => $this->getObjectManager(),
+					'target_class' => 'Vergleichsrechner\Entity\Aktion',
+					'property' => 'aktionName',
 					'empty_option'  => '--- Bitte wählen ---',
-			));			
+			));
 		$produktKtofuehrKost
 			->setName('produktKtofuehrKost')
 			->setLabel('Kontoführungskosten')

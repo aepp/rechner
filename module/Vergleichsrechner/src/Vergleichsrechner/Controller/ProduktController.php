@@ -48,6 +48,7 @@ class ProduktController extends BaseController
 		$form = $forms->get('ProduktForm');
 		$produktId = 0;
 		$message = null;
+		$error = false;
 		
 		try{
 			if($this->params()->fromRoute('produktId')){
@@ -75,7 +76,7 @@ class ProduktController extends BaseController
 				$form->get('legitimation')->setAttribute('value', $produkt->getLegitimation());
 				$form->get('produktHasAltersbeschraenkung')->setAttribute('value', $produkt->getProduktHasAltersbeschraenkung());
 				$form->get('ktozugriffe')->setAttribute('value', $produkt->getKtozugriffe());
-				$form->get('produktGueltigSeit')->setAttribute('value', $produkt->getProduktGueltigSeit());
+				$form->get('produktGueltigSeit')->setAttribute('value', $produkt->getProduktGueltigSeit()->format('d.m.Y'));
 				$form->get('produktCheck')->setAttribute('value', $produkt->getProduktCheck());
 				$form->get('produktTipp')->setAttribute('value', $produkt->getProduktTipp());
 				$form->get('produktInformationen')->setAttribute('value', $produkt->getProduktInformationen());
@@ -88,11 +89,13 @@ class ProduktController extends BaseController
 			}
 		} catch (Exception $e){
 			$message = $e->getMessage();
+			$error = true;
 		}
 		return new ViewModel(array(
 				'form' => $form,
 				'produktId' => $produktId,
-				'message' => $message
+				'message' => $message,
+				'error' => $error
 		));	
     }    
     /*
@@ -102,7 +105,8 @@ class ProduktController extends BaseController
     {
     	$request = $this->getRequest();
     	$response = $this->getResponse();
-    	
+    	$error = false;
+
     	if ($request->isXmlHttpRequest()) {
     		try{
     			$em = $this->getEntityManager();
@@ -126,7 +130,7 @@ class ProduktController extends BaseController
 				$produktHasOnlineBanking = $_POST['produktHasOnlineBanking'];
 				$legitimation = $em->find('Vergleichsrechner\Entity\Legitimation', $_POST['legitimation']);
 				$produktHasAltersbeschraenkung = $_POST['produktHasAltersbeschraenkung'];
-				$produktGueltigSeit = new \DateTime($_POST['year'].'-'.$_POST['month'].'-'.$_POST['day']);
+				$produktGueltigSeit = date_create_from_format('d.m.Y', $_POST['produktGueltigSeit']);
 				$produktCheck = $_POST['produktCheck'];
 				$produktTipp = $_POST['produktTipp'];
 				$produktInformationen = $_POST['produktInformationen'];
@@ -189,13 +193,16 @@ class ProduktController extends BaseController
 				
 				$produktId = $produkt->getProduktId();
 	    		$message = "Successful!";
+	    		
     		} catch (Exception $e){
     			$message = $e->getMessage();
+    			$error = true;
     		}
     	}
     	return new JsonModel(array(
             'message'=> $message,
-			'produktId' => $produktId
+			'produktId' => $produktId,
+    		'error' => $error
         ));
     }
     

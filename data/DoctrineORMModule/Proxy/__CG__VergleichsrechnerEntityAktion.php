@@ -64,10 +64,10 @@ class Aktion extends \Vergleichsrechner\Entity\Aktion implements \Doctrine\ORM\P
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'aktionId', 'aktionBeschreibung', 'aktionStartOn', 'aktionEndeOn', 'aktionIsZuende');
+            return array('__isInitialized__', 'aktionId', 'aktionName', 'aktionBeschreibung', 'aktionStartOn', 'aktionEndeOn', 'aktionIsZuende');
         }
 
-        return array('__isInitialized__', 'aktionId', 'aktionBeschreibung', 'aktionStartOn', 'aktionEndeOn', 'aktionIsZuende');
+        return array('__isInitialized__', 'aktionId', 'aktionName', 'aktionBeschreibung', 'aktionStartOn', 'aktionEndeOn', 'aktionIsZuende');
     }
 
     /**
@@ -186,6 +186,28 @@ class Aktion extends \Vergleichsrechner\Entity\Aktion implements \Doctrine\ORM\P
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAktionId', array());
 
         return parent::getAktionId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAktionName($aktionName)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAktionName', array($aktionName));
+
+        return parent::setAktionName($aktionName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAktionName()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAktionName', array());
+
+        return parent::getAktionName();
     }
 
     /**

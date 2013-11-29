@@ -50,16 +50,27 @@ class AktionController extends BaseController
     	if ($request->isPost()) {
     		try{
 	    		$em = $this->getEntityManager();
+	    		
+	    		$aktionName = $_POST['aktionName'];
 	    		$aktionBeschreibung = $_POST['aktionBeschreibung'];
 	    		$aktionStartOn = date_create($_POST['aktionStartOn']);
 	    		$aktionEndeOn = date_create($_POST['aktionEndeOn']);
 	    		$aktionIsZuende = $_POST['aktionIsZuende'];
+	    		$banken = $_POST['banken'];
 	
 	    		$aktion = new Aktion();
+	    		$aktion->setAktionName($aktionName);
 	    		$aktion->setAktionBeschreibung($aktionBeschreibung);
 	    		$aktion->setAktionStartOn($aktionStartOn);
 	    		$aktion->setAktionEndeOn($aktionEndeOn);
 	    		$aktion->setAktionIsZuende($aktionIsZuende);
+	    		
+				foreach($banken as $id):
+					$bank = $em->find('Vergleichsrechner\Entity\Bank', $id);
+					$aktion->addBank($bank);
+					$em->persist($bank);
+				endforeach;
+	    		
 	    		$em->persist($aktion);
 	    		$em->flush();
 	    		$response->setContent(Json::encode(array('Result' => 'OK', 'Record' => $aktion->jsonSerialize())));
@@ -78,16 +89,33 @@ class AktionController extends BaseController
     		$id = $_POST['aktionId'];
     		$aktion = $em->find('Vergleichsrechner\Entity\Aktion', $id);
     		
+    		$aktionName = $_POST['aktionName'];
     		$aktionBeschreibung = $_POST['aktionBeschreibung'];
     		$aktionStartOn = date_create($_POST['aktionStartOn']);
     		$aktionEndeOn = date_create($_POST['aktionEndeOn']);
     		$aktionIsZuende = $_POST['aktionIsZuende'];
+    		$bankenNew = $_POST['banken'];
+    		$bankenOld = $aktion->getBanken();
     		
+    		$aktion->setAktionName($aktionName);
     		$aktion->setAktionBeschreibung($aktionBeschreibung);
     		$aktion->setAktionStartOn($aktionStartOn);
     		$aktion->setAktionEndeOn($aktionEndeOn);
     		$aktion->setAktionIsZuende($aktionIsZuende);
     		
+//     		foreach($bankenOld as $id):
+// 			if($bankenOld != null){
+	    		$bank = $em->find('Vergleichsrechner\Entity\Bank', $bankenOld->get(0)->getBankId());
+	    		$aktion->removeBank($bank);
+	    		$em->persist($bank);
+// 			}
+//     		endforeach;
+//     		foreach($bankenNew as $id):
+	    		$bank = $em->find('Vergleichsrechner\Entity\Bank', $bankenNew);
+	    		$aktion->addBank($bank);
+	    		$em->persist($bank);
+//     		endforeach;    	
+    			
     		$em->persist($aktion);
     		$em->flush();
     		$response->setContent(Json::encode(array('Result' => 'OK', 'Record' => $aktion->jsonSerialize())));

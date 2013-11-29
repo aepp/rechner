@@ -38,7 +38,16 @@ class Bank
      */
     private $bankLogo;
 
-
+    /**
+     * @var Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Aktion", mappedBy="banken")
+     **/
+    private $aktionen;
+    
+    public function __construct() {
+    	$this->aktionen = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get bankId
@@ -95,11 +104,65 @@ class Bank
     {
         return $this->bankLogo;
     }
+
+    /**
+     * Set aktionen
+     *
+     * @param Doctrine\Common\Collections\Collection $aktionen
+     * @return Bank
+     */
+    public function setAktionen(Doctrine\Common\Collections\Collection $aktionen)
+    {
+    	$this->aktionen = $aktionen;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get aktionen
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getAktionen()
+    {
+    	return $this->aktionen;
+    }
+    
+    /**
+     * Add aktion
+     *
+     * @param Aktion $aktion
+     * @return Bank
+     */
+    public function addAktion(Aktion $aktion)
+    {
+    	if(!$this->aktionen->contains($aktion)){
+    		$this->aktionen->add($aktion);
+    	}
+    
+    	return $this;
+    }    
+    
+    /**
+     * Remove aktion
+     *
+     * @param Aktion $aktion
+     * @return Bank
+     */
+    public function removeAktion(Aktion $aktion)
+    {
+    	if($this->aktionen->contains($aktion)){
+    		$this->aktionen->removeElement($aktion);
+    	}
+    	return $this;
+    }
+    
     public function jsonSerialize() {
     	return [
-    	'bankId' => $this->getBankId(),
-    	'bankName' => $this->getBankName(),
-    	'bankLogo' => $this->getBankLogo(),
+	    	'bankId' => $this->getBankId(),
+	    	'bankName' => $this->getBankName(),
+	    	'bankLogo' => $this->getBankLogo(),
+	    	'aktionen' => json_encode($this->getAktionen()),
     	];
     }
 }

@@ -5,7 +5,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class BaseController extends AbstractActionController
 {
-
 	/**
 	 * @var Doctrine\ORM\EntityManager
 	 */
@@ -15,7 +14,7 @@ class BaseController extends AbstractActionController
 	 * for managing entities via Doctrine
 	 * @return Doctrine\ORM\EntityManager
 	 */
-	public function getEntityManager()
+	function getEntityManager()
 	{
 		if (null === $this->entityManager) {
 			$this->entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
