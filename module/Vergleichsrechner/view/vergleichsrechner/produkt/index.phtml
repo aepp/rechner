@@ -35,7 +35,7 @@
 		</thead>
 		<tbody>
 			<?php foreach($produkte as $produkt): ?>
-				<tr>
+				<tr id="produkt-table-row-<?php echo $produkt->getProduktId(); ?>">
 					<td>
 						<input type="hidden" value="<?php echo $produkt->getProduktId(); ?>" class="produktId"/>
 						<a href="produkt/edit/<?php echo $produkt->getProduktId(); ?>" class="btn btn-default btn-xs edit-produkt-button">
@@ -46,22 +46,25 @@
 						</button>
 					</td>
 					<td>
-						<span><?php echo $produkt->getProduktName(); ?></span>
+						<span id="produkt-name-<?php echo $produkt->getProduktId(); ?>"><?php echo $produkt->getProduktName(); ?></span>
 						<div>
 							Produkt-URL: <a href="<?php echo $produkt->getProduktUrl() ?>">
 											<?php echo $produkt->getProduktUrl() ?>
 										</a>
 						</div>
 					</td>				
-					<td><?php echo $produkt->getKategorie()->getKategorieName() ?></td>				
+					<td>
+						<span id="produkt-kategorie-<?php echo $produkt->getProduktId(); ?>"><?php echo $produkt->getKategorie()->getKategorieName() ?></span>
+					</td>				
 					<td>	
 						<img 
 							alt="<?php echo $produkt->getBank()->getBankName() ?>" 
 							src="uploads/bank-logo/<?php echo $produkt->getBank()->getBankLogo() ?>"
 							class="bank-logo-preview"
+							id="produkt-bank-logo-<?php echo $produkt->getProduktId(); ?>"
 						/>
 						<br/>
-						<?php echo $produkt->getBank()->getBankName() ?>
+						<span id="produkt-bank-name-<?php echo $produkt->getProduktId(); ?>"><?php echo $produkt->getBank()->getBankName() ?></span>
 					</td>				
 					<td>
 						<?php if($produkt->getProduktTipp()): ?>
@@ -76,3 +79,30 @@
 		</tbody>
 	</table>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="delete-confirm-modal" tabindex="-1" role="dialog" aria-labelledby="delete-confirm-modal-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        		<h4 class="modal-title" id="delete-confirm-modal-label">Wirklich löschen?</h4>
+      		</div>
+			<div class="modal-body">
+				<input type="hidden" value="" id="delete-produkt-id"/>
+				<span>
+					Soll das Produkt <strong id="delete-produkt-name"></strong> wirklich gelöscht werden?
+				</span>
+				<br>
+				<span>
+					<strong>Bank:</strong> <span id="delete-produkt-bank"></span><br>
+					<strong>Kategorie:</strong> <span id="delete-produkt-kategorie"></span>
+				</span>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+				<button type="button" class="btn btn-warning" id="delete-confirm">Produkt löschen</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

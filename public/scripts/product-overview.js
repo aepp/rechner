@@ -57,24 +57,45 @@ $(document).ready(function() {
 	});
 	
 	$('.delete-produkt-button').unbind('click').click(function(event){
-		var produktId = $(this).parent().find('.produktId').val();
-		var tableRow = $(this).parent().parent();
+		$('#delete-confirm-modal').modal('toggle');
+		var id = $(this).parent().find('.produktId').val();
+		$('#delete-produkt-id').val(id);
+		$('#delete-produkt-name').html($('#produkt-name-'+id).text());
+		$('#delete-produkt-bank').html($('#produkt-bank-name-'+id).text());
+		$('#delete-produkt-kategorie').html($('#produkt-kategorie-'+id).text());
+	});
+	
+	$('#delete-confirm').unbind('click').click(function(event){
+		var id = $('#delete-produkt-id').val();
+		var tableRow = $('#produkt-table-row-'+id);
 		
     	$.ajax({ 
     		type : 'POST',
-		    url : 'produkt/delete/'+produktId,
-		    data : {produktId : produktId},
+		    url : 'produkt/delete/'+id,
+		    data : {produktId : id},
 		    success : function (response){
-		    	alert("Produkt gelöscht!") ;
 		    	tableRow.remove();
 		    	$("#produkte-table").trigger("update");
+		    	$('#delete-confirm-modal').modal('toggle');
+		    	$('#alert')
+		    			.css('display', 'block')
+		    			.removeClass()
+		    			.addClass('alert alert-success')
+		    			.find("#alert-message").text("Produkt erfolgreich gelöscht!");
 		    },
 		    error : function (response){
-	    		alert("Error occcured") ;
+		    	$('#alert')
+	    			.css('display', 'block')
+	    			.removeClass()
+	    			.addClass('alert alert-warning')
+	    			.find("#alert-message").text("Es ist ein Fehler afgetretten!");
 		    },
-		    always : function (){
-		    	
+		    complete : function (){
+		        $('html, body').animate({
+//		            scrollTop: $("#alert").offset().top
+		        	scrollTop: 0
+		        }, 600);		    	
 		    }
-    	});
+    	});		
 	});
 });  	
