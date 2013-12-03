@@ -103,17 +103,16 @@ $(document).ready(function() {
 	    			});
 	    			if(response.aktion){
 	    				$('#aktion').val(response.aktion.aktionId);
-	    			} else {
-	    			}
+	    			} 
 	    		}
 		    },
 		    error : function (response){
-		    	$('#alert')
-		    		.css('display', 'block')
-		    		.removeClass()
-		    		.addClass('alert alert-danger alert-dismissable')
-		    		.find("#alert-message")
-		    		.text("Es ist ein Fehler augetretten!");
+//		    	$('#alert')
+//		    		.css('display', 'block')
+//		    		.removeClass()
+//		    		.addClass('alert alert-danger alert-dismissable')
+//		    		.find("#alert-message")
+//		    		.text("Es ist ein Fehler augetretten!");
 		    },
 		    complete : function (){}
     	});    	

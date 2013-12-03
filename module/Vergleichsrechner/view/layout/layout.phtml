@@ -51,6 +51,12 @@
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
+					<button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
 					<a class="navbar-brand" href="<?php echo $this->url('welcome') ?>">
 						<img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="vergleich24"/>
 						&nbsp;vergleich24
@@ -63,15 +69,13 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<p class="navbar-text navbar-right">
-								<?php echo $this->translate('Angemeldet als').' '.$this->escapeHtml($user->getUserVorname().' '.$user->getUserName()); ?>
-							</p>
-						</li>
-						<li>
 							<a href="<?php echo $this->url('logout') ?>"><?php echo $this->translate('Logout') ?></a>
 						</li>
 						<?php endif; ?>
 					</ul>
+					<p class="navbar-text navbar-right">
+						<?php echo $this->translate('Angemeldet als').' '.$this->escapeHtml($user->getUserVorname().' '.$user->getUserName()); ?>
+					</p>
 				</div>
 			</div>
 		</div>

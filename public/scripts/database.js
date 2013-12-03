@@ -9,7 +9,6 @@ $(document).ready(function() {
 		var defaultSorting = '';
 		var logoUploaded = '';
 		var formCreatedFunction = function (event, data) {
-			data.form.parent().parent().css('min-width', '400px');
 			data.form.validationEngine();
         };
 		switch (tableName) {
