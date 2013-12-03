@@ -117,4 +117,17 @@ $(document).ready(function() {
 		    complete : function (){}
     	});    	
     };
+    $('#konditionen-bearbeiten').unbind('click').click(function(event){
+    	$('#konditionen-bearbeiten-modal').modal('toggle');
+    });
+    $('#add-kondition').unbind('click').click(function(event){
+    	var rowId = 'kondition-row-' + $('#konditionen-table tbody').find('tr').length +1;
+    	$('#konditionen-table').append('<tr id="' + rowId + '">');
+    	$('#konditionen-table tr:last')
+    								.append('<td>')
+							    	.append('<td>')
+							    	.append('<td>')
+							    	.append('<td>')
+							    	.append('<td>');
+    });
 });

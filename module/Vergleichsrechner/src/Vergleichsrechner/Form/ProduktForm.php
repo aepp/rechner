@@ -61,6 +61,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 		$ktozugriffe = new ObjectMultiCheckbox();
 		$saveChanges = new Element\Button();
 		$discardChanges = new Element\Button();
+		$konditionenBearbeiten = new Element\Button();
 		
 		$kategorie	
 			->setName('kategorie')
@@ -327,6 +328,14 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 					'id' => 'discard-changes'
 			))
 			->setLabelAttributes($labelAttributes);			
+		$konditionenBearbeiten
+			->setName('konditionenBerabeiten')
+			->setLabel('Konditionen bearbeiten')
+			->setAttributes(array(
+					'class' => 'btn btn-default btn-block',
+					'id' => 'konditionen-bearbeiten'
+			))
+			->setLabelAttributes($labelAttributes);		
 		/*
 		 * Setting up the form
 		 */		
@@ -368,6 +377,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 		$this->add($produktInformationen);
 		$this->add($produktUrl);
 		$this->add($produktKlickoutUrl);
+		$this->add($konditionenBearbeiten);
 		$this->add($saveChanges);
 		$this->add($discardChanges);
 // 		$this->setInputFilter($this->createInputFilter());

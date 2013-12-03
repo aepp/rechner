@@ -32,3 +32,66 @@
 	    </div>
 <?php endforeach; ?>
 <?php echo $this->form()->closeTag(); ?>
+
+<!-- Modal -->
+<div class="modal fade" id="konditionen-bearbeiten-modal" tabindex="-1" role="dialog" aria-labelledby="konditionen-bearbeiten-modal-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="konditionen-bearbeiten-modal-label">Konditionen bearbeiten</h4>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table table-condensed table-hover" id="konditionen-table">
+						<thead>
+							<tr>
+								<th>Laufzeit in Monaten</th>
+								<th>Einlage in €<br> von</th>
+								<th>Einlage in €<br> bis</th>
+								<th>Zinssatz</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="kondition-row-1">
+								<td>
+									<input type="text" class="form-control kondition-laufzeit" id="">
+								</td>
+								<td>
+									<input type="text" class="form-control kondition-einlage-von" id="">
+								</td>
+								<td>
+									<input type="text" class="form-control kondition-einlage-bis" id="">
+								</td>
+								<td>
+									<input type="text" class="form-control kondition-zinssatz" id="">
+								</td>
+								<td>
+									<button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+								</td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>
+									<button class="btn btn-success pull-right" id="add-kondition">
+										<span class="glyphicon glyphicon-plus"></span>
+									</button>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+ 				<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+				<button type="button" class="btn btn-primary">Übernehmen</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

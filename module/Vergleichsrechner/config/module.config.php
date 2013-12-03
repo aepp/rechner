@@ -291,10 +291,10 @@ return array(
 						'route' => 'produkt',
 						'pages' => array(
 								array(
-										'label' => 'Produktübersicht',
-										'route' => 'produkt/default',
-										'controller' => 'Produkt',
-										'action' => 'index',
+									'label' => 'Produktübersicht',
+									'route' => 'produkt/default',
+									'controller' => 'Produkt',
+									'action' => 'index',
 								),
 								array(
 									'label' => 'Produkt hinzufügen',
