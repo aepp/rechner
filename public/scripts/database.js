@@ -189,11 +189,17 @@ $(document).ready(function() {
 	            title: 'Bank',
 	            options: 'database/bank/options',
 	            display: function (data) {
-                	var preview =
-                		'<img id="logoPreview" src="uploads/bank-logo/'+data.record.banken[0].bankLogo+'" class="bank-logo-preview"/>'+
-            			'<br/>'+
-            			data.record.banken[0].bankName;
-	                return preview;
+	                var preview =
+	                	'<div>';
+	                if(data.record.banken[0].bankLogo){
+	                	preview +=
+	                		'<img id="logoPreview" src="uploads/bank-logo/'+data.record.banken[0].bankLogo+'" class="bank-logo-preview"/>'+
+	            			'<br/>';
+	            	}
+                	preview +=
+                			data.record.banken[0].bankName +
+	                	'</div>';
+	                return preview;	            	
 	            }
 	        },
 	        aktionStartOn: {
@@ -237,7 +243,20 @@ $(document).ready(function() {
 	            title: 'Logo',
 	            width: '45%',
 	            display: function (data) {
-	                return '<img src="uploads/bank-logo/'+data.record.bankLogo+'" class="bank-logo-preview"/>';
+	                var preview =
+	                	'<div>';
+	                if(data.record.bankLogo){
+	                	preview +=
+		                		'<img src="uploads/bank-logo/'+data.record.bankLogo+'" class="bank-logo-preview"/>';
+
+	            	} else {
+	                	preview +=
+		                		'Kein Logo';
+	            	}
+	                preview += 
+	                	'</div>';
+	                return preview;
+//	                return '<img src="uploads/bank-logo/'+data.record.bankLogo+'" class="bank-logo-preview"/>';
 	            },
 	            input: function (data) {
 	                var preview =
