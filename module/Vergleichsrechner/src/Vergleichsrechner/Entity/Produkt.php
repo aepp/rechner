@@ -4,7 +4,7 @@ namespace Vergleichsrechner\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Form\Annotation;
-use Doctrine\Common\Collections;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Produkt
@@ -212,7 +212,7 @@ class Produkt
     private $produktKlickoutUrl;
 
     /**
-     * @var Collections\Collection
+     * @var ArrayCollection
      * 
      * @ORM\ManyToMany(targetEntity="Kontozugriff")
      * @ORM\JoinTable(name="produkt_kontozugriff",
@@ -221,9 +221,16 @@ class Produkt
      * )
      */
     private $ktozugriffe;
-
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Kondition", mappedBy="produkt")
+     **/
+    private $konditionen;
+    
     public function __construct() {
-    	$this->ktozugriffe  = new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->ktozugriffe  = new ArrayCollection();
+    	$this->konditionen  = new ArrayCollection();
+    	
     }
 
     /**
@@ -814,10 +821,10 @@ class Produkt
     /**
      * Set ktozugriffe
      *
-     * @param Doctrine\Common\Collections\Collection $kontozugriffe
+     * @param ArrayCollection $kontozugriffe
      * @return Produkt
      */
-    public function setKtozugriffe(Doctrine\Common\Collections\Collection $ktozugriffe)
+    public function setKtozugriffe(ArrayCollection $ktozugriffe)
     {
     	$this->ktozugriffe = $ktozugriffe;
     
@@ -827,7 +834,7 @@ class Produkt
     /**
      * Get ktozugriffe
      *
-     * @return Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getKtozugriffe()
     {
@@ -863,4 +870,26 @@ class Produkt
     	}
     	return $this;
     }    
+
+    /**
+     * 
+     * Get konditionen
+     * 
+     * @return ArrayCollection
+     */
+    public function getKonditionen()
+    {
+        return $this->konditionen;
+    }
+
+    /**
+     * 
+     * Set konditionen
+     * 
+     * @param ArrayCollection $konditionen
+     */
+    public function setKonditionen(ArrayCollection $konditionen)
+    {
+        $this->konditionen = $konditionen;
+    }
 }

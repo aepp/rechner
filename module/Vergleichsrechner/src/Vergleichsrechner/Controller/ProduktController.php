@@ -6,6 +6,8 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Vergleichsrechner\Entity\Produkt;
 use Zend\Json\Json;
+use Vergleichsrechner\Entity\Kondition;
+use Zend\Session\Container;
 
 /**
  * ProductController
@@ -96,7 +98,7 @@ class ProduktController extends BaseController
 				'form' => $form,
 				'produktId' => $produktId,
 				'message' => $message,
-				'error' => $error
+				'error' => $error,
 		));	
     }    
     /*
@@ -107,7 +109,9 @@ class ProduktController extends BaseController
     	$request = $this->getRequest();
     	$response = $this->getResponse();
     	$error = false;
-
+    	
+    	$produkt_session = new Container('produkt');
+    	
     	if ($request->isXmlHttpRequest()) {
     		try{
     			$em = $this->getEntityManager();
@@ -192,8 +196,18 @@ class ProduktController extends BaseController
 				$produkt->setZinssatz($zinssatz);
 				
 				$em->persist($produkt);
+				
 				$em->flush();
 				
+				$konditionen = $produkt_session->konditionen;
+
+				if(!empty($konditionen)){
+					foreach ($konditionen as $kondition):
+						$kondition->setProdukt($produkt);
+						$em->persist($kondition);
+					endforeach;
+				}
+				$em->flush();
 				$produktId = $produkt->getProduktId();
 	    		$message = "Änderungen erfolgreich gespeichert!";
 	    		
@@ -263,6 +277,51 @@ class ProduktController extends BaseController
  			'error' => $error,
    			'aktionen' => $options,
     		'aktion' => $produktAktion,
+    	));
+    }
+
+    public function loadKonditionenAction()
+    {
+        return $this->konditionen;
+    }
+
+    public function saveKonditionenAction()
+    {
+    	$message = null;
+    	$error = false;
+    	$produktAktion = null;
+    	$kondition = new Kondition();
+    	$konditionen = array();
+    	
+    	try{
+    		$produktId = $this->params()->fromRoute('produktId');
+    		$konditionenJson = $this->params()->fromPost('konditionen');
+    		if($produktId != null){
+				
+    		}
+
+    		foreach (json_decode($konditionenJson) as $konditionJson):
+    			$kondition = new Kondition();
+    			$kondition->setKonditionLaufzeit($konditionJson->laufzeit);
+    			$kondition->setKonditionEinlageVon($konditionJson->von);
+    			$kondition->setKonditionEinlageBis($konditionJson->bis);
+    			$kondition->setKonditionZinssatz($konditionJson->zinssatz);
+    			
+    			array_push($konditionen, $kondition);
+    		endforeach;
+    		
+    		$produkt_session = new Container('produkt');
+    		$produkt_session->konditionen = $konditionen;   
+    		 		
+    		$message = "Konditionen erfolgreich gespeichert!";
+    	} catch (Exception $e){
+    		$message = $e->getMessage();
+    		$error = true;
+    	}
+    	return new JsonModel(array(
+			'message'=> $message,
+			'produktId' => $produktId,
+ 			'error' => $error,
     	));
     }
 }

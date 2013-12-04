@@ -47,7 +47,8 @@ $(document).ready(function() {
 		},
 	    textExtraction: {
 	        1 : function(node, table, cellIndex){ return $(node).find("span").text(); },
-	    }
+	    },
+	    ignoreCase : false
 	})	
 	.tablesorterPager({
 		container: $(".ts-pager"),

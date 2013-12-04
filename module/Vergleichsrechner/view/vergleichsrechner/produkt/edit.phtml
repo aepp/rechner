@@ -24,9 +24,7 @@
 	        	?>
 	        	<div class="col-sm-3">
 	        		<?php 
-// 	        			if($name == 'produktGueltigSeit') echo $this->formDateSelect($form->get('produktGueltigSeit'), IntlDateFormatter::LONG, 'de_DE');
-// 	        			else 
-	        				echo $this->formElement($element);
+        				echo $this->formElement($element);
         			?>
 	        	</div>
 	    </div>
@@ -42,55 +40,62 @@
 				<h4 class="modal-title" id="konditionen-bearbeiten-modal-label">Konditionen bearbeiten</h4>
 			</div>
 			<div class="modal-body">
-				<div class="table-responsive">
-					<table class="table table-condensed table-hover" id="konditionen-table">
-						<thead>
-							<tr>
-								<th>Laufzeit</th>
-								<th>Einlage von</th>
-								<th>Einlage bis</th>
-								<th>Zinssatz</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<input type="text" class="form-control kondition-laufzeit">
-								</td>
-								<td>
-									<input type="text" class="form-control kondition-einlage-von">
-								</td>
-								<td>
-									<input type="text" class="form-control kondition-einlage-bis">
-								</td>
-								<td>
-									<input type="text" class="form-control kondition-zinssatz">
-								</td>
-								<td>
-									<button class="btn btn-danger" disabled><span class="glyphicon glyphicon-remove"></span></button>
-								</td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<td>in Monaten</td>
-								<td>in €</td>
-								<td>in €</td>
-								<td>in %</td>
-								<td>
-									<button class="btn btn-success pull-right" id="add-kondition">
-										<span class="glyphicon glyphicon-plus"></span>
-									</button>
-								</td>
-							</tr>
-						</tfoot>
-					</table>
-				</div>
+				<form action="" method="post" id="konditionen-modal-form" role="form">
+	            	<div class="alert" id="alert-modal">
+	            		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	            		<div id="alert-modal-message"></div>
+	            	</div>
+					<input type="hidden" value="<?php echo $produktId ?>" class="produktId"/>
+					<div class="table-responsive">
+						<table class="table table-condensed table-hover" id="konditionen-table">
+							<thead>
+								<tr>
+									<th>Laufzeit</th>
+									<th>Einlage von</th>
+									<th>Einlage bis</th>
+									<th>Zinssatz</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<input type="text" class="form-control kondition-laufzeit">
+									</td>
+									<td>
+										<input type="text" class="form-control kondition-einlage-von">
+									</td>
+									<td>
+										<input type="text" class="form-control kondition-einlage-bis">
+									</td>
+									<td>
+										<input type="text" class="form-control kondition-zinssatz">
+									</td>
+									<td>
+										<button type="button" class="btn btn-danger" disabled><span class="glyphicon glyphicon-remove"></span></button>
+									</td>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td>in Monaten</td>
+									<td>in €</td>
+									<td>in €</td>
+									<td>in %</td>
+									<td>
+										<button type="button" class="btn btn-success pull-right" id="add-kondition">
+											<span class="glyphicon glyphicon-plus"></span>
+										</button>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</form>
 			</div>
 			<div class="modal-footer">
  				<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
-				<button type="button" class="btn btn-primary">Übernehmen</button>
+				<button type="button" class="btn btn-primary" id="save-konditionen">Übernehmen</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

@@ -120,6 +120,11 @@ $(document).ready(function() {
     
     $('#konditionen-bearbeiten').unbind('click').click(function(event){
     	$('#konditionen-bearbeiten-modal').modal('toggle');
+    	$('#alert-modal').css('display', 'none');
+    	$('#konditionen-modal-form .has-error').each(function(i, div){
+        	var cnt = $(div).contents();
+        	$(div).replaceWith(cnt);
+    	});
     });
     
     $('#add-kondition').unbind('click').click(function(event){
@@ -142,4 +147,65 @@ $(document).ready(function() {
     $(document).on('click', '.remove-kondition', function(e) {
     	$(this).parent().parent().remove();
 	});    
+    $('#save-konditionen').unbind('click').click(function(event){
+    	var konditionen = new Array();
+        
+    	$('#konditionen-table tbody tr').each(function(i, tr){
+    		konditionen[i]={
+    	        "laufzeit" : $(tr).find('.kondition-laufzeit').val(), 
+    	        "von" :$(tr).find('.kondition-einlage-von').val(),
+    	        "bis" : $(tr).find('.kondition-einlage-bis').val(),
+    	        "zinssatz" : $(tr).find('.kondition-zinssatz').val(),
+    	    };
+    	});  
+    	
+    	var produktId = $('.produktId').val();
+    	var action = produktId == 0 ? 'saveKonditionen' : '../saveKonditionen/'+produktId;    	
+    	var alertClass = 'alert-success';
+    	var message = "Es ist ein Fehler augetretten!";
+    	var validation = true;
+    	
+    	$('#konditionen-modal-form input').each(function(i, input){
+    		if(!$(input).val()) {
+    			$(input).wrap($('<div>').addClass('has-error'));
+    			validation = false;
+    		}
+    	});
+    	if(validation){
+	    	$.ajax({ 
+	    		type : 'POST',
+			    url : action,
+			    data : {konditionen : JSON.stringify(konditionen)},
+			    success : function (response){
+			    	if(response.error){ 
+			    		alertClass = 'alert-danger';
+		    		}
+			    	message = response.message;
+			    },
+			    error : function (response){
+			    	alertClass = 'alert-danger';
+			    },
+			    complete : function (){
+			    	$('#alert-modal')
+			    		.css('display', 'block')
+			    		.removeClass()
+			    		.addClass('alert alert-dismissable')
+			    		.addClass(alertClass)
+			    		.find("#alert-modal-message")
+			    		.text(message);
+			    }
+	    	});    	
+    	} else {
+    		alertClass = 'alert-danger';
+    		message = 'Die markierten Felder müssen gefüllt sein!';
+	    	$('#alert-modal')
+	    		.css('display', 'block')
+	    		.removeClass()
+	    		.addClass('alert alert-dismissable')
+	    		.addClass(alertClass)
+	    		.find("#alert-modal-message")
+	    		.text(message);
+    	}
+//    	alert(JSON.stringify(konditionen));
+    });
 });

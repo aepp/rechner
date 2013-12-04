@@ -15,14 +15,17 @@ $(document).ready(function() {
 		    case "aktion":
 		    	tableFields = getFields_aktion();
 		    	defaultSorting = 'aktionId ASC';
+		    	formCreatedFunction = function (event, data){
+		    		data.form.validationEngine();
+					$('#Edit-banken').val(data.record.banken[0].bankId);
+		    	};		    	
 		        break;
 		    case "bank":
 		    	tableFields = getFields_bank();
 		    	defaultSorting = 'bankId ASC';
 		    	formCreatedFunction = function (event, data){
-		    		data.form.parent().parent().css('min-width', '400px');
 		    		data.form.validationEngine();
-					$('#Edit-banken').val(data.record.banken[0].bankId);
+//					$('#Edit-banken').val(data.record.banken[0].bankId);
 		            $("#logoUpload").uploadify({
 		                height: 35,
 		                width: 183,
