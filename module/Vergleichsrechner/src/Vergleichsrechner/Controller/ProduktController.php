@@ -223,6 +223,7 @@ class ProduktController extends BaseController
 				$em->flush();
 				$produktId = $produkt->getProduktId();
 	    		$message = "Änderungen erfolgreich gespeichert!";
+// $message = $produktHasOnlineAbschluss;
 	    		
     		} catch (Exception $e){
     			$message = $e->getMessage();

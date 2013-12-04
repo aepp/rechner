@@ -22,11 +22,13 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 							'label' =>'Ja', 
 							'label_attributes' => array('class' => ''),
 							'1' => 'Ja',
+							'value' => 1
 					), 
 					array(
 							'label' =>'Nein', 
 							'label_attributes' => array('class' => ''),
 							'0' => 'Nein',
+							'value' => 0
 					),
 		);
 		$labelAttributes = array('class' => 'col-sm-3 control-label');

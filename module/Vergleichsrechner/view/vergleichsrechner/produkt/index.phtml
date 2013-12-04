@@ -48,12 +48,14 @@
 					</td>
 					<td>	
 						<?php if($produkt->getBank()->getBankLogo()):?>
-							<img 
-								alt="<?php echo $produkt->getBank()->getBankName() ?>" 
-								src="uploads/bank-logo/<?php echo $produkt->getBank()->getBankLogo() ?>"
-								class="bank-logo-preview"
-								id="produkt-bank-logo-<?php echo $produkt->getProduktId(); ?>"
-							/>
+<!-- 							<div class="bank-logo-preview-div"> -->
+								<img 
+									alt="<?php echo $produkt->getBank()->getBankName() ?>" 
+									src="uploads/bank-logo/<?php echo $produkt->getBank()->getBankLogo() ?>"
+									id="produkt-bank-logo-<?php echo $produkt->getProduktId(); ?>"
+									class="bank-logo-preview"
+								/>
+<!-- 							</div> -->
 						<?php endif; ?>
 						<br/>
 						<span id="produkt-bank-name-<?php echo $produkt->getProduktId(); ?>"><?php echo $produkt->getBank()->getBankName() ?></span>
