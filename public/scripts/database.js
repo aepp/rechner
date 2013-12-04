@@ -67,9 +67,10 @@ $(document).ready(function() {
 		    	};
 		        break;
 		    case "bewertung":
-		    	tableFields = getFields_bewertung();
-		    	defaultSorting = 'bewertungId ASC';
-		        break;
+//		    	tableFields = getFields_bewertung();
+//		    	defaultSorting = 'bewertungId ASC';
+//		        break;
+		    	return;
 		    case "einlagensicherungLand":
 		    	tableFields = getFields_einlagensicherungLand();
 		    	defaultSorting = 'einlagensicherungLandId ASC';
@@ -91,9 +92,10 @@ $(document).ready(function() {
 		    	defaultSorting = 'produktartId ASC';
 		        break;
 		    case "testbericht":
-		    	tableFields = getFields_testbericht();
-		    	defaultSorting = 'testberichtId ASC';
-		        break;
+//		    	tableFields = getFields_testbericht();
+//		    	defaultSorting = 'testberichtId ASC';
+//		        break;
+		    	return;
 			case "user":
 		    	tableFields = getFields_user();
 		    	defaultSorting = 'userId ASC';
@@ -440,5 +442,5 @@ $(document).ready(function() {
 	        },
     	};
     	return fields;
-    }     
+    }   
 });
