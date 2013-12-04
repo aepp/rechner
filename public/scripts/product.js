@@ -102,7 +102,8 @@ $(document).ready(function() {
 		     				.text(aktion.aktionName)); 
 	    			});
 	    			if(response.aktion){
-	    				$('#aktion').val(response.aktion.aktionId);
+	    				if($('#aktion option[value="' + response.aktion.aktionId + '"]').length > 0) 
+	    					$('#aktion').val(response.aktion.aktionId);
 	    			} 
 	    		}
 		    },
@@ -119,30 +120,70 @@ $(document).ready(function() {
     };
     
     $('#konditionen-bearbeiten').unbind('click').click(function(event){
+    	var produktId = $('.produktId').val();
     	$('#konditionen-bearbeiten-modal').modal('toggle');
     	$('#alert-modal').css('display', 'none');
     	$('#konditionen-modal-form .has-error').each(function(i, div){
         	var cnt = $(div).contents();
         	$(div).replaceWith(cnt);
     	});
+    	
+    	var message = "Es ist ein Fehler augetretten!";
+    	if($('#konditionen-table tbody tr').length == 0){
+	    	if(produktId){
+		    	$.ajax({ 
+		    		type : 'POST',
+				    url : '../loadKonditionen/'+produktId,
+				    success : function (response){
+				    	if(response.error){ 
+				    		alertClass = 'alert-danger';
+			    		} else {
+			    			var row;
+			    			$.each(response.konditionen, function(i, kondition) { 
+			    	        	$('#konditionen-table').append('<tr>');
+			    	        	row = $('#konditionen-table tbody tr:last')
+			    	        								.append('<td>')
+			    	    							    	.append('<td>')
+			    	    							    	.append('<td>')
+			    	    							    	.append('<td>')
+			    	    							    	.append('<td>');
+			    	        	var span = $('<span />', {
+			    	        		"class" : 'glyphicon glyphicon-remove'  
+			    	        	});  
+			    	        	$('<input type="text" />').addClass('form-control kondition-laufzeit').val(kondition.konditionLaufzeit).appendTo(row.find('td').eq(0));
+			    	        	$('<input type="text" />').addClass('form-control kondition-einlage-von').val(kondition.konditionEinlageVon).appendTo(row.find('td').eq(1));    	
+			    	        	$('<input type="text" />').addClass('form-control kondition-einlage-bis').val(kondition.konditionEinlageBis).appendTo(row.find('td').eq(2));
+			    	        	$('<input type="text" />').addClass('form-control kondition-zinssatz').val(kondition.konditionZinssatz).appendTo(row.find('td').eq(3));    
+			    	        	$('<button type="button" />').addClass('btn btn-danger remove-kondition').append(span).appendTo(row.find('td').eq(4));  		    				
+			    			});
+			    		}
+				    	message = response.message;
+				    },
+				    error : function (response){
+				    	alertClass = 'alert-danger';
+				    	$('#alert-modal')
+				    		.css('display', 'block')
+				    		.removeClass()
+				    		.addClass('alert alert-dismissable')
+				    		.addClass(alertClass)
+				    		.find("#alert-modal-message")
+				    		.text(message);
+				    }, 
+				    complete : function(){
+				    	$('.progress').hide();
+//				    	if($('#konditionen-table tbody tr').length == 0){
+//				    		add_empty_kondition_row();
+//				    	}
+				    }
+		    	});  
+	    	} else {
+//    			add_empty_kondition_row();
+	    	}
+    	}
     });
     
     $('#add-kondition').unbind('click').click(function(event){
-    	$('#konditionen-table').append('<tr>');
-    	var row = $('#konditionen-table tbody tr:last')
-    								.append('<td>')
-							    	.append('<td>')
-							    	.append('<td>')
-							    	.append('<td>')
-							    	.append('<td>');
-    	var span = $('<span />', {
-    		"class" : 'glyphicon glyphicon-remove'  
-    	});  
-    	$('<input type="text" />').addClass('form-control kondition-laufzeit').appendTo(row.find('td').eq(0));
-    	$('<input type="text" />').addClass('form-control kondition-einlage-von').appendTo(row.find('td').eq(1));    	
-    	$('<input type="text" />').addClass('form-control kondition-einlage-bis').appendTo(row.find('td').eq(2));
-    	$('<input type="text" />').addClass('form-control kondition-zinssatz').appendTo(row.find('td').eq(3));    
-    	$('<button type="button" />').addClass('btn btn-danger remove-kondition').append(span).appendTo(row.find('td').eq(4));  
+    	add_empty_kondition_row();
     });
     $(document).on('click', '.remove-kondition', function(e) {
     	$(this).parent().parent().remove();
@@ -208,4 +249,22 @@ $(document).ready(function() {
     	}
 //    	alert(JSON.stringify(konditionen));
     });
+    
+    function add_empty_kondition_row(){
+    	$('#konditionen-table').append('<tr>');
+    	var row = $('#konditionen-table tbody tr:last')
+    								.append('<td>')
+							    	.append('<td>')
+							    	.append('<td>')
+							    	.append('<td>')
+							    	.append('<td>');
+    	var span = $('<span />', {
+    		"class" : 'glyphicon glyphicon-remove'  
+    	});  
+    	$('<input type="text" />').addClass('form-control kondition-laufzeit').appendTo(row.find('td').eq(0));
+    	$('<input type="text" />').addClass('form-control kondition-einlage-von').appendTo(row.find('td').eq(1));    	
+    	$('<input type="text" />').addClass('form-control kondition-einlage-bis').appendTo(row.find('td').eq(2));
+    	$('<input type="text" />').addClass('form-control kondition-zinssatz').appendTo(row.find('td').eq(3));    
+    	$('<button type="button" />').addClass('btn btn-danger remove-kondition').append(span).appendTo(row.find('td').eq(4));  
+    }
 });

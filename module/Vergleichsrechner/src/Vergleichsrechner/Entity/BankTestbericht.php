@@ -19,7 +19,7 @@ class BankTestbericht
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $bankId;
+    protected $bankId;
 
     /**
      * @var integer
@@ -28,7 +28,7 @@ class BankTestbericht
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $testberichtId;
+    protected $testberichtId;
 
 
 

@@ -263,7 +263,7 @@ $(document).ready(function() {
 	            input: function (data) {
 	                var preview =
 	                	'<div>';
-	                if(data.record){
+	                if(data.record.bankLogo){
 	                	preview +=
 		                		'<img id="logoPreview" src="uploads/bank-logo/'+data.record.bankLogo+'" class="bank-logo-preview"/>'+
 	                			'<br/>'+

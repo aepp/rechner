@@ -22,14 +22,14 @@ class Zinssatz
 	* @ORM\Id
 	* @ORM\GeneratedValue(strategy="IDENTITY")
 	*/
-    private $zinssatzId;
+    protected $zinssatzId;
 
     /**
 	* @var string
 	*
 	* @ORM\Column(name="zinssatz_name", type="string", length=100, nullable=true)
 	*/
-    private $zinssatzName;
+    protected $zinssatzName;
 
 
 

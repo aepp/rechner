@@ -202,10 +202,23 @@ class ProduktController extends BaseController
 				$konditionen = $produkt_session->konditionen;
 
 				if(!empty($konditionen)){
-					foreach ($konditionen as $kondition):
-						$kondition->setProdukt($produkt);
-						$em->persist($kondition);
-					endforeach;
+					if($produktId){
+						$konditionenOld = $produkt->getKonditionen();
+						if($konditionenOld != $konditionen){
+							foreach ($konditionenOld as $konditionOld):
+								$em->remove($konditionOld);
+							endforeach;		
+							foreach ($konditionen as $kondition):
+								$kondition->setProdukt($produkt);
+								$em->persist($kondition);
+							endforeach;
+						}				
+					} else {
+						foreach ($konditionen as $kondition):
+							$kondition->setProdukt($produkt);
+							$em->persist($kondition);
+						endforeach;
+					}
 				}
 				$em->flush();
 				$produktId = $produkt->getProduktId();
@@ -282,14 +295,44 @@ class ProduktController extends BaseController
 
     public function loadKonditionenAction()
     {
-        return $this->konditionen;
+    	$message = null;
+    	$error = false;
+    	$konditionen = array();
+    	$konditionenJson = array();
+    	
+    	try{
+    		$produktId = $this->params()->fromRoute('produktId');
+    		if(!$produktId){
+    			return new JsonModel(array(
+    					'message'=> 'Fehler: Keine ProduktID übermittelt',
+    					'error' => true,
+    			));
+    		}
+			$em = $this->getEntityManager();
+			$produkt = $em->getRepository('Vergleichsrechner\Entity\Produkt')->find($produktId);
+			$konditionen = $produkt->getKonditionen();
+			
+    		foreach ($konditionen as $kondition){
+    			array_push($konditionenJson, $kondition->jsonSerialize());
+    		}
+
+    		$message = "Konditionen erfolgreich geladen!";
+    	} catch (Exception $e){
+    		$message = $e->getMessage();
+    		$error = true;
+    	}
+    	return new JsonModel(array(
+			'message'=> $message,
+			'produktId' => $produktId,
+ 			'error' => $error,
+    		'konditionen' => $konditionenJson,
+    	));
     }
 
     public function saveKonditionenAction()
     {
     	$message = null;
     	$error = false;
-    	$produktAktion = null;
     	$kondition = new Kondition();
     	$konditionen = array();
     	

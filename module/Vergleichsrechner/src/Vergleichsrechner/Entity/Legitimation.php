@@ -22,14 +22,14 @@ class Legitimation
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $legitimationId;
+    protected $legitimationId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="legitimation_name", type="string", length=100, nullable=true)
      */
-    private $legitimationName;
+    protected $legitimationName;
 
 
 

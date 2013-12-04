@@ -22,28 +22,28 @@ class Bank
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $bankId;
+    protected $bankId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="bank_name", type="string", length=100, nullable=true)
      */
-    private $bankName;
+    protected $bankName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="bank_logo", type="string", length=255, nullable=true)
      */
-    private $bankLogo;
+    protected $bankLogo;
 
     /**
      * @var Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Aktion", mappedBy="banken")
      **/
-    private $aktionen;
+    protected $aktionen;
     
     public function __construct() {
     	$this->aktionen = new \Doctrine\Common\Collections\ArrayCollection();

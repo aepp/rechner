@@ -22,14 +22,14 @@ class Produktart
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $produktartId;
+    protected $produktartId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="produktart_name", type="string", length=100, nullable=true)
      */
-    private $produktartName;
+    protected $produktartName;
 
 
 

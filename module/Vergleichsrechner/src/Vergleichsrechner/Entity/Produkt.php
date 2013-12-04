@@ -23,7 +23,7 @@ class Produkt
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $produktId;
+    protected $produktId;
 
     /**
      * @var Kategorie
@@ -31,7 +31,7 @@ class Produkt
      * @ORM\ManyToOne(targetEntity="Kategorie")
      * @ORM\JoinColumn(name="kategorie_id", referencedColumnName="kategorie_id")
      */
-    private $kategorie;
+    protected $kategorie;
 
     /**
      * @var Produktart
@@ -39,14 +39,14 @@ class Produkt
      * @ORM\ManyToOne(targetEntity="Produktart")
      * @ORM\JoinColumn(name="produktart_id", referencedColumnName="produktart_id")
      */
-    private $produktart;
+    protected $produktart;
 
     /**
      * @var string
      *
      * @ORM\Column(name="produkt_name", type="string", length=255, nullable=false)
      */
-    private $produktName;
+    protected $produktName;
 
     /**
      * @var Bank
@@ -54,14 +54,14 @@ class Produkt
      * @ORM\ManyToOne(targetEntity="Bank")
      * @ORM\JoinColumn(name="bank_id", referencedColumnName="bank_id")
      */
-    private $bank;
+    protected $bank;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="produkt_has_online_abschluss", type="boolean", nullable=false)
      */
-    private $produktHasOnlineAbschluss;
+    protected $produktHasOnlineAbschluss;
     
     /**
      * @var Zinssatz
@@ -69,28 +69,28 @@ class Produkt
      * @ORM\ManyToOne(targetEntity="Zinssatz")
      * @ORM\JoinColumn(name="zinssatz_id", referencedColumnName="zinssatz_id")
      */
-    private $zinssatz;
+    protected $zinssatz;
     
     /**
      * @var float
      *
      * @ORM\Column(name="produkt_mindestanlage", type="float", precision=10, scale=0, nullable=true)
      */
-    private $produktMindestanlage;
+    protected $produktMindestanlage;
 
     /**
      * @var float
      *
      * @ORM\Column(name="produkt_hoechstanlage", type="float", precision=10, scale=0, nullable=true)
      */
-    private $produktHoechstanlage;
+    protected $produktHoechstanlage;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="produkt_has_gesetzl_einlagvers", type="boolean", nullable=false)
      */
-    private $produktHasGesetzlEinlagvers;
+    protected $produktHasGesetzlEinlagvers;
 
     /**
      * @var EinlagensicherungLand
@@ -98,7 +98,7 @@ class Produkt
      * @ORM\ManyToOne(targetEntity="EinlagensicherungLand")
      * @ORM\JoinColumn(name="einlagensicherung_land_id", referencedColumnName="einlagensicherung_land_id")
      */
-    private $einlagensicherungLand;
+    protected $einlagensicherungLand;
 
     /**
      * @var Aktion
@@ -106,14 +106,14 @@ class Produkt
      * @ORM\ManyToOne(targetEntity="Aktion")
      * @ORM\JoinColumn(name="aktion_id", referencedColumnName="aktion_id")
      */
-    private $aktion;
+    protected $aktion;
 
     /**
      * @var float
      *
      * @ORM\Column(name="produkt_ktofuehr_kost", type="float", precision=10, scale=0, nullable=true)
      */
-    private $produktKtofuehrKost;
+    protected $produktKtofuehrKost;
 
     /**
      * @var Zeitabschnitt
@@ -121,7 +121,7 @@ class Produkt
      * @ORM\ManyToOne(targetEntity="Zeitabschnitt")
      * @ORM\JoinColumn(name="produkt_ktofuehr_kost_fllg", referencedColumnName="zeitabschnitt_id")
      */
-    private $produktKtofuehrKostFllg;
+    protected $produktKtofuehrKostFllg;
 
     /**
      * @var Zeitabschnitt
@@ -129,7 +129,7 @@ class Produkt
      * @ORM\ManyToOne(targetEntity="Zeitabschnitt")
      * @ORM\JoinColumn(name="produkt_zinsgutschrift", referencedColumnName="zeitabschnitt_id")
      */
-    private $produktZinsgutschrift;
+    protected $produktZinsgutschrift;
 
     /**
      * @var Zeitabschnitt
@@ -137,7 +137,7 @@ class Produkt
      * @ORM\ManyToOne(targetEntity="Zeitabschnitt")
      * @ORM\JoinColumn(name="produkt_verfuegbarkeit", referencedColumnName="zeitabschnitt_id")
      */
-    private $produktVerfuegbarkeit;
+    protected $produktVerfuegbarkeit;
 
     /**
      * @var Zeitabschnitt
@@ -145,14 +145,14 @@ class Produkt
      * @ORM\ManyToOne(targetEntity="Zeitabschnitt")
      * @ORM\JoinColumn(name="produkt_kuendbarkeit", referencedColumnName="zeitabschnitt_id")
      */
-    private $produktKuendbarkeit;
+    protected $produktKuendbarkeit;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="produkt_has_online_banking", type="boolean", nullable=false)
      */
-    private $produktHasOnlineBanking;
+    protected $produktHasOnlineBanking;
 
     /**
      * @var Legitimation
@@ -160,56 +160,56 @@ class Produkt
      * @ORM\ManyToOne(targetEntity="Legitimation")
      * @ORM\JoinColumn(name="legitimation_id", referencedColumnName="legitimation_id")
      */
-    private $legitimation;
+    protected $legitimation;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="produkt_has_altersbeschraenkung", type="boolean", nullable=false)
      */
-    private $produktHasAltersbeschraenkung;
+    protected $produktHasAltersbeschraenkung;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="produkt_gueltig_seit", type="datetime", nullable=true)
      */
-    private $produktGueltigSeit;
+    protected $produktGueltigSeit;
 
     /**
      * @var float
      *
      * @ORM\Column(name="produkt_check", type="float", precision=10, scale=0, nullable=true)
      */
-    private $produktCheck;
+    protected $produktCheck;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="produkt_tipp", type="boolean", nullable=true)
      */
-    private $produktTipp;
+    protected $produktTipp;
 
     /**
      * @var string
      *
      * @ORM\Column(name="produkt_informationen", type="text", nullable=true)
      */
-    private $produktInformationen;
+    protected $produktInformationen;
 
     /**
      * @var string
      *
      * @ORM\Column(name="produkt_url", type="text", nullable=false)
      */
-    private $produktUrl;
+    protected $produktUrl;
 
     /**
      * @var string
      *
      * @ORM\Column(name="produkt_klickout_url", type="text", nullable=false)
      */
-    private $produktKlickoutUrl;
+    protected $produktKlickoutUrl;
 
     /**
      * @var ArrayCollection
@@ -220,12 +220,12 @@ class Produkt
      *         inverseJoinColumns={@ORM\JoinColumn(name="kontozugriff_id", referencedColumnName="kontozugriff_id", onDelete="CASCADE")}
      * )
      */
-    private $ktozugriffe;
+    protected $ktozugriffe;
     
     /**
      * @ORM\OneToMany(targetEntity="Kondition", mappedBy="produkt")
      **/
-    private $konditionen;
+    protected $konditionen;
     
     public function __construct() {
     	$this->ktozugriffe  = new ArrayCollection();

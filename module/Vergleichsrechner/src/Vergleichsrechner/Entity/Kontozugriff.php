@@ -23,21 +23,21 @@ class Kontozugriff
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $kontozugriffId;
+    protected $kontozugriffId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="kontozugriff_name", type="string", length=100, nullable=true)
      */
-    private $kontozugriffName;
+    protected $kontozugriffName;
 
     /**
      * @var Collections\Collection
      * 
      * @ORM\ManyToMany(targetEntity="Produkt", mappedBy="ktozugriffe")
      **/
-    private $produkte;
+    protected $produkte;
 
     public function __construct() {
     	$this->produkte = new \Doctrine\Common\Collections\ArrayCollection();

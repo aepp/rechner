@@ -22,21 +22,21 @@ class Testbericht
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $testberichtId;
+    protected $testberichtId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="testbericht_text", type="text", nullable=true)
      */
-    private $testberichtText;
+    protected $testberichtText;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="testbericht_datum", type="datetime", nullable=true)
      */
-    private $testberichtDatum;
+    protected $testberichtDatum;
 
 
 

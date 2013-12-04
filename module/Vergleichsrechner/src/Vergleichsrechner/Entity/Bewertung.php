@@ -20,49 +20,49 @@ class Bewertung
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $bewertungId;
+    protected $bewertungId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="bewertung_text", type="text", nullable=true)
      */
-    private $bewertungText;
+    protected $bewertungText;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="bewertung_datum", type="datetime", nullable=true)
      */
-    private $bewertungDatum;
+    protected $bewertungDatum;
 
     /**
      * @var string
      *
      * @ORM\Column(name="bewertung_verfasser", type="string", length=100, nullable=true)
      */
-    private $bewertungVerfasser;
+    protected $bewertungVerfasser;
 
     /**
      * @var string
      *
      * @ORM\Column(name="bewertung_verfasser_email", type="string", length=100, nullable=true)
      */
-    private $bewertungVerfasserEmail;
+    protected $bewertungVerfasserEmail;
 
     /**
      * @var float
      *
      * @ORM\Column(name="bewertung_note", type="float", precision=10, scale=0, nullable=true)
      */
-    private $bewertungNote;
+    protected $bewertungNote;
 
     /**
      * @var string
      *
      * @ORM\Column(name="bewertung_url", type="text", nullable=true)
      */
-    private $bewertungUrl;
+    protected $bewertungUrl;
     
 
     /**

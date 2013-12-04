@@ -22,21 +22,21 @@ class Zeitabschnitt
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $zeitabschnittId;
+    protected $zeitabschnittId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="zeitabschnitt_name", type="string", length=100, nullable=false)
      */
-    private $zeitabschnittName;
+    protected $zeitabschnittName;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="zeitabschnitt_anz_tage", type="integer", nullable=true)
      */
-    private $zeitabschnittAnzTage;
+    protected $zeitabschnittAnzTage;
 
 
 

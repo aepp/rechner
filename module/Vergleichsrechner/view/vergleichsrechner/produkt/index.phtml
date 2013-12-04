@@ -26,11 +26,12 @@
 		<thead>
 			<tr>
 				<th></th>
+				<th class="filter-select" data-placeholder="Suche nach Anbieter...">Anbieter</th>
+				<th class="filter-select" data-placeholder="Suche nach Produktart...">Produktart</th>
 				<th data-placeholder="Suche nach Produktnamen...">Produktname</th>
-				<th class="filter-select" data-placeholder="Suche nach Kategorie...">Kategorie</th>
-				<th class="filter-select" data-placeholder="Suche nach Bank...">Bank</th>
-				<th>Tipp</th>
-				<th>Klickout-URL</th>
+				<th class="filter-select" data-placeholder="Aktion?">Aktion</th>
+				<th class="filter-select" data-placeholder="Tipp?">Tipp</th>
+				<th>URLs</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -45,35 +46,59 @@
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
 					</td>
-					<td>
-						<span id="produkt-name-<?php echo $produkt->getProduktId(); ?>"><?php echo $produkt->getProduktName(); ?></span>
-						<div>
-							Produkt-URL: <a href="<?php echo $produkt->getProduktUrl() ?>">
-											<?php echo $produkt->getProduktUrl() ?>
-										</a>
-						</div>
-					</td>				
-					<td>
-						<span id="produkt-kategorie-<?php echo $produkt->getProduktId(); ?>"><?php echo $produkt->getKategorie()->getKategorieName() ?></span>
-					</td>				
 					<td>	
-						<img 
-							alt="<?php echo $produkt->getBank()->getBankName() ?>" 
-							src="uploads/bank-logo/<?php echo $produkt->getBank()->getBankLogo() ?>"
-							class="bank-logo-preview"
-							id="produkt-bank-logo-<?php echo $produkt->getProduktId(); ?>"
-						/>
+						<?php if($produkt->getBank()->getBankLogo()):?>
+							<img 
+								alt="<?php echo $produkt->getBank()->getBankName() ?>" 
+								src="uploads/bank-logo/<?php echo $produkt->getBank()->getBankLogo() ?>"
+								class="bank-logo-preview"
+								id="produkt-bank-logo-<?php echo $produkt->getProduktId(); ?>"
+							/>
+						<?php endif; ?>
 						<br/>
 						<span id="produkt-bank-name-<?php echo $produkt->getProduktId(); ?>"><?php echo $produkt->getBank()->getBankName() ?></span>
-					</td>				
+					</td>
+					<td>
+						<span id="produkt-produktart-<?php echo $produkt->getProduktId(); ?>"><?php echo $produkt->getProduktart()->getProduktartName() ?></span>
+					</td>	
+					<td>
+						<span id="produkt-name-<?php echo $produkt->getProduktId(); ?>"><?php echo $produkt->getProduktName(); ?></span>
+					</td>	
+					<td>
+						<?php if($produkt->getAktion() != null): ?>
+							<span class="glyphicon glyphicon-ok">
+								<span class="mit"></span>
+							</span>
+						<?php else: ?>
+							<span class="glyphicon glyphicon-remove">
+								<span class="ohne"></span>
+							</span>
+						<?php endif; ?>
+					</td>								
 					<td>
 						<?php if($produkt->getProduktTipp()): ?>
-							<span class="glyphicon glyphicon-ok"></span>
+							<span class="glyphicon glyphicon-ok">
+								<span class="mit"></span>
+							</span>
 						<?php else: ?>
-							<span class="glyphicon glyphicon-remove"></span>
+							<span class="glyphicon glyphicon-remove">
+								<span class="ohne"></span>
+							</span>
 						<?php endif; ?>
 					</td>				
-					<td><?php echo $produkt->getProduktKlickoutUrl() ?></td>	
+					<td>
+						<div>
+							Produkt-URL: <br>
+							<a href="<?php echo $produkt->getProduktUrl() ?>">
+								<?php echo $produkt->getProduktUrl() ?>
+							</a>
+							<br>
+							Klickout-URL: <br>
+							<a href="<?php echo $produkt->getProduktKlickoutUrl() ?>">
+								<?php echo $produkt->getProduktKlickoutUrl() ?>
+							</a>
+						</div>
+					</td>	
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

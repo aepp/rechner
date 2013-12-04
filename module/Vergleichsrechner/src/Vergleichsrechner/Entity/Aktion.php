@@ -22,42 +22,42 @@ class Aktion
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $aktionId;
+    protected $aktionId;
     
     /**
      * @var string
      *
      * @ORM\Column(name="aktion_name", type="text", nullable=false)
      */
-    private $aktionName;
+    protected $aktionName;
     
     /**
      * @var string
      *
      * @ORM\Column(name="aktion_beschreibung", type="text", nullable=true)
      */
-    private $aktionBeschreibung;
+    protected $aktionBeschreibung;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="aktion_start_on", type="datetime", nullable=true)
      */
-    private $aktionStartOn;
+    protected $aktionStartOn;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="aktion_ende_on", type="datetime", nullable=true)
      */
-    private $aktionEndeOn;
+    protected $aktionEndeOn;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="aktion_is_zuende", type="boolean", nullable=true)
      */
-    private $aktionIsZuende;
+    protected $aktionIsZuende;
 
     /**
      * @var Collections\Collection
@@ -68,7 +68,7 @@ class Aktion
      *         inverseJoinColumns={@ORM\JoinColumn(name="bank_id", referencedColumnName="bank_id", onDelete="CASCADE")}
      * )
      */
-    private $banken;
+    protected $banken;
     
     public function __construct() {
     	$this->banken  = new \Doctrine\Common\Collections\ArrayCollection();

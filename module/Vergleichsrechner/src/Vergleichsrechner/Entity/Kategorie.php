@@ -22,14 +22,14 @@ class Kategorie
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $kategorieId;
+    protected $kategorieId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="kategorie_name", type="string", length=100, nullable=true)
      */
-    private $kategorieName;
+    protected $kategorieName;
 
 
 

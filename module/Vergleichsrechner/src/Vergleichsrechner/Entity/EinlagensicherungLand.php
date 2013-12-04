@@ -22,14 +22,14 @@ class EinlagensicherungLand
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $einlagensicherungLandId;
+    protected $einlagensicherungLandId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="einlagensicherung_land_name", type="string", length=100, nullable=true)
      */
-    private $einlagensicherungLandName;
+    protected $einlagensicherungLandName;
 
 
 

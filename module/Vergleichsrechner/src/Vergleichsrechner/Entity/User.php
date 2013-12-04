@@ -22,7 +22,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $userId;
+    protected $userId;
 
     /**
      * @var string
@@ -31,7 +31,7 @@ class User
      * @Annotation\Type("Zend\Form\Element\Email")
 	 * @Annotation\Options({"label":"Email:"})
 	 */
-    private $userEmail;
+    protected $userEmail;
 
     /**
      * @var string
@@ -40,27 +40,27 @@ class User
      * @Annotation\Attributes({"type":"password"})
 	 * @Annotation\Options({"label":"Password:"})        
 	 */
-    private $userPassword;
+    protected $userPassword;
 
     /**
      * @var string
      *
      * @ORM\Column(name="user_salt", type="text", nullable=false)
      */
-    private $userSalt;
+    protected $userSalt;
 
     /**
      * @var string
      *
      * @ORM\Column(name="user_vorname", type="string", length=100, nullable=true)
      */
-    private $userVorname;
+    protected $userVorname;
     /**
      * @var string
      *
      * @ORM\Column(name="user_name", type="string", length=100, nullable=true)
      */
-    private $userName;
+    protected $userName;
     /**
      * Get userId
      *

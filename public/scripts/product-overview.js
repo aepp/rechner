@@ -36,17 +36,15 @@ $(document).ready(function() {
 				sorter : false,
 				filter : false
 			},
-			4 : {
+			6 : {
 				sorter : false,
 				filter : false
 			},
-			5 : {
-				sorter : false,
-				filter : false
-			} 
 		},
 	    textExtraction: {
-	        1 : function(node, table, cellIndex){ return $(node).find("span").text(); },
+	        1 : function(node, table, cellIndex){ return $(node).find('span').text(); },
+	        4 : function(node, table, cellIndex){ return $(node).find('span').find('span').attr('class'); },
+	        5 : function(node, table, cellIndex){ return $(node).find('span').find('span').attr('class'); },
 	    },
 	    ignoreCase : false
 	})	
