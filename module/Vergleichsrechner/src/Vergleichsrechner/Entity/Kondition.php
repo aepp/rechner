@@ -57,7 +57,7 @@ class Kondition
      * @var Produkt
      * 
      * @ORM\ManyToOne(targetEntity="Produkt", inversedBy="konditionen")
-     * @ORM\JoinColumn(name="produkt_id", referencedColumnName="produkt_id", nullable=false)
+     * @ORM\JoinColumn(name="produkt_id", referencedColumnName="produkt_id", nullable=true)
      **/
     protected $produkt;
     

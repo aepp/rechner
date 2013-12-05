@@ -29,6 +29,14 @@ $(document).ready(function() {
 	    	autoclose: 'true',
 	    	minView: '2'
     });
+    $('#produkt-form').find(':input').each(function(i, elem) {
+        var input = $(elem);
+        var state = input.attr('checked') == undefined ? false : input.attr('checked');
+        input.data({
+        	'initialValue' : input.val(),
+        	'initialState' : state
+        });
+   });
 //    $('#produktGueltigSeit').parent().append('<span class="input-group-addon glyphicon glyphicon-th"></span>');
     if($('#bank').val()){
     	load_aktionen($('#bank').val());
@@ -150,10 +158,10 @@ $(document).ready(function() {
 			    	        	var span = $('<span />', {
 			    	        		"class" : 'glyphicon glyphicon-remove'  
 			    	        	});  
-			    	        	$('<input type="text" />').addClass('form-control kondition-laufzeit').val(kondition.konditionLaufzeit).appendTo(row.find('td').eq(0));
-			    	        	$('<input type="text" />').addClass('form-control kondition-einlage-von').val(kondition.konditionEinlageVon).appendTo(row.find('td').eq(1));    	
-			    	        	$('<input type="text" />').addClass('form-control kondition-einlage-bis').val(kondition.konditionEinlageBis).appendTo(row.find('td').eq(2));
-			    	        	$('<input type="text" />').addClass('form-control kondition-zinssatz').val(kondition.konditionZinssatz).appendTo(row.find('td').eq(3));    
+			    	        	$('<input type="text" />').addClass('form-control kondition-laufzeit kondition-input').val(kondition.konditionLaufzeit).appendTo(row.find('td').eq(0));
+			    	        	$('<input type="text" />').addClass('form-control kondition-einlage-von kondition-input').val(kondition.konditionEinlageVon).appendTo(row.find('td').eq(1));    	
+			    	        	$('<input type="text" />').addClass('form-control kondition-einlage-bis kondition-input').val(kondition.konditionEinlageBis).appendTo(row.find('td').eq(2));
+			    	        	$('<input type="text" />').addClass('form-control kondition-zinssatz kondition-input').val(kondition.konditionZinssatz).appendTo(row.find('td').eq(3));    
 			    	        	$('<button type="button" />').addClass('btn btn-danger remove-kondition').append(span).appendTo(row.find('td').eq(4));  		    				
 			    			});
 			    		}
@@ -177,6 +185,7 @@ $(document).ready(function() {
 				    }
 		    	});  
 	    	} else {
+	    		$('.progress').hide();
 //    			add_empty_kondition_row();
 	    	}
     	}
@@ -186,8 +195,15 @@ $(document).ready(function() {
     	add_empty_kondition_row();
     });
     $(document).on('click', '.remove-kondition', function(e) {
+    	$($(this).parent().parent().find('td input')).each(function(i, input){
+    		if($(input).val()) {
+    			inputChanged = true;
+    		}
+    	});
     	$(this).parent().parent().remove();
 	});    
+    
+    var inputChanged = false;
     $('#save-konditionen').unbind('click').click(function(event){
     	var konditionen = new Array();
         
@@ -207,35 +223,48 @@ $(document).ready(function() {
     	var validation = true;
     	
     	$('#konditionen-modal-form input').each(function(i, input){
-    		if(!$(input).val()) {
+    		if(!$(input).val() && $(input).attr('type') != 'hidden') {
     			$(input).wrap($('<div>').addClass('has-error'));
     			validation = false;
     		}
     	});
     	if(validation){
-	    	$.ajax({ 
-	    		type : 'POST',
-			    url : action,
-			    data : {konditionen : JSON.stringify(konditionen)},
-			    success : function (response){
-			    	if(response.error){ 
-			    		alertClass = 'alert-danger';
-		    		}
-			    	message = response.message;
-			    },
-			    error : function (response){
-			    	alertClass = 'alert-danger';
-			    },
-			    complete : function (){
-			    	$('#alert-modal')
-			    		.css('display', 'block')
-			    		.removeClass()
-			    		.addClass('alert alert-dismissable')
-			    		.addClass(alertClass)
-			    		.find("#alert-modal-message")
-			    		.text(message);
-			    }
-	    	});    	
+    		if(inputChanged){
+		    	$.ajax({ 
+		    		type : 'POST',
+				    url : action,
+				    data : {konditionen : JSON.stringify(konditionen)},
+				    success : function (response){
+				    	if(response.error){ 
+				    		alertClass = 'alert-danger';
+			    		}
+				    	message = response.message;
+				    	inputChanged = false;
+				    },
+				    error : function (response){
+				    	alertClass = 'alert-danger';
+				    },
+				    complete : function (){
+				    	$('#alert-modal')
+				    		.css('display', 'block')
+				    		.removeClass()
+				    		.addClass('alert alert-dismissable')
+				    		.addClass(alertClass)
+				    		.find("#alert-modal-message")
+				    		.text(message);
+				    }
+		    	});   
+    		} else {
+        		alertClass = 'alert-info';
+        		message = 'Es gibt nichts zu speichern.';
+    	    	$('#alert-modal')
+    	    		.css('display', 'block')
+    	    		.removeClass()
+    	    		.addClass('alert alert-dismissable')
+    	    		.addClass(alertClass)
+    	    		.find("#alert-modal-message")
+    	    		.text(message);
+    		}
     	} else {
     		alertClass = 'alert-danger';
     		message = 'Die markierten Felder müssen gefüllt sein!';
@@ -247,9 +276,10 @@ $(document).ready(function() {
 	    		.find("#alert-modal-message")
 	    		.text(message);
     	}
-//    	alert(JSON.stringify(konditionen));
     });
-    
+    $(document).on('input', '.kondition-input', function(e) {
+    	inputChanged = true;
+	});  
     function add_empty_kondition_row(){
     	$('#konditionen-table').append('<tr>');
     	var row = $('#konditionen-table tbody tr:last')
@@ -261,10 +291,20 @@ $(document).ready(function() {
     	var span = $('<span />', {
     		"class" : 'glyphicon glyphicon-remove'  
     	});  
-    	$('<input type="text" />').addClass('form-control kondition-laufzeit').appendTo(row.find('td').eq(0));
-    	$('<input type="text" />').addClass('form-control kondition-einlage-von').appendTo(row.find('td').eq(1));    	
-    	$('<input type="text" />').addClass('form-control kondition-einlage-bis').appendTo(row.find('td').eq(2));
-    	$('<input type="text" />').addClass('form-control kondition-zinssatz').appendTo(row.find('td').eq(3));    
+    	$('<input type="text" />').addClass('form-control kondition-laufzeit kondition-input').appendTo(row.find('td').eq(0));
+    	$('<input type="text" />').addClass('form-control kondition-einlage-von kondition-input').appendTo(row.find('td').eq(1));    	
+    	$('<input type="text" />').addClass('form-control kondition-einlage-bis kondition-input').appendTo(row.find('td').eq(2));
+    	$('<input type="text" />').addClass('form-control kondition-zinssatz kondition-input').appendTo(row.find('td').eq(3));    
     	$('<button type="button" />').addClass('btn btn-danger remove-kondition').append(span).appendTo(row.find('td').eq(4));  
     }
+    function restore() {
+        $('#produkt-form').find(':input').each(function(i, elem) {
+             var input = $(elem);
+             input.val(input.data('initialValue'));
+            	 input.attr("checked", input.data('initialState'));
+        });
+    }
+    $('#discard-changes').unbind('click').click(function(event){
+    	restore();
+    });
 });

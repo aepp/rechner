@@ -49,12 +49,9 @@ class ProduktController extends BaseController
     {
     	$forms = $this->getServiceLocator()->get('FormElementManager');
 		$form = $forms->get('ProduktForm');
-		$produktId = null;
+		$produktId = 0;
 		$message = null;
 		$error = false;
-		
-		$produkt_session = new Container('produkt');
-		$produkt_session->konditionen = array();
 		
 		try{
 			if($this->params()->fromRoute('produktId')){
@@ -83,14 +80,14 @@ class ProduktController extends BaseController
 				$form->get('legitimation')->setAttribute('value', $produkt->getLegitimation());
 				$form->get('produktHasAltersbeschraenkung')->setAttribute('value', $produkt->getProduktHasAltersbeschraenkung());
 				$form->get('ktozugriffe')->setAttribute('value', $produkt->getKtozugriffe());
-				if($produkt->getProduktGueltigSeit() != null) 
-					$form->get('produktGueltigSeit')->setAttribute('value', $produkt->getProduktGueltigSeit()->format('d.m.Y'));
+				$form->get('produktGueltigSeit')->setAttribute('value', $produkt->getProduktGueltigSeit()->format('d.m.Y'));
 				$form->get('produktCheck')->setAttribute('value', $produkt->getProduktCheck());
 				$form->get('produktTipp')->setAttribute('value', $produkt->getProduktTipp());
 				$form->get('produktInformationen')->setAttribute('value', $produkt->getProduktInformationen());
 				$form->get('produktUrl')->setAttribute('value', $produkt->getProduktUrl());
 				$form->get('produktKlickoutUrl')->setAttribute('value', $produkt->getProduktKlickoutUrl());
 				$form->get('saveChanges')->setLabel('Änderungen speichern');
+				$form->get('discardChanges')->setLabel('Änderungen verwerfen');
 				
 				$message = "Form erfolgreich geladen!";
 			}
@@ -112,52 +109,50 @@ class ProduktController extends BaseController
     {
     	$request = $this->getRequest();
     	$response = $this->getResponse();
-    	$params = $this->params();
     	$error = false;
     	
     	$produkt_session = new Container('produkt');
-    	$produktId = $this->params()->fromRoute('produktId');
     	
     	if ($request->isXmlHttpRequest()) {
     		try{
     			$em = $this->getEntityManager();
-    			if($produktId)
-    				$produkt = $em->getRepository('Vergleichsrechner\Entity\Produkt')->find($produktId);
-    			else 
-    				$produkt = new Produkt();
+    			$produkt = new Produkt();
 	    		
-				$kategorie = $params()->fromPost('kategorie');
-				$produktart = $params()->fromPost('produktart');
-				$produktName = $params()->fromPost('produktName');
-				$bank = $params()->fromPost('bank');
+				$kategorie = $em->find('Vergleichsrechner\Entity\Kategorie', $_POST['kategorie']);
+				$produktart = $em->find('Vergleichsrechner\Entity\Produktart', $_POST['produktart']);
+				$produktName = $_POST['produktName'];
+				$bank = $em->find('Vergleichsrechner\Entity\Bank', $_POST['bank']);
 				
-				$produktHasOnlineAbschluss = $params()->fromPost('produktHasOnlineAbschluss');
-				$produktMindestanlage = $params()->fromPost('produktMindestanlage');
-				$produktHoechstanlage = $params()->fromPost('produktHoechstanlage');
-				$produktHasGesetzlEinlagvers = $params()->fromPost('produktHasGesetzlEinlagvers');
-				$produktKtofuehrKost = $params()->fromPost('produktKtofuehrKost');
-				$produktHasOnlineBanking = $params()->fromPost('produktHasOnlineBanking');
-				$produktHasAltersbeschraenkung = $params()->fromPost('produktHasAltersbeschraenkung');
-				$produktGueltigSeit = $params()->fromPost('produktGueltigSeit');
-				$produktCheck = $params()->fromPost('produktCheck');
-				$produktTipp = $params()->fromPost('produktTipp');
-				$produktInformationen = $params()->fromPost('produktInformationen');
-				$produktUrl = $params()->fromPost('produktUrl');
-				$produktKlickoutUrl = $params()->fromPost('produktKlickoutUrl');
-				$ktozugriffeNew = $params()->fromPost('ktozugriffe');
+				$produktHasOnlineAbschluss = isset($_POST['produktHasOnlineAbschluss']) ? $_POST['produktHasOnlineAbschluss'] : null;
+				$produktMindestanlage = isset($_POST['produktMindestanlage']) ? $_POST['produktMindestanlage'] : null;
+				$produktHoechstanlage = isset($_POST['produktHoechstanlage']) ? $_POST['produktHoechstanlage'] : null;
+				$produktHasGesetzlEinlagvers = isset($_POST['produktHasGesetzlEinlagvers']) ? $_POST['produktHasGesetzlEinlagvers'] : null;
+				$produktKtofuehrKost = isset($_POST['produktKtofuehrKost']) ? $_POST['produktKtofuehrKost'] : null;
+				$produktHasOnlineBanking = isset($_POST['produktHasOnlineBanking']) ? $_POST['produktHasOnlineBanking'] : null;
+				$produktHasAltersbeschraenkung = isset($_POST['produktHasAltersbeschraenkung']) ? $_POST['produktHasAltersbeschraenkung'] : null;
+				$produktGueltigSeit = isset($_POST['produktGueltigSeit']) ? date_create_from_format('d.m.Y', $_POST['produktGueltigSeit']) : null;
+				$produktCheck = isset($_POST['produktCheck']) ? $_POST['produktCheck'] : null;
+				$produktTipp = isset($_POST['produktTipp']) ? $_POST['produktTipp'] : null;
+				$produktInformationen = isset($_POST['produktInformationen']) ? $_POST['produktInformationen'] : null;
+				$produktUrl = isset($_POST['produktUrl']) ? $_POST['produktUrl'] : null;
+				$produktKlickoutUrl = isset($_POST['produktKlickoutUrl']) ? $_POST['produktKlickoutUrl'] : null;
+				$ktozugriffeNew = isset($_POST['ktozugriffe']) ? $_POST['ktozugriffe'] : array();
 				
-				$aktion = $params()->fromPost('aktion');
-				$legitimation = $params()->fromPost('legitimation');
-				$einlagensicherungLand = $params()->fromPost('einlagensicherungLand');
-				$produktZinsgutschrift = $params()->fromPost('produktZinsgutschrift');
-				$produktVerfuegbarkeit = $params()->fromPost('produktVerfuegbarkeit');
-				$produktKuendbarkeit = $params()->fromPost('produktKuendbarkeit');
-				$zinssatz = $params()->fromPost('zinssatz');
-
-				if($ktozugriffeNew){
+				$legitimation = isset($_POST['legitimation']) ? $em->find('Vergleichsrechner\Entity\Legitimation', $_POST['legitimation']) : null;
+				$einlagensicherungLand = isset($_POST['einlagensicherungLand']) ? $em->find('Vergleichsrechner\Entity\EinlagensicherungLand', $_POST['einlagensicherungLand']) : null;
+				$aktion = isset($_POST['aktion']) ? $em->find('Vergleichsrechner\Entity\Aktion', $_POST['aktion']) : null;
+				//$produktKtofuehrKostFllg = $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $_POST['produktKtofuehrKostFllg']);
+				$produktZinsgutschrift = isset($_POST['produktZinsgutschrift']) ? $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $_POST['produktZinsgutschrift']) : null;
+				$produktVerfuegbarkeit = isset($_POST['produktVerfuegbarkeit']) ? $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $_POST['produktVerfuegbarkeit']) : null;
+				$produktKuendbarkeit = isset($_POST['produktKuendbarkeit']) ? $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $_POST['produktKuendbarkeit']) : null;
+				$zinssatz = isset($_POST['zinssatz']) ? $em->find('Vergleichsrechner\Entity\Zinssatz', $_POST['zinssatz']) : null;
+				
+				$produktId = $this->params()->fromRoute('produktId');
+				if($produktId){
+					$produkt = $em->getRepository('Vergleichsrechner\Entity\Produkt')->find($produktId);
 					$ktozugriffeOld = $produkt->getKtozugriffe();
-			
-					if($ktozugriffeOld){
+					
+					if($ktozugriffeOld != $ktozugriffeNew){
 						foreach($ktozugriffeOld as $id):
 							$ktozugriff = $em->find('Vergleichsrechner\Entity\Kontozugriff', $id);
 							$produkt->removeKtozugriff($ktozugriff);
@@ -169,36 +164,46 @@ class ProduktController extends BaseController
 							$em->persist($ktozugriff);
 						endforeach;
 					}
+				} else {
+					foreach($ktozugriffeNew as $id):
+						$ktozugriff = $em->find('Vergleichsrechner\Entity\Kontozugriff', $id);
+						$produkt->addKtozugriff($ktozugriff);
+						$em->persist($ktozugriff);
+					endforeach;
 				}
-				
-				if($aktion) $produkt->setAktion($em->find('Vergleichsrechner\Entity\Aktion', $aktion));
-				if($bank) $produkt->setBank($em->find('Vergleichsrechner\Entity\Bank', $bank));
-				if($einlagensicherungLand) $produkt->setEinlagensicherungLand($em->find('Vergleichsrechner\Entity\EinlagensicherungLand', $einlagensicherungLand));
-				if($kategorie) $produkt->setKategorie($em->find('Vergleichsrechner\Entity\Kategorie', $kategorie));
-				if($legitimation) $produkt->setLegitimation($em->find('Vergleichsrechner\Entity\Legitimation', $legitimation));
-				if($produktart) $produkt->setProduktart($em->find('Vergleichsrechner\Entity\Produktart', $produktart));
-				if($produktCheck) $produkt->setProduktCheck($produktCheck);
-				if($produktGueltigSeit) $produkt->setProduktGueltigSeit(date_create_from_format('d.m.Y', $produktGueltigSeit));
-				if($produktHasAltersbeschraenkung) $produkt->setProduktHasAltersbeschraenkung($produktHasAltersbeschraenkung);
-				if($produktHasGesetzlEinlagvers) $produkt->setProduktHasGesetzlEinlagvers($produktHasGesetzlEinlagvers);
-				if($produktHasOnlineAbschluss) $produkt->setProduktHasOnlineAbschluss($produktHasOnlineAbschluss);
-				if($produktHasOnlineBanking) $produkt->setProduktHasOnlineBanking($produktHasOnlineBanking);
-				if($produktHoechstanlage) $produkt->setProduktHoechstanlage($produktHoechstanlage);
-				if($produktInformationen) $produkt->setProduktInformationen($produktInformationen);
-				if($produktKlickoutUrl) $produkt->setProduktKlickoutUrl($produktKlickoutUrl);
-				if($produktKtofuehrKost) $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
-				if($produktKuendbarkeit) $produkt->setProduktKuendbarkeit($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKuendbarkeit));
-				if($produktMindestanlage) $produkt->setProduktMindestanlage($produktMindestanlage);
-				if($produktName) $produkt->setProduktName($produktName);
-				if($produktTipp) $produkt->setProduktTipp($produktTipp);
-				if($produktUrl) $produkt->setProduktUrl($produktUrl);
-				if($produktVerfuegbarkeit) $produkt->setProduktVerfuegbarkeit($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktVerfuegbarkeit));
-				if($produktZinsgutschrift) $produkt->setProduktZinsgutschrift($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktZinsgutschrift));
-				if($zinssatz) $produkt->setZinssatz($em->find('Vergleichsrechner\Entity\Zinssatz', $zinssatz));
 
+				$produkt->setAktion($aktion);
+				$produkt->setBank($bank);
+				$produkt->setEinlagensicherungLand($einlagensicherungLand);
+				$produkt->setKategorie($kategorie);
+				$produkt->setLegitimation($legitimation);
+				$produkt->setProduktart($produktart);
+				$produkt->setProduktCheck($produktCheck);
+// 				$produkt->setProduktGueltigSeit($produktGueltigSeit);
+				$produkt->setProduktHasAltersbeschraenkung($produktHasAltersbeschraenkung);
+				$produkt->setProduktHasGesetzlEinlagvers($produktHasGesetzlEinlagvers);
+				$produkt->setProduktHasOnlineAbschluss($produktHasOnlineAbschluss);
+				$produkt->setProduktHasOnlineBanking($produktHasOnlineBanking);
+				$produkt->setProduktHoechstanlage($produktHoechstanlage);
+				$produkt->setProduktInformationen($produktInformationen);
+				$produkt->setProduktKlickoutUrl($produktKlickoutUrl);
+				$produkt->setProduktKtofuehrKost($produktKtofuehrKost);
+// 				$produkt->setProduktKtofuehrKostFllg($produktKtofuehrKostFllg);
+				$produkt->setProduktKuendbarkeit($produktKuendbarkeit);
+				$produkt->setProduktMindestanlage($produktMindestanlage);
+				$produkt->setProduktName($produktName);
+				$produkt->setProduktTipp($produktTipp);
+				$produkt->setProduktUrl($produktUrl);
+				$produkt->setProduktVerfuegbarkeit($produktVerfuegbarkeit);
+				$produkt->setProduktZinsgutschrift($produktZinsgutschrift);
+				$produkt->setZinssatz($zinssatz);
+				
 				$em->persist($produkt);
 				
+				$em->flush();
+				
 				$konditionen = $produkt_session->konditionen;
+
 				if(!empty($konditionen)){
 					if($produktId == null){
 						foreach ($konditionen as $konditionTmp):
@@ -208,7 +213,6 @@ class ProduktController extends BaseController
 						endforeach;			
 					} 
 				}
-				
 				$em->flush();
 				$produktId = $produkt->getProduktId();
 	    		$message = "Änderungen erfolgreich gespeichert!";

@@ -125,7 +125,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Mindestanlage')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[required]',
+					'class' => 'form-control',
 					'id' => 'produktMindestanlage'
 			));
 		$zinssatz
@@ -133,7 +133,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Zinssatz')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[required]',
+					'class' => 'form-control',
 					'id' => 'zinssatz'
 			))
 			->setOptions(array(
@@ -160,7 +160,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Einlagensicherung Land')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[required]',
+					'class' => 'form-control',
 					'id' => 'einlagensicherungLand'
 			))
 			->setOptions(array(
@@ -193,7 +193,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Zinsgutschrift')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[required]',
+					'class' => 'form-control',
 					'id' => 'produktZinsgutschrift'
 			))
 			->setOptions(array(
@@ -207,7 +207,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Verfügbarkeit')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[required]',
+					'class' => 'form-control',
 					'id' => 'produktVerfuegbarkeit'
 			))
 			->setOptions(array(
@@ -221,7 +221,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Kündbarkeit')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[required]',
+					'class' => 'form-control',
 					'id' => 'produktKuendbarkeit'
 			))
 			->setOptions(array(
@@ -240,7 +240,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Legitimation')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[required]',
+					'class' => 'form-control',
 					'id' => 'legitimation'
 			))
 			->setOptions(array(
@@ -284,7 +284,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Produkt-URL')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[required]',
+					'class' => 'form-control',
 					'id' => 'produktUrl'
 		));
 		$produktKlickoutUrl
@@ -292,7 +292,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Klickout-URL')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[required]',
+					'class' => 'form-control',
 					'id' => 'produktKlickoutUrl'
 		));
 		$ktozugriffe
@@ -324,7 +324,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setLabelAttributes($labelAttributes);
 		$discardChanges
 			->setName('discardChanges')
-			->setLabel('Eingaben löschen')
+			->setLabel('Änderungen verwerfen')
 			->setAttributes(array(
 					'class' => 'btn btn-danger btn-block',
 					'id' => 'discard-changes'
