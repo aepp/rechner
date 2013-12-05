@@ -161,9 +161,9 @@ $(document).ready(function() {
 			    	        		"class" : 'glyphicon glyphicon-remove'  
 			    	        	});  
 			    	        	$('<input type="text" />').addClass('form-control kondition-laufzeit kondition-input').val(kondition.konditionLaufzeit).appendTo(row.find('td').eq(0));
-			    	        	$('<input type="text" />').addClass('form-control kondition-einlage-von kondition-input').val(kondition.konditionEinlageVon).appendTo(row.find('td').eq(1));    	
-			    	        	$('<input type="text" />').addClass('form-control kondition-einlage-bis kondition-input').val(kondition.konditionEinlageBis).appendTo(row.find('td').eq(2));
-			    	        	$('<input type="text" />').addClass('form-control kondition-zinssatz kondition-input').val(kondition.konditionZinssatz).appendTo(row.find('td').eq(3));    
+			    	        	$('<input type="text" />').addClass('form-control kondition-einlage-von kondition-input').val(kondition.konditionEinlageVon.toString().replace('.', ',')).appendTo(row.find('td').eq(1));    	
+			    	        	$('<input type="text" />').addClass('form-control kondition-einlage-bis kondition-input').val(kondition.konditionEinlageBis.toString().replace('.', ',')).appendTo(row.find('td').eq(2));
+			    	        	$('<input type="text" />').addClass('form-control kondition-zinssatz kondition-input').val(kondition.konditionZinssatz.toString().replace('.', ',')).appendTo(row.find('td').eq(3));    
 			    	        	$('<button type="button" />').addClass('btn btn-danger remove-kondition').append(span).appendTo(row.find('td').eq(4));  		    				
 			    			});
 			    		}

@@ -219,7 +219,7 @@ class ProduktController extends BaseController
     		}
     	}
     	return new JsonModel(array(
-            'message'=> $produktHasOnlineAbschluss,
+            'message'=> $message,
 			'produktId' => $produktId,
     		'error' => $error
         ));
@@ -342,9 +342,9 @@ class ProduktController extends BaseController
     		foreach (json_decode($konditionenJson) as $konditionJson):
     			$kondition = new Kondition();
     			$kondition->setKonditionLaufzeit($konditionJson->laufzeit);
-    			$kondition->setKonditionEinlageVon($konditionJson->von);
-    			$kondition->setKonditionEinlageBis($konditionJson->bis);
-    			$kondition->setKonditionZinssatz($konditionJson->zinssatz);
+    			$kondition->setKonditionEinlageVon(str_replace( ',', '.', $konditionJson->von));
+    			$kondition->setKonditionEinlageBis(str_replace( ',', '.', $konditionJson->bis));
+    			$kondition->setKonditionZinssatz(str_replace( ',', '.', $konditionJson->zinssatz));
     			$kondition->setProdukt($produkt);
     			array_push($konditionenTmp, $kondition);
     		endforeach;
