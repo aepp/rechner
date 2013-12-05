@@ -2,51 +2,70 @@
 namespace Vergleichsrechner\Form;
 
 use Zend\Form\Form;
+use Zend\Form\Element;
 
 class LoginForm extends Form{
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct('login');
-        $this->setAttribute('method', 'post');
 
-        $this->add(array(
-            'name' => 'userEmail',
-            'attributes' => array(
-                'type' => 'text',
-            	'class' => 'form-control',
-            	'placeholder' => 'Email',
-            	'required' => '',
-            	'autofocus' => '',	
-            ),
-        ));
-        $this->add(array(
-            'name' => 'userPassword',
-            'attributes' => array(
-                'type' => 'password',
-            	'class' => 'form-control',
-            	'placeholder' => 'Password',
-            	'required' => '',
-            ),
-        ));
+        $labelAttributes = array('class' => 'col-sm-3 control-label');
+        
+        $email = new Element\Text();
+        $password = new Element\Password();
+        $rememberme = new Element\Checkbox();
+        $login = new Element\Button();
+        
+        $email
+			->setName('userEmail')
+			->setLabel('Email')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control validate[required]',
+					'id' => 'userEmail',
+					'placeholder' => 'Email',
+					'required' => '',
+					'autofocus' => '',
+			));	
+			
+		$password
+			->setName('userPassword')
+			->setLabel('Password')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control validate[required]',
+					'id' => 'userEmail',
+					'placeholder' => 'Password',
+					'required' => '',
+			));     
+			   
+		$rememberme
+			->setName('rememberme')
+			->setLabel('Remember me?')
+			->setAttributes(array(
+					'id' => 'rememberme',
+			));
+			
+		$login
+			->setName('login-button')
+			->setLabel('Log in')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control',
+					'id' => 'login-button',
+					'class' => 'btn btn-lg btn-primary btn-block',
+			));
 
-        $this->add(array(
-            'name' => 'rememberme',
-			'type' => 'checkbox', // 'Zend\Form\Element\Checkbox',
-        		'label' => 'Remember Me?',
-            'attributes' => array(
-                'label' => 'Remember Me?',
-//            	'checked_value' => 'true', without value here will be 1
-//          	'unchecked_value' => 'false', // witll be 1
-            ),
-        ));        
-
-        $this->add(array(
-            'name' => 'submit',
-            'attributes' => array(
-                'type' => 'submit',
-                'value' => 'Login',
-                'id' => 'button_login',
-            	'class' => 'btn btn-lg btn-primary btn-block',
-            ),
-        ));
+		$this->setAttributes(array(
+				'method' => 'post',
+				'role' =>'form',
+				'class' => 'form-horizontal',
+				'id' => 'login-form'
+		));
+		
+		$this->add($email);
+		$this->add($password);
+		$this->add($rememberme);
+		$this->add($login);
     }
 }
