@@ -31,7 +31,9 @@ $(document).ready(function() {
     });
     $('#produkt-form').find(':input').each(function(i, elem) {
         var input = $(elem);
-        var state = input.attr('checked') == undefined ? false : input.attr('checked');
+//        alert(input.attr('name') + " " + input.prop('checked'));
+        var state = input.prop('checked');
+//        alert(input.attr('name') + " " + state);
         input.data({
         	'initialValue' : input.val(),
         	'initialState' : state
@@ -301,7 +303,7 @@ $(document).ready(function() {
         $('#produkt-form').find(':input').each(function(i, elem) {
              var input = $(elem);
              input.val(input.data('initialValue'));
-            	 input.attr("checked", input.data('initialState'));
+        	 input.prop("checked", input.data('initialState'));
         });
     }
     $('#discard-changes').unbind('click').click(function(event){
