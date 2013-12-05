@@ -171,30 +171,30 @@ class ProduktController extends BaseController
 					}
 				}
 				
-				if($aktion) $produkt->setAktion($em->find('Vergleichsrechner\Entity\Aktion', $aktion));
-				if($bank) $produkt->setBank($em->find('Vergleichsrechner\Entity\Bank', $bank));
-				if($einlagensicherungLand) $produkt->setEinlagensicherungLand($em->find('Vergleichsrechner\Entity\EinlagensicherungLand', $einlagensicherungLand));
-				if($kategorie) $produkt->setKategorie($em->find('Vergleichsrechner\Entity\Kategorie', $kategorie));
-				if($legitimation) $produkt->setLegitimation($em->find('Vergleichsrechner\Entity\Legitimation', $legitimation));
-				if($produktart) $produkt->setProduktart($em->find('Vergleichsrechner\Entity\Produktart', $produktart));
-				if($produktCheck) $produkt->setProduktCheck($produktCheck);
-				if($produktGueltigSeit) $produkt->setProduktGueltigSeit(date_create_from_format('d.m.Y', $produktGueltigSeit));
-				if($produktHasAltersbeschraenkung) $produkt->setProduktHasAltersbeschraenkung($produktHasAltersbeschraenkung);
-				if($produktHasGesetzlEinlagvers) $produkt->setProduktHasGesetzlEinlagvers($produktHasGesetzlEinlagvers);
-				if($produktHasOnlineAbschluss) $produkt->setProduktHasOnlineAbschluss($produktHasOnlineAbschluss);
-				if($produktHasOnlineBanking) $produkt->setProduktHasOnlineBanking($produktHasOnlineBanking);
-				if($produktHoechstanlage) $produkt->setProduktHoechstanlage($produktHoechstanlage);
-				if($produktInformationen) $produkt->setProduktInformationen($produktInformationen);
-				if($produktKlickoutUrl) $produkt->setProduktKlickoutUrl($produktKlickoutUrl);
-				if($produktKtofuehrKost) $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
-				if($produktKuendbarkeit) $produkt->setProduktKuendbarkeit($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKuendbarkeit));
-				if($produktMindestanlage) $produkt->setProduktMindestanlage($produktMindestanlage);
-				if($produktName) $produkt->setProduktName($produktName);
-				if($produktTipp) $produkt->setProduktTipp($produktTipp);
+				if($aktion != null) $produkt->setAktion($em->find('Vergleichsrechner\Entity\Aktion', $aktion));
+				if($bank != null) $produkt->setBank($em->find('Vergleichsrechner\Entity\Bank', $bank));
+				if($einlagensicherungLand != null) $produkt->setEinlagensicherungLand($em->find('Vergleichsrechner\Entity\EinlagensicherungLand', $einlagensicherungLand));
+				if($kategorie != null) $produkt->setKategorie($em->find('Vergleichsrechner\Entity\Kategorie', $kategorie));
+				if($legitimation != null) $produkt->setLegitimation($em->find('Vergleichsrechner\Entity\Legitimation', $legitimation));
+				if($produktart != null) $produkt->setProduktart($em->find('Vergleichsrechner\Entity\Produktart', $produktart));
+				if($produktCheck != null) $produkt->setProduktCheck($produktCheck);
+				if($produktGueltigSeit != null) $produkt->setProduktGueltigSeit(date_create_from_format('d.m.Y', $produktGueltigSeit));
+				if($produktHasAltersbeschraenkung != null) $produkt->setProduktHasAltersbeschraenkung($produktHasAltersbeschraenkung);
+				if($produktHasGesetzlEinlagvers != null) $produkt->setProduktHasGesetzlEinlagvers($produktHasGesetzlEinlagvers);
+				if($produktHasOnlineAbschluss != null) $produkt->setProduktHasOnlineAbschluss($produktHasOnlineAbschluss);
+				if($produktHasOnlineBanking != null) $produkt->setProduktHasOnlineBanking($produktHasOnlineBanking);
+				if($produktHoechstanlage != null) $produkt->setProduktHoechstanlage($produktHoechstanlage);
+				if($produktInformationen != null) $produkt->setProduktInformationen($produktInformationen);
+				if($produktKlickoutUrl != null) $produkt->setProduktKlickoutUrl($produktKlickoutUrl);
+				if($produktKtofuehrKost != null) $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
+				if($produktKuendbarkeit != null) $produkt->setProduktKuendbarkeit($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKuendbarkeit));
+				if($produktMindestanlage != null) $produkt->setProduktMindestanlage($produktMindestanlage);
+				if($produktName != null) $produkt->setProduktName($produktName);
+				if($produktTipp != null) $produkt->setProduktTipp($produktTipp);
 				if($produktUrl) $produkt->setProduktUrl($produktUrl);
-				if($produktVerfuegbarkeit) $produkt->setProduktVerfuegbarkeit($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktVerfuegbarkeit));
-				if($produktZinsgutschrift) $produkt->setProduktZinsgutschrift($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktZinsgutschrift));
-				if($zinssatz) $produkt->setZinssatz($em->find('Vergleichsrechner\Entity\Zinssatz', $zinssatz));
+				if($produktVerfuegbarkeit != null) $produkt->setProduktVerfuegbarkeit($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktVerfuegbarkeit));
+				if($produktZinsgutschrift != null) $produkt->setProduktZinsgutschrift($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktZinsgutschrift));
+				if($zinssatz != null) $produkt->setZinssatz($em->find('Vergleichsrechner\Entity\Zinssatz', $zinssatz));
 
 				$em->persist($produkt);
 				
@@ -219,7 +219,7 @@ class ProduktController extends BaseController
     		}
     	}
     	return new JsonModel(array(
-            'message'=> $message,
+            'message'=> $produktHasOnlineAbschluss,
 			'produktId' => $produktId,
     		'error' => $error
         ));
