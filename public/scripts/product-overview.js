@@ -47,13 +47,13 @@ $(document).ready(function() {
 	        5 : function(node, table, cellIndex){ return $(node).find('span').find('span').attr('class'); },
 	    },
 	    ignoreCase : false
-	})	
-	.tablesorterPager({
-		container: $(".ts-pager"),
-		cssGoto  : ".pagenum",
-		removeRows: false,
-		output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
-	});
+	});	
+//	.tablesorterPager({
+//		container: $(".ts-pager"),
+//		cssGoto  : ".pagenum",
+//		removeRows: false,
+//		output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
+//	});
 	
 	$('.delete-produkt-button').unbind('click').click(function(event){
 		$('#delete-confirm-modal').modal('toggle');

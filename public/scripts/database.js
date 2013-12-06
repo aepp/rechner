@@ -17,7 +17,10 @@ $(document).ready(function() {
 		    	defaultSorting = 'aktionId ASC';
 		    	formCreatedFunction = function (event, data){
 		    		data.form.validationEngine();
-					$('#Edit-banken').val(data.record.banken[0].bankId);
+		    		if(data.record){
+		    			$('#Edit-banken').val(data.record.banken[0].bankId);
+		    		}
+					
 		    	};		    	
 		        break;
 		    case "bank":
@@ -247,14 +250,16 @@ $(document).ready(function() {
 	            display: function (data) {
 	                var preview =
 	                	'<div>';
-	                if(data.record.bankLogo){
-	                	preview +=
-		                		'<img src="uploads/bank-logo/'+data.record.bankLogo+'" class="bank-logo-preview"/>';
-
-	            	} else {
-	                	preview +=
-		                		'Kein Logo';
-	            	}
+	                if(data.record){
+		                if(data.record.bankLogo){
+		                	preview +=
+			                		'<img src="uploads/bank-logo/'+data.record.bankLogo+'" class="bank-logo-preview"/>';
+	
+		            	} else {
+		                	preview +=
+			                		'Kein Logo';
+		            	}
+	                }
 	                preview += 
 	                	'</div>';
 	                return preview;
@@ -263,20 +268,28 @@ $(document).ready(function() {
 	            input: function (data) {
 	                var preview =
 	                	'<div>';
-	                if(data.record.bankLogo){
+	                if(data.record){
+		                if(data.record.bankLogo){
+		                	preview +=
+			                		'<img id="logoPreview" src="uploads/bank-logo/'+data.record.bankLogo+'" class="bank-logo-preview"/>'+
+		                			'<br/>'+
+	//	                			'<input type="text" id="bankLogo" name="bankLogo" value="'+data.record.bankLogo+'"  class="validate[required]"/>';
+		                			'<input type="text" id="bankLogo" name="bankLogo" value="'+data.record.bankLogo+'"/>';
+	
+		            	} else {
+		                	preview +=
+			                		'<img id="logoPreview" class="bank-logo-preview"/>'+
+		                			'<br/>'+
+	//	                			'<input type="text" id="bankLogo" name="bankLogo" class="validate[required]"/>';
+		                			'<input type="text" id="bankLogo" name="bankLogo"/>';
+		            	}
+	                } else {
 	                	preview +=
-		                		'<img id="logoPreview" src="uploads/bank-logo/'+data.record.bankLogo+'" class="bank-logo-preview"/>'+
-	                			'<br/>'+
-//	                			'<input type="text" id="bankLogo" name="bankLogo" value="'+data.record.bankLogo+'"  class="validate[required]"/>';
-	                			'<input type="text" id="bankLogo" name="bankLogo" value="'+data.record.bankLogo+'"/>';
-
-	            	} else {
-	                	preview +=
-		                		'<img id="logoPreview" class="bank-logo-preview"/>'+
-	                			'<br/>'+
+	                		'<img id="logoPreview" class="bank-logo-preview"/>'+
+                			'<br/>'+
 //	                			'<input type="text" id="bankLogo" name="bankLogo" class="validate[required]"/>';
-	                			'<input type="text" id="bankLogo" name="bankLogo"/>';
-	            	}
+                			'<input type="text" id="bankLogo" name="bankLogo"/>';
+	                }
 	                preview += 
 	                	'</div>';
 	                return preview;

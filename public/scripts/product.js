@@ -45,7 +45,16 @@ $(document).ready(function() {
     }
     $('#save-changes').unbind('click').click(function(event){
     	var produktId = $('.produktId').val();
-    	var action = produktId == 0 ? 'insert' : '../insert/'+produktId;
+    	var action = "";
+    	var modus = $('#modus').val();
+    	switch(modus){
+	    	case 'edit':
+	    		action = '../insert/'+produktId;
+	    		break;
+	    	case 'create':
+	    		action = produktId == 0 ? 'insert' : 'insert/'+produktId; 
+	    		break;
+    	};
     	var alertClass = 'alert-success';
     	
     	if($('#produkt-form').validationEngine('validate')){
@@ -61,6 +70,7 @@ $(document).ready(function() {
 			    		.addClass('alert alert-dismissable')
 			    		.addClass(alertClass)
 			    		.find("#alert-message").text(response.message);
+			    	$('.produktId').val(response.produktId);
 			    },
 			    error : function (response){
 			    	$('#alert')
@@ -83,7 +93,16 @@ $(document).ready(function() {
     });
     function load_aktionen(bankId){
     	var produktId = $('.produktId').val();
-    	var action = produktId == 0 ? 'loadAktionen' : '../loadAktionen/'+produktId;
+    	var action = "";
+    	var modus = $('#modus').val();
+    	switch(modus){
+	    	case 'edit':
+	    		action = '../loadAktionen/'+produktId;
+	    		break;
+	    	case 'create':
+	    		action = produktId == 0 ? 'loadAktionen' : 'loadAktionen/'+produktId; 
+	    		break;
+    	};
     	var alertClass = 'alert-success';
     	$.ajax({ 
     		type : 'POST',
@@ -140,10 +159,20 @@ $(document).ready(function() {
     	
     	var message = "Es ist ein Fehler augetretten!";
     	if($('#konditionen-table tbody tr').length == 0){
-	    	if(produktId){
+        	var action = "";
+        	var modus = $('#modus').val();
+        	switch(modus){
+    	    	case 'edit':
+    	    		action = '../loadKonditionen/'+produktId;
+    	    		break;
+    	    	case 'create':
+    	    		action = produktId == 0 ? null : 'loadKonditionen/'+produktId; 
+    	    		break;
+        	};
+	    	if(action != null){
 		    	$.ajax({ 
 		    		type : 'POST',
-				    url : '../loadKonditionen/'+produktId,
+				    url : action,
 				    success : function (response){
 				    	if(response.error){ 
 				    		alertClass = 'alert-danger';
@@ -219,7 +248,16 @@ $(document).ready(function() {
     	});  
     	
     	var produktId = $('.produktId').val();
-    	var action = produktId == 0 ? 'saveKonditionen' : '../saveKonditionen/'+produktId;    	
+    	var action = "";
+    	var modus = $('#modus').val();
+    	switch(modus){
+	    	case 'edit':
+	    		action = produktId == 0 ? 'saveKonditionen' : '../saveKonditionen/'+produktId; 
+	    		break;
+	    	case 'create':
+	    		action = produktId == 0 ? 'saveKonditionen' : 'saveKonditionen/'+produktId; 
+	    		break;
+    	};
     	var alertClass = 'alert-success';
     	var message = "Es ist ein Fehler augetretten!";
     	var validation = true;

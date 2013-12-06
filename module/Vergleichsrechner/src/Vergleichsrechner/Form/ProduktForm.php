@@ -64,6 +64,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 		$saveChanges = new Element\Button();
 		$discardChanges = new Element\Button();
 		$konditionenBearbeiten = new Element\Button();
+		$modus = new Element\Hidden();
 		
 		$kategorie	
 			->setName('kategorie')
@@ -316,7 +317,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			));		
 		$saveChanges
 			->setName('saveChanges')
-			->setLabel('Produkt anlegen')
+			->setLabel('Speichern')
 			->setAttributes(array(
 					'class' => 'btn btn-success btn-block',
 					'id' => 'save-changes'
@@ -324,7 +325,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setLabelAttributes($labelAttributes);
 		$discardChanges
 			->setName('discardChanges')
-			->setLabel('Änderungen verwerfen')
+			->setLabel('Eingaben verwerfen')
 			->setAttributes(array(
 					'class' => 'btn btn-danger btn-block',
 					'id' => 'discard-changes'
@@ -337,7 +338,11 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 					'class' => 'btn btn-default btn-block',
 					'id' => 'konditionen-bearbeiten'
 			))
-			->setLabelAttributes($labelAttributes);		
+			->setLabelAttributes($labelAttributes);	
+		$modus
+			->setName('modus')
+			->setValue('create')
+			->setAttribute('id', 'modus');
 		/*
 		 * Setting up the form
 		 */		
@@ -382,6 +387,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 		$this->add($konditionenBearbeiten);
 		$this->add($saveChanges);
 		$this->add($discardChanges);
+		$this->add($modus);
 // 		$this->setInputFilter($this->createInputFilter());
 	}
 		

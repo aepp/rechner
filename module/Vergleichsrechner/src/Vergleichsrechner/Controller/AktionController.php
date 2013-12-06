@@ -64,12 +64,18 @@ class AktionController extends BaseController
 	    		$aktion->setAktionStartOn($aktionStartOn);
 	    		$aktion->setAktionEndeOn($aktionEndeOn);
 	    		$aktion->setAktionIsZuende($aktionIsZuende);
-	    		
-				foreach($banken as $id):
-					$bank = $em->find('Vergleichsrechner\Entity\Bank', $id);
-					$aktion->addBank($bank);
-					$em->persist($bank);
-				endforeach;
+
+	    		if(is_array($banken)){
+					foreach($banken as $id):
+						$bank = $em->find('Vergleichsrechner\Entity\Bank', $id);
+						$aktion->addBank($bank);
+						$em->persist($bank);
+					endforeach;
+	    		} else {
+	    			$bank = $em->find('Vergleichsrechner\Entity\Bank', $banken);
+	    			$aktion->addBank($bank);
+	    			$em->persist($bank);
+	    		}
 	    		
 	    		$em->persist($aktion);
 	    		$em->flush();

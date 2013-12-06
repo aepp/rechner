@@ -19,8 +19,9 @@
 	            $label = $element->getLabel();
 	        ?>
 	        	<?php 
-	        		if($type != 'button') echo $this->formLabel($element); 
-	        		else { ?> <div class="col-sm-3"></div> <?php }
+	        		if($type == 'button') { ?> <div class="col-sm-3"></div> <?php }
+	        		elseif($type == 'hidden') {}
+	        		else echo $this->formLabel($element); 
 	        	?>
 	        	<div class="col-sm-3">
 	        		<?php 

@@ -90,7 +90,7 @@ class ProduktController extends BaseController
 				$form->get('produktInformationen')->setAttribute('value', $produkt->getProduktInformationen());
 				$form->get('produktUrl')->setAttribute('value', $produkt->getProduktUrl());
 				$form->get('produktKlickoutUrl')->setAttribute('value', $produkt->getProduktKlickoutUrl());
-				$form->get('saveChanges')->setLabel('Änderungen speichern');
+				$form->get('modus')->setValue('edit');
 				
 				$message = "Form erfolgreich geladen!";
 			}
@@ -221,7 +221,7 @@ class ProduktController extends BaseController
     	return new JsonModel(array(
             'message'=> $message,
 			'produktId' => $produktId,
-    		'error' => $error
+    		'error' => $error,
         ));
     }
     
