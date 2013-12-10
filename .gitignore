@@ -1,4 +1,5 @@
 /config/
+config/autoload/*.local.php
 /install.bat
 /update.bat
 /cmd.bat

@@ -211,17 +211,19 @@ class ProduktController extends BaseController
 				
 				$em->flush();
 				$produktId = $produkt->getProduktId();
-	    		$message = "Änderungen erfolgreich gespeichert!";
+	    		$message = "Änderungen erfolgreich gespeichert! Sie werden nun zur Produktübersicht weitergeleitet...";
 	    		
     		} catch (Exception $e){
     			$message = $e->getMessage();
     			$error = true;
     		}
     	}
+    	$config = $this->getServiceLocator()->get('config');
     	return new JsonModel(array(
             'message'=> $message,
 			'produktId' => $produktId,
     		'error' => $error,
+    		'redirect' => $config['redirect_to_produktUebersicht']
         ));
     }
     
