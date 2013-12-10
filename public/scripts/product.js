@@ -63,7 +63,7 @@ $(document).ready(function() {
 			    url : action,
 			    data : $("#produkt-form").serialize(),
 			    success : function (response){
-			    	if(!response.error) window.location = '/produkt';
+			    	if(!response.error) window.location = response.redirect;
 			    	if(response.error) alertClass = 'alert-danger';
 			    	$('#alert')
 			    		.css('display', 'block')

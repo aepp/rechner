@@ -218,12 +218,11 @@ class ProduktController extends BaseController
     			$error = true;
     		}
     	}
-    	$config = $this->getServiceLocator()->get('config');
     	return new JsonModel(array(
             'message'=> $message,
 			'produktId' => $produktId,
     		'error' => $error,
-    		'redirect' => $config['redirect_to_produktUebersicht']
+    		'redirect' => '/produkt'
         ));
     }
     
