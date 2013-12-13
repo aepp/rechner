@@ -98,10 +98,14 @@ class BankController extends BaseController
 	    		$em = $this->getEntityManager();
 	    		$id = $_POST['bankId'];
 	    		$bank = $em->find('Vergleichsrechner\Entity\Bank', $id);
-	    
+	    		$bank_logo = $bank->getBankLogo();
+	    		
 	    		$em->remove($bank);
 	    		$em->flush();
 	    		$response->setContent(Json::encode(array('Result' => 'OK')));
+	    		if(file_exists($_SERVER['DOCUMENT_ROOT'].'/uploads/bank-logo'.$bank_logo)){
+	    			unlink($_SERVER['DOCUMENT_ROOT'].'/uploads/bank-logo'.$bank_logo);
+	    		}
     		} catch (Exception $e){
     			$response->setContent(Json::encode(array('Result' => 'Error', 'Message' => $e->getMessage())));
     		}
