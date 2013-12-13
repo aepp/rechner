@@ -1,0 +1,297 @@
+[section background_image="http://www.vergleich24.at/wp-content/uploads/2013/12/zinsvergleich1.jpg" background_repeat="no-repeat" background_position="right top" background_attachment="static" background_scroll="none" border_size="1"]
+
+<h1 class="center">Sparzinsen &amp; Kreditzinsen
+Aktuelle Zinsen für Österreich vergleichen</h1>
+
+[one_half valign="top" animation="none"]
+
+[box icon="eur" style="solid"]
+
+<div class="title-h2 center">Geld anlegen</div>
+<p class="center">Wieviel Kapital wollen Sie anlegen?</p>
+
+<form id="formID" method="post" action>
+<div class="formbox form-row"><label for="anlagebetrag">Ihr Anlagebetrag:</label><input id="integer" type="text" name="integer" value="10.000"  class="validate[required,custom[integer]]" onclick="$('#integer').validationEngine('showPrompt', 'Geben Sie einen Anlagebetrag ein', 'pass', 'topLeft')"></div>
+[space px="2em"][/space]
+<div class="formbox form-row">
+
+<label for="laufzeit">Gewünschte Laufzeit</label>
+
+<select id="time-select" name="time-select">
+<option>1 Monat</option>
+<option>3 Monate</option>
+<option>6 Monate</option>
+<option>12 Monate</option>
+<option>24 Monate</option>
+<option selected="selected">36 Monate</option>
+<option>48 Monate</option>
+<option>60 Monate</option>
+<option>72 Monate</option>
+<option>84 Monate</option>
+</select></div>
+[space px="2em"][/space]
+<div class="formbox form-row">
+
+<label for="anlageziel">Gewünschtes Anlageziel:</label>
+
+<select id="select" name="anlageziel">
+<option selected="selected">Flexibel (Tagesgeld)</option>
+<option>Fixbetrag (Festgeld)</option>
+<option>Laufender Sparplan</option>
+</select></div>
+[space px="2.5em"][/space]
+[button link="/" size="big" type="wide" icon="chevron-right"]Sparzinsen vergleichen<small>kostenlos &amp; unverbindlich</small>[/button]
+
+</form>
+
+[/box]
+
+[/one_half]
+
+[one_half_last valign="top" animation="none"]
+
+[box icon="exchange" style="simple"]
+
+<div class="title-h2 center">Kredit aufnehmen</div>
+<p class="center">Welche Geldsumme benötigen Sie?</p>
+
+<form id="formID2" action="#" method="post" action>
+<div class="formbox form-row"><label for="kreditbetrag">Ihr Kreditwunsch</label><input type="text" name="kreditbetrag" placeholder="z. B. 10.000 €" value=""></div>
+[space px="2em"][/space]
+<div class="formbox form-row">
+
+<label for="laufzeit">Gewünschte Laufzeit</label>
+
+<select id="select" name="laufzeit">
+<option>12 Monate</option>
+<option>24 Monate</option>
+<option selected="selected">36 Monate</option>
+<option>48 Monate</option>
+<option>60 Monate</option>
+<option>72 Monate</option>
+<option>84 Monate</option>
+<option>96 Monate</option>
+<option>120 Monate</option>
+</select></div>
+[space px="2em"][/space]
+<div class="formbox form-row">
+
+<label for="verwendungszweck">Verwendungszweck</label>
+
+<select id="select" name="verwendung">
+<option selected="selected">- bitte wählen -</option>
+<option>Sonstiges</option>
+<option>PKW-Finanzierung</option>
+<option>Kontoausgleich</option>
+<option>Immobilienkauf</option>
+<option>Konsumgüter</option>
+</select></div>
+[space px="2.5em"][/space]
+
+[button link="/" size="big" text_color="#ffffff" background_color="#FF6339" type="wide" icon="chevron-right"]Kreditzinsen vergleichen<small>kostenlos &amp; unverbindlich</small>[/button]
+
+</form>
+
+[/box]
+
+[/one_half_last]
+
+[/section]
+
+[section background_repeat="repeat" background_position="center top" background_attachment="static" background_scroll="none"]
+
+<div class="title-h2 center">Über 60 österreichischen Banken im Vergleich</div>
+
+[one_fifth valign="top" animation="none"]
+
+<img class="alignnone size-thumbnail wp-image-2444" alt="DenizBank" src="http://www.vergleich24.at/wp-content/uploads/2013/12/denizbank.png" width="171" height="77">
+
+[/one_fifth]
+
+[one_fifth valign="top" animation="none"]
+
+<img class="alignnone size-full wp-image-2442" alt="Amsterdam Trade Bank" src="http://www.vergleich24.at/wp-content/uploads/2013/03/amsterdam-trade-bank.png" width="171" height="77">
+
+[/one_fifth]
+
+[one_fifth valign="top" animation="none"]
+
+<img alt="brand_logo_3_v01" src="/wp-content/uploads/2013/06/brand_logo_3_v01.png" width="171" height="77" data-mce-src="/wp-content/uploads/2013/06/brand_logo_3_v01.png">
+
+[/one_fifth]
+
+[one_fifth valign="top" animation="none"]
+
+<img alt="brand_logo_2_v01" src="/wp-content/uploads/2013/06/brand_logo_2_v01.png" width="171" height="77" data-mce-src="/wp-content/uploads/2013/06/brand_logo_2_v01.png">
+
+[/one_fifth]
+
+[one_fifth_last valign="top" animation="none"]
+
+<img alt="brand_logo_1_v01" src="/wp-content/uploads/2013/06/brand_logo_1_v01.png" width="171" height="77" data-mce-src="/wp-content/uploads/2013/06/brand_logo_1_v01.png">
+
+[/one_fifth_last]
+
+[/section]
+
+[section background_color="#2ECC71" background_repeat="repeat" background_position="center top" background_attachment="static" background_scroll="none"]
+
+<div class="title-h1 center white">Erfahren Sie warum sich ein Zinsvergleich lohnt</div>
+[space value="2em"][/space]
+<div class="center"><iframe src="http://www.youtube.com/embed/2QzSvGhDGDo?feature=oembed&amp;wmode=transparent&amp;autohide=1&amp;autoplay=0&amp;disablekb=0&amp;fs=1&amp;loop=0&amp;enablejsapi=1&amp;rel=0&amp;controls=2&amp;showinfo=0&amp;wmode=transparent&amp;autohide=2&amp;autoplay=0&amp;disablekb=0&amp;fs=1&amp;loop=0&amp;enablejsapi=1&amp;rel=0&amp;controls=2&amp;showinfo=1" height="386" width="686" allowfullscreen="" frameborder="0"></iframe></div>
+
+[space]
+
+[/space]
+
+[one_third valign="top" animation="none"]
+
+[one_sixth class="white" valign="top" animation="none"]
+
+[icon name="bar-chart" size="small" style="simple"][/icon]
+
+[/one_sixth]
+
+[five_sixth_last valign="top" animation="none"]
+
+<div class="title-h3 white">Breiter Marktvergleich</div>
+<p class="white">Wir vergleichen in jedem Vergleichsrechner möglichst viele der Anbieter am Markt - auch wenn sich einzelne Anbieter nicht vergleichen lassen wollen, versuchen wir diese zu berechnen und zu vergleichen.</p>
+
+[/five_sixth_last]
+
+[/one_third]
+
+[one_third valign="top" animation="none"]
+
+[one_sixth class="white" valign="top" animation="none"]
+
+[icon name="user-md" size="small" style="simple"][/icon]
+
+[/one_sixth]
+
+[five_sixth_last valign="top" animation="none"]
+
+<div class="title-h3 white">Objektiv und unabhängig</div>
+<p class="white">Wir stehen zu 100% in Privatbesitz und haben kein Naheverhältnis zu verglichenen Anbietern. Wir vergleichen neutral Preise und Leistungen, um Ihnen einen möglichst objektiven Vergleich der Angebote am Markt zu ermöglichen.</p>
+
+[/five_sixth_last]
+
+[/one_third]
+
+[one_third_last valign="top" animation="none"]
+
+[one_sixth class="white" valign="top" animation="none"]
+
+[icon name="thumbs-up" size="small" style="simple"][/icon]
+
+[/one_sixth]
+
+[five_sixth_last valign="top" animation="none"]
+
+<div class="title-h3 white">Einfach wie möglich</div>
+<p class="white">Die Produkte, die wir für Sie vergleichen, sind kompliziert genug. Daher verwenden wir möglichst verständliches Deutsch ohne Fachchinesisch und machen Ihnen den Vergleich und den Abschluss so einfach wie möglich.</p>
+
+[/five_sixth_last]
+
+[/one_third_last]
+
+[/section]
+
+[section background_repeat="repeat" background_position="center top" background_attachment="static" background_scroll="none"]
+
+[three_fifth valign="top" animation="none"]
+
+<h2>So vergleichen Sie Sparzinsen richtig</h2>
+[dropcap style="simple"]D[/dropcap]ie Entscheidung für ein Tagesgeldkonto sollte nicht ausschließlich vom angegebenen Zinssatz abhängig gemacht werden. So wirkt sich beispielsweise auch die Häufigkeit der Zinsausschüttung auf die Rendite aus. Darüber hinaus können Neukunden von attraktiven Startguthaben, Prämien oder Sonderzinssätzen profitieren. Im CHECK24 Tagesgeldvergleich können Anleger ihr Vergleichsergebnis deshalb nicht nur nach Zinshöhe, sondern auch nach Höhe der Rendite sortieren, die sich im geplanten Anlagezeitraum erwirtschaften lässt. Auch nach der Kontoeröffnung lohnt sich ein regelmäßiger Tagesgeldvergleich. Erhöht ein anderer Anbieter beispielsweise die Zinsen oder läuft das Neukundenangebot aus, so können Sparer flexibel reagieren und ihr Kapital gegebenenfalls umlagern. Die Eröffnung eines Tagesgeldkontos ist in der Regel kostenlos. Außerdem bestehen keine Kündigungsfristen. So kann sich der Wechsel des Tagesgeldanbieters gelegentlich lohnen.
+<h3>So vergleichen Sie Kreditzinsen richtig</h3>
+[dropcap style="simple"]D[/dropcap]as Tagesgeldkonto ist eine sichere und gleichzeitig sehr flexible Art der Geldanlage. Hier gelten keine Vertragslaufzeiten, so dass Kunden jederzeit auf ihre Einlagen zurückgreifen können. Zusätzlich bieten viele Banken verhältnismäßig hohe Zinsen und eine gute Rendite – was das Tagesgeld für viele Sparer zu einem ganz besonders attraktiven Anlagemodell macht. Da sich die Konditionen der Tagesgeldanbieter oft stark unterscheiden, sollten sich Anleger vor der Wahl des Tagesgeldkontos immer umfassend über die verschiedenen Angebote informieren. Dabei ist der kostenlose Tagesgeldvergleich von CHECK24 besonders hilfreich. Hier können Sparer unabhängig und ohne großen Aufwand Zinsen, Rendite und Konditionen der Tagesgeldbanken vergleichen. Zusätzlich können sie sich an Bewertungen anderer CHECK24 Kunden und der Kontobenotung orientieren.
+
+[/three_fifth]
+
+[two_fifth_last valign="top" animation="none"]
+
+[box icon="star-empty" style="simple"]
+
+<div class="title-h3">Beste Zinsangebote</div>
+[lead]Ob Geldanlagen, Finanzierungen oder einfach Geld parken, bei uns finden Sie das passende Angebot garantiert![/lead] [one_half valign="middle" animation="none"]
+<div class="title-h3">Tagesgeld</div>
+<div style="font-size: 34px; color: #FF6339;"><span style="font-size: 16px;">bis</span> 2,55<sup>%</sup><span style="font-size: 16px;">p.a.</span></div>
+[/one_half][one_half_last valign="bottom" animation="none"][button linking="default" bg_color="#cccccc" text_color="#666666" link="/" size="small" type="standard" style="solid" icon="chevron-right"]Jetzt sichern[/button][/one_half_last] [divider][/divider] [one_half valign="middle" animation="none"]
+<div class="title-h3">Festgeld</div>
+<div style="font-size: 34px; color: #FF6339;"><span style="font-size: 16px;">bis</span> 2,55<sup>%</sup><span style="font-size: 16px;">p.a.</span></div>
+[/one_half][one_half_last valign="bottom" animation="none"][button linking="default" bg_color="#cccccc" text_color="#666666" link="/" size="small" type="standard" style="solid" icon="chevron-right"]Jetzt sichern[/button][/one_half_last] [divider][/divider] [one_half valign="middle" animation="none"]
+<div class="title-h3">Kredite</div>
+<div style="font-size: 34px; color: #FF6339;"><span style="font-size: 16px;">ab</span> 3,95<sup>%</sup><span style="font-size: 16px;">p.a.</span></div>
+[/one_half][one_half_last valign="bottom" animation="none"][button linking="default" bg_color="#cccccc" text_color="#666666" link="/" size="small" type="standard" style="solid" icon="chevron-right"]Jetzt sichern[/button][/one_half_last]
+
+[/box]
+
+[/two_fifth_last]
+
+[divider style="none" icon="comments"]
+
+[/divider]
+
+<div class="title-h1 center">Erfahrungsberichte</div>
+
+[three_fifth valign="top" animation="none"]
+
+<h3>Neue Erfahrungsberichte</h3>
+
+[quote author_name="George Novitzky" author_description="29.11.2013" size="small" style="solid"]
+
+Im März 2013 hatte ich zunächst ein normales Tagesgeldkonto eröffnet und dann später im Oktober noch zusätzlich ein separates Gemeinschaftskonto. Neben diesen Tagesgeldkonten nutze ich noch ein RaboSpar90, welches man ja recht bequem als Unterkonto führen kann. Die Eröffnungen waren jeweils innerhalb von 2 Wochen komplett erledigt und auch ansonsten lief bisher alles reibungslos und zügig. Telefonische Serviceanfragen wurden bisher stets kompetent und umgehend beantwortet. Auch mit dem Onlinebanking klappt soweit alles sehr gut. Als einzigen Nachteil des Systems empfinde ich die nicht vorhandene Möglichkeit zur Einrichtung von Daueraufträgen.
+
+[/quote]
+
+[quote author_name="Alex Senger" author_description="21.11.2013" size="small" style="solid"]
+
+Im März 2013 hatte ich zunächst ein normales Tagesgeldkonto eröffnet und dann später im Oktober noch zusätzlich ein separates Gemeinschaftskonto. Neben diesen Tagesgeldkonten nutze ich noch ein RaboSpar90, welches man ja recht bequem als Unterkonto führen kann. Die Eröffnungen waren jeweils innerhalb von 2 Wochen komplett erledigt und auch ansonsten lief bisher alles reibungslos und zügig. Telefonische Serviceanfragen wurden bisher stets kompetent und umgehend beantwortet. Auch mit dem Onlinebanking klappt soweit alles sehr gut. Als einzigen Nachteil des Systems empfinde ich die nicht vorhandene Möglichkeit zur Einrichtung von Daueraufträgen.
+
+[/quote]
+
+<div style="text-align: right;" data-mce-style="text-align: right;"><a href="#" data-mce-href="#">Mehr Erfahrungsberichte ansehen »</a></div>
+
+[/three_fifth]
+
+[two_fifth_last valign="top" animation="none"]
+
+[box icon="thumbs-up" style="solid"]
+
+<div class="title-h3">Teilen Sie uns Ihre Erfahrungen mit!</div>
+<img class="size-full wp-image-2373 alignright" alt="AMAZON Gutschein" src="http://www.vergleich24.at/wp-content/uploads/2013/03/amazon-gutschein.png" width="116" height="75" data-mce-src="http://www.vergleich24.at/wp-content/uploads/2013/03/amazon-gutschein.png"> [lead] Schreiben Ihren kurzen und persönlichen Erfahrungsbericht zu Ihrer Bank oder Bankprodukt. [/lead] [lead] Ihr Engagement belohnen wir mit 20 € AMAZON-Gutschein. <strong>Es lohnt sich!</strong> [/lead] [button linking="default" link="#" align="right" size="medium" type="standard" style="solid" icon="pencil"]Jetzt mitmachen[/button]
+
+[/box]
+
+[/two_fifth_last]
+
+[/section]
+
+[section background_color="#94949C" background_repeat="repeat" background_position="center top" background_attachment="static" background_scroll="none"]
+
+[three_fifth valign="top" animation="none"]
+
+[box style="simple"]
+
+<img style="position: absolute; top: -7px; right: -7px; z-index: 5;" alt="Newsletter Zinsupdate abonieren" src="http://www.vergleich24.at/wp-content/uploads/2013/12/abonieren.png" border="0">
+
+[mailchimp_newsletter mailing_list="0"]
+<div class="title-h3">Monatliche Zinsupdates</div>
+[lead]Erhalten Sie jeden Monat den aktuellen Zinsvergleich
+sowie die neusten Testberichte und Artikel völlig kostenfrei in Ihr Postfach.[/lead]
+
+[/mailchimp_newsletter]
+
+[/box]
+
+[/three_fifth]
+
+[two_fifth_last valign="top" animation="none"]
+
+[twitter username="@alexextra" max="3" type="simple"]
+
+[/twitter]
+
+[/two_fifth_last]
+
+[/section]

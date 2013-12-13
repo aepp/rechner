@@ -1,0 +1,4 @@
+www/vhosts/verglei24/httpdd/wpcont/them/3clickthe
+
+allow php in post and pages
+
