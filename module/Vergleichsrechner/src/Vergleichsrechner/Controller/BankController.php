@@ -103,8 +103,9 @@ class BankController extends BaseController
 	    		$em->remove($bank);
 	    		$em->flush();
 	    		$response->setContent(Json::encode(array('Result' => 'OK')));
-	    		if(file_exists($_SERVER['DOCUMENT_ROOT'].'/uploads/bank-logo'.$bank_logo)){
-	    			unlink($_SERVER['DOCUMENT_ROOT'].'/uploads/bank-logo'.$bank_logo);
+	    		if(file_exists($_SERVER['DOCUMENT_ROOT'].'/uploads/bank-logo/'.$bank_logo)){
+	    			unlink($_SERVER['DOCUMENT_ROOT'].'/uploads/bank-logo/'.$bank_logo);
+	    			unlink('/var/www/vhosts/vergleich24.at/httpdocs/wp-content/uploads/bank-logo/'.$bank_logo);
 	    		}
     		} catch (Exception $e){
     			$response->setContent(Json::encode(array('Result' => 'Error', 'Message' => $e->getMessage())));
