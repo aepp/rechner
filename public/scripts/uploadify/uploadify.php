@@ -30,11 +30,9 @@ if (!empty($_FILES)) {
 	
 	if (in_array($fileParts['extension'],$fileTypes)) {
 		move_uploaded_file($tempFile,$targetFile);
-		if(!file_exists($dest.$_FILES['Filedata']['name'])){
-			echo copy($src.$_FILES['Filedata']['name'], $dest.$_FILES['Filedata']['name']);
-		}
-		echo '1';
-		
+// 		if(!file_exists($dest.$_FILES['Filedata']['name'])){
+// 			echo copy($src.$_FILES['Filedata']['name'], $dest.$_FILES['Filedata']['name']);
+// 		}
 		// Create image from file
 		$dimensions = array(
 			0 => array(	/* Logogröße für die Vergleichstabelle */
@@ -89,6 +87,7 @@ if (!empty($_FILES)) {
 				imagepng($new, $dest.$fileParts['filename']."_$max_width-x-$max_height.png");
 			}
 		}
+		echo '1';
 	} else {
 		echo 'Invalid file type.';
 	}
