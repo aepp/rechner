@@ -9,10 +9,16 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 $targetFolder = '/uploads/bank-logo'; // Relative to the root
 
 /*
- * For Logos in WordPress 
+ * For Logos in WordPress; Server paths
  */
 $src = '/var/www/vhosts/vergleich24.at/rechner/public/uploads/bank-logo/';
 $dest = '/var/www/vhosts/vergleich24.at/httpdocs/wp-content/uploads/bank-logo/';
+
+/*
+ * Local paths
+ */
+// $src = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
+// $dest = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
 
 if (!empty($_FILES)) {
 	$tempFile = $_FILES['Filedata']['tmp_name'];
@@ -25,50 +31,63 @@ if (!empty($_FILES)) {
 	if (in_array($fileParts['extension'],$fileTypes)) {
 		move_uploaded_file($tempFile,$targetFile);
 		if(!file_exists($dest.$_FILES['Filedata']['name'])){
-			copy($src.$_FILES['Filedata']['name'], $dest.$_FILES['Filedata']['name']);
+			echo copy($src.$_FILES['Filedata']['name'], $dest.$_FILES['Filedata']['name']);
 		}
 		echo '1';
 		
 		// Create image from file
+		$dimensions = array(
+			0 => array(	/* Logogröße für die Vergleichstabelle */
+				'width' => 115,
+				'height' => 60
+			),
+			1 => array(	/* Logogröße für die Aktionsbox */
+				'width' => 171,
+				'height' => 77
+			),				
+		);
 		$image = null;
-		switch(strtolower($_FILES['Filedata']['type']))
+		
+		switch(strtolower($fileParts['extension']))
 		{
-			case 'image/jpeg': case 'image/jpg':
-				$image = imagecreatefromjpeg($_FILES['Filedata']['tmp_name']);
+			case 'jpeg': case 'jpg':
+				$image = imagecreatefromjpeg($targetFile);
 				break;
-			case 'image/png':
-				$image = imagecreatefrompng($_FILES['Filedata']['tmp_name']);
+			case 'png':
+				$image = imagecreatefrompng($targetFile);
 				break;
-			case 'image/gif':
-				$image = imagecreatefromgif($_FILES['Filedata']['tmp_name']);
+			case 'gif':
+				$image = imagecreatefromgif($targetFile);
 				break;
 			default:
-				exit('Unsupported type: '.$_FILES['image']['type']);
+				exit('Unsupported type: '.$fileParts['extension']);
 		}
 		if($image != null){
-			// Target dimensions
-			$max_width = 115;
-			$max_height = 60;
-			
-			// Get current dimensions
-			$old_width  = imagesx($image);
-			$old_height = imagesy($image);
-			
-			// Calculate the scaling we need to do to fit the image inside our frame
-			$scale = min($max_width/$old_width, $max_height/$old_height);
-			
-			// Get the new dimensions
-			$new_width  = ceil($scale*$old_width);
-			$new_height = ceil($scale*$old_height);
-			
-			// Create new empty image
-			$new = imagecreatetruecolor($new_width, $new_height);
-			
-			// Resize old image into new
-			imagecopyresampled($new, $image,
-						0, 0, 0, 0,
-						$new_width, $new_height, $old_width, $old_height);
-			imagejpeg($new, $dest.$_FILES['Filedata']['name'].'-60x115');
+			foreach($dimensions as $dimension){
+				// Target dimensions
+				$max_width = $dimension['width'];
+				$max_height = $dimension['height'];
+				
+				// Get current dimensions
+				$old_width  = imagesx($image);
+				$old_height = imagesy($image);
+				
+				// Calculate the scaling we need to do to fit the image inside our frame
+				$scale = min($max_width/$old_width, $max_height/$old_height);
+				
+				// Get the new dimensions
+				$new_width  = ceil($scale*$old_width);
+				$new_height = ceil($scale*$old_height);
+				
+				// Create new empty image
+				$new = imagecreatetruecolor($new_width, $new_height);
+				
+				// Resize old image into new
+				imagecopyresampled($new, $image,
+							0, 0, 0, 0,
+							$new_width, $new_height, $old_width, $old_height);
+				imagepng($new, $dest.$fileParts['filename']."_$max_width-x-$max_height.png");
+			}
 		}
 	} else {
 		echo 'Invalid file type.';
