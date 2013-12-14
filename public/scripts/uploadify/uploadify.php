@@ -61,6 +61,8 @@ if (!empty($_FILES)) {
 				exit('Unsupported type: '.$fileParts['extension']);
 		}
 		if($image != null){
+			imagealphablending($image, true);
+			
 			foreach($dimensions as $dimension){
 				// Target dimensions
 				$max_width = $dimension['width'];
@@ -79,6 +81,8 @@ if (!empty($_FILES)) {
 				
 				// Create new empty image
 				$new = imagecreatetruecolor($new_width, $new_height);
+				imagealphablending($new, false);
+				imagesavealpha($new, true);
 				
 				// Resize old image into new
 				imagecopyresampled($new, $image,
