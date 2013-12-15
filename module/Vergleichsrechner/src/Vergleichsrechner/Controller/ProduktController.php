@@ -70,8 +70,8 @@ class ProduktController extends BaseController
 				$form->get('bank')->setAttribute('value', $produkt->getBank());
 				$form->get('produktHasOnlineAbschluss')->setAttribute('value', $produkt->getProduktHasOnlineAbschluss());
 				$form->get('zinssatz')->setAttribute('value', $produkt->getZinssatz());
-				$form->get('produktMindestanlage')->setAttribute('value', $produkt->getProduktMindestanlage());
-				$form->get('produktHoechstanlage')->setAttribute('value', $produkt->getProduktHoechstanlage());
+				$form->get('produktMindestanlage')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktMindestanlage()));
+				$form->get('produktHoechstanlage')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktHoechstanlage()));
 				$form->get('produktHasGesetzlEinlagvers')->setAttribute('value', $produkt->getProduktHasGesetzlEinlagvers());
 				$form->get('einlagensicherungLand')->setAttribute('value', $produkt->getEinlagensicherungLand());
 				$form->get('aktion')->setAttribute('value', $produkt->getAktion());
@@ -132,8 +132,8 @@ class ProduktController extends BaseController
 				$bank = $params()->fromPost('bank');
 				
 				$produktHasOnlineAbschluss = $params()->fromPost('produktHasOnlineAbschluss');
-				$produktMindestanlage = $params()->fromPost('produktMindestanlage');
-				$produktHoechstanlage = $params()->fromPost('produktHoechstanlage');
+				$produktMindestanlage = str_replace( ',', '.', $params()->fromPost('produktMindestanlage'));
+				$produktHoechstanlage = str_replace( ',', '.', $params()->fromPost('produktHoechstanlage'));
 				$produktHasGesetzlEinlagvers = $params()->fromPost('produktHasGesetzlEinlagvers');
 				$produktKtofuehrKost = $params()->fromPost('produktKtofuehrKost');
 				$produktHasOnlineBanking = $params()->fromPost('produktHasOnlineBanking');

@@ -126,7 +126,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Mindestanlage')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
+					'class' => 'form-control validate[custom[numberKom]]',
 					'id' => 'produktMindestanlage'
 			));
 		$zinssatz
@@ -148,7 +148,7 @@ class ProduktForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Höchstanlage')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
+					'class' => 'form-control validate[custom[numberKom]]',
 					'id' => 'produktHoechstanlage'
 			));	
 		$produktHasGesetzlEinlagvers

@@ -64,7 +64,7 @@ $(document).ready(function() {
 			    data : $("#produkt-form").serialize(),
 			    success : function (response){
 			    	if(!response.error) window.location = response.redirect;
-			    	if(response.error) alertClass = 'alert-danger';
+			    	else alertClass = 'alert-danger';
 			    	$('#alert')
 			    		.css('display', 'block')
 			    		.removeClass()

@@ -123,6 +123,11 @@
                 },
                 "validate2fields": {
                     "alertText": "* Bitte HELLO eingeben"
+                },
+                "numberKom": {
+//                	"regex": /^[\-\+]?((([0-9]{1,3})([.][0-9]{3})*)|([0-9]+))?([\,]([0-9]+))?$/,
+                	"regex": /^[+-]?\d+(\,\d+)?([eE][+-]?\d+)?$/,
+                	"alertText": "* Keine gültige Fließkommazahl. Dezimalstellen mit , trennen."
                 }
             };
             

@@ -26,6 +26,7 @@
 	        	<div class="col-sm-3">
 	        		<?php 
         				echo $this->formElement($element);
+        				if($name == 'produktHoechstanlage') echo '<span class="help-block">0 = unbegrenzt</span>';
         			?>
 	        	</div>
 	    </div>
