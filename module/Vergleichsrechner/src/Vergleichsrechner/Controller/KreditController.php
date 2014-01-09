@@ -82,8 +82,14 @@ class KreditController extends BaseController
 				$form->get('produktCheck')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktCheck()));
 				$form->get('produktTipp')->setAttribute('value', $produkt->getProduktTipp());
 				$form->get('produktInformationen')->setAttribute('value', $produkt->getProduktInformationen());
-				$form->get('produktUrl')->setAttribute('value', $produkt->getProduktUrl());
-				$form->get('produktKlickoutUrl')->setAttribute('value', $produkt->getProduktKlickoutUrl());
+				$produktUrl = $params()->fromPost('produktUrl');
+				if (strpos($produktUrl,'http://') === false) {
+					$produktUrl = 'http://'.$produktUrl;
+				}
+				$produktKlickoutUrl = $params()->fromPost('produktKlickoutUrl');
+				if (strpos($produktKlickoutUrl,'http://') === false) {
+					$produktKlickoutUrl = 'http://'.$produktKlickoutUrl;
+				}
 				$form->get('modus')->setValue('edit');
 				
 				$message = "Form erfolgreich geladen!";

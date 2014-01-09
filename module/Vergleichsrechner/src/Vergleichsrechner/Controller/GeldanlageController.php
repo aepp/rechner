@@ -140,7 +140,13 @@ class GeldanlageController extends BaseController
 				$produktTipp = $params()->fromPost('produktTipp');
 				$produktInformationen = $params()->fromPost('produktInformationen');
 				$produktUrl = $params()->fromPost('produktUrl');
+				if (strpos($produktUrl,'http://') === false) {
+					$produktUrl = 'http://'.$produktUrl;
+				}
 				$produktKlickoutUrl = $params()->fromPost('produktKlickoutUrl');
+				if (strpos($produktKlickoutUrl,'http://') === false) {
+					$produktKlickoutUrl = 'http://'.$produktKlickoutUrl;
+				}				
 				$ktozugriffeNew = $params()->fromPost('ktozugriffe');
 				
 				$aktion = $params()->fromPost('aktion');
