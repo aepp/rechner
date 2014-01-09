@@ -83,11 +83,11 @@ class KreditController extends BaseController
 				$form->get('produktTipp')->setAttribute('value', $produkt->getProduktTipp());
 				$form->get('produktInformationen')->setAttribute('value', $produkt->getProduktInformationen());
 				$produktUrl = $params()->fromPost('produktUrl');
-				if (strpos($produktUrl,'http://') === false) {
+				if (strpos($produktUrl,'http') === false) {
 					$produktUrl = 'http://'.$produktUrl;
 				}
 				$produktKlickoutUrl = $params()->fromPost('produktKlickoutUrl');
-				if (strpos($produktKlickoutUrl,'http://') === false) {
+				if (strpos($produktKlickoutUrl,'http') === false) {
 					$produktKlickoutUrl = 'http://'.$produktKlickoutUrl;
 				}
 				$form->get('modus')->setValue('edit');
