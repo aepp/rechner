@@ -282,7 +282,7 @@ $(document).ready(function() {
 	                if(data.record){
 		                if(data.record.bankLogo){
 		                	preview +=
-			                		'<img id="logoPreview" src="uploads/bank-logo/'+data.record.bankLogo+'" class="bank-logo-preview"/>'+
+			                		'<img id="logoPreview" src="uploads/bank-logo/'+data.record.bankLogo+'_115-x-60.png" class="bank-logo-preview"/>'+
 		                			'<br/>'+
 	//	                			'<input type="text" id="bankLogo" name="bankLogo" value="'+data.record.bankLogo+'"  class="validate[required]"/>';
 		                			'<input type="text" id="bankLogo" name="bankLogo" value="'+data.record.bankLogo+'"/>';
