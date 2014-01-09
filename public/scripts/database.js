@@ -59,7 +59,7 @@ $(document).ready(function() {
 		                	logoUploaded = $('#Edit-bankName').val().toString().replace(/ /g, "").toLowerCase();
 		                	
 		                	$('#bankLogo').val(logoUploaded);
-		                	alert(data);
+//		                	alert(data);
 //		                	alert($('input[name="bankLogo"]').val());
 		                	$('#logoPreview').attr('src', 'uploads/bank-logo/'+logoUploaded+'_115-x-60.png');
 
