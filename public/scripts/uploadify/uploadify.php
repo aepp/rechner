@@ -21,15 +21,17 @@ $dest = '/var/www/vhosts/vergleich24.at/httpdocs/wp-content/uploads/bank-logo/';
 // $dest = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
 
 if (!empty($_FILES)) {
+	$bankName = strtolower(str_replace(" ", "", $_POST['bankName']));
+	
 	$tempFile = $_FILES['Filedata']['tmp_name'];
 	$targetPath = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
-	$targetFile = rtrim($targetPath,'/') . '/' . $_FILES['Filedata']['name'];
+	$targetFile = rtrim($targetPath,'/') . '/' . $bankName;
 	// Validate the file type
 	$fileTypes = array('jpg','jpeg','gif','png'); // File extensions
 	$fileParts = pathinfo($_FILES['Filedata']['name']);
 	
 	if (in_array($fileParts['extension'],$fileTypes)) {
-		move_uploaded_file($tempFile,$targetFile);
+		move_uploaded_file($tempFile, $targetFile);
 // 		if(!file_exists($dest.$_FILES['Filedata']['name'])){
 // 			echo copy($src.$_FILES['Filedata']['name'], $dest.$_FILES['Filedata']['name']);
 // 		}
@@ -88,8 +90,8 @@ if (!empty($_FILES)) {
 				imagecopyresampled($new, $image,
 							0, 0, 0, 0,
 							$new_width, $new_height, $old_width, $old_height);
-				imagepng($new, $dest.$fileParts['filename']."_$max_width-x-$max_height.png");
-// 				imagepng($new, $targetPath.'/'.$fileParts['filename']."_$max_width-x-$max_height.png");
+				imagepng($new, $dest.$bankName."_$max_width-x-$max_height.png");
+// 				imagepng($new, $targetPath."/".$bankName."_$max_width-x-$max_height.png");
 			}
 // 			unlink($targetFile);
 		}

@@ -36,6 +36,7 @@ $(document).ready(function() {
 		                uploader: 'scripts/uploadify/uploadify.php',
 		                folder: 'uploads/bank-logo',
 		                cancelImg: 'scripts/uploadify/img/uploadify-cancel.png',
+		                formData : { 'bankName' : $('#Edit-bankName').val() },
 		                removeCompleted: false,
 		                multi: false,
 		                onInit : function(instance) {
@@ -55,10 +56,7 @@ $(document).ready(function() {
 //		                    alert('The file ' + file.name + ' finished processing.');
 		                }, 
 		                onUploadSuccess: function (file, data, response) {
-		                	logoUploaded = file.name;
-		                	
-		                	var extension = logoUploaded.substring(logoUploaded.lastIndexOf("."));
-		                	logoUploaded = logoUploaded.replace(extension, '');
+		                	logoUploaded = $('#Edit-bankName').val().toString().replace(/ /g, "").toLowerCase();
 		                	
 		                	$('#bankLogo').val(logoUploaded);
 //		                	alert(data);
