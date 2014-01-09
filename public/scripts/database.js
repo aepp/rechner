@@ -93,6 +93,13 @@ $(document).ready(function() {
 		    case "produktart":
 		    	tableFields = getFields_produktart();
 		    	defaultSorting = 'produktartId ASC';
+		    	formCreatedFunction = function (event, data){
+		    		data.form.validationEngine();
+		    		if(data.record){
+		    			$('#Edit-kategorie').val(data.record.kategorie.kategorieId);
+		    		}
+					
+		    	};		
 		        break;
 		    case "testbericht":
 //		    	tableFields = getFields_testbericht();
@@ -360,7 +367,7 @@ $(document).ready(function() {
     } 
     function getFields_produktart(){
     	fields = {
-    			produktartId: {
+			produktartId: {
 	            key: true,
 	            edit: false,
 	            list: true,
@@ -371,6 +378,13 @@ $(document).ready(function() {
 	            title: 'Produktart',
 	            type: 'text',
 	            inputClass: 'validate[required]',
+	        },
+	        kategorie: {
+	            title: 'Kategorie',
+	            options: 'database/kategorie/options',
+	            display: function (data) {
+	                return data.record.kategorie.kategorieName;	            	
+	            }
 	        },
     	};
     	return fields;

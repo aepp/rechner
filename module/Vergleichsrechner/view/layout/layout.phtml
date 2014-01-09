@@ -10,7 +10,7 @@
         ?>
 
         <!-- Le styles -->
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath().'/img/favicon.ico'))
 	        ->prependStylesheet($this->basePath() . '/css/core.css')
 	        ->prependStylesheet($this->basePath() . '/scripts/jquery-validationEngine/css/validationEngine.jquery.css')
 	        ->prependStylesheet($this->basePath() . '/scripts/jquery-jtable/css/themes/jqueryui/jtable_jqueryui.min.css')
@@ -45,9 +45,8 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="<?php echo $this->url('welcome') ?>">
-						<img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="vergleich24"/>
-						&nbsp;vergleich24
+					<a class="navbar-brand" href="<?php echo $this->url('index') ?>">
+						<img src="<?php echo $this->basePath('img/vergleich24-at.png') ?>" alt="vergleich24at" id="vergleich24at-logo"/>
 					</a>
 				</div>
                	<div class="collapse navbar-collapse">

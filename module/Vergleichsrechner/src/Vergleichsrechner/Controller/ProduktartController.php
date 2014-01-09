@@ -48,9 +48,13 @@ class ProduktartController extends BaseController
     	if ($request->isPost()) {
     		$em = $this->getEntityManager();
     		$produktartName = $_POST['produktartName'];
+    		$kategorie_id = $_POST['kategorie'];
+    		$kategorie = $em->find('Vergleichsrechner\Entity\Kategorie', $kategorie_id);
     		
     		$produktart = new Produktart();
     		$produktart->setProduktartName($produktartName);
+    		$produktart->setKategorie($kategorie);
+    		
     		$em->persist($produktart);
     		$em->flush();
     		$response->setContent(Json::encode(array('Result' => 'OK', 'Record' => $produktart->jsonSerialize())));
@@ -66,7 +70,11 @@ class ProduktartController extends BaseController
     		$id = $_POST['produktartId'];
     		$produktart = $em->find('Vergleichsrechner\Entity\Produktart', $id);
     		$produktartName = $_POST['produktartName'];
+    		$kategorie_id = $_POST['kategorie'];
+    		$kategorie = $em->find('Vergleichsrechner\Entity\Kategorie', $kategorie_id);
+    		
     		$produktart->setProduktartName($produktartName);
+    		$produktart->setKategorie($kategorie);
     		$em->persist($produktart);
     		$em->flush();
     		$response->setContent(Json::encode(array('Result' => 'OK', 'Record' => $produktart->jsonSerialize())));

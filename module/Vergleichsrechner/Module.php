@@ -12,6 +12,8 @@ class Module
 	
     public function onBootstrap(MvcEvent $e)
     {
+    	date_default_timezone_set( 'Europe/Berlin' );
+    	
     	$app = $e->getApplication();
         $eventManager = $app->getEventManager();
         $sm  = $app->getServiceManager();
@@ -90,7 +92,8 @@ class Module
     {
     	return array(
     			'invokables' => array(
-    					'ProduktForm' => 'Vergleichsrechner\Form\ProduktForm',
+    					'GeldanlageForm' => 'Vergleichsrechner\Form\GeldanlageForm',
+    					'KreditForm' => 'Vergleichsrechner\Form\KreditForm',
     					'LoginForm' => 'Vergleichsrechner\Form\LoginForm',
     			),
     			'initializers' => array(

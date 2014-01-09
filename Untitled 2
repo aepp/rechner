@@ -1,0 +1,37 @@
+					<div class="row" data-columns="10">
+						<div class="col-lg-2">
+							
+						</div>
+						<div class="col-lg-8">
+							Laufzeit in Monaten
+						</div>
+					</div>
+					<div class="row" data-columns="10">
+						<div class="col-lg-2">
+							Risikoklasse
+						</div>
+						<div class="col-lg-1">
+							<input type="text" class="form-control kondition-laufzeit kondition-input input-sm" value="12"/>
+						</div>
+						<div class="col-lg-1">
+							<input type="text" class="form-control kondition-laufzeit kondition-input input-sm" value="18"/>
+						</div>
+						<div class="col-lg-1">
+							<input type="text" class="form-control kondition-laufzeit kondition-input input-sm" value="24"/>
+						</div>
+						<div class="col-lg-1">
+							<input type="text" class="form-control kondition-laufzeit kondition-input input-sm" value="36"/>
+						</div>
+						<div class="col-lg-1">
+							<input type="text" class="form-control kondition-laufzeit kondition-input input-sm" value="48"/>
+						</div>
+						<div class="col-lg-1">
+							<input type="text" class="form-control kondition-laufzeit kondition-input input-sm" value="60"/>
+						</div>
+						<div class="col-lg-1">
+							<input type="text" class="form-control kondition-laufzeit kondition-input input-sm" value="72"/>
+						</div>
+						<div class="col-lg-1">
+							<input type="text" class="form-control kondition-laufzeit kondition-input input-sm" value="84"/>
+						</div>
+					</div>					

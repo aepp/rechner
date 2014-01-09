@@ -3,8 +3,7 @@
         <?php /* @var $page Zend\Navigation\Page\Mvc */ ?>
         <?php // when using partials we need to manually check for ACL conditions ?>
         <?php if( ! $page->isVisible() || !$this->navigation()->accept($page)) continue; ?>
-        <?php $hasChildren = $page->hasPages() ?>
-        <?php if( ! $hasChildren): ?>
+        <?php if( ! $page->hasPages()): ?>
         <li <?php if($page->isActive()) echo 'class="active"'?>>
             <a class="nav-header" href="<?php echo $page->getHref() ?>">
                 <?php echo $this->translate($page->getLabel()) ?>
@@ -17,15 +16,40 @@
                 <b class="caret"></b>
             </a>
 
-            <ul class="dropdown-menu" id="page_<?php echo $count ?>">
-            <?php foreach($page->getPages() as $child): ?>
-                <?php // when using partials we need to manually check for ACL conditions ?>
-                <?php if( ! $child->isVisible() || !$this->navigation()->accept($child)) continue; ?>
-                <li>
-                    <a href="<?php echo $child->getHref() ?>">
-                        <?php echo $this->translate($child->getLabel()) ?>
-                    </a>
-                </li>
+            <ul class="dropdown-menu"  data-toggle="dropdown" id="page_<?php echo $count ?>">
+            <?php foreach($page->getPages() as $subPage): ?>
+                <?php if( ! $subPage->isVisible() || !$this->navigation()->accept($subPage)) continue; ?>
+		        <?php if( ! $subPage->hasPages()): ?>
+		        <li class="dropdown">
+		            <a href="<?php echo $subPage->getHref() ?>">
+		                <?php echo $this->translate($subPage->getLabel()) ?>
+		            </a>
+		        </li>
+		        <?php else: ?>
+			        <li class="dropdown-submenu">
+			            <a tabindex="-1" href="#">
+			                <span><?php echo $this->translate($subPage->getLabel()) ?></span>
+			            </a>
+			
+			            <ul class="dropdown-menu" id="page_<?php echo $count ?>">
+			            <?php foreach($subPage->getPages() as $subSubPage): ?>
+			            
+			                <?php if( ! $subSubPage->isVisible() || !$this->navigation()->accept($subSubPage)) continue; ?>
+					        <?php if( ! $subSubPage->hasPages()): ?>
+					        <li <?php if($subSubPage->isActive(true)) echo 'class="active"'?>>
+					            <a tabindex="-2" href="<?php echo $subSubPage->getHref() ?>">
+					                <?php echo $this->translate($subSubPage->getLabel()) ?>
+					            </a>
+					        </li>
+					        <?php else: ?>
+					        	
+			            	<?php endif ?>
+			            	<?php $count++ ?>
+			            <?php endforeach ?>
+			            </ul>
+					</li>  		        	
+            	<?php endif ?>
+            	<?php $count++ ?>
             <?php endforeach ?>
             </ul>
          </li>   

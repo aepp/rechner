@@ -13,35 +13,27 @@ return array(
         		'Database' => 'Vergleichsrechner\Controller\DatabaseController',
         		'Kategorie' => 'Vergleichsrechner\Controller\KategorieController',
         		'Kontozugriff' => 'Vergleichsrechner\Controller\KontozugriffController',
+        		'Kredit' => 'Vergleichsrechner\Controller\KreditController',
         		'Legitimation' => 'Vergleichsrechner\Controller\LegitimationController',
         		'Produktart' => 'Vergleichsrechner\Controller\ProduktartController',
-        		'Produkt' => 'Vergleichsrechner\Controller\ProduktController',
+        		'Produktverwaltung' => 'Vergleichsrechner\Controller\ProduktverwaltungController',
+        		'Geldanlage' => 'Vergleichsrechner\Controller\GeldanlageController',
         		'Testbericht' => 'Vergleichsrechner\Controller\TestberichtController',
         		'User' => 'Vergleichsrechner\Controller\UserController',
-        		'Welcome' => 'Vergleichsrechner\Controller\WelcomeController',
+        		'Index' => 'Vergleichsrechner\Controller\IndexController',
         		'Zeitabschnitt' => 'Vergleichsrechner\Controller\ZeitabschnittController',
         		'Zinssatz' => 'Vergleichsrechner\Controller\ZinssatzController',
         ),
     ),
     'router' => array(
         'routes' => array(
-				'welcome' => array(
-	                'type'    => 'Literal',
-	                'options' => array(
-	                    'route'    => '/welcome',
-	                    'defaults' => array(
-	                        'controller'    => 'Welcome',
-	                        'action'        => 'index',
-	                    ),
-	                ),
-	            ),
 				'index' => array(
 	        		'type'    => 'Literal',
 	        		'options' => array(
 	        				'route'    => '/',
 	        				'defaults' => array(
-	        						'controller'    => 'Auth',
-	        						'action'        => 'login',
+	        						'controller'    => 'Index',
+	        						'action'        => 'index',
 	        				),
 	        		),
 	        	),        					
@@ -246,29 +238,44 @@ return array(
         						),
         				),
         		),
-        		'produkt' => array(
+        		'produktverwaltung' => array(
         				'type'    => 'Literal',
         				'options' => array(
-        						'route'    => '/produkt',
+        						'route'    => '/produktverwaltung',
         						'defaults' => array(
-        								'controller'    => 'Produkt',
+        								'controller'    => 'Produktverwaltung',
         								'action'        => 'index',
         						),
         				),
         				'may_terminate' => true,
         				'child_routes' => array(
-        						'default' => array(
+        						'geldanlage' => array(
         								'type'    => 'Segment',
         								'options' => array(
-        										'route'    => '[/:action[/:produktId]]',
+        										'route'    => '/geldanlage[/:action[/:produktId]]',
         										'constraints' => array(
-        												'controller' => 'Produkt',
+        												'controller' => 'Geldanlage',
         												'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
         												'produktId' => '[0-9]*'
         										),
         										'defaults' => array(
-        												'controller'    => 'Produkt',
-        												'action'        => 'index',
+        												'controller' => 'Geldanlage',
+        												'action' => 'index',
+        										),
+        								),
+        						),
+        						'kredit' => array(
+        								'type'    => 'Segment',
+        								'options' => array(
+        										'route'    => '/kredit[/:action[/:produktId]]',
+        										'constraints' => array(
+        												'controller' => 'Kredit',
+        												'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+        												'produktId' => '[0-9]*'
+        										),
+        										'defaults' => array(
+        												'controller' => 'Kredit',
+        												'action' => 'index',
         										),
         								),
         						),
@@ -279,28 +286,52 @@ return array(
 	'navigation' => array(
 			'default' => array(
 					array(
-						'label' => 'Start',
-						'route' => 'welcome',
+						'label' => 'Home',
+						'route' => 'index',
 					),
 					array(
 						'label' => 'Datenbank',
 						'route' => 'database',
 					),
 					array(
-						'label' => 'Produkte',
-						'route' => 'produkt',
+						'label' => 'Produktverwaltung',
+						'route' => 'produktverwaltung',
 						'pages' => array(
 								array(
-									'label' => 'Produktübersicht',
-									'route' => 'produkt/default',
-									'controller' => 'Produkt',
-									'action' => 'index',
+									'label' => 'Geldanlage',
+									'route' => 'produktverwaltung/geldanlage',
+									'pages' => array(
+										array(
+												'label' => 'Produktübersicht',
+												'route' => 'produktverwaltung/geldanlage',
+												'controller' => 'Geldanlage',
+												'action' => 'index',
+										),
+										array(
+											'label' => 'Produkt hinzufügen / bearbeiten',
+											'route' => 'produktverwaltung/geldanlage',
+											'controller' => 'Geldanlage',
+											'action' => 'edit',
+										),
+									)
 								),
 								array(
-									'label' => 'Produkt hinzufügen',
-									'route' => 'produkt/default',
-									'controller' => 'Produkt',
-									'action' => 'edit',
+										'label' => 'Kredite',
+										'route' => 'produktverwaltung/kredit',
+										'pages' => array(
+												array(
+														'label' => 'Produktübersicht',
+														'route' => 'produktverwaltung/kredit',
+														'controller' => 'Kredit',
+														'action' => 'index',
+												),
+												array(
+														'label' => 'Produkt hinzufügen / bearbeiten',
+														'route' => 'produktverwaltung/kredit',
+														'controller' => 'Kredit',
+														'action' => 'edit',
+												),
+										)
 								),
 						),
 					),
@@ -324,7 +355,7 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-        	'index/index'   		  => __DIR__ . '/../view/welcome/welcome.phtml',
+        	'index/index'   		  => __DIR__ . '/../view/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),

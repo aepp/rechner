@@ -11,11 +11,6 @@
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.2.*",
         "doctrine/common": ">=2.3",
-		"doctrine/doctrine-orm-module": "0.7.*",
-		"zendframework/zend-developer-tools": "dev-master",
-		"zf-commons/zfc-base": "0.1.*",
-		"zf-commons/zfc-user": "dev-master",
-		"zf-commons/zfc-user-doctrine-orm": "dev-master",
-		"firephp/firephp-core" : "dev-master"
+		"doctrine/doctrine-orm-module": "0.7.*"
     }
 }

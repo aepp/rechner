@@ -1,0 +1,133 @@
+<?php 
+	echo $this->headScript()
+		->prependFile($this->basePath() . '/scripts/geldanlage-overview.js')
+		->prependFile($this->basePath() . '/scripts/tablesorter/js/jquery.tablesorter.widgets.min.js')
+		->prependFile($this->basePath() . '/scripts/tablesorter/addons/pager/jquery.tablesorter.pager.min.js')
+		->prependFile($this->basePath() . '/scripts/tablesorter/js/jquery.tablesorter.min.js');
+	echo $this->headLink()
+		->prependStylesheet($this->basePath() . '/css/geldanlage-overview.css')
+		->prependStylesheet($this->basePath() . '/scripts/tablesorter/addons/pager/jquery.tablesorter.pager.css')
+		->prependStylesheet($this->basePath() . '/scripts/tablesorter/css/theme.bootstrap.css');
+?>
+<div class="row text-center">
+	<?php if($error): ?>
+		<div class="alert alert-danger" id="alert" style="display:block;">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  			<?php echo sprintf($this->translate('Error')).": ".$message; ?>
+		</div>
+	 <?php endif; ?>
+  	<h2><?php echo sprintf($this->translate('Produktübersicht')) ?></h2>
+</div>	
+<div class="row text-center">
+	<p><a class="btn btn-success" href="geldanlage/edit"><?php echo $this->translate('Produkt hinzufügen') ?></a></p>
+</div>	
+<div class="row">
+	<table class="table-hover tablesorter" id="produkte-table">
+		<thead>
+			<tr>
+				<th></th>
+				<th class="filter-select" data-placeholder="Suche nach Anbieter...">Anbieter</th>
+				<th class="filter-select" data-placeholder="Suche nach Produktart...">Produktart</th>
+				<th data-placeholder="Suche nach Produktnamen...">Produktname</th>
+				<th class="filter-select" data-placeholder="Aktion?">Aktion</th>
+				<th class="filter-select" data-placeholder="Tipp?">Tipp</th>
+				<th>URLs</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach($produkte as $produkt): ?>
+				<tr id="produkt-table-row-<?php echo $produkt->getProduktId(); ?>">
+					<td>
+						<input type="hidden" value="<?php echo $produkt->getProduktId(); ?>" class="produktId"/>
+						<a href="geldanlage/edit/<?php echo $produkt->getProduktId(); ?>" class="btn btn-default btn-xs edit-produkt-button">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+						<button type="button" class="btn btn-default btn-xs delete-produkt-button">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</td>
+					<td>	
+						<?php if($produkt->getBank()->getBankLogo()):?>
+<!-- 							<div class="bank-logo-preview-div"> -->
+								<img 
+									alt="<?php echo $produkt->getBank()->getBankName() ?>" 
+									src="uploads/bank-logo/<?php echo $produkt->getBank()->getBankLogo() ?>"
+									id="produkt-bank-logo-<?php echo $produkt->getProduktId(); ?>"
+									class="bank-logo-preview"
+								/>
+<!-- 							</div> -->
+						<?php endif; ?>
+						<br/>
+						<span id="produkt-bank-name-<?php echo $produkt->getProduktId(); ?>"><?php echo $produkt->getBank()->getBankName() ?></span>
+					</td>
+					<td>
+						<span id="produkt-produktart-<?php echo $produkt->getProduktId(); ?>"><?php echo $produkt->getProduktart()->getProduktartName() ?></span>
+					</td>	
+					<td>
+						<span id="produkt-name-<?php echo $produkt->getProduktId(); ?>"><?php echo $produkt->getProduktName(); ?></span>
+					</td>	
+					<td>
+						<?php if($produkt->getAktion() != null): ?>
+							<span class="glyphicon glyphicon-ok">
+								<span class="mit"></span>
+							</span>
+						<?php else: ?>
+							<span class="glyphicon glyphicon-remove">
+								<span class="ohne"></span>
+							</span>
+						<?php endif; ?>
+					</td>								
+					<td>
+						<?php if($produkt->getProduktTipp()): ?>
+							<span class="glyphicon glyphicon-ok">
+								<span class="mit"></span>
+							</span>
+						<?php else: ?>
+							<span class="glyphicon glyphicon-remove">
+								<span class="ohne"></span>
+							</span>
+						<?php endif; ?>
+					</td>				
+					<td>
+						<div>
+							<a href="<?php echo $produkt->getProduktUrl() ?>">
+								Produkt-URL
+							</a>
+							<br>
+							<a href="<?php echo $produkt->getProduktKlickoutUrl() ?>" target="_blank">
+								Klickout-URL
+							</a>
+						</div>
+					</td>	
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="delete-confirm-modal" tabindex="-1" role="dialog" aria-labelledby="delete-confirm-modal-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        		<h4 class="modal-title" id="delete-confirm-modal-label">Wirklich löschen?</h4>
+      		</div>
+			<div class="modal-body">
+				<input type="hidden" value="" id="delete-produkt-id"/>
+				<span>
+					Soll das Produkt <strong id="delete-produkt-name"></strong> wirklich gelöscht werden?
+				</span>
+				<br>
+				<span>
+					<strong>Bank:</strong> <span id="delete-produkt-bank"></span><br>
+					<strong>Kategorie:</strong> <span id="delete-produkt-kategorie"></span>
+				</span>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+				<button type="button" class="btn btn-warning" id="delete-confirm">Produkt löschen</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

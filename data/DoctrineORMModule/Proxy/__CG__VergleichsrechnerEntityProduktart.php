@@ -64,10 +64,10 @@ class Produktart extends \Vergleichsrechner\Entity\Produktart implements \Doctri
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'produktartId', 'produktartName');
+            return array('__isInitialized__', 'produktartId', 'produktartName', 'kategorie');
         }
 
-        return array('__isInitialized__', 'produktartId', 'produktartName');
+        return array('__isInitialized__', 'produktartId', 'produktartName', 'kategorie');
     }
 
     /**
@@ -208,6 +208,28 @@ class Produktart extends \Vergleichsrechner\Entity\Produktart implements \Doctri
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getProduktartName', array());
 
         return parent::getProduktartName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setKategorie($kategorie)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setKategorie', array($kategorie));
+
+        return parent::setKategorie($kategorie);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getKategorie()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getKategorie', array());
+
+        return parent::getKategorie();
     }
 
     /**

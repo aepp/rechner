@@ -1,0 +1,52 @@
+<div class="jumbotron">
+    <h1><?php echo $this->translate('Produktverwaltung') ?></h1>
+</div>
+
+<div class="row">
+
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?php echo $this->translate('Geldanlage') ?></h3>
+            </div>
+            <div class="panel-body">
+                <p><?php echo sprintf($this->translate('
+                		Hier kannst du Produkte der Kategorie <em>Geldanlagen</em> anlegen oder bearbeiten. 
+						Dies sind u. A. Tages- und Festgeldprodukte.
+                		')) ?></p>
+                <p><a class="btn btn-success pull-right" href="produktverwaltung/geldanlage"><?php echo $this->translate('Zur Produktübersicht') ?> &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?php echo $this->translate('Kredite') ?></h3>
+            </div>
+            <div class="panel-body">
+                <p><?php echo sprintf($this->translate('
+                		Hier kannst du Produkte der Kategorie <em>Kredite</em> anlegen oder bearbeiten.
+                		Dies sind u. A. Auto- und Ratenkredite.
+                		')) ?></p>
+                <p><a class="btn btn-success pull-right" href="produktverwaltung/kredit"><?php echo $this->translate('Zur Produktübersicht') ?> &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?php echo $this->translate('Geldkarten') ?></h3>
+            </div>
+            <div class="panel-body">
+                <p><?php echo sprintf($this->translate('
+                		Hier kannst du Produkte der Kategorie <em>Geldkarten</em> anlegen oder bearbeiten.
+                		Dies sind z. B. Girokonten.
+                		')) ?></p>
+                <p><a class="btn btn-success pull-right" href="produktverwaltung/geldkarte"><?php echo $this->translate('Zur Produktübersicht') ?> &raquo;</a></p>
+            </div>
+        </div>
+    </div>    
+    
+</div>

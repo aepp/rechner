@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+
+body .modal-dialog {
+	width: 50%;
+}
+
+body .table-responsive{
+	overflow:auto;
+}
+
+.form-control.kondition-input{
+	min-width: 60px;
+}
+
+.form-control.kondition-risikoklasse{
+	max-width: 30px;
+	min-width: 30px;
+}
+
+#konditionen-table td{
+	vertical-align: middle;
+}
+
+.modal-progress-bar{
+	width: 100%;
+}

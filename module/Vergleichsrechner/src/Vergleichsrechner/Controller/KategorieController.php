@@ -89,4 +89,26 @@ class KategorieController extends BaseController
     	}
     	return $response;
     }
+    
+    /*
+     * Returns a json-Object with list of Kategorie
+     * for select in Produktart-table
+     */
+    public function optionsAction()
+    {
+    	$request = $this->getRequest();
+    	$response = $this->getResponse();
+    	if ($request->isPost()) {
+    		$em = $this->getEntityManager();
+    		$kategorien = $em->getRepository('Vergleichsrechner\Entity\Kategorie')->findAll();
+    		$options = array();
+    		$option = array();
+    		foreach ($kategorien as $kategorie){
+    			$option = array('Value' => $kategorie->getKategorieId(), 'DisplayText' => $kategorie->getKategorieName());
+    			array_push($options, $option);
+    		}
+    		$response->setContent(Json::encode(array('Result' => 'OK', 'Options' => $options)));
+    	}
+    	return $response;
+    }
 }

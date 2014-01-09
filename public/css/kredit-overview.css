@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+
+/*
+.bank-logo-preview-div{
+	height: 50px;
+	width: 100px;
+}
+
+.bank-logo-preview{
+	max-wdth: 100%;
+	max-height: 100%;
+}
+*/
+.bank-logo-preview{
+	height: 50px;
+	width: auto;
+}
+.tablesorter-filter.disabled {
+	display: none;
+}

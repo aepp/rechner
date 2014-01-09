@@ -31,7 +31,13 @@ class Produktart
      */
     protected $produktartName;
 
-
+    /**
+     * @var Kategorie
+     *
+     * @ORM\ManyToOne(targetEntity="Kategorie")
+     * @ORM\JoinColumn(name="kategorie_id", referencedColumnName="kategorie_id")
+     */
+    protected $kategorie;
 
     /**
      * Get produktartId
@@ -65,11 +71,35 @@ class Produktart
     {
         return $this->produktartName;
     }
-
+    
+    /**
+     * Set kategorie
+     *
+     * @param Kategorie $kategorieId
+     * @return Produkt
+     */
+    public function setKategorie($kategorie)
+    {
+    	$this->kategorie = $kategorie;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get kategorie
+     *
+     * @return Kategorie
+     */
+    public function getKategorie()
+    {
+    	return $this->kategorie;
+    }
+    
     public function jsonSerialize() {
     	return [
 	    	'produktartId' => $this->getProduktartId(),
 	    	'produktartName' => $this->getProduktartName(),
+	    	'kategorie' => $this->getKategorie()->jsonSerialize(),
     	];
     }
 }

@@ -35,7 +35,7 @@ class Kontozugriff
     /**
      * @var Collections\Collection
      * 
-     * @ORM\ManyToMany(targetEntity="Produkt", mappedBy="ktozugriffe")
+     * @ORM\ManyToMany(targetEntity="Geldanlage", mappedBy="ktozugriffe")
      **/
     protected $produkte;
 
@@ -80,10 +80,10 @@ class Kontozugriff
     /**
      * Remove produkt
      *
-     * @param Produkt $produkt
+     * @param Geldanlage $produkt
      * @return Kontozugriff
      */
-    public function removeProdukt(Produkt $produkt)
+    public function removeProdukt(Geldanlage $produkt)
     {
     	if($this->produkte->contains($produkt)){
     		$this->produkte->removeElement($produkt);
@@ -93,10 +93,10 @@ class Kontozugriff
     /**
      * Add produkt
      *
-     * @param Produkt $produkt
+     * @param Geldanlage $produkt
      * @return Kontozugriff
      */
-    public function addProdukt(Produkt $produkt)
+    public function addProdukt(Geldanlage $produkt)
     {
     	if(!$this->produkte->contains($produkt)){
     		$this->produkte->add($produkt);

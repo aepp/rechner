@@ -11,12 +11,9 @@ use Vergleichsrechner\Form\LoginFilter;
 class AuthController extends BaseController
 {
 	
-	const ROUTE_CHANGEPASSWD = '/changepassword';
 	const ROUTE_LOGIN        = 'login';
-	const ROUTE_REGISTER     = '/register';
-	const ROUTE_CHANGEEMAIL  = '/changeemail';
 	
-	const ROUTE_LOGIN_REDIRECT = 'welcome';
+	const ROUTE_LOGIN_REDIRECT = 'index';
 	const USE_REDIRECT_PARAMETERS_IF_PRESENT = true;
 	
 	const CONTROLLER_NAME    = 'Vergleichsrechner\Controller\Auth';
