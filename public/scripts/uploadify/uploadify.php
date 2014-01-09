@@ -21,7 +21,7 @@ $dest = '/var/www/vhosts/vergleich24.at/httpdocs/wp-content/uploads/bank-logo/';
 // $dest = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
 
 if (!empty($_FILES)) {
-	$bankName = strtolower(str_replace(" ", "", $_POST['bankName']).'.png');
+	$bankName = strtolower(str_replace(" ", "", $_POST['bankName']));
 	
 	$tempFile = $_FILES['Filedata']['tmp_name'];
 	$targetPath = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
