@@ -23,8 +23,8 @@ $(document).ready(function() {
     $('#produktGueltigSeit')
     	.wrap('<div class="input-group date"></div>');
     $('#produktGueltigSeit').parent().append(
-	    '<span class="input-group-addon">'+
-	    	'<i class="glyphicon glyphicon-calendar"></i>'+
+	    '<span class="input-group-btn">'+
+	    	'<button class="btn btn-default" type="button"><i class="glyphicon glyphicon-calendar"></i></button>'+
     	'</span>'
     );
     $('.input-group.date')

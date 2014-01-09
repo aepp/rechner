@@ -29,8 +29,8 @@
 			        	   $name == 'produktMindestanlage'){
 	        				echo '
 									<div class="input-group">'.
-		        										$this->formElement($element)
-		        										.'<span class="input-group-addon">€</span>
+        								$this->formElement($element)
+        								.'<span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
 									</div>';
 	        				if($name == 'produktHoechstanlage') echo '<span class="help-block">0 = unbegrenzt</span>';
 		        		} else {

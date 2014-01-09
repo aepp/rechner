@@ -56,10 +56,14 @@ $(document).ready(function() {
 		                }, 
 		                onUploadSuccess: function (file, data, response) {
 		                	logoUploaded = file.name;
+		                	
+		                	var extension = logoUploaded.substring(logoUploaded.lastIndexOf("."));
+		                	logoUploaded = logoUploaded.replace(extension, '');
+		                	
 		                	$('#bankLogo').val(logoUploaded);
 //		                	alert(data);
 //		                	alert($('input[name="bankLogo"]').val());
-		                	$('#logoPreview').attr('src', 'uploads/bank-logo/'+logoUploaded);
+		                	$('#logoPreview').attr('src', 'uploads/bank-logo/'+logoUploaded+'_115-x-60.png');
 
 		                },		
 		                onUploadError : function(file, errorCode, errorMsg, errorString) {
@@ -205,7 +209,7 @@ $(document).ready(function() {
 	                	'<div>';
 	                if(data.record.banken[0].bankLogo){
 	                	preview +=
-	                		'<img id="logoPreview" src="uploads/bank-logo/'+data.record.banken[0].bankLogo+'" class="bank-logo-preview"/>'+
+	                		'<img id="logoPreview" src="uploads/bank-logo/'+data.record.banken[0].bankLogo+'_115-x-60.png" class="bank-logo-preview"/>'+
 	            			'<br/>';
 	            	}
                 	preview +=
@@ -260,7 +264,7 @@ $(document).ready(function() {
 	                if(data.record){
 		                if(data.record.bankLogo){
 		                	preview +=
-			                		'<img src="uploads/bank-logo/'+data.record.bankLogo+'" class="bank-logo-preview"/>';
+			                		'<img src="uploads/bank-logo/'+data.record.bankLogo+'_115-x-60.png" class="bank-logo-preview"/>';
 	
 		            	} else {
 		                	preview +=

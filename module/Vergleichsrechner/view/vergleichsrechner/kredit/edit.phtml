@@ -33,7 +33,7 @@
         					echo '
 								<div class="input-group">'.
 				  					$this->formElement($element)
-				  					.'<span class="input-group-addon">€</span>
+				  					.'<span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
 								</div>';
         					if($name == 'produktMaxKredit') echo '<span class="help-block">0 = unbegrenzt</span>';
         				} else {
@@ -43,9 +43,9 @@
 	        	</div>
 	    </div>
 <?php endforeach; ?>
-<button type="button" class="btn" id="fill-produkt">
-	Fill
-</button>
+<!-- <button type="button" class="btn" id="fill-produkt"> -->
+<!-- 	Fill -->
+<!-- </button> -->
 <?php echo $this->form()->closeTag(); ?>
 
 <!-- Modal -->
@@ -86,7 +86,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" id="fill">Füllen</button>
+<!-- 				<button type="button" class="btn btn-default" id="fill">Füllen</button> -->
  				<button type="button" class="btn btn-default" data-dismiss="modal" id="close-konditionen-modal">Schließen</button>
 				<button type="button" class="btn btn-primary" id="save-konditionen">Übernehmen</button>
 			</div>
