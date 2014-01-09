@@ -90,7 +90,7 @@ if (!empty($_FILES)) {
 				imagecopyresampled($new, $image,
 							0, 0, 0, 0,
 							$new_width, $new_height, $old_width, $old_height);
-				imagepng($new, $dest.$bankName."_$max_width-x-$max_height.png");
+				imagepng($new, $dest."/".$bankName."_$max_width-x-$max_height.png");
 // 				imagepng($new, $targetPath."/".$bankName."_$max_width-x-$max_height.png");
 			}
 // 			unlink($targetFile);
