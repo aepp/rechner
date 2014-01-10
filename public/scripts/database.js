@@ -452,6 +452,11 @@ $(document).ready(function() {
 	            type: 'text',
 	            inputClass: 'validate[required]',
 	        },
+	        zeitabschnittAnzZinsperioden: {
+	            title: 'Anzahl der Zinsperioden',
+	            type: 'text',
+	            inputClass: 'validate[required]',
+	        },	        
     	};
     	return fields;
     }  

@@ -49,8 +49,10 @@ class ZeitabschnittController extends BaseController
     	if ($request->isPost()) {
     		$em = $this->getEntityManager();
     		$zeitabschnittName = $_POST['zeitabschnittName'];
+    		$zeitabschnittAnzZinsperioden = $_POST['zeitabschnittAnzZinsperioden'];
     		$zeitabschnitt = new Zeitabschnitt();
     		$zeitabschnitt->setZeitabschnittName($zeitabschnittName);
+    		$zeitabschnitt->setZeitabschnittAnzZinsperioden($zeitabschnittAnzZinsperioden);
     		$em->persist($zeitabschnitt);
     		$em->flush();
     		$response->setContent(Json::encode(array('Result' => 'OK', 'Record' => $zeitabschnitt->jsonSerialize())));
@@ -67,8 +69,10 @@ class ZeitabschnittController extends BaseController
     		$zeitabschnitt = $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $id);
     		
     		$zeitabschnittName = $_POST['zeitabschnittName'];
+    		$zeitabschnittAnzZinsperioden = $_POST['zeitabschnittAnzZinsperioden'];
     		
     		$zeitabschnitt->setZeitabschnittName($zeitabschnittName);
+    		$zeitabschnitt->setZeitabschnittAnzZinsperioden($zeitabschnittAnzZinsperioden);
     		$em->persist($zeitabschnitt);
     		$em->flush();
     		$response->setContent(Json::encode(array('Result' => 'OK', 'Record' => $zeitabschnitt->jsonSerialize())));

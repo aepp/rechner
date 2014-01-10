@@ -34,9 +34,9 @@ class Zeitabschnitt
     /**
      * @var integer
      *
-     * @ORM\Column(name="zeitabschnitt_anz_tage", type="integer", nullable=true)
+     * @ORM\Column(name="zeitabschnitt_anz_zinsperioden", type="integer", nullable=true)
      */
-    protected $zeitabschnittAnzTage;
+    protected $zeitabschnittAnzZinsperioden;
 
 
 
@@ -74,32 +74,33 @@ class Zeitabschnitt
     }
 
     /**
-     * Set zeitabschnittAnzTage
+     * Set zeitabschnittAnzZinsperioden
      *
-     * @param integer $zeitabschnittAnzTage
+     * @param integer $zeitabschnittAnzZinsperioden
      * @return Zeitabschnitt
      */
-    public function setZeitabschnittAnzTage($zeitabschnittAnzTage)
+    public function setZeitabschnittAnzZinsperioden($zeitabschnittAnzZinsperioden)
     {
-        $this->zeitabschnittAnzTage = $zeitabschnittAnzTage;
+        $this->zeitabschnittAnzZinsperioden = $zeitabschnittAnzZinsperioden;
 
         return $this;
     }
 
     /**
-     * Get zeitabschnittAnzTage
+     * Get zeitabschnittAnzZinsperioden
      *
      * @return integer 
      */
-    public function getZeitabschnittAnzTage()
+    public function getZeitabschnittAnzZinsperioden()
     {
-        return $this->zeitabschnittAnzTage;
+        return $this->zeitabschnittAnzZinsperioden;
     }
     
     public function jsonSerialize() {
     	return [
 	    	'zeitabschnittId' => $this->getZeitabschnittId(),
 	    	'zeitabschnittName' => $this->getZeitabschnittName(),
+	    	'zeitabschnittAnzZinsperioden' => $this->getZeitabschnittAnzZinsperioden(),
     	];
     }
 }
