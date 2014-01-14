@@ -626,7 +626,6 @@ $(document).ready(function() {
     	
     	var laufzeitHeading = $('#konditionen-table thead').find('tr').eq(0).find('th').eq(1);
     	var columnsCount = laufzeitHeading.attr('colspan');
-    	alert(columnsCount);
     	tr.after(
 			'<tr>'+
 				'<td class="active">'+
