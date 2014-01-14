@@ -140,13 +140,19 @@ class GeldanlageController extends BaseController
 				$produktTipp = $params()->fromPost('produktTipp');
 				$produktInformationen = $params()->fromPost('produktInformationen');
 				$produktUrl = $params()->fromPost('produktUrl');
-				if (strpos($produktUrl,'http') === false) {
-					$produktUrl = 'http://'.$produktUrl;
+				if($produktUrl){
+					if (strpos($produktUrl,'http') === false) {
+						$produktUrl = 'http://'.$produktUrl;
+					}
+					$produkt->setProduktUrl($produktUrl);
 				}
 				$produktKlickoutUrl = $params()->fromPost('produktKlickoutUrl');
-				if (strpos($produktKlickoutUrl,'http') === false) {
-					$produktKlickoutUrl = 'http://'.$produktKlickoutUrl;
-				}				
+				if($produktKlickoutUrl != null){
+					if (strpos($produktKlickoutUrl,'http') === false) {
+						$produktKlickoutUrl = 'http://'.$produktKlickoutUrl;
+					}
+					$produkt->setProduktKlickoutUrl($produktKlickoutUrl);
+				}	
 				$ktozugriffeNew = $params()->fromPost('ktozugriffe');
 				
 				$aktion = $params()->fromPost('aktion');
@@ -187,13 +193,11 @@ class GeldanlageController extends BaseController
 				if($produktHasOnlineBanking != null) $produkt->setProduktHasOnlineBanking($produktHasOnlineBanking);
 				if($produktHoechstanlage != null) $produkt->setProduktHoechstanlage($produktHoechstanlage);
 				if($produktInformationen != null) $produkt->setProduktInformationen($produktInformationen);
-				if($produktKlickoutUrl != null) $produkt->setProduktKlickoutUrl($produktKlickoutUrl);
 				if($produktKtofuehrKost != null) $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
 				if($produktKuendbarkeit != null) $produkt->setProduktKuendbarkeit($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKuendbarkeit));
 				if($produktMindestanlage != null) $produkt->setProduktMindestanlage($produktMindestanlage);
 				if($produktName != null) $produkt->setProduktName($produktName);
 				if($produktTipp != null) $produkt->setProduktTipp($produktTipp);
-				if($produktUrl) $produkt->setProduktUrl($produktUrl);
 				if($produktVerfuegbarkeit != null) $produkt->setProduktVerfuegbarkeit($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktVerfuegbarkeit));
 				if($produktZinsgutschrift != null) $produkt->setProduktZinsgutschrift($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktZinsgutschrift));
 				if($zinssatz != null) $produkt->setZinssatz($em->find('Vergleichsrechner\Entity\Zinssatz', $zinssatz));

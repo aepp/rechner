@@ -82,14 +82,8 @@ class KreditController extends BaseController
 				$form->get('produktCheck')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktCheck()));
 				$form->get('produktTipp')->setAttribute('value', $produkt->getProduktTipp());
 				$form->get('produktInformationen')->setAttribute('value', $produkt->getProduktInformationen());
-				$produktUrl = $params()->fromPost('produktUrl');
-				if (strpos($produktUrl,'http') === false) {
-					$produktUrl = 'http://'.$produktUrl;
-				}
-				$produktKlickoutUrl = $params()->fromPost('produktKlickoutUrl');
-				if (strpos($produktKlickoutUrl,'http') === false) {
-					$produktKlickoutUrl = 'http://'.$produktKlickoutUrl;
-				}
+				$form->get('produktUrl')->setAttribute('value', $produkt->getProduktUrl());
+				$form->get('produktKlickoutUrl')->setAttribute('value', $produkt->getProduktKlickoutUrl());
 				$form->get('modus')->setValue('edit');
 				
 				$message = "Form erfolgreich geladen!";
@@ -143,8 +137,20 @@ class KreditController extends BaseController
 				$produktCheck = str_replace( ',', '.', $params()->fromPost('produktCheck'));
 				$produktTipp = $params()->fromPost('produktTipp');
 				$produktInformationen = $params()->fromPost('produktInformationen');
-				$produktUrl = $params()->fromPost('produktUrl');
+    			$produktUrl = $params()->fromPost('produktUrl');
+    			if($produktUrl != null){
+					if (strpos($produktUrl,'http') === false) {
+						$produktUrl = 'http://'.$produktUrl;
+					}
+					$produkt->setProduktUrl($produktUrl);
+    			}
 				$produktKlickoutUrl = $params()->fromPost('produktKlickoutUrl');
+				if($produktKlickoutUrl != null){
+					if (strpos($produktKlickoutUrl,'http') === false) {
+						$produktKlickoutUrl = 'http://'.$produktKlickoutUrl;
+					}
+					$produkt->setProduktKlickoutUrl($produktKlickoutUrl);
+				}
 				
 				$aktion = $params()->fromPost('aktion');
 				$zinssatz = $params()->fromPost('zinssatz');
@@ -158,12 +164,10 @@ class KreditController extends BaseController
 				if($produktHasOnlineAbschluss != null) $produkt->setProduktHasOnlineAbschluss($produktHasOnlineAbschluss);
 				if($produktMaxKredit != null) $produkt->setProduktMaxKredit($produktMaxKredit);
 				if($produktInformationen != null) $produkt->setProduktInformationen($produktInformationen);
-				if($produktKlickoutUrl != null) $produkt->setProduktKlickoutUrl($produktKlickoutUrl);
 				if($produktKtofuehrKost != null) $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
 				if($produktMinKredit != null) $produkt->setProduktMinKredit($produktMinKredit);
 				if($produktName != null) $produkt->setProduktName($produktName);
 				if($produktTipp != null) $produkt->setProduktTipp($produktTipp);
-				if($produktUrl) $produkt->setProduktUrl($produktUrl);
 				if($zinssatz != null) $produkt->setZinssatz($em->find('Vergleichsrechner\Entity\Zinssatz', $zinssatz));
 				if($produktBearbeitungsgebuehr != null) $produkt->setProduktBearbeitungsgebuehr($produktBearbeitungsgebuehr);
 				if($produktWiderrufsfrist != null) $produkt->setProduktWiderrufsfrist($produktWiderrufsfrist);
