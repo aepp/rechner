@@ -69,8 +69,10 @@ class KreditController extends BaseController
 				$form->get('bank')->setAttribute('value', $produkt->getBank());
 				$form->get('produktHasOnlineAbschluss')->setAttribute('value', $produkt->getProduktHasOnlineAbschluss());
 				$form->get('zinssatz')->setAttribute('value', $produkt->getZinssatz());
-				$form->get('produktMinKredit')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktMinKredit()));
-				$form->get('produktMaxKredit')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktMaxKredit()));
+				if($produkt->getProduktMinKredit() != null)
+					$form->get('produktMinKredit')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktMinKredit()));
+				if($produkt->getProduktMaxKredit() != null)
+					$form->get('produktMaxKredit')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktMaxKredit()));
 				$form->get('produktIsBonitabh')->setAttribute('value', $produkt->getProduktIsBonitabh());
 				$form->get('aktion')->setAttribute('value', $produkt->getAktion());
 				$form->get('produktKtofuehrKost')->setAttribute('value', $produkt->getProduktKtofuehrKost());
@@ -79,7 +81,8 @@ class KreditController extends BaseController
 				$form->get('produktSondertilgungen')->setAttribute('value', $produkt->getProduktSondertilgungen());
 				if($produkt->getProduktGueltigSeit() != null) 
 					$form->get('produktGueltigSeit')->setAttribute('value', $produkt->getProduktGueltigSeit()->format('d.m.Y'));
-				$form->get('produktCheck')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktCheck()));
+				if($produkt->getProduktCheck() != null)
+					$form->get('produktCheck')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktCheck()));
 				$form->get('produktTipp')->setAttribute('value', $produkt->getProduktTipp());
 				$form->get('produktInformationen')->setAttribute('value', $produkt->getProduktInformationen());
 				$form->get('produktUrl')->setAttribute('value', $produkt->getProduktUrl());
