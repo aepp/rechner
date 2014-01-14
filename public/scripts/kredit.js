@@ -283,7 +283,7 @@ $(document).ready(function() {
 				'<thead>'+
 					'<tr class="active">'+
 						'<th colspan="3"></th>'+
-						'<th colspan="8">Laufzeit in Monaten</th>'+
+						'<th colspan="'+ laufzeiten.length +'">Laufzeit in Monaten</th>'+
 					'</tr>'+
 					'<tr class="active">'+
 						'<th colspan="3"></th>';
@@ -626,7 +626,7 @@ $(document).ready(function() {
     	
     	var laufzeitHeading = $('#konditionen-table thead').find('tr').eq(0).find('th').eq(1);
     	var columnsCount = laufzeitHeading.attr('colspan');
-    	
+    	alert(columnsCount);
     	tr.after(
 			'<tr>'+
 				'<td class="active">'+
