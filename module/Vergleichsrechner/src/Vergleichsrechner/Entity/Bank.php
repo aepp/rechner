@@ -156,7 +156,7 @@ class Bank
     	}
     	return $this;
     }
-    
+
     public function jsonSerialize() {
     	return [
 	    	'bankId' => $this->getBankId(),
