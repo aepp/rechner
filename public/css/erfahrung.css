@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+.tablesorter-filter.disabled,
+.status-hidden,
+.tablesorter-filter-row,
+.tablesorter-headerRow {
+	display: none;
+}
+
+.panel-footer{
+	cursor: default;
+}
+.panel-footer span.glyphicon{
+	cursor: pointer;
+}
+
+.sort-row {
+	margin-bottom: 15px !important;
+}

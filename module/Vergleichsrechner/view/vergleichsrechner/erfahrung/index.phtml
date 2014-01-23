@@ -1,0 +1,167 @@
+<?php 
+	echo $this->headScript()
+		->prependFile($this->basePath() . '/scripts/erfahrung.js')
+		->prependFile($this->basePath() . '/scripts/tablesorter/js/jquery.tablesorter.widgets.min.js')
+		->prependFile($this->basePath() . '/scripts/tablesorter/addons/pager/jquery.tablesorter.pager.min.js')
+		->prependFile($this->basePath() . '/scripts/raty/jquery.raty.js')
+		->prependFile($this->basePath() . '/scripts/tablesorter/js/jquery.tablesorter.min.js');
+	echo $this->headLink()
+		->prependStylesheet($this->basePath() . '/css/erfahrung.css')
+		->prependStylesheet($this->basePath() . '/scripts/tablesorter/addons/pager/jquery.tablesorter.pager.css')
+		->prependStylesheet($this->basePath() . '/scripts/tablesorter/css/theme.bootstrap.css');
+?>
+
+<div class="row sort-row">
+	<div class="col-xs-6">
+		<button id="sort-on-status" class="btn btn-primary btn-block sort-button" type="button">Nach Status sortieren</button>
+	</div>
+	<div class="col-xs-6">
+		<button id="sort-on-date" class="btn btn-primary btn-block sort-button" type="button">Nach Datum sortieren</button>
+	</div>
+</div>
+
+<div class="row">
+	<table class="table-hover tablesorter" id="erfahrungen-table">
+		<thead>
+			<tr>
+				<th>Bericht</th>
+				<th class="filter-select status-hidden" data-placeholder="Alle">Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach($erfahrungen as $erfahrung): ?>
+				<tr id="erfahrungen-table-row-<?php echo $erfahrung->getErfahrungId(); ?>">
+					<td>	
+						<div class="panel panel-default" id="bericht-<?php echo $erfahrung->getErfahrungId(); ?>">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-4">Verfasst von:</div>  
+									<div class="col-xs-4">
+										<?php 
+											$benutzername = $erfahrung->getErfahrungAutorUserName() == null ? '' : 'aka '.$erfahrung->getErfahrungAutorUserName();
+											echo sprintf("%s %s %s (<a href='mailto:%s'>%s</a>)", 
+												$erfahrung->getErfahrungAutorVorname(),
+												$erfahrung->getErfahrungAutorName(),
+												$benutzername,
+												$erfahrung->getErfahrungAutorEmail(),
+												$erfahrung->getErfahrungAutorEmail()
+											);
+										?>
+									</div>
+									<div class="col-xs-4">
+										<div class="row">
+											<div class="col-xs-6">
+											</div>
+											<div class="col-xs-6">
+												<a href="#" class="erfahrung-delete pull-right">
+													Bericht löschen
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-4">Verfasst am:</div>  
+									<div class="col-xs-4">
+										<span class="verfasst-am"><?php echo $erfahrung->getErfahrungDatum()->format('d.m.Y H:i:s');?></span>	
+									</div>
+									<div class="col-xs-4">
+										<div class="row">
+											<div class="col-xs-6">
+												Status:
+											</div>
+											<div class="col-xs-6">
+												<?php 
+													switch($erfahrung->getErfahrungIsFreigeschaltet()){
+														case true:
+															echo "
+																<button class='btn btn-success btn-xs status-switch' type='button'>
+																	<span class='glyphicon glyphicon-ok' title='freigescheltet'></span>
+																</button>";
+															break;
+														case false:
+															echo "
+																<button class='btn btn-danger btn-xs status-switch' type='button'>
+																	<span class='glyphicon glyphicon-remove' title='nicht freigescheltet'></span>
+																</button>";									
+															break;
+													}
+												?>	
+											</div>	
+										</div>							
+									</div>
+								</div>
+							</div>
+							<div class="panel-body">
+								<?php echo $erfahrung->getErfahrungBericht() ?>
+							</div>
+							<div class="panel-footer">
+								<div class="row">
+									<div class="col-xs-4">
+										<div class="row">
+											<div class="col-xs-6">
+												Bewertung:
+											</div>
+											<div class="col-xs-6">
+												<div class="bewertung" id="bewertung-<?php echo $erfahrung->getErfahrungNote() ?>"></div>
+											</div>
+										</div>
+									</div>  
+									<div class="col-xs-4">
+										<div class="row">
+											<div class="col-xs-6">
+												Bankempfehlung:
+											</div>
+											<div class="col-xs-6">
+												<?php 
+													switch($erfahrung->getErfahrungEmpfBank()){
+														case 0:
+															echo "<span class='glyphicon glyphicon-thumbs-down' title='Nein'></span>";
+															break;
+														case 1: 
+															echo "<span class='glyphicon glyphicon-thumbs-up' title='Ja'></span>";
+															break;
+														case 2:
+															echo "<span class='glyphicon glyphicon-adjust' title='Vieleicht'></span>";
+															break;
+													} 
+												?>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<div class="row">
+											<div class="col-xs-6">
+												Produktempfehlung:
+											</div>
+											<div class="col-xs-6">	
+												<?php 
+													switch($erfahrung->getErfahrungEmpfProdukt()){
+														case 0:
+															echo "<span class='glyphicon glyphicon-thumbs-down' title='Nein'></span>";
+															break;
+														case 1:
+															echo "<span class='glyphicon glyphicon-thumbs-up' title='Ja'></span>";
+															break;
+														case 2:
+															echo "<span class='glyphicon glyphicon-adjust' title='Vieleicht'></span>";
+															break;
+													} 
+												?>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+					<td class="status-hidden">
+						<span class="erfahrung-status" id="status-<?php echo $erfahrung->getErfahrungId(); ?>">
+							<?php echo $erfahrung->getErfahrungIsFreigeschaltet() == false ? 'nicht freigeschaltet' : 'freigeschaltet' ?>
+						</span>
+					</td>	
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+</div>
