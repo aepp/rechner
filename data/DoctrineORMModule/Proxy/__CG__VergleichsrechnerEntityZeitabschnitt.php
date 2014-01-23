@@ -64,10 +64,10 @@ class Zeitabschnitt extends \Vergleichsrechner\Entity\Zeitabschnitt implements \
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'zeitabschnittId', 'zeitabschnittName', 'zeitabschnittAnzTage');
+            return array('__isInitialized__', 'zeitabschnittId', 'zeitabschnittName', 'zeitabschnittAnzZinsperioden');
         }
 
-        return array('__isInitialized__', 'zeitabschnittId', 'zeitabschnittName', 'zeitabschnittAnzTage');
+        return array('__isInitialized__', 'zeitabschnittId', 'zeitabschnittName', 'zeitabschnittAnzZinsperioden');
     }
 
     /**
@@ -213,23 +213,23 @@ class Zeitabschnitt extends \Vergleichsrechner\Entity\Zeitabschnitt implements \
     /**
      * {@inheritDoc}
      */
-    public function setZeitabschnittAnzTage($zeitabschnittAnzTage)
+    public function setZeitabschnittAnzZinsperioden($zeitabschnittAnzZinsperioden)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setZeitabschnittAnzTage', array($zeitabschnittAnzTage));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setZeitabschnittAnzZinsperioden', array($zeitabschnittAnzZinsperioden));
 
-        return parent::setZeitabschnittAnzTage($zeitabschnittAnzTage);
+        return parent::setZeitabschnittAnzZinsperioden($zeitabschnittAnzZinsperioden);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getZeitabschnittAnzTage()
+    public function getZeitabschnittAnzZinsperioden()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getZeitabschnittAnzTage', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getZeitabschnittAnzZinsperioden', array());
 
-        return parent::getZeitabschnittAnzTage();
+        return parent::getZeitabschnittAnzZinsperioden();
     }
 
     /**

@@ -226,7 +226,6 @@ class Erfahrung
     {
       	$this->erfahrungAutorUsername = $erfahrungAutorUsername ;
     }
-    
         
     public function getErfahrungIsFreigeschaltet() 
     {

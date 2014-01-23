@@ -10,6 +10,7 @@ return array(
         		'Bank' => 'Vergleichsrechner\Controller\BankController',
         		'Bewertung' => 'Vergleichsrechner\Controller\BewertungController',
         		'EinlagensicherungLand' => 'Vergleichsrechner\Controller\EinlagensicherungLandController',
+        		'Erfahrung' => 'Vergleichsrechner\Controller\ErfahrungController',
         		'Database' => 'Vergleichsrechner\Controller\DatabaseController',
         		'Kategorie' => 'Vergleichsrechner\Controller\KategorieController',
         		'Kontozugriff' => 'Vergleichsrechner\Controller\KontozugriffController',
@@ -280,7 +281,35 @@ return array(
         								),
         						),
         				),
-        		),        		      			
+        		),  
+        		'erfahrungsberichte' => array(
+        				'type'    => 'Literal',
+        				'options' => array(
+        						'route'    => '/erfahrungsberichte',
+        						'defaults' => array(
+        								'controller'    => 'Erfahrung',
+        								'action'        => 'index',
+        						),
+        				),
+        				'may_terminate' => true,
+        				'child_routes' => array(
+        						'default' => array(
+        								'type'    => 'Segment',
+        								'options' => array(
+        										'route'    => '[/:action[/:erfahrungId]]',
+        										'constraints' => array(
+        												'controller' => 'Erfahrung',
+        												'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+        												'erfahrungId' => '[0-9]*'
+        										),
+        										'defaults' => array(
+        												'controller' => 'Erfahrung',
+        												'action' => 'index',
+        										),
+        								),
+        						),
+        				),
+        		),  
         ),
     ),
 	'navigation' => array(
@@ -334,6 +363,10 @@ return array(
 										)
 								),
 						),
+					),
+					array(
+						'label' => 'Erfahrungsberichte',
+						'route' => 'erfahrungsberichte',
 					),
 			),
 	),
