@@ -48,7 +48,7 @@ class BankController extends BaseController
     	if ($request->isPost()) {
     		try{
 	    		$em = $this->getEntityManager();
-	    		$bankName = $_POST['bankName'];
+	    		$bankName = trim($_POST['bankName']);
 	    		$bankLogo = $_POST['bankLogo'];
 	    		
 	    		$bank = new Bank();

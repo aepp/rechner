@@ -28,7 +28,6 @@ $(document).ready(function() {
 			filter_columnFilters: false,
 			filter_reset : ".reset",
 			filter_useParsedData : true,
-			filter_startsWith : true,
 		},
 		headers    : {
 			0 : {
@@ -54,7 +53,7 @@ $(document).ready(function() {
 	        2 : function(node, table, cellIndex){ return $(node).find('span').text(); },
 	        3 : function(node, table, cellIndex){ return $(node).find('span').text(); }
 	    },
-	    ignoreCase : false
+	    ignoreCase : true
 	});	
 
 	$('#bank-filter').unbind('change').change(function(event){
@@ -132,9 +131,5 @@ $(document).ready(function() {
 
 		    }
     	});	
-    	
-    	$('.erfahrung-delete').unbind('click').click(function(event){
-    		alert("Coming soon!!!");
-    	});
 	});
 });
