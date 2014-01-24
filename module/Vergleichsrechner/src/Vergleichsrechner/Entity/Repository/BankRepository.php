@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 class BankRepository extends EntityRepository{
 
     public function findAll(){
-		$dql = "SELECT o FROM \Vergleichsrechner\Entity\Bank o";
+		$dql = "SELECT o FROM \Vergleichsrechner\Entity\Bank o ORDER BY o.bankName";
 		$query = $this->getEntityManager()->createQuery($dql);
 		return $query->getResult();
     }
