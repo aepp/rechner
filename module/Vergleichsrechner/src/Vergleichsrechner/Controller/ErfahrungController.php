@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Json\Json;
 use Vergleichsrechner\Entity\Erfahrung;
+use Vergleichsrechner\Entity\Bank;
 
 require __DIR__.'/../Exception/ErrorHandler.php';
 
@@ -26,12 +27,14 @@ class ErfahrungController extends BaseController
     	try{
     		$em = $this->getEntityManager();
     		$erfahrungen = $em->getRepository('Vergleichsrechner\Entity\Erfahrung')->findAll();
+    		$banken = $em->getRepository('Vergleichsrechner\Entity\Bank')->findAll();
     	} catch (\Exception $e){
     		$message = $e->getMessage();
     		$error = true;
     	}
     	return new ViewModel(array(
     			'erfahrungen' => $erfahrungen,
+    			'banken' => $banken,
     			'message' => $message,
     			'error' => $error
     	));     	

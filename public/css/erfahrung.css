@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 .tablesorter-filter.disabled,
-.status-hidden,
+.column-hidden,
 .tablesorter-filter-row,
 .tablesorter-headerRow {
 	display: none;
