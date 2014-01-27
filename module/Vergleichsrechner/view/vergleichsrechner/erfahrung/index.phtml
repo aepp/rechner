@@ -20,7 +20,7 @@
 			<div class="panel-body">
 				<div class="row">
 					<form role="form">
-						<div class="col-xs-6">
+						<div class="col-md-6">
 							<div class="form-group">
 						    	<label for="bank-filter">Bank</label>
 					    		<select id="bank-filter" class="form-control" >
@@ -33,13 +33,13 @@
 								</select>
 						  	</div>
 						</div>	
-						<div class="col-xs-6">
+						<div class="col-md-6">
 							<div class="form-group">
 						    	<label for="status-filter">Status</label>
 					    		<select id="status-filter" class="form-control" >
 									<option value="">Alle</option>
-									<option value="nicht freigeschaltet">nicht freigeschaltet</option>
-									<option value="freigeschaltet">freigeschaltet</option>
+									<option value="0">nicht freigeschaltet</option>
+									<option value="1">freigeschaltet</option>
 								</select>
 						  	</div>
 						</div>	
@@ -47,7 +47,7 @@
 				</div>
 				<div class="row">
 					<form role="form">
-						<div class="col-xs-6">
+						<div class="col-md-6">
 							<div class="form-group">
 						    	<label for="note-filter">Bewertung</label>
 					    		<select id="note-filter" class="form-control" >
@@ -60,25 +60,25 @@
 								</select>
 						  	</div>
 						</div>	
-						<div class="col-xs-6">
+						<div class="col-md-6">
 							<div class="form-group">
 						    	<label for="datum-filter">Alter (coming soon)</label>
 					    		<select id="datum-filter" class="form-control" disabled="disabled">
 									<option value="">Alle</option>
-									<option value="<?php echo date('d.m.Y'); ?>">von heute</option>
-									<option value="<?php echo date('d.m.Y', time() - 60 * 60 * 24); ?>">von gestern</option>
-									<option value="">< 7 Tage</option>
-									<option value="">< 14 Tage</option>
+									<option value="0">von heute</option>
+									<option value="1">von gestern</option>
+									<option value="2">< 7 Tage</option>
+									<option value="3">< 14 Tage</option>
 								</select>
 						  	</div>
 						</div>	
 					</form>	
 				</div>				
 				<div class="row">
-					<div class="col-xs-6">
+					<div class="col-md-6">
 						<button id="sort-on-status" class="btn btn-primary btn-block sort-button" type="button">Nach Status sortieren</button>
 					</div>
-					<div class="col-xs-6">
+					<div class="col-md-6">
 						<button id="sort-on-date" class="btn btn-primary btn-block sort-button" type="button">Nach Datum sortieren</button>
 					</div>
 				</div>								
@@ -94,6 +94,7 @@
 				<th>Bericht</th>
 				<th class="status-hidden">Bewertung</th>
 				<th class="status-hidden">Status</th>
+				<th class="status-hidden filter-select">Datum</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -108,9 +109,9 @@
 						<div class="panel panel-default" id="bericht-<?php echo $erfahrung->getErfahrungId(); ?>">
 							<div class="panel-heading">
 								<div class="row">
-									<div class="col-xs-3">
-										<div class="col-xs-6">Bericht über:</div>
-										<div class="col-xs-6">
+									<div class="col-md-3">
+										<div class="col-md-6">Bericht über:</div>
+										<div class="col-md-6">
 											<?php if($erfahrung->getBank()->getBankLogo() != null):?>
 												<img 
 													src="../uploads/bank-logo/<?php echo $erfahrung->getBank()->getBankLogo().'_115-x-60.png' ?>"
@@ -121,10 +122,10 @@
 											<?php endif;?>
 										</div>								
 									</div>
-									<div class="col-xs-9">
+									<div class="col-md-9">
 										<div class="row">
-											<div class="col-xs-2">Verfasst von:</div>  
-											<div class="col-xs-6">
+											<div class="col-md-2">Verfasst von:</div>  
+											<div class="col-md-6">
 												<?php 
 													$benutzername = $erfahrung->getErfahrungAutorUserName() == null ? '' : 'aka '.$erfahrung->getErfahrungAutorUserName();
 													echo sprintf("%s %s %s (<a href='mailto:%s'>%s</a>)", 
@@ -136,12 +137,12 @@
 													);
 												?>
 											</div>
-											<div class="col-xs-4">
+											<div class="col-md-4">
 												<div class="row">
-													<div class="col-xs-6">
+													<div class="col-md-6">
 													</div>
-													<div class="col-xs-6">
-														<a href="#" class="erfahrung-delete pull-right" onclick="alert('Coming soon!');">
+													<div class="col-md-6">
+														<a href="#" class="erfahrung-delete pull-right">
 															Bericht löschen
 														</a>
 													</div>
@@ -149,16 +150,16 @@
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-xs-2">Verfasst am:</div>  
-											<div class="col-xs-5">
+											<div class="col-md-2">Verfasst am:</div>  
+											<div class="col-md-5">
 												<span class="verfasst-am"><?php echo $erfahrung->getErfahrungDatum()->format('d.m.Y H:i:s');?></span>	
 											</div>
-											<div class="col-xs-5">
+											<div class="col-md-5">
 												<div class="row">
-													<div class="col-xs-2">
+													<div class="col-md-2">
 														Status:
 													</div>
-													<div class="col-xs-10">
+													<div class="col-md-10">
 														<?php 
 															switch($erfahrung->getErfahrungIsFreigeschaltet()){
 																case true:
@@ -187,22 +188,22 @@
 							</div>
 							<div class="panel-footer">
 								<div class="row">
-									<div class="col-xs-4">
+									<div class="col-md-4">
 										<div class="row">
-											<div class="col-xs-6">
+											<div class="col-md-6">
 												Bewertung:
 											</div>
-											<div class="col-xs-6">
+											<div class="col-md-6">
 												<div class="bewertung" id="bewertung-<?php echo $erfahrung->getErfahrungNote() ?>"></div>
 											</div>
 										</div>
 									</div>  
-									<div class="col-xs-4">
+									<div class="col-md-4">
 										<div class="row">
-											<div class="col-xs-6">
+											<div class="col-md-6">
 												Bankempfehlung:
 											</div>
-											<div class="col-xs-6">
+											<div class="col-md-6">
 												<?php 
 													switch($erfahrung->getErfahrungEmpfBank()){
 														case 0:
@@ -219,12 +220,12 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-xs-4">
+									<div class="col-md-4">
 										<div class="row">
-											<div class="col-xs-6">
+											<div class="col-md-6">
 												Produktempfehlung:
 											</div>
-											<div class="col-xs-6">	
+											<div class="col-md-6">	
 												<?php 
 													switch($erfahrung->getErfahrungEmpfProdukt()){
 														case 0:
@@ -252,11 +253,38 @@
 					</td>
 					<td class="column-hidden">
 						<span class="erfahrung-status" id="status-<?php echo $erfahrung->getErfahrungId(); ?>">
-							<?php echo $erfahrung->getErfahrungIsFreigeschaltet() == false ? 'nicht freigeschaltet' : 'freigeschaltet' ?>
+							<?php echo $erfahrung->getErfahrungIsFreigeschaltet() == false ? '0' : '1' ?>
 						</span>
 					</td>	
+					<td class="column-hidden">
+						<span class="erfahrung-datum">
+							<?php echo $erfahrung->getErfahrungDatum()->format('d.m.Y H:i:s'); ?>
+						</span>
+					</td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
 	</table>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="delete-confirm-modal" tabindex="-1" role="dialog" aria-labelledby="delete-confirm-modal-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        		<h4 class="modal-title" id="delete-confirm-modal-label">Wirklich löschen?</h4>
+      		</div>
+			<div class="modal-body">
+				<input type="hidden" value="" id="delete-erfahrung-id"/>
+				<span>
+					Wollen Sie die Erfahrung von <strong id="delete-erfahrung-autor"></strong> wirklich löschen?
+				</span>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+				<button type="button" class="btn btn-warning" id="delete-confirm">Erfahrung löschen</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

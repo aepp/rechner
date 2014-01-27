@@ -64,10 +64,23 @@ class ErfahrungController extends BaseController
 
     		}
     	}
-    	return new JsonModel(array(
-    	));
+    	return new JsonModel(array());
     }
     public function deleteAction()
     {
+    	try{
+    		$em = $this->getEntityManager();
+    		$erfahrungId = $this->params()->fromRoute('erfahrungId');
+    		$erfahrung = $em->getRepository('Vergleichsrechner\Entity\Erfahrung')->find($erfahrungId);
+    		$em->remove($erfahrung);
+    		$em->flush();
+    	
+    		$message = "Erfahrung erfolgreich gelöscht!";
+    	} catch (Exception $e){
+    		$message = $e->getMessage();
+    	}
+    	return new JsonModel(array(
+    			'message'=> $message
+    	));
     }
 }

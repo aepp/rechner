@@ -21,13 +21,15 @@ $(document).ready(function() {
 	});
 	$("#erfahrungen-table").tablesorter({
 		theme : "bootstrap",
+		debug: true,
 		widthFixed: false,
 		headerTemplate : '{content} {icon}', 
 		widgets : [ "uitheme", "filter" ],
 		widgetOptions : {
-			filter_columnFilters: false,
+			filter_columnFilters: true,
 			filter_reset : ".reset",
 			filter_useParsedData : true,
+//			filter_anyMatch : true,
 		},
 		headers    : {
 			0 : {
@@ -46,12 +48,41 @@ $(document).ready(function() {
 				sorter : true,
 				filter : true
 			},
+			4 : {
+				sorter : true,
+				filter : true
+			}
 		},
 	    textExtraction: {
 	    	0 : function(node, table, cellIndex){ return $(node).find('span').text(); },
 	        1 : function(node, table, cellIndex){ return $(node).find('span.verfasst-am').text(); },
 	        2 : function(node, table, cellIndex){ return $(node).find('span').text(); },
-	        3 : function(node, table, cellIndex){ return $(node).find('span').text(); }
+	        3 : function(node, table, cellIndex){ return $(node).find('span').text(); },
+	        4 : function(node, table, cellIndex){ return $(node).html(); }
+	    },
+	    filter_functions : {
+	    	0: true,
+	    	1: true,
+	    	2: true,
+	    	3: true,
+//
+////	    	1 : function(e, n, f, i, $r) {
+////	    		new Date(value) Date.compare ( Date date1, Date date2 )
+////	    		return e === f;
+////	    	},
+	        4 : {
+	            "0" : function(e, n, f, i, $r) { 
+	            	console.log("filtering started");
+	            	var d = e.split('.');
+	            	var year = d[2];
+	            	var month = d[1];
+	            	var day = d[0];
+	            	return Date.compare(new Date(), new Date(year, month, day)) == 0 ? true : false;
+            	},
+	            "1" : function(e, n, f, i, $r) { return /^[E-H]/.test(e); },
+	            "2" : function(e, n, f, i, $r) { return /^[I-L]/.test(e); },
+	            "3" : function(e, n, f, i, $r) { return /^[M-P]/.test(e); }
+	        },
 	    },
 	    ignoreCase : true
 	});	
@@ -73,7 +104,7 @@ $(document).ready(function() {
 	});	
 	$('#datum-filter').unbind('change').change(function(event){
 	    var columns = [];
-	    columns[1] = $(this).val();
+	    columns[4] = $(this).val();
 	    $('#erfahrungen-table').trigger('search', [ columns ]);		
 	});	
 	$("#sort-on-status").click(function() {
@@ -131,5 +162,33 @@ $(document).ready(function() {
 
 		    }
     	});	
+	});
+	
+	$(document).on('click', '.erfahrung-delete', function(event) {
+		event.preventDefault();
+		$('#delete-confirm-modal').modal('toggle');
+		
+		var erfahrungId = $(this).parent().parent().parent().parent().parent().parent().parent().parent().attr('id').split('-')[1];
+		var autor = $(this).parent().parent().parent().parent().find('div').eq(1).html();
+		$('#delete-erfahrung-id').val(erfahrungId);
+		$('#delete-erfahrung-autor').html(autor);
+	});
+	
+	$('#delete-confirm').unbind('click').click(function(event){
+		var erfahrungId = $('#delete-erfahrung-id').val();
+    	$.ajax({ 
+			type : 'POST',
+		    url : 'erfahrungsberichte/delete/'+erfahrungId,
+		    success : function (response){
+		    	$('#erfahrungen-table-row-'+erfahrungId).remove();
+		    	$('#delete-confirm-modal').modal('toggle');
+		    },
+		    error : function (response){
+	
+		    },
+		    complete : function (){
+	
+		    }
+    	});			
 	});
 });
