@@ -960,29 +960,29 @@ $(document).ready(function() {
     	restore();
     });
     
-    $(document).on('click', '#fill', function() {
-    	$('.table-responsive').find('input').each(function(i, elem) {
-    		$(elem).attr("value", i);
-    	});
-//    	$('#konditionen-table tfoot').find('input').each(function(i, elem) {
+//    $(document).on('click', '#fill', function() {
+//    	$('.table-responsive').find('input').each(function(i, elem) {
 //    		$(elem).attr("value", i);
 //    	});
-    	inputChanged = true;
-    });
-    
-    $(document).on('click', '#fill-produkt', function() {
-    	$('#produkt-form').find('input[type="text"]').each(function(i, elem) {
-    		$(elem).attr("value", i);
-    	});
-    	$('#produkt-form').find('textarea').each(function(i, elem) {
-    		$(elem).attr("value", i+1.3);
-    	});    
-    	$('#produkt-form').find('select').each(function(i, elem) {
-    		$(elem).val($(elem).find('option').eq(1).val());
-    	});   
-    	$('#produktGueltigSeit').val('12.12.2013');
-    	$('#kategorie').val(2);
-    	
-    	inputChanged = true;
-    });
+////    	$('#konditionen-table tfoot').find('input').each(function(i, elem) {
+////    		$(elem).attr("value", i);
+////    	});
+//    	inputChanged = true;
+//    });
+//    
+//    $(document).on('click', '#fill-produkt', function() {
+//    	$('#produkt-form').find('input[type="text"]').each(function(i, elem) {
+//    		$(elem).attr("value", i);
+//    	});
+//    	$('#produkt-form').find('textarea').each(function(i, elem) {
+//    		$(elem).attr("value", i+1.3);
+//    	});    
+//    	$('#produkt-form').find('select').each(function(i, elem) {
+//    		$(elem).val($(elem).find('option').eq(1).val());
+//    	});   
+//    	$('#produktGueltigSeit').val('12.12.2013');
+//    	$('#kategorie').val(2);
+//    	
+//    	inputChanged = true;
+//    });
 });
