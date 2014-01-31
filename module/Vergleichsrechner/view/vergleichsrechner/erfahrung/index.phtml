@@ -188,7 +188,7 @@
 							</div>
 							<div class="panel-footer">
 								<div class="row">
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="row">
 											<div class="col-md-6">
 												Bewertung:
@@ -198,7 +198,7 @@
 											</div>
 										</div>
 									</div>  
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="row">
 											<div class="col-md-6">
 												Bankempfehlung:
@@ -220,7 +220,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<div class="row">
 											<div class="col-md-6">
 												Produktempfehlung:
@@ -235,6 +235,28 @@
 															echo "<span class='glyphicon glyphicon-thumbs-up' title='Ja'></span>";
 															break;
 														case 2:
+															echo "<span class='glyphicon glyphicon-adjust' title='Vieleicht'></span>";
+															break;
+													} 
+												?>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="row">
+											<div class="col-md-6">
+												Benachrichtigen?
+											</div>
+											<div class="col-md-6">
+												<?php 
+													switch($erfahrung->getErfahrungBenachrichtigung()){
+														case true:
+															echo "<span class='glyphicon glyphicon-glyphicon-ok' title='Ja'></span>";
+															break;
+														case false: 
+															echo "<span class='glyphicon glyphicon-glyphicon-remove' title='Nein'></span>";
+															break;
+														case null: default: 
 															echo "<span class='glyphicon glyphicon-adjust' title='Vieleicht'></span>";
 															break;
 													} 

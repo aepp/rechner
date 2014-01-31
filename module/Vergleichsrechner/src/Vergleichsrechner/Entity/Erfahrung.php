@@ -92,6 +92,13 @@ class Erfahrung
      * @ORM\Column(name="erfahrung_is_freigeschaltet", type="boolean", nullable=true)
      */
     protected $erfahrungIsFreigeschaltet;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="erfahrung_banachrichtigung", type="boolean", nullable=true)
+     */
+    protected $erfahrungBenachrichtigung;
     
     /**
      * @var Bank
@@ -100,6 +107,8 @@ class Erfahrung
      * @ORM\JoinColumn(name="bank_id", referencedColumnName="bank_id")
      */
     protected $bank;
+    
+    
     
     /**
      * Get erfahrungId
@@ -245,5 +254,15 @@ class Erfahrung
     public function getBank()
     {
     	return $this->bank;
+    }
+    
+    public function getErfahrungBenachrichtigung() 
+    {
+      return $this->erfahrungBenachrichtigung;
+    }
+    
+    public function setErfahrungBenachrichtigung($erfahrungBenachrichtigung ) 
+    {
+      $this->erfahrungBenachrichtigung = $erfahrungBenachrichtigung ;
     }
 }
