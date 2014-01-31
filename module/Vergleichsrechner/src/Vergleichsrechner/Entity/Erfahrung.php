@@ -96,7 +96,7 @@ class Erfahrung
     /**
      * @var boolean
      *
-     * @ORM\Column(name="erfahrung_banachrichtigung", type="boolean", nullable=true)
+     * @ORM\Column(name="erfahrung_benachrichtigung", type="boolean", nullable=true)
      */
     protected $erfahrungBenachrichtigung;
     
