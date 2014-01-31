@@ -21,7 +21,7 @@ $(document).ready(function() {
 	});
 	$("#erfahrungen-table").tablesorter({
 		theme : "bootstrap",
-		debug: true,
+//		debug: true,
 		widthFixed: false,
 		headerTemplate : '{content} {icon}', 
 		widgets : [ "uitheme", "filter" ],
