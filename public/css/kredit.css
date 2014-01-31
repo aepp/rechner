@@ -17,10 +17,16 @@ body .table-responsive{
 	min-width: 30px;
 }
 
-#konditionen-table td{
-	vertical-align: middle;
+.tab-pane table td,
+.tab-pane table th
+{
+	vertical-align: middle !important;
 }
 
 .modal-progress-bar{
 	width: 100%;
+}
+
+.table-responsive .nav-tabs li.active a{
+	background-color: #F5F5F5 !important;
 }

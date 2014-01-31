@@ -69,6 +69,13 @@ class KreditKondition
      * @ORM\Column(name="kondition_provision_sale", type="float", precision=10, scale=0, nullable=false)
      */
     protected $konditionProvisionSale;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="kondition_schwelle", type="float", precision=10, scale=0, nullable=false)
+     */
+    protected $konditionSchwelle;
     
   	/**
      * @var Produkt
@@ -231,6 +238,16 @@ class KreditKondition
     	$this->konditionProvisionSale = $konditionProvisionSale;
     }
     
+    public function getKonditionSchwelle() 
+    {
+      return $this->konditionSchwelle;
+    }
+    
+    public function setKonditionSchwelle($konditionSchwelle ) 
+    {
+      $this->konditionSchwelle = $konditionSchwelle ;
+    }
+    
     public function jsonSerialize() {
     	return [
 	    	'konditionId' => $this->getKonditionId(),
@@ -241,6 +258,7 @@ class KreditKondition
 	    	'konditionRisikoklasse' => $this->getKonditionRisikoklasse(),
 	    	'konditionProvisionLead' => $this->getKonditionProvisionLead(),
 	    	'konditionProvisionSale' => $this->getKonditionProvisionSale(),
+	    	'konditionSchwelle' => $this->getKonditionSchwelle(),
 	    	'produkt' => $this->getProdukt(),
     	];
     }

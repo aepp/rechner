@@ -294,6 +294,7 @@ class KreditController extends BaseController
 			$leads = array();
 			$sales = array();
 			$zinssaetze = array();
+			$schwellen = array();
 			
     		foreach ($konditionen as $kondition){
     			$laufzeit = $kondition->getKonditionLaufzeit();
@@ -301,12 +302,22 @@ class KreditController extends BaseController
     			$zinssatz = $kondition->getKonditionZinssatz();
     			$lead = $kondition->getKonditionProvisionLead();
     			$sale = $kondition->getKonditionProvisionSale();
+    			$schwelle = $kondition->getKonditionSchwelle();
     			
-    			if(!in_array($laufzeit, $laufzeiten)) array_push($laufzeiten, $laufzeit);
-    			if(!in_array($risikoklasse, $risikoklassen)) array_push($risikoklassen, $risikoklasse);
-    			if(!isset($leads[$laufzeit])) $leads[$laufzeit] = $lead;
-    			if(!isset($sales[$laufzeit])) $sales[$laufzeit] = $sale;
-    			$zinssaetze[$risikoklasse][$laufzeit] = $zinssatz;
+    			if(!in_array($schwelle, $schwellen)){
+    				array_push($schwellen, $schwelle);
+    				
+    				$laufzeiten[$schwelle] = array();
+    				$risikoklassen[$schwelle] = array();
+    			}
+    			
+    			if(!in_array($laufzeit, $laufzeiten[$schwelle])) array_push($laufzeiten[$schwelle], $laufzeit);
+    			if(!in_array($risikoklasse, $risikoklassen[$schwelle])) array_push($risikoklassen[$schwelle], $risikoklasse);
+    			
+    			if(!isset($leads[$schwelle][$laufzeit])) $leads[$schwelle][$laufzeit] = $lead;
+    			if(!isset($sales[$schwelle][$laufzeit])) $sales[$schwelle][$laufzeit] = $sale;
+    			
+    			$zinssaetze[$schwelle][$risikoklasse][$laufzeit] = $zinssatz;
     		}
 
     		$message = "Konditionen erfolgreich geladen!";
@@ -322,7 +333,8 @@ class KreditController extends BaseController
     		'risikoklassen' => json_encode($risikoklassen),
     		'leads' => json_encode($leads),
     		'sales' => json_encode($sales),
-    		'zinssaetze' => json_encode($zinssaetze),
+    		'schwellen' => json_encode($schwellen),
+    		'zinssaetze' => json_encode($zinssaetze)
     	));
     }
 
@@ -345,7 +357,7 @@ class KreditController extends BaseController
     		if($produktId != null){
 				$produkt = $em->getRepository('Vergleichsrechner\Entity\Kredit')->find($produktId);
 				$konditionenOld = $produkt->getKonditionen();
-    		}
+    		} 
 
     		foreach (json_decode($konditionenJson) as $konditionJson):
     			$kondition = new KreditKondition();
@@ -354,6 +366,7 @@ class KreditController extends BaseController
     			$kondition->setKonditionZinssatz(str_replace( ',', '.', $konditionJson->zinssatz));
     			$kondition->setKonditionProvisionLead(str_replace( ',', '.', $konditionJson->lead));
     			$kondition->setKonditionProvisionSale(str_replace( ',', '.', $konditionJson->sale));
+    			$kondition->setKonditionSchwelle(str_replace( ',', '.', $konditionJson->schwelle));
     			$kondition->setProdukt($produkt);
     			array_push($konditionenTmp, $kondition);
     		endforeach;
@@ -368,8 +381,8 @@ class KreditController extends BaseController
     			array_push($konditionen, $kondition);
     		endforeach;
     		
-    		$produktIsBonitabh = $this->params()->fromPost('produktIsBonitabh');
-    		$produkt->setProduktIsBonitabh($produktIsBonitabh);
+//     		$produktIsBonitabh = $this->params()->fromPost('produktIsBonitabh');
+//     		$produkt->setProduktIsBonitabh($produktIsBonitabh);
     		
     		$em->flush();
     		
