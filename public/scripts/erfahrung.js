@@ -128,7 +128,11 @@ $(document).ready(function() {
 	
 	$(document).on('click', '.status-switch', function(event) {
 		var status = null;
-		var erfahrungId = $(this).parent().parent().parent().parent().parent().parent().parent().parent().attr('id').split('-')[1];
+		
+		var parent_tr = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent();
+		var erfahrungId = parent_tr.attr('id').split('-')[3];
+		var span_status = parent_tr.find('td').eq(3).find('span');
+		
 		var replace_with = null;
 		var current_status = $(this);
 		
@@ -154,6 +158,8 @@ $(document).ready(function() {
 		    data : {status: status},
 		    success : function (response){
 		    	current_status.replaceWith(replace_with); 
+		    	span_status.html(' '+status+' ');
+		    	$("#erfahrungen-table").trigger("updateCell",[parent_tr.find('td').eq(3), false]);
 		    },
 		    error : function (response){
 
