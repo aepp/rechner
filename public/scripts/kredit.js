@@ -276,7 +276,8 @@ $(document).ready(function() {
     	var zinssatz = '';
     	var lead = '';
     	var sale = '';
-
+    	var remove_risikoklasse_disabled = "";
+    	
     	if(init){
     		laufzeiten = [[12, 18, 24, 36, 48, 60, 72, 84]];
 //    		if(bonitabh == 1) risikoklassen = [1, 2, 3, 4, 5, 6];
