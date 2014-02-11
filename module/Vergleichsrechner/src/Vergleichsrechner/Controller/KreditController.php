@@ -146,7 +146,7 @@ class KreditController extends BaseController
 				$produktInformationen = $params()->fromPost('produktInformationen');
 				$produktEffektiverJahreszins = str_replace( ',', '.', $params()->fromPost('produktEffektiverJahreszins')); 
 				$produktAnnahmerichtlinie = str_replace( ',', '.', $params()->fromPost('produktAnnahmerichtlinie'));
-				$produktSollzins = $params()->fromPost('produktSollzins');
+				$produktSollzins = str_replace( ',', '.', $params()->fromPost('produktSollzins'));
 				$produktGesamtbetrag = str_replace( ',', '.', $params()->fromPost('produktGesamtbetrag'));
     			$produktUrl = $params()->fromPost('produktUrl');
     			if($produktUrl != null){
