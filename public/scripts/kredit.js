@@ -503,7 +503,7 @@ $(document).ready(function() {
 
     	$('.schwelle-tab').each(function(i, tab){
 	    	$(tab).find('table tbody tr').each(function(i, row){
-	    		$(tab).find('table thead th input').each(function(j, laufzeit){
+	    		$(tab).find('table thead th input.kondition-laufzeit').each(function(j, laufzeit){
 	    			var colIndex = parseInt($(laufzeit).parent().index());
 		    		konditionen[n]={
 		    	        "laufzeit" : $(laufzeit).val(), 
