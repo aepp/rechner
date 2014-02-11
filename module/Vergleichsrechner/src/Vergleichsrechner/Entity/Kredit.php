@@ -70,10 +70,78 @@ class Kredit extends Produkt
      **/
     protected $konditionen;
     
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="produkt_effektiver_jahreszins", type="float", precision=10, scale=0, nullable=true)
+     */
+    protected $produktEffektiverJahreszins;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="produkt_annahmerichtlinie", type="string", length=255, nullable=true)
+     */
+    protected $produktAnnahmerichtlinie;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="produkt_sollzins", type="float", precision=10, scale=0, nullable=true)
+     */
+    protected $produktSollzins;    
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="produkt_gesamtbetrag", type="float", precision=10, scale=0, nullable=true)
+     */
+    protected $produktGesamtbetrag;
+    
     public function __construct() {
     	$this->konditionen  = new ArrayCollection();
     }
+    
+    public function getProduktGesamtbetrag() 
+    {
+      return $this->produktGesamtbetrag;
+    }
+    
+    public function setProduktGesamtbetrag($produktGesamtbetrag ) 
+    {
+      $this->produktGesamtbetrag = $produktGesamtbetrag ;
+    }
+    
+    public function getProduktSollzins() 
+    {
+      return $this->produktSollzins;
+    }
+    
+    public function setProduktSollzins($produktSollzins ) 
+    {
+      $this->produktSollzins = $produktSollzins ;
+    }
 
+	public function getProduktAnnahmerichtlinie() 
+	{
+	  return $this->produktAnnahmerichtlinie;
+	}
+	
+	public function setProduktAnnahmerichtlinie($produktAnnahmerichtlinie ) 
+	{
+	  $this->produktAnnahmerichtlinie = $produktAnnahmerichtlinie ;
+	}
+    
+    public function getProduktEffektiverJahreszins()
+    {
+    	return $this->produktEffektiverJahreszins;
+    }
+    
+    public function setProduktEffektiverJahreszins($produktEffektiverJahreszins )
+    {
+    	$this->produktEffektiverJahreszins = $produktEffektiverJahreszins ;
+    }
+    
     /**
      * Get produktId
      *

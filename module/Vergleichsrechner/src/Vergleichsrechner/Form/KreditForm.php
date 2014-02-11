@@ -61,6 +61,10 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 		$discardChanges = new Element\Button();
 		$konditionenBearbeiten = new Element\Button();
 		$modus = new Element\Hidden();
+		$produktEffektiverJahreszins = new Element\Text();
+		$produktAnnahmerichtlinie = new Element\Text();
+		$produktSollzins = new Element\Text();
+		$produktGesamtbetrag = new Element\Text();
 		
 		$kategorie	
 			->setName('kategorie')
@@ -288,6 +292,43 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setName('modus')
 			->setValue('create')
 			->setAttribute('id', 'modus');
+		
+		$produktEffektiverJahreszins
+			->setName('produktEffektiverJahreszins')
+			->setLabel('Effektiver Jahreszins')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control',
+					'id' => 'produktEffektiverJahreszins'
+		));
+			
+		$produktAnnahmerichtlinie
+			->setName('produktAnnahmerichtlinie')
+			->setLabel('Annahmerichtlinie')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control',
+					'id' => 'produktAnnahmerichtlinie'
+		));		
+
+		$produktSollzins
+			->setName('produktSollzins')
+			->setLabel('Sollzins')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control',
+					'id' => 'produktSollzins'
+		));
+			
+		$produktGesamtbetrag
+			->setName('produktGesamtbetrag')
+			->setLabel('Gesamtbetrag')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control',
+					'id' => 'produktGesamtbetrag'
+		));			
+		
 		/*
 		 * Setting up the form
 		 */		
@@ -324,6 +365,10 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 		$this->add($produktInformationen);
 		$this->add($produktUrl);
 		$this->add($produktKlickoutUrl);
+		$this->add($produktEffektiverJahreszins);
+		$this->add($produktAnnahmerichtlinie);
+		$this->add($produktSollzins);
+		$this->add($produktGesamtbetrag);
 		$this->add($konditionenBearbeiten);
 		$this->add($saveChanges);
 		$this->add($discardChanges);

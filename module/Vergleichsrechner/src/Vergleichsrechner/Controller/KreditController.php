@@ -88,6 +88,10 @@ class KreditController extends BaseController
 				$form->get('produktUrl')->setAttribute('value', $produkt->getProduktUrl());
 				$form->get('produktKlickoutUrl')->setAttribute('value', $produkt->getProduktKlickoutUrl());
 				$form->get('modus')->setValue('edit');
+				$form->get('produktEffektiverJahreszins')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktEffektiverJahreszins()));
+				$form->get('produktAnnahmerichtlinie')->setAttribute('value', $produkt->getProduktAnnahmerichtlinie());
+				$form->get('produktSollzins')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktSollzins()));
+				$form->get('produktGesamtbetrag')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktGesamtbetrag()));
 				
 				$message = "Form erfolgreich geladen!";
 			}
@@ -140,6 +144,10 @@ class KreditController extends BaseController
 				$produktCheck = str_replace( ',', '.', $params()->fromPost('produktCheck'));
 				$produktTipp = $params()->fromPost('produktTipp');
 				$produktInformationen = $params()->fromPost('produktInformationen');
+				$produktEffektiverJahreszins = str_replace( ',', '.', $params()->fromPost('produktEffektiverJahreszins')); 
+				$produktAnnahmerichtlinie = str_replace( ',', '.', $params()->fromPost('produktAnnahmerichtlinie'));
+				$produktSollzins = $params()->fromPost('produktSollzins');
+				$produktGesamtbetrag = str_replace( ',', '.', $params()->fromPost('produktGesamtbetrag'));
     			$produktUrl = $params()->fromPost('produktUrl');
     			if($produktUrl != null){
 					if (strpos($produktUrl,'http') === false) {
@@ -176,6 +184,10 @@ class KreditController extends BaseController
 				if($produktWiderrufsfrist != null) $produkt->setProduktWiderrufsfrist($produktWiderrufsfrist);
 				if($produktSondertilgungen != null) $produkt->setProduktSondertilgungen($produktSondertilgungen);
 				if($produktIsBonitabh != null) $produkt->setProduktIsBonitabh($produktIsBonitabh);
+				if($produktEffektiverJahreszins != null) $produkt->setProduktEffektiverJahreszins($produktEffektiverJahreszins);
+				if($produktAnnahmerichtlinie != null) $produkt->setProduktAnnahmerichtlinie($produktAnnahmerichtlinie);
+				if($produktGesamtbetrag != null) $produkt->setProduktGesamtbetrag($produktGesamtbetrag);
+				if($produktSollzins != null) $produkt->setProduktSollzins($produktSollzins);
 				
 				$em->persist($produkt);
 				

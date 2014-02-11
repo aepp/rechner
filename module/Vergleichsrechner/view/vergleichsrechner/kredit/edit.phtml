@@ -27,13 +27,26 @@
 	        	?>
 	        	<div class="col-sm-3">
 	        		<?php 
-        				if($name == 'produktMinKredit' || 
-						   $name == 'produktMaxKredit' ||
-						   $name == 'produktBearbeitungsgebuehr'){ 
+        				if(
+							$name == 'produktMinKredit' || 
+						   	$name == 'produktMaxKredit' ||
+						   	$name == 'produktBearbeitungsgebuehr' ||
+						   	$name == 'produktGesamtbetrag'
+						){ 
         					echo '
 								<div class="input-group">'.
 				  					$this->formElement($element)
 				  					.'<span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
+								</div>';
+        					if($name == 'produktMaxKredit') echo '<span class="help-block">0 = unbegrenzt</span>';
+        				}elseif(
+							$name == 'produktSollzins' || 
+						   	$name == 'produktEffektiverJahreszins' 
+						){ 
+        					echo '
+								<div class="input-group">'.
+				  					$this->formElement($element)
+				  					.'<span class="input-group-addon">%</span>
 								</div>';
         					if($name == 'produktMaxKredit') echo '<span class="help-block">0 = unbegrenzt</span>';
         				} else {
@@ -42,6 +55,14 @@
         			?>
 	        	</div>
 	    </div>
+    <?php if($name == 'produktKlickoutUrl'): ?> 
+    	<div class="form-group">
+			<label class="col-sm-3 control-label"></label>
+			<div class="col-sm-3">
+				<span>Repräsentatives Beispiel</span>
+			</div>
+		</div>
+    <?php endif; ?>
 <?php endforeach; ?>
 <!-- <button type="button" class="btn" id="fill-produkt"> -->
 <!-- 	Fill -->
