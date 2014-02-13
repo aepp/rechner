@@ -298,7 +298,7 @@ $(document).ready(function() {
 		for(var i = 0; i < schwellen.length; i++){
 			table += 
 				'<li>'+
-					'<a href="#schwelle-tab-'+i+'" data-toggle="tab" id="#schwelle-tab-link-'+i+'">bis '+schwellen[i]+'</a>'+
+					'<a href="#schwelle-tab-'+i+'" data-toggle="tab" id="#schwelle-tab-link-'+i+'">ab '+schwellen[i]+'</a>'+
 				'</li>';
 		}
 		table += 
@@ -421,7 +421,7 @@ $(document).ready(function() {
      * Schreibt den Schwellwert in den Link; setzt value
      */    
     $(document).on('keyup', '.schwelle-input', function(event) {
-    	$('ul.nav-tabs').find('li.active').find('a').text('bis '+$(this).val());
+    	$('ul.nav-tabs').find('li.active').find('a').text('ab '+$(this).val());
     	$(this).attr("value", $(this).val());
     	inputChanged = true;
     });
@@ -784,7 +784,7 @@ $(document).ready(function() {
     	
 		$('.nav-tabs').find('li').eq(div_tab_index).after(
 			'<li>'+
-				'<a href="#" data-toggle="tab" id="0">bis 0</a>'+
+				'<a href="#" data-toggle="tab" id="0">ab 0</a>'+
 			'</li>'
 		);
 		

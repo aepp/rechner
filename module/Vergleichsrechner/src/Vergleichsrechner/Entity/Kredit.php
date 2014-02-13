@@ -97,19 +97,35 @@ class Kredit extends Produkt
      * @ORM\Column(name="produkt_gesamtbetrag", type="float", precision=10, scale=0, nullable=true)
      */
     protected $produktGesamtbetrag;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="produkt_nettokreditsumme", type="float", precision=10, scale=0, nullable=true)
+     */
+    protected $produktNettokreditsumme;
     
     public function __construct() {
     	$this->konditionen  = new ArrayCollection();
     }
     
+    public function getProduktNettokreditsumme() 
+    {
+      return $this->produktNettokreditsumme;
+    }
+    
+    public function setProduktNettokreditsumme($produktNettokreditsumme) 
+    {
+      $this->produktNettokreditsumme = $produktNettokreditsumme;
+    }
     public function getProduktGesamtbetrag() 
     {
       return $this->produktGesamtbetrag;
     }
     
-    public function setProduktGesamtbetrag($produktGesamtbetrag ) 
+    public function setProduktGesamtbetrag($produktGesamtbetrag) 
     {
-      $this->produktGesamtbetrag = $produktGesamtbetrag ;
+      $this->produktGesamtbetrag = $produktGesamtbetrag;
     }
     
     public function getProduktSollzins() 
@@ -117,9 +133,9 @@ class Kredit extends Produkt
       return $this->produktSollzins;
     }
     
-    public function setProduktSollzins($produktSollzins ) 
+    public function setProduktSollzins($produktSollzins) 
     {
-      $this->produktSollzins = $produktSollzins ;
+      $this->produktSollzins = $produktSollzins;
     }
 
 	public function getProduktAnnahmerichtlinie() 
@@ -127,9 +143,9 @@ class Kredit extends Produkt
 	  return $this->produktAnnahmerichtlinie;
 	}
 	
-	public function setProduktAnnahmerichtlinie($produktAnnahmerichtlinie ) 
+	public function setProduktAnnahmerichtlinie($produktAnnahmerichtlinie) 
 	{
-	  $this->produktAnnahmerichtlinie = $produktAnnahmerichtlinie ;
+	  $this->produktAnnahmerichtlinie = $produktAnnahmerichtlinie;
 	}
     
     public function getProduktEffektiverJahreszins()
@@ -137,9 +153,9 @@ class Kredit extends Produkt
     	return $this->produktEffektiverJahreszins;
     }
     
-    public function setProduktEffektiverJahreszins($produktEffektiverJahreszins )
+    public function setProduktEffektiverJahreszins($produktEffektiverJahreszins)
     {
-    	$this->produktEffektiverJahreszins = $produktEffektiverJahreszins ;
+    	$this->produktEffektiverJahreszins = $produktEffektiverJahreszins;
     }
     
     /**

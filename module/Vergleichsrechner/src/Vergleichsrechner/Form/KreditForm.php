@@ -62,74 +62,75 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 		$konditionenBearbeiten = new Element\Button();
 		$modus = new Element\Hidden();
 		$produktEffektiverJahreszins = new Element\Text();
-		$produktAnnahmerichtlinie = new Element\Text();
+		$produktAnnahmerichtlinie = new Element\Textarea();
 		$produktSollzins = new Element\Text();
 		$produktGesamtbetrag = new Element\Text();
+		$produktNettokreditsumme = new Element\Text();
 		
 		$kategorie	
 			->setName('kategorie')
 			->setLabel('Kategorie')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[required]',
-					'id' => 'kategorie',
-					'disabled' => 'disabled',
+				'class' => 'form-control validate[required]',
+				'id' => 'kategorie',
+				'disabled' => 'disabled',
 			))
 			->setOptions(array(
-					'object_manager' => $this->getObjectManager(),
-					'target_class' => 'Vergleichsrechner\Entity\Kategorie',
-					'property' => 'kategorieName',
-					'is_method'      => true,
-					'find_method'    => array(
-							'name'   => 'findBy',
-							'params' => array(
-									'criteria' => array('kategorieId' => 2),
-							),
-					),
+				'object_manager' => $this->getObjectManager(),
+				'target_class' => 'Vergleichsrechner\Entity\Kategorie',
+				'property' => 'kategorieName',
+				'is_method'      => true,
+				'find_method'    => array(
+						'name'   => 'findBy',
+						'params' => array(
+								'criteria' => array('kategorieId' => 2),
+						),
+				),
 			));
 		$produktart
 			->setName('produktart')
 			->setLabel('Produktart')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[required]',
-					'id' => 'produktart'
+				'class' => 'form-control validate[required]',
+				'id' => 'produktart'
 			))
 			->setOptions(array(
-					'object_manager' => $this->getObjectManager(),
-					'target_class' => 'Vergleichsrechner\Entity\Produktart',
-					'property' => 'produktartName',
-					'is_method'      => true,
-					'find_method'    => array(
-							'name'   => 'findBy',
-							'params' => array(
-									'criteria' => array('kategorie' => 2),
-									'orderBy'  => array('produktartName' => 'ASC'),
-							),
-					),
-					'empty_option'  => '--- Bitte wählen ---',
+				'object_manager' => $this->getObjectManager(),
+				'target_class' => 'Vergleichsrechner\Entity\Produktart',
+				'property' => 'produktartName',
+				'is_method'      => true,
+				'find_method'    => array(
+						'name'   => 'findBy',
+						'params' => array(
+								'criteria' => array('kategorie' => 2),
+								'orderBy'  => array('produktartName' => 'ASC'),
+						),
+				),
+				'empty_option'  => '--- Bitte wählen ---',
 			));						
 		$produktName	
 			->setName('produktName')
 			->setLabel('Produktname')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[required]',
-					'id' => 'produktName'
+				'class' => 'form-control validate[required]',
+				'id' => 'produktName'
 			));	
 		$bank	
 			->setName('bank')
 			->setLabel('Bank')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[required]',
-					'id' => 'bank'
+				'class' => 'form-control validate[required]',
+				'id' => 'bank'
 			))
 			->setOptions(array(
-					'object_manager' => $this->getObjectManager(),
-					'target_class' => 'Vergleichsrechner\Entity\Bank',
-					'property' => 'bankName',
-					'empty_option'  => '--- Bitte wählen ---',
+				'object_manager' => $this->getObjectManager(),
+				'target_class' => 'Vergleichsrechner\Entity\Bank',
+				'property' => 'bankName',
+				'empty_option'  => '--- Bitte wählen ---',
 			));		
 		$produktHasOnlineAbschluss	
 			->setName('produktHasOnlineAbschluss')
@@ -141,30 +142,30 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Zinssatz')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'zinssatz'
+				'class' => 'form-control',
+				'id' => 'zinssatz'
 			))
 			->setOptions(array(
-					'object_manager' => $this->getObjectManager(),
-					'target_class' => 'Vergleichsrechner\Entity\Zinssatz',
-					'property' => 'zinssatzName',
-					'empty_option'  => '--- Bitte wählen ---',
+				'object_manager' => $this->getObjectManager(),
+				'target_class' => 'Vergleichsrechner\Entity\Zinssatz',
+				'property' => 'zinssatzName',
+				'empty_option'  => '--- Bitte wählen ---',
 			));
 		$produktMinKredit
 			->setName('produktMinKredit')
 			->setLabel('Min. Kredit')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[custom[numberKom]]',
-					'id' => 'produktMinKredit'
+				'class' => 'form-control validate[custom[numberKom]]',
+				'id' => 'produktMinKredit'
 			));
 		$produktMaxKredit
 			->setName('produktMaxKredit')
 			->setLabel('Max. Kredit')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[custom[numberKom]]',
-					'id' => 'produktMaxKredit'
+				'class' => 'form-control validate[custom[numberKom]]',
+				'id' => 'produktMaxKredit'
 			));	
 		$produktIsBonitabh
 			->setName('produktIsBonitabh')
@@ -176,63 +177,63 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Aktion')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'aktion'
+				'class' => 'form-control',
+				'id' => 'aktion'
 			))
 			->setOptions(array(
-					'empty_option'  => '--- Bitte wählen ---',
+				'empty_option'  => '--- Bitte wählen ---',
 			));			
 		$produktKtofuehrKost
 			->setName('produktKtofuehrKost')
 			->setLabel('Kontoführungskosten')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'produktKtofuehrKost'
+				'class' => 'form-control',
+				'id' => 'produktKtofuehrKost'
 			));	
 		$produktBearbeitungsgebuehr
 			->setName('produktBearbeitungsgebuehr')
 			->setLabel('Bearbeitungsgebühr')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'produktBearbeitungsgebuehr'
+				'class' => 'form-control',
+				'id' => 'produktBearbeitungsgebuehr'
 			));	
 		$produktWiderrufsfrist
 			->setName('produktWiderrufsfrist')
 			->setLabel('Widerrufsfrist')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'produktWiderrufsfrist'
+				'class' => 'form-control',
+				'id' => 'produktWiderrufsfrist'
 			));
 		$produktSondertilgungen
 			->setName('produktSondertilgungen')
 			->setLabel('Sondertilgungen')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'produktSondertilgungen'
+				'class' => 'form-control',
+				'id' => 'produktSondertilgungen'
 			));			
 		$produktGueltigSeit
 			->setName('produktGueltigSeit')
 			->setLabel('Gültig seit')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'produktGueltigSeit',
+				'class' => 'form-control',
+				'id' => 'produktGueltigSeit',
 			))
 			->setOptions(array(
-					'min_year' => date('Y') - 5,
-					'max_year' => date('Y') + 2,
+				'min_year' => date('Y') - 5,
+				'max_year' => date('Y') + 2,
 			));		
 		$produktCheck
 			->setName('produktCheck')
 			->setLabel('Produktcheck')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control validate[custom[numberKom]]',
-					'id' => 'produktCheck'
+				'class' => 'form-control validate[custom[numberKom]]',
+				'id' => 'produktCheck'
 			));
 		$produktTipp
 			->setName('produktTipp')
@@ -244,48 +245,48 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Produkt-URL')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'produktUrl'
+				'class' => 'form-control',
+				'id' => 'produktUrl'
 		));
 		$produktKlickoutUrl
 			->setName('produktKlickoutUrl')
 			->setLabel('Klickout-URL')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'produktKlickoutUrl'
+				'class' => 'form-control',
+				'id' => 'produktKlickoutUrl'
 		));
 		$produktInformationen
 			->setName('produktInformationen')
 			->setLabel('Informationen')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'produktInformationen',
-					'maxlength' => '500'
+				'class' => 'form-control',
+				'id' => 'produktInformationen',
+				'maxlength' => '500'
 			));		
 		$saveChanges
 			->setName('saveChanges')
 			->setLabel('Speichern')
 			->setAttributes(array(
-					'class' => 'btn btn-success btn-block',
-					'id' => 'save-changes'
+				'class' => 'btn btn-success btn-block',
+				'id' => 'save-changes'
 			))
 			->setLabelAttributes($labelAttributes);
 		$discardChanges
 			->setName('discardChanges')
 			->setLabel('Eingaben verwerfen')
 			->setAttributes(array(
-					'class' => 'btn btn-danger btn-block',
-					'id' => 'discard-changes'
+				'class' => 'btn btn-danger btn-block',
+				'id' => 'discard-changes'
 			))
 			->setLabelAttributes($labelAttributes);			
 		$konditionenBearbeiten
 			->setName('konditionenBerabeiten')
 			->setLabel('Konditionen bearbeiten')
 			->setAttributes(array(
-					'class' => 'btn btn-default btn-block',
-					'id' => 'konditionen-bearbeiten'
+				'class' => 'btn btn-default btn-block',
+				'id' => 'konditionen-bearbeiten'
 			))
 			->setLabelAttributes($labelAttributes);	
 		$modus
@@ -298,8 +299,8 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Effektiver Jahreszins')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'produktEffektiverJahreszins'
+				'class' => 'form-control validate[custom[numberKom]]',
+				'id' => 'produktEffektiverJahreszins'
 		));
 			
 		$produktAnnahmerichtlinie
@@ -307,8 +308,8 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Annahmerichtlinie')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'produktAnnahmerichtlinie'
+				'class' => 'form-control',
+				'id' => 'produktAnnahmerichtlinie'
 		));		
 
 		$produktSollzins
@@ -316,8 +317,8 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Sollzins')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'produktSollzins'
+				'class' => 'form-control validate[custom[numberKom]]',
+				'id' => 'produktSollzins'
 		));
 			
 		$produktGesamtbetrag
@@ -325,10 +326,18 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Gesamtbetrag')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'produktGesamtbetrag'
+				'class' => 'form-control validate[custom[numberKom]]',
+				'id' => 'produktGesamtbetrag'
 		));			
 		
+		$produktNettokreditsumme			
+			->setName('produktNettokreditsumme')
+			->setLabel('Nettokreditsumme validate[custom[numberKom]]')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+				'class' => 'form-control',
+				'id' => 'produktNettokreditsumme'
+		));			
 		/*
 		 * Setting up the form
 		 */		
@@ -363,11 +372,12 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 		$this->add($produktCheck);
 		$this->add($produktTipp);
 		$this->add($produktInformationen);
+		$this->add($produktAnnahmerichtlinie);
 		$this->add($produktUrl);
 		$this->add($produktKlickoutUrl);
 		$this->add($produktEffektiverJahreszins);
-		$this->add($produktAnnahmerichtlinie);
 		$this->add($produktSollzins);
+		$this->add($produktNettokreditsumme);
 		$this->add($produktGesamtbetrag);
 		$this->add($konditionenBearbeiten);
 		$this->add($saveChanges);

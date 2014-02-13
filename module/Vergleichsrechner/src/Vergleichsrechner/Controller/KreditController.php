@@ -92,6 +92,7 @@ class KreditController extends BaseController
 				$form->get('produktAnnahmerichtlinie')->setAttribute('value', $produkt->getProduktAnnahmerichtlinie());
 				$form->get('produktSollzins')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktSollzins()));
 				$form->get('produktGesamtbetrag')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktGesamtbetrag()));
+				$form->get('produktNettokreditsumme')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktNettokreditsumme()));
 				
 				$message = "Form erfolgreich geladen!";
 			}
@@ -148,6 +149,8 @@ class KreditController extends BaseController
 				$produktAnnahmerichtlinie = str_replace( ',', '.', $params()->fromPost('produktAnnahmerichtlinie'));
 				$produktSollzins = str_replace( ',', '.', $params()->fromPost('produktSollzins'));
 				$produktGesamtbetrag = str_replace( ',', '.', $params()->fromPost('produktGesamtbetrag'));
+				$produktNettokreditsumme = str_replace( ',', '.', $params()->fromPost('produktNettokreditsumme'));
+				
     			$produktUrl = $params()->fromPost('produktUrl');
     			if($produktUrl != null){
 					if (strpos($produktUrl,'http') === false) {
@@ -188,6 +191,7 @@ class KreditController extends BaseController
 				if($produktAnnahmerichtlinie != null) $produkt->setProduktAnnahmerichtlinie($produktAnnahmerichtlinie);
 				if($produktGesamtbetrag != null) $produkt->setProduktGesamtbetrag($produktGesamtbetrag);
 				if($produktSollzins != null) $produkt->setProduktSollzins($produktSollzins);
+				if($produktNettokreditsumme != null) $produkt->setProduktNettokreditsumme($produktNettokreditsumme);
 				
 				$em->persist($produkt);
 				
