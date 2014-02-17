@@ -383,8 +383,10 @@ class KreditController extends BaseController
     			$kondition->setKonditionLaufzeit($konditionJson->laufzeit);
     			$kondition->setKonditionRisikoklasse($konditionJson->risikoklasse);
     			$kondition->setKonditionZinssatz(str_replace( ',', '.', $konditionJson->zinssatz));
-    			$kondition->setKonditionProvisionLead(str_replace( ',', '.', $konditionJson->lead));
-    			$kondition->setKonditionProvisionSale(str_replace( ',', '.', $konditionJson->sale));
+    			if($konditionJson->lead != null)
+    				$kondition->setKonditionProvisionLead(str_replace( ',', '.', $konditionJson->lead));
+    			if($konditionJson->sale != null)
+    				$kondition->setKonditionProvisionSale(str_replace( ',', '.', $konditionJson->sale));
     			$kondition->setKonditionSchwelle(str_replace( ',', '.', $konditionJson->schwelle));
     			$kondition->setProdukt($produkt);
     			array_push($konditionenTmp, $kondition);

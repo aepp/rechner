@@ -59,21 +59,21 @@ class KreditKondition
     /**
      * @var float
      *
-     * @ORM\Column(name="kondition_provision_lead", type="float", precision=10, scale=0, nullable=false)
+     * @ORM\Column(name="kondition_provision_lead", type="float", precision=10, scale=0, nullable=true)
      */
     protected $konditionProvisionLead;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="kondition_provision_sale", type="float", precision=10, scale=0, nullable=false)
+     * @ORM\Column(name="kondition_provision_sale", type="float", precision=10, scale=0, nullable=true)
      */
     protected $konditionProvisionSale;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="kondition_schwelle", type="float", precision=10, scale=0, nullable=false)
+     * @ORM\Column(name="kondition_schwelle", type="float", precision=10, scale=0, nullable=true)
      */
     protected $konditionSchwelle;
     
