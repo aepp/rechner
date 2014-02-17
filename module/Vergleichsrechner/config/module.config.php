@@ -24,6 +24,7 @@ return array(
         		'Index' => 'Vergleichsrechner\Controller\IndexController',
         		'Zeitabschnitt' => 'Vergleichsrechner\Controller\ZeitabschnittController',
         		'Zinssatz' => 'Vergleichsrechner\Controller\ZinssatzController',
+        		'RKVAbschluss' => 'Vergleichsrechner\Controller\RKVAbschlussController'
         ),
     ),
     'router' => array(
@@ -237,6 +238,20 @@ return array(
         										),
         								),
         						),
+        						'rkvAbschluss' => array(
+        								'type'    => 'Segment',
+        								'options' => array(
+        										'route'    => '/rkvAbschluss/[:action]',
+        										'constraints' => array(
+        												'controller' => 'RKVAbschluss',
+        												'action' => '[a-zA-Z][a-zA-Z0-9_-]*'
+        										),
+        										'defaults' => array(
+        												'controller' => 'RKVAbschluss',
+        												'action' => 'index',
+        										),
+        								),
+        						),        						
         				),
         		),
         		'produktverwaltung' => array(

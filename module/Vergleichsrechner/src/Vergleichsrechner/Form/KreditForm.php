@@ -57,15 +57,16 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 		$produktUrl = new Element\Text();
 		$produktKlickoutUrl = new Element\Text();
 		$ktozugriffe = new ObjectMultiCheckbox();
-		$saveChanges = new Element\Button();
-		$discardChanges = new Element\Button();
-		$konditionenBearbeiten = new Element\Button();
+// 		$saveChanges = new Element\Button();
+// 		$discardChanges = new Element\Button();
+// 		$konditionenBearbeiten = new Element\Button();
 		$modus = new Element\Hidden();
 		$produktEffektiverJahreszins = new Element\Text();
 		$produktAnnahmerichtlinie = new Element\Textarea();
 		$produktSollzins = new Element\Text();
 		$produktGesamtbetrag = new Element\Text();
 		$produktNettokreditsumme = new Element\Text();
+		$rkvAbschluss = new ObjectSelect();
 		
 		$kategorie	
 			->setName('kategorie')
@@ -265,30 +266,30 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 				'id' => 'produktInformationen',
 				'maxlength' => '500'
 			));		
-		$saveChanges
-			->setName('saveChanges')
-			->setLabel('Speichern')
-			->setAttributes(array(
-				'class' => 'btn btn-success btn-block',
-				'id' => 'save-changes'
-			))
-			->setLabelAttributes($labelAttributes);
-		$discardChanges
-			->setName('discardChanges')
-			->setLabel('Eingaben verwerfen')
-			->setAttributes(array(
-				'class' => 'btn btn-danger btn-block',
-				'id' => 'discard-changes'
-			))
-			->setLabelAttributes($labelAttributes);			
-		$konditionenBearbeiten
-			->setName('konditionenBerabeiten')
-			->setLabel('Konditionen bearbeiten')
-			->setAttributes(array(
-				'class' => 'btn btn-default btn-block',
-				'id' => 'konditionen-bearbeiten'
-			))
-			->setLabelAttributes($labelAttributes);	
+// 		$saveChanges
+// 			->setName('saveChanges')
+// 			->setLabel('Speichern')
+// 			->setAttributes(array(
+// 				'class' => 'btn btn-success btn-block',
+// 				'id' => 'save-changes'
+// 			))
+// 			->setLabelAttributes($labelAttributes);
+// 		$discardChanges
+// 			->setName('discardChanges')
+// 			->setLabel('Eingaben verwerfen')
+// 			->setAttributes(array(
+// 				'class' => 'btn btn-danger btn-block',
+// 				'id' => 'discard-changes'
+// 			))
+// 			->setLabelAttributes($labelAttributes);			
+// 		$konditionenBearbeiten
+// 			->setName('konditionenBerabeiten')
+// 			->setLabel('Konditionen bearbeiten')
+// 			->setAttributes(array(
+// 				'class' => 'btn btn-default btn-block',
+// 				'id' => 'konditionen-bearbeiten'
+// 			))
+// 			->setLabelAttributes($labelAttributes);	
 		$modus
 			->setName('modus')
 			->setValue('create')
@@ -332,12 +333,27 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 		
 		$produktNettokreditsumme			
 			->setName('produktNettokreditsumme')
-			->setLabel('Nettokreditsumme validate[custom[numberKom]]')
+			->setLabel('Nettokreditsumme')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-				'class' => 'form-control',
+				'class' => 'form-control validate[custom[numberKom]]',
 				'id' => 'produktNettokreditsumme'
-		));			
+		));	
+
+		$rkvAbschluss
+			->setName('rkvAbschluss')
+			->setLabel('RKV-Abschluss')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control',
+					'id' => 'rkvAbschluss'
+			))
+			->setOptions(array(
+					'object_manager' => $this->getObjectManager(),
+					'target_class' => 'Vergleichsrechner\Entity\RKVAbschluss',
+					'property' => 'rkvAbschlussName',
+					'empty_option'  => '--- Bitte wählen ---',
+		));
 		/*
 		 * Setting up the form
 		 */		
@@ -358,30 +374,31 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 		$this->add($produktart);
 		$this->add($produktName);
 		$this->add($bank);
-		$this->add($produktHasOnlineAbschluss);
+		$this->add($aktion);
 		$this->add($zinssatz);
+		$this->add($produktHasOnlineAbschluss);
+		$this->add($produktKtofuehrKost);
+		$this->add($produktCheck);
+		$this->add($produktTipp);
 		$this->add($produktMinKredit);
 		$this->add($produktMaxKredit);
 		$this->add($produktIsBonitabh);
-		$this->add($aktion);
-		$this->add($produktKtofuehrKost);
 		$this->add($produktBearbeitungsgebuehr);
 		$this->add($produktWiderrufsfrist);
 		$this->add($produktSondertilgungen);
-		$this->add($produktGueltigSeit);
-		$this->add($produktCheck);
-		$this->add($produktTipp);
+		$this->add($rkvAbschluss);
 		$this->add($produktInformationen);
 		$this->add($produktAnnahmerichtlinie);
+		$this->add($produktGueltigSeit);
 		$this->add($produktUrl);
 		$this->add($produktKlickoutUrl);
 		$this->add($produktEffektiverJahreszins);
 		$this->add($produktSollzins);
 		$this->add($produktNettokreditsumme);
 		$this->add($produktGesamtbetrag);
-		$this->add($konditionenBearbeiten);
-		$this->add($saveChanges);
-		$this->add($discardChanges);
+// 		$this->add($konditionenBearbeiten);
+// 		$this->add($saveChanges);
+// 		$this->add($discardChanges);
 		$this->add($modus);
 // 		$this->setInputFilter($this->createInputFilter());
 	}

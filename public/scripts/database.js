@@ -103,11 +103,6 @@ $(document).ready(function() {
 					
 		    	};		
 		        break;
-		    case "testbericht":
-//		    	tableFields = getFields_testbericht();
-//		    	defaultSorting = 'testberichtId ASC';
-//		        break;
-		    	return;
 			case "user":
 		    	tableFields = getFields_user();
 		    	defaultSorting = 'userId ASC';
@@ -120,6 +115,10 @@ $(document).ready(function() {
 		    	tableFields = getFields_zinssatz();
 		    	defaultSorting = 'zinssatzId ASC';
 		        break;
+		    case "rkvAbschluss":
+		    	tableFields = getFields_rkvAbschluss();
+		    	defaultSorting = 'rkvAbschlussId ASC';
+		        break;		        
 		}
 		if($("#tableContent").find(".jtable-main-container").length > 0){
 			$('#tableContent').jtable('destroy');
@@ -471,6 +470,23 @@ $(document).ready(function() {
 	        },
 	        zinssatzName: {
 	            title: 'Zinssatz',
+	            type: 'text',
+	            inputClass: 'validate[required]',
+	        },
+    	};
+    	return fields;
+    } 
+    function getFields_rkvAbschluss(){
+    	fields = {
+    			rkvAbschlussId: {
+	            key: true,
+	            edit: false,
+	            list: true,
+	            title: 'ID',
+	            width: '5%',
+	        },
+	        rkvAbschlussName: {
+	            title: 'RKV-Abschluss',
 	            type: 'text',
 	            inputClass: 'validate[required]',
 	        },

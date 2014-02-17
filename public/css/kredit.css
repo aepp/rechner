@@ -30,3 +30,7 @@ body .table-responsive{
 .table-responsive .nav-tabs li.active a{
 	background-color: #F5F5F5 !important;
 }
+
+#konditionen-bearbeiten{
+	margin-top: 5px;
+}

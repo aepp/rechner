@@ -12,21 +12,75 @@ $(document).ready(function() {
 		return;
 	}
 	pageInitialized = true;
-	$('label[for="produktTipp"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('radio-inline');
+	$('label[for="produktTipp"]').parent().find('div.col-sm-7').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="produktTipp"]').parent().find('div.col-sm-7').attr('data-toggle', 'buttons');
+	$('label[for="produktTipp"]').parent().find('div.col-sm-7').addClass('btn-group');
 	
-	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('radio-inline');
+	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-7').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-7').attr('data-toggle', 'buttons');
+	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-7').addClass('btn-group');
 	
-	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('radio-inline');
-	$('#produktInformationen').maxlength({
-		alwaysShow: true,
-		threshold: 10,
-		warningClass: "label label-success",
-		limitReachedClass: "label label-important",
-		separator: ' von ',
-		preText: '',
-		postText: '',
-		validate: true
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-7').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-7').attr('id', 'produktHasOnlineAbschluss');
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-7').attr('data-toggle', 'buttons');
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-7').addClass('btn-group');
+	
+	$('.btn').button();
+	$('input:checked').each(function(i, radio){
+		$(radio).parent().button('toggle');
 	});
+	
+	$('body').scrollspy({ 
+		target: '.scrollspy-nav',
+		offset: 70
+	});
+
+	$('#overview-nav li a').click(function(event) {
+	    event.preventDefault();
+	    $($(this).attr('href'))[0].scrollIntoView();
+	    scrollBy(0, -60);
+	});
+	
+	$('#produktInformationen').parent().removeClass().addClass('col-sm-9');
+	$('#produktInformationen').summernote({
+		height: 150,
+		toolbar: [
+	            //['style', ['style']], // no style button
+	            ['style', ['bold', 'italic', 'underline', 'clear']],
+	            ['fontsize', ['fontsize']],
+	            ['color', ['color']],
+	            ['para', ['ul', 'ol', 'paragraph']],
+	            ['height', ['height']],
+	            //['insert', ['picture', 'link']], // no insert buttons
+	            //['table', ['table']], // no table button
+	            //['help', ['help']] //no help button
+	          ]
+	});
+	$('#produktAnnahmerichtlinie').parent().removeClass().addClass('col-sm-9');
+	$('#produktAnnahmerichtlinie').summernote({
+		height: 150,
+		toolbar: [
+	            //['style', ['style']], // no style button
+	            ['style', ['bold', 'italic', 'underline', 'clear']],
+	            ['fontsize', ['fontsize']],
+	            ['color', ['color']],
+	            ['para', ['ul', 'ol', 'paragraph']],
+	            ['height', ['height']],
+	            //['insert', ['picture', 'link']], // no insert buttons
+	            //['table', ['table']], // no table button
+	            //['help', ['help']] //no help button
+	          ]
+	});	
+//	$('#produktInformationen').maxlength({
+//		alwaysShow: true,
+//		threshold: 10,
+//		warningClass: "label label-success",
+//		limitReachedClass: "label label-important",
+//		separator: ' von ',
+//		preText: '',
+//		postText: '',
+//		validate: true
+//	});
 	
 	/*
 	 * Das Input-Feld in ein Datepicker umwandeln
@@ -84,7 +138,15 @@ $(document).ready(function() {
 	    		break;
     	};
     	var alertClass = 'alert-success';
+    	var info = $('#produktInformationen').parent().find('div').eq(0).find('.note-editable').code();
+    	$('#produktInformationen').val(info);
+    	$('#produktInformationen').attr('value', info);
+
+    	var info = $('#produktAnnahmerichtlinie').parent().find('div').eq(0).find('.note-editable').code();
+    	$('#produktAnnahmerichtlinie').val(info);
+    	$('#produktAnnahmerichtlinie').attr('value', info);
     	
+//    	if(false){
     	if($('#produkt-form').validationEngine('validate')){
 	    	$.ajax({ 
 	    		type : 'POST',
@@ -534,9 +596,13 @@ $(document).ready(function() {
     	var validation = true;
     	
     	$('#konditionen-modal-form input').each(function(i, input){
-    		if(!$(input).val() && $(input).attr('type') != 'hidden') {
-    			$(input).wrap($('<div>').addClass('has-error'));
-    			validation = false;
+    		if(
+				!$(input).val() && 
+				$(input).attr('type') != 'hidden' &&
+				!$(input).hasClass('kondition-lead') &&
+				!$(input).hasClass('kondition-sale')) {
+	    			$(input).wrap($('<div>').addClass('has-error'));
+	    			validation = false;
     		}
     	});
     	if(validation){

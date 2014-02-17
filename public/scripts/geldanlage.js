@@ -4,12 +4,35 @@ $(document).ready(function() {
 		return;
 	}
 	pageInitialized = true;
-	$('label[for="ktozugriffe"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('checkbox-inline');
-	$('label[for="produktHasAltersbeschraenkung"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('radio-inline');
-	$('label[for="produktHasOnlineBanking"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('radio-inline');
-	$('label[for="produktTipp"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('radio-inline');
-	$('label[for="produktHasGesetzlEinlagvers"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('radio-inline');
-	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('radio-inline');
+	$('label[for="ktozugriffe"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="ktozugriffe"]').parent().find('div.col-sm-3').attr('data-toggle', 'buttons');
+	$('label[for="ktozugriffe"]').parent().find('div.col-sm-3').addClass('btn-group');
+	
+	$('label[for="produktHasAltersbeschraenkung"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="produktHasAltersbeschraenkung"]').parent().find('div.col-sm-3').attr('data-toggle', 'buttons');
+	$('label[for="produktHasAltersbeschraenkung"]').parent().find('div.col-sm-3').addClass('btn-group');
+	
+	$('label[for="produktHasOnlineBanking"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="produktHasOnlineBanking"]').parent().find('div.col-sm-3').attr('data-toggle', 'buttons');
+	$('label[for="produktHasOnlineBanking"]').parent().find('div.col-sm-3').addClass('btn-group');
+	
+	$('label[for="produktTipp"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="produktTipp"]').parent().find('div.col-sm-3').attr('data-toggle', 'buttons');
+	$('label[for="produktTipp"]').parent().find('div.col-sm-3').addClass('btn-group');	
+	
+	$('label[for="produktHasGesetzlEinlagvers"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="produktHasGesetzlEinlagvers"]').parent().find('div.col-sm-3').attr('data-toggle', 'buttons');
+	$('label[for="produktHasGesetzlEinlagvers"]').parent().find('div.col-sm-3').addClass('btn-group');		
+	
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-3').attr('data-toggle', 'buttons');
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-3').addClass('btn-group');		
+	
+	$('.btn').button();
+	$('input:checked').each(function(i, radio){
+		$(radio).parent().button('toggle');
+	});
+	
 	$('#produktInformationen').maxlength({
 		alwaysShow: true,
 		threshold: 10,

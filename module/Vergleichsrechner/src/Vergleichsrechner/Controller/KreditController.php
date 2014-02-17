@@ -93,6 +93,7 @@ class KreditController extends BaseController
 				$form->get('produktSollzins')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktSollzins()));
 				$form->get('produktGesamtbetrag')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktGesamtbetrag()));
 				$form->get('produktNettokreditsumme')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktNettokreditsumme()));
+				$form->get('rkvAbschluss')->setAttribute('value', $produkt->getRKVAbschluss());
 				
 				$message = "Form erfolgreich geladen!";
 			}
@@ -168,6 +169,7 @@ class KreditController extends BaseController
 				
 				$aktion = $params()->fromPost('aktion');
 				$zinssatz = $params()->fromPost('zinssatz');
+				$rkvAbschluss = $params()->fromPost('rkvAbschluss');
 
 				if($aktion != null) $produkt->setAktion($em->find('Vergleichsrechner\Entity\Aktion', $aktion));
 				if($bank != null) $produkt->setBank($em->find('Vergleichsrechner\Entity\Bank', $bank));
@@ -183,6 +185,7 @@ class KreditController extends BaseController
 				if($produktName != null) $produkt->setProduktName($produktName);
 				if($produktTipp != null) $produkt->setProduktTipp($produktTipp);
 				if($zinssatz != null) $produkt->setZinssatz($em->find('Vergleichsrechner\Entity\Zinssatz', $zinssatz));
+				if($rkvAbschluss != null) $produkt->setRkvAbschluss($em->find('Vergleichsrechner\Entity\RKVAbschluss', $rkvAbschluss));
 				if($produktBearbeitungsgebuehr != null) $produkt->setProduktBearbeitungsgebuehr($produktBearbeitungsgebuehr);
 				if($produktWiderrufsfrist != null) $produkt->setProduktWiderrufsfrist($produktWiderrufsfrist);
 				if($produktSondertilgungen != null) $produkt->setProduktSondertilgungen($produktSondertilgungen);

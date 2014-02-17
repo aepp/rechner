@@ -16,8 +16,14 @@ body{
 .dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
 
 #vergleich24at-logo{
-	height: 17px;
+	height: 37px;
 	width: auto;
+}
+
+a.navbar-brand{
+	padding: 0px !important;
+	padding-top: 7px !important;
+	margin-right: 15px;
 }
 
 .breadcrumb-container{

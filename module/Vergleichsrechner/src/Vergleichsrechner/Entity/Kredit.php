@@ -105,8 +105,26 @@ class Kredit extends Produkt
      */
     protected $produktNettokreditsumme;
     
+    /**
+     * @var RKVAbschluss
+     *
+     * @ORM\ManyToOne(targetEntity="RKVAbschluss")
+     * @ORM\JoinColumn(name="rkv_abschluss_id", referencedColumnName="rkv_abschluss_id", nullable=true)
+     */
+    protected $rkvAbschluss;
+    
     public function __construct() {
     	$this->konditionen  = new ArrayCollection();
+    }
+    
+    public function getRkvAbschluss() 
+    {
+      return $this->rkvAbschluss;
+    }
+    
+    public function setRkvAbschluss($rkvAbschluss) 
+    {
+      $this->rkvAbschluss = $rkvAbschluss;
     }
     
     public function getProduktNettokreditsumme() 

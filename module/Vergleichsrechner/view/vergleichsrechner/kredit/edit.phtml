@@ -2,74 +2,152 @@
 <?php
 	echo $this->headLink()
 		->prependStylesheet($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')
-		->prependStylesheet($this->basePath() . '/css/kredit.css');
+		->prependStylesheet($this->basePath() . '/css/kredit.css')
+		->prependStylesheet($this->basePath() . '/scripts/summernote/summernote.css')
+	;
 	echo $this->headScript()
 		->prependFile($this->basePath() . '/scripts/kredit.js')
 		->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-maxlength.min.js')
 		->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')
 		->prependFile($this->basePath() . '/scripts/moment-with-langs.min.js')
-		->appendFile($this->basePath() . '/scripts/bootstrap/plugins/gridline.min.js');
-	echo $this->form()->openTag($form);
+		->appendFile($this->basePath() . '/scripts/bootstrap/plugins/gridline.min.js')
+		->appendFile($this->basePath() . '/scripts/summernote/summernote.min.js')
+	;
+	
+	$panelProperties = array(
+		'kategorie' => array(
+			'id' => 'pflichtfelder',
+			'text' => 'Pflichtfelder'
+		),
+		'aktion' => array(
+				'id' => 'allgemeine-eigenschaften',
+				'text' => 'Allgemeine Eigenschaften (optional)'
+		),	
+		'produktMinKredit' => array(
+				'id' => 'kredit-eigenschaften',
+				'text' => 'Krediteigenschaften (optional)'
+		),	
+		'produktInformationen' => array(
+				'id' => 'informationen',
+				'text' => 'Informationen'
+		),	
+		'produktEffektiverJahreszins' => array(
+				'id' => 'repr-beispiel',
+				'text' => 'Repräsentatives Beispiel'
+		),									
+	);
 ?>
-<input type="hidden" value="<?php echo $produktId ?>" class="produktId"/>
-
-<?php foreach ($form as $element) :?>
-	    <div class="form-group">
-	        <?php
+<div class="row">
+	<div class="col-xs-7">
+		<?php echo $this->form()->openTag($form);?>
+		<input type="hidden" value="<?php echo $produktId ?>" class="produktId"/>
+		<?php foreach ($form as $element) :?>
+			<?php
 	            $type = $element->getAttribute('type');
 	            $name = $element->getAttribute('name'); 
 	            $label = $element->getLabel();
-	        ?>
-	        	<?php 
-	        		if($type == 'button') { ?> <div class="col-sm-3"></div> <?php }
-	        		elseif($type == 'hidden') {}
-	        		else echo $this->formLabel($element); 
-	        	?>
-	        	<div class="col-sm-3">
-	        		<?php 
-        				if(
-							$name == 'produktMinKredit' || 
-						   	$name == 'produktMaxKredit' ||
-						   	$name == 'produktBearbeitungsgebuehr' ||
-						   	$name == 'produktGesamtbetrag' ||
-							$name == 'produktNettokreditsumme'
-						){ 
-        					echo '
-								<div class="input-group">'.
-				  					$this->formElement($element)
-				  					.'<span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
-								</div>';
-        					if($name == 'produktMaxKredit') echo '<span class="help-block">0 = unbegrenzt</span>';
-        				}elseif(
-							$name == 'produktSollzins' || 
-						   	$name == 'produktEffektiverJahreszins' 
-						){ 
-        					echo '
-								<div class="input-group">'.
-				  					$this->formElement($element)
-				  					.'<span class="input-group-addon">%</span>
-								</div>';
-        					if($name == 'produktMaxKredit') echo '<span class="help-block">0 = unbegrenzt</span>';
-        				} else {
-							echo $this->formElement($element);
-						}
-        			?>
-	        	</div>
-	    </div>
-    <?php if($name == 'produktKlickoutUrl'): ?> 
-    	<div class="form-group">
-			<label class="col-sm-3 control-label"></label>
-			<div class="col-sm-3">
-				<span>Repräsentatives Beispiel</span>
+			?>
+			<?php
+	            if($name == 'kategorie' ||
+					$name == 'aktion' ||
+					$name == 'produktMinKredit' ||
+					$name == 'produktInformationen' ||
+					$name == 'produktEffektiverJahreszins'
+				):
+	            echo "
+					<div class='panel panel-default'>
+						<div class='panel-heading' id='".$panelProperties[$name]['id']."'>
+							".$panelProperties[$name]['text']."
+						</div>
+						<div class='panel-body'>
+				";
+				endif; 
+			?>
+		    <div class="form-group">
+		        	<?php 
+		        		if($type == 'button') { ?> <div class="col-sm-3"></div> <?php }
+		        		elseif($type == 'hidden') {}
+		        		else echo $this->formLabel($element); 
+		        	?>
+		        	<div class="col-sm-7">
+		        		<?php 
+	        				if(
+								$name == 'produktMinKredit' || 
+							   	$name == 'produktMaxKredit' ||
+							   	$name == 'produktBearbeitungsgebuehr' ||
+							   	$name == 'produktGesamtbetrag' ||
+								$name == 'produktNettokreditsumme'
+							){ 
+	        					echo '
+									<div class="input-group">'.
+					  					$this->formElement($element)
+					  					.'<span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
+									</div>';
+	        					if($name == 'produktMaxKredit') echo '<span class="help-block">0 = unbegrenzt</span>';
+	        				}elseif(
+								$name == 'produktSollzins' || 
+							   	$name == 'produktEffektiverJahreszins' 
+							){ 
+	        					echo '
+									<div class="input-group">'.
+					  					$this->formElement($element)
+					  					.'<span class="input-group-addon">%</span>
+									</div>';
+	        					if($name == 'produktMaxKredit') echo '<span class="help-block">0 = unbegrenzt</span>';
+	        				} else {
+								echo $this->formElement($element);
+							}
+	        			?>
+		        	</div>
+		    </div>
+			<?php
+	            if($name == 'bank' ||
+					$name == 'produktTipp' ||
+					$name == 'rkvAbschluss' ||
+					$name == 'produktKlickoutUrl' ||
+					$name == 'produktGesamtbetrag'
+				):
+				echo '
+						</div>
+					</div>
+				';	
+				endif; 
+			?>		    
+		<?php endforeach; ?>
+		<!-- <button type="button" class="btn" id="fill-produkt"> -->
+		<!-- 	Fill -->
+		<!-- </button> -->
+		<?php echo $this->form()->closeTag(); ?>
+	</div>
+	<div class="col-xs-3">
+		<div class="affix" data-spy="affix">
+			<div class="panel panel-default">
+			  	<div class="panel-heading">Navigation</div>
+			  	<div class="scrollspy-nav">
+					<ul class="nav nav-pills nav-stacked" id="overview-nav">
+						<li><a href="#pflichtfelder">Pflichtfelder</a></li>
+			  			<li><a href="#allgemeine-eigenschaften">Allgemeine Eigenschaften (optional)</a></li>
+			  			<li><a href="#kredit-eigenschaften">Krediteigenschaften (optional)</a></li>
+					  	<li><a href="#informationen">Informationen</a></li>
+					  	<li><a href="#repr-beispiel">Repräsentatives Beispiel</a></li>
+			  		</ul>
+		  		</div>
 			</div>
+			
+<!-- 				<ul class="nav nav-pills nav-stacked"> -->
+<!-- 				  	<li><a href="#pflichtfelder">Pflichtfelder</a></li> -->
+<!-- 				  	<li><a href="#allgemeine-eigenschaften">Allgemeine Eigenschaften (optional)</a></li> -->
+<!-- 				  	<li><a href="#kredit-eigenschaften">Krediteigenschaften (optional)</a></li> -->
+<!-- 				  	<li><a href="#informationen">Informationen</a></li> -->
+<!-- 				  	<li><a href="#repr-beispiel">Repräsentatives Beispiel</a></li> -->
+<!-- 				</ul> -->
+			<button id="konditionen-bearbeiten" class="btn btn-default btn-block" name="konditionenBerabeiten" type="button">Konditionen bearbeiten</button>
+			<button id="save-changes" class="btn btn-success btn-block" name="saveChanges" type="button">Speichern</button>
+			<button id="discard-changes" class="btn btn-danger btn-block" name="discardChanges" type="button">Eingaben verwerfen</button>
 		</div>
-    <?php endif; ?>
-<?php endforeach; ?>
-<!-- <button type="button" class="btn" id="fill-produkt"> -->
-<!-- 	Fill -->
-<!-- </button> -->
-<?php echo $this->form()->closeTag(); ?>
+	</div>
 
+</div>
 <!-- Modal -->
 <div class="modal large fade" id="konditionen-bearbeiten-modal" tabindex="-1" role="dialog" aria-labelledby="konditionen-bearbeiten-modal-label" aria-hidden="true">
 	<div class="modal-dialog">
@@ -92,12 +170,12 @@
 					
 					<div class="row">
 						<label class="col-sm-3 control-label" for="produktIsBonitabh-helper">Bonitätsabhängig?</label>
-						<div class="col-sm-3">
-							<label class="radio-inline">
+						<div class="col-sm-3 btn-group" data-toggle="buttons">
+							<label class="btn btn-default">
 								<input type="radio" value="1" name="produktIsBonitabh-helper">
 								Ja
 							</label>
-							<label class="radio-inline">
+							<label class="btn btn-default">
 								<input type="radio" value="0" name="produktIsBonitabh-helper">
 								Nein
 							</label>
