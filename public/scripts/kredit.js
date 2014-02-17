@@ -16,9 +16,10 @@ $(document).ready(function() {
 	$('label[for="produktTipp"]').parent().find('div.col-sm-7').attr('data-toggle', 'buttons');
 	$('label[for="produktTipp"]').parent().find('div.col-sm-7').addClass('btn-group');
 	
-	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-7').find('label').removeClass().addClass('btn btn-default');
-	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-7').attr('data-toggle', 'buttons');
-	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-7').addClass('btn-group');
+	$('label[for="produktIsBonitabh"]').parent().css('display', 'none');
+//	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-7').find('label').removeClass().addClass('btn btn-default');
+//	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-7').attr('data-toggle', 'buttons');
+//	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-7').addClass('btn-group');
 	
 	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-7').find('label').removeClass().addClass('btn btn-default');
 	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-7').attr('id', 'produktHasOnlineAbschluss');
@@ -29,7 +30,8 @@ $(document).ready(function() {
 	$('input:checked').each(function(i, radio){
 		$(radio).parent().button('toggle');
 	});
-	
+	$(document).on('change', 'input[type="radio"]', function(event) {
+	});
 	$('body').scrollspy({ 
 		target: '.scrollspy-nav',
 		offset: 70
@@ -505,38 +507,48 @@ $(document).ready(function() {
      * Beim Ändern der Bonitätsabhängigkeit die bestehenden 
      * Konditionen zwischenspeichern
      */
-    $(document).on('change', 'input[name ="produktIsBonitabh"]', function(event) {
-    	/*
-    	 * Setze Bonitätsanh.-Radio im Modal-Dialog
-    	 */
-    	var bonitabh = $("input:radio[name ='produktIsBonitabh']:checked");
-		$('input[name="produktIsBonitabh-helper"]').each(function(){
-			if($(this).val() == bonitabh.val()) $(this).prop('checked', bonitabh.prop('checked'));
-		});
-		
-    	if($('#schwelle-tab-0').length == 0) load_konditionen();
-//		if($('#konditionen-table').length == 0) load_konditionen();
-    	var currentValueName = 'Value_'+ ($(this).val() == 0 ? 1 : 0);
-    	var newValueName = 'Value_'+ $(this).val();
-    	$('.table-responsive').data[currentValueName] = $('.table-responsive').html();
-
-//        	$('.table-responsive').html('Wait...');
-    	
-    	if($('.table-responsive').data[newValueName]) $('.table-responsive').html($('.table-responsive').data[newValueName]);
-    	else {
-    		build_konditionen_table(true, $(this).val());
-        	var erste_schwelle = $('.nav-tabs a:first');
-        	if(erste_schwelle.length > 0) erste_schwelle.tab('show');
-    	}
-    });
+//    $(document).on('change', 'input[name ="produktIsBonitabh"]', function(event) {
+//    	/*
+//    	 * Setze Bonitätsanh.-Radio im Modal-Dialog
+//    	 */
+//    	var bonitabh = $("input:radio[name ='produktIsBonitabh']:checked");
+//		$('input[name="produktIsBonitabh-helper"]').each(function(i, helper){
+//			if($(helper).val() == bonitabh.val()){
+//				if(!$(helper).prop('checked')){
+//					$(helper).prop('checked', bonitabh.prop('checked'));
+//					$(helper).parent().button('toggle');
+//				}
+//			}
+//		});
+//		
+//    	if($('#schwelle-tab-0').length == 0) load_konditionen();
+////		if($('#konditionen-table').length == 0) load_konditionen();
+//    	var currentValueName = 'Value_'+ ($(this).val() == 0 ? 1 : 0);
+//    	var newValueName = 'Value_'+ $(this).val();
+//    	$('.table-responsive').data[currentValueName] = $('.table-responsive').html();
+//
+////        	$('.table-responsive').html('Wait...');
+//    	
+//    	if($('.table-responsive').data[newValueName]) $('.table-responsive').html($('.table-responsive').data[newValueName]);
+//    	else {
+//    		build_konditionen_table(true, $(this).val());
+//        	var erste_schwelle = $('.nav-tabs a:first');
+//        	if(erste_schwelle.length > 0) erste_schwelle.tab('show');
+//    	}
+//    });
     
     $(document).on('change', 'input[name ="produktIsBonitabh-helper"]', function(event) {
     	/*
     	 * Setze Bonitätsanh.-Radio in Produkt-Form
     	 */
     	var bonitabh = $("input:radio[name ='produktIsBonitabh-helper']:checked");
-		$('input[name="produktIsBonitabh"]').each(function(){
-			if($(this).val() == bonitabh.val()) $(this).prop('checked', bonitabh.prop('checked'));
+		$('input[name="produktIsBonitabh"]').each(function(i, core){
+			if($(this).val() == bonitabh.val()){
+				if(!$(core).prop('checked')){
+					$(core).prop('checked', bonitabh.prop('checked'));
+//					$(core).parent().button('toggle');
+				}
+			}
 		});
 		
 		if(!bonitabh.val()){
