@@ -71,6 +71,19 @@ $(document).ready(function() {
 	            //['help', ['help']] //no help button
 	          ]
 	});	
+	
+	function addCommas(nStr){
+		nStr += '';
+		x = nStr.split('.');
+		x1 = x[0];
+		x2 = x.length > 1 ? ',' + x[1] : '';
+		var rgx = /(\d+)(\d{3})/;
+		while (rgx.test(x1)) {
+			x1 = x1.replace(rgx, '$1' + '.' + '$2');
+		}
+		return x1 + x2;
+	}
+
 //	$('#produktInformationen').maxlength({
 //		alwaysShow: true,
 //		threshold: 10,
@@ -443,7 +456,7 @@ $(document).ready(function() {
 						'<tr class="active">'+
 							'<th colspan="3">Provision in  € (Lead)</th>';
 			$.each(laufzeiten[schwellen[i]],function(j, laufzeit){
-				if(!init) lead = leads[schwellen[i]][laufzeit];
+				if(!init) lead = leads[schwellen[i]][laufzeit].toString().replace('.', ',');
 				table +=
 							'<th><input type="text" class="form-control kondition-lead kondition-input input-sm" value="'+lead+'"/></th>';
 			});
@@ -452,7 +465,7 @@ $(document).ready(function() {
 						'<tr class="active">'+
 							'<th colspan="3">Provision in  % v.d. Kreditsumme (Sales)</th>';
 			$.each(laufzeiten[schwellen[i]],function(j, laufzeit){
-				if(!init) sale = sales[schwellen[i]][laufzeit];
+				if(!init) sale = sales[schwellen[i]][laufzeit].toString().replace('.', ',');
 				table +=
 							'<th><input type="text" class="form-control kondition-sale kondition-input input-sm" value="'+sale+'"/></th>';
 			});
