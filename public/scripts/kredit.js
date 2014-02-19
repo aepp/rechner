@@ -35,7 +35,12 @@ $(document).ready(function() {
 		target: '.scrollspy-nav',
 		offset: 70
 	});
-
+	$('.affix').affix({
+	    offset: {
+	      top: 145,
+	      bottom: 77
+	    }
+	});
 	$('#overview-nav li a').click(function(event) {
 	    event.preventDefault();
 	    $($(this).attr('href'))[0].scrollIntoView();
@@ -136,7 +141,7 @@ $(document).ready(function() {
     /*
      * Produkt in der DB speichern
      */
-    $('#save-changes').unbind('click').click(function(event){
+    $('.save-changes').unbind('click').click(function(event){
     	/*
     	 * TODO: Speichern nur wenn sich etwas geändert hat, sonst Meldung ausgeben
     	 */
@@ -254,7 +259,7 @@ $(document).ready(function() {
     /*
      * Modal-Dialog zum Bearbeiten der Konditionen öffnen
      */
-    $('#konditionen-bearbeiten').unbind('click').click(function(event){
+    $('.konditionen-bearbeiten').unbind('click').click(function(event){
     	$('#konditionen-bearbeiten-modal').modal('toggle');
     	load_konditionen();
     	var erste_schwelle = $('.nav-tabs a:first');
@@ -1047,7 +1052,7 @@ $(document).ready(function() {
     /*
      * Input-Felder zurücksetzen
      */
-    $('#discard-changes').unbind('click').click(function(event){
+    $('.discard-changes').unbind('click').click(function(event){
     	restore();
     });
     

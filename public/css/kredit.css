@@ -18,8 +18,7 @@ body .table-responsive{
 }
 
 .tab-pane table td,
-.tab-pane table th
-{
+.tab-pane table th{
 	vertical-align: middle !important;
 }
 
@@ -31,6 +30,13 @@ body .table-responsive{
 	background-color: #F5F5F5 !important;
 }
 
-#konditionen-bearbeiten{
-	margin-top: 5px;
+.affix {
+  position: fixed;
+  top: 60px;
+}
+.affix-bottom {
+  position: absolute;
+  top: auto;
+}
+.affix-top {
 }

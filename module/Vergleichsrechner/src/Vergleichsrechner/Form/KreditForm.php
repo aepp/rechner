@@ -31,7 +31,7 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 							'value' => 0
 					),
 		);
-		$labelAttributes = array('class' => 'col-sm-3 control-label');
+		$labelAttributes = array('class' => 'col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label');
 		/*
 		 * Setting up the form elements
 		 */
@@ -293,7 +293,11 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 		$modus
 			->setName('modus')
 			->setValue('create')
-			->setAttribute('id', 'modus');
+			->setAttribute('id', 'modus')
+			->setLabel('Modus')
+			->setLabelAttributes(array(
+				'class' => 'hidden'
+		));
 		
 		$produktEffektiverJahreszins
 			->setName('produktEffektiverJahreszins')
