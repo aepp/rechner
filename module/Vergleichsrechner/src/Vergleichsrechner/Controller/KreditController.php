@@ -147,7 +147,7 @@ class KreditController extends BaseController
 				$produktTipp = $params()->fromPost('produktTipp');
 				$produktInformationen = $params()->fromPost('produktInformationen');
 				$produktEffektiverJahreszins = str_replace( ',', '.', $params()->fromPost('produktEffektiverJahreszins')); 
-				$produktAnnahmerichtlinie = str_replace( ',', '.', $params()->fromPost('produktAnnahmerichtlinie'));
+				$produktAnnahmerichtlinie = $params()->fromPost('produktAnnahmerichtlinie');
 				$produktSollzins = str_replace( ',', '.', $params()->fromPost('produktSollzins'));
 				$produktGesamtbetrag = str_replace( ',', '.', $params()->fromPost('produktGesamtbetrag'));
 				$produktNettokreditsumme = str_replace( ',', '.', $params()->fromPost('produktNettokreditsumme'));

@@ -80,7 +80,7 @@ class Kredit extends Produkt
     /**
      * @var string
      *
-     * @ORM\Column(name="produkt_annahmerichtlinie", type="string", length=255, nullable=true)
+     * @ORM\Column(name="produkt_annahmerichtlinie", type="text", nullable=true)
      */
     protected $produktAnnahmerichtlinie;
     
