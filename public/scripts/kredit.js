@@ -12,19 +12,19 @@ $(document).ready(function() {
 		return;
 	}
 	pageInitialized = true;
-	$('label[for="produktTipp"]').parent().find('div.col-sm-7').find('label').removeClass().addClass('btn btn-default');
-	$('label[for="produktTipp"]').parent().find('div.col-sm-7').attr('data-toggle', 'buttons');
-	$('label[for="produktTipp"]').parent().find('div.col-sm-7').addClass('btn-group');
+	$('label[for="produktTipp"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="produktTipp"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
+	$('label[for="produktTipp"]').parent().find('div.col-sm-8').addClass('btn-group');
 	
 //	$('label[for="produktIsBonitabh"]').parent().css('display', 'none');
-	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-7').find('label').removeClass().addClass('btn btn-default');
-	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-7').attr('data-toggle', 'buttons');
-	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-7').addClass('btn-group');
+	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
+	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-8').addClass('btn-group');
 	
-	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-7').find('label').removeClass().addClass('btn btn-default');
-	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-7').attr('id', 'produktHasOnlineAbschluss');
-	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-7').attr('data-toggle', 'buttons');
-	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-7').addClass('btn-group');
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').attr('id', 'produktHasOnlineAbschluss');
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').addClass('btn-group');
 	
 	$('.btn').button();
 	$('input:checked').each(function(i, radio){
@@ -47,36 +47,27 @@ $(document).ready(function() {
 	    scrollBy(0, -60);
 	});
 	
-	$('#produktInformationen').parent().removeClass().addClass('col-sm-9');
-	$('#produktInformationen').summernote({
-		height: 150,
-		toolbar: [
-	            //['style', ['style']], // no style button
-	            ['style', ['bold', 'italic', 'underline', 'clear']],
-	            ['fontsize', ['fontsize']],
-	            ['color', ['color']],
-	            ['para', ['ul', 'ol', 'paragraph']],
-	            ['height', ['height']],
-	            //['insert', ['picture', 'link']], // no insert buttons
-	            //['table', ['table']], // no table button
-	            //['help', ['help']] //no help button
-	          ]
-	});
-	$('#produktAnnahmerichtlinie').parent().removeClass().addClass('col-sm-9');
-	$('#produktAnnahmerichtlinie').summernote({
-		height: 150,
-		toolbar: [
-	            //['style', ['style']], // no style button
-	            ['style', ['bold', 'italic', 'underline', 'clear']],
-	            ['fontsize', ['fontsize']],
-	            ['color', ['color']],
-	            ['para', ['ul', 'ol', 'paragraph']],
-	            ['height', ['height']],
-	            //['insert', ['picture', 'link']], // no insert buttons
-	            //['table', ['table']], // no table button
-	            //['help', ['help']] //no help button
-	          ]
-	});	
+	function summernote_initialize(elem){
+		elem.summernote({
+			height: 150,
+			lang: 'de-DE',
+			codemirror: { // codemirror options
+			    theme: 'spacelab'
+			},
+			toolbar: [
+			          ['style', ['clear', 'bold', 'italic', 'underline', 'style']],
+			          ['fontsize', ['fontsize']],
+			          ['color', ['color']],
+			          ['height', ['height']],
+			          ['para', ['ul', 'ol', 'paragraph']],
+			          ['table', ['table']],
+			          ['insert', ['link', 'picture']],
+			          ['view', ['fullscreen', 'codeview']],
+		          ]
+		});
+	}
+	summernote_initialize($('#produktInformationen'));
+	summernote_initialize($('#produktAnnahmerichtlinie'));
 	
 	function addCommas(nStr){
 		nStr += '';
@@ -90,17 +81,6 @@ $(document).ready(function() {
 		return x1 + x2;
 	}
 
-//	$('#produktInformationen').maxlength({
-//		alwaysShow: true,
-//		threshold: 10,
-//		warningClass: "label label-success",
-//		limitReachedClass: "label label-important",
-//		separator: ' von ',
-//		preText: '',
-//		postText: '',
-//		validate: true
-//	});
-	
 	/*
 	 * Das Input-Feld in ein Datepicker umwandeln
 	 */

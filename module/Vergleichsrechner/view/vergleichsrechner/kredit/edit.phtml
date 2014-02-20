@@ -12,6 +12,7 @@
 		->prependFile($this->basePath() . '/scripts/moment-with-langs.min.js')
 		->appendFile($this->basePath() . '/scripts/bootstrap/plugins/gridline.min.js')
 		->appendFile($this->basePath() . '/scripts/summernote/summernote.min.js')
+		->appendFile($this->basePath() . '/scripts/summernote/summernote-de-DE.js')
 	;
 	
 	$panelProperties = array(
@@ -38,7 +39,7 @@
 	);
 ?>
 <div class="row">
-	<div class="col-lg-7 col-md-7 col-sm-8 col-xs-12">
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 		<?php echo $this->form()->openTag($form);?>
 		<input type="hidden" value="<?php echo $produktId ?>" class="produktId"/>
 		<?php foreach ($form as $element) :?>
@@ -65,7 +66,7 @@
 			?>
 		    <div class="form-group">
 		        	<?php echo $this->formLabel($element); ?>
-		        	<div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+		        	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 		        		<?php 
 	        				if(
 								$name == 'produktMinKredit' || 

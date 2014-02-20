@@ -31,7 +31,7 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 							'value' => 0
 					),
 		);
-		$labelAttributes = array('class' => 'col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label');
+		$labelAttributes = array('class' => 'col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label');
 		/*
 		 * Setting up the form elements
 		 */
