@@ -74,6 +74,7 @@ class GeldanlageController extends BaseController
 				$form->get('einlagensicherungLand')->setAttribute('value', $produkt->getEinlagensicherungLand());
 				$form->get('aktion')->setAttribute('value', $produkt->getAktion());
 				$form->get('produktKtofuehrKost')->setAttribute('value', $produkt->getProduktKtofuehrKost());
+				$form->get('produktKtofuehrKostFllg')->setAttribute('value', $produkt->getProduktKtofuehrKostFllg());
 				$form->get('produktZinsgutschrift')->setAttribute('value', $produkt->getProduktZinsgutschrift());
 				$form->get('produktVerfuegbarkeit')->setAttribute('value', $produkt->getProduktVerfuegbarkeit());
 				$form->get('produktKuendbarkeit')->setAttribute('value', $produkt->getProduktKuendbarkeit());
@@ -133,6 +134,7 @@ class GeldanlageController extends BaseController
 				$produktHoechstanlage = str_replace( ',', '.', $params()->fromPost('produktHoechstanlage'));
 				$produktHasGesetzlEinlagvers = $params()->fromPost('produktHasGesetzlEinlagvers');
 				$produktKtofuehrKost = $params()->fromPost('produktKtofuehrKost');
+				$produktKtofuehrKostFllg = $params()->fromPost('produktKtofuehrKostFllg');
 				$produktHasOnlineBanking = $params()->fromPost('produktHasOnlineBanking');
 				$produktHasAltersbeschraenkung = $params()->fromPost('produktHasAltersbeschraenkung');
 				$produktGueltigSeit = $params()->fromPost('produktGueltigSeit');
@@ -194,6 +196,7 @@ class GeldanlageController extends BaseController
 				if($produktHoechstanlage != null) $produkt->setProduktHoechstanlage($produktHoechstanlage);
 				if($produktInformationen != null) $produkt->setProduktInformationen($produktInformationen);
 				if($produktKtofuehrKost != null) $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
+				if($produktKtofuehrKostFllg != null) $produkt->setProduktKtofuehrKostFllg($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKtofuehrKostFllg));
 				if($produktKuendbarkeit != null) $produkt->setProduktKuendbarkeit($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKuendbarkeit));
 				if($produktMindestanlage != null) $produkt->setProduktMindestanlage($produktMindestanlage);
 				if($produktName != null) $produkt->setProduktName($produktName);

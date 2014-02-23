@@ -6,6 +6,7 @@ use Zend\Form\Element;
 
 use DoctrineModule\Persistence\ObjectManagerAwareInterface;
 use DoctrineModule\Form\Element\ObjectSelect;
+use DoctrineModule\Form\Element\ObjectRadio;
 use Doctrine\Common\Persistence\ObjectManager;
 use Vergleichsrechner\Entity\Kategorie;
 use DoctrineModule\Form\Element\ObjectMultiCheckbox;
@@ -19,19 +20,19 @@ class GeldanlageForm extends Form implements ObjectManagerAwareInterface
 	{
 		$jaNein = array(
 					array(
-							'label' =>'Ja', 
+							'label' =>'ja', 
 							'label_attributes' => array('class' => ''),
 							'1' => 'Ja',
 							'value' => 1
 					), 
 					array(
-							'label' =>'Nein', 
+							'label' =>'nein', 
 							'label_attributes' => array('class' => ''),
 							'0' => 'Nein',
 							'value' => 0
 					),
 		);
-		$labelAttributes = array('class' => 'col-sm-3 control-label');
+		$labelAttributes = array('class' => 'col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label');
 		/*
 		 * Setting up the form elements
 		 */
@@ -40,19 +41,19 @@ class GeldanlageForm extends Form implements ObjectManagerAwareInterface
 		$produktName = new Element\Text();
 		$bank = new ObjectSelect();
 		$produktHasOnlineAbschluss = new Element\Radio();
-		$zinssatz = new ObjectSelect();
+		$zinssatz = new ObjectRadio();
 		$produktMindestanlage = new Element\Text();
 		$produktHoechstanlage = new Element\Text();
 		$produktHasGesetzlEinlagvers = new Element\Radio();
 		$einlagensicherungLand = new ObjectSelect();
 		$aktion = new Element\Select();
 		$produktKtofuehrKost = new Element\Text();
-		$produktKtofuehrKostFllg = new ObjectSelect();
+		$produktKtofuehrKostFllg = new ObjectRadio();
 		$produktZinsgutschrift = new ObjectSelect();
 		$produktVerfuegbarkeit = new ObjectSelect();
 		$produktKuendbarkeit = new ObjectSelect();
 		$produktHasOnlineBanking = new Element\Radio();
-		$legitimation = new ObjectSelect();
+		$legitimation = new ObjectRadio();
 		$produktHasAltersbeschraenkung = new Element\Radio();
 		$produktGueltigSeit = new Element\Text();
 		$produktCheck = new Element\Text();
@@ -61,9 +62,6 @@ class GeldanlageForm extends Form implements ObjectManagerAwareInterface
 		$produktUrl = new Element\Text();
 		$produktKlickoutUrl = new Element\Text();
 		$ktozugriffe = new ObjectMultiCheckbox();
-		$saveChanges = new Element\Button();
-		$discardChanges = new Element\Button();
-		$konditionenBearbeiten = new Element\Button();
 		$modus = new Element\Hidden();
 		
 		$kategorie	
@@ -148,10 +146,6 @@ class GeldanlageForm extends Form implements ObjectManagerAwareInterface
 			->setName('zinssatz')
 			->setLabel('Zinssatz')
 			->setLabelAttributes($labelAttributes)
-			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'zinssatz'
-			))
 			->setOptions(array(
 					'object_manager' => $this->getObjectManager(),
 					'target_class' => 'Vergleichsrechner\Entity\Zinssatz',
@@ -204,6 +198,18 @@ class GeldanlageForm extends Form implements ObjectManagerAwareInterface
 					'class' => 'form-control',
 					'id' => 'produktKtofuehrKost'
 			));	
+		$produktKtofuehrKostFllg
+			->setName('produktKtofuehrKostFllg')
+			->setLabel(' ')
+			->setOptions(array(
+					'object_manager' => $this->getObjectManager(),
+					'target_class' => 'Vergleichsrechner\Entity\Zeitabschnitt',
+					'property' => 'zeitabschnittName',
+					'is_method'      => true,
+					'find_method'    => array(
+							'name'   => 'findYearandMonth'
+					),
+			));
 		$produktZinsgutschrift
 			->setName('produktZinsgutschrift')
 			->setLabel('Zinsgutschrift')
@@ -255,10 +261,6 @@ class GeldanlageForm extends Form implements ObjectManagerAwareInterface
 			->setName('legitimation')
 			->setLabel('Legitimation')
 			->setLabelAttributes($labelAttributes)
-			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'legitimation'
-			))
 			->setOptions(array(
 					'object_manager' => $this->getObjectManager(),
 					'target_class' => 'Vergleichsrechner\Entity\Legitimation',
@@ -327,37 +329,16 @@ class GeldanlageForm extends Form implements ObjectManagerAwareInterface
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
 					'class' => 'form-control',
-					'id' => 'produktInformationen',
-					'maxlength' => '500'
+					'id' => 'produktInformationen'
 			));		
-		$saveChanges
-			->setName('saveChanges')
-			->setLabel('Speichern')
-			->setAttributes(array(
-					'class' => 'btn btn-success btn-block',
-					'id' => 'save-changes'
-			))
-			->setLabelAttributes($labelAttributes);
-		$discardChanges
-			->setName('discardChanges')
-			->setLabel('Eingaben verwerfen')
-			->setAttributes(array(
-					'class' => 'btn btn-danger btn-block',
-					'id' => 'discard-changes'
-			))
-			->setLabelAttributes($labelAttributes);			
-		$konditionenBearbeiten
-			->setName('konditionenBerabeiten')
-			->setLabel('Konditionen bearbeiten')
-			->setAttributes(array(
-					'class' => 'btn btn-default btn-block',
-					'id' => 'konditionen-bearbeiten'
-			))
-			->setLabelAttributes($labelAttributes);	
 		$modus
 			->setName('modus')
 			->setValue('create')
-			->setAttribute('id', 'modus');
+			->setAttribute('id', 'modus')
+			->setLabel('Modus')
+			->setLabelAttributes(array(
+				'class' => 'hidden'
+			));
 		/*
 		 * Setting up the form
 		 */		
@@ -378,31 +359,34 @@ class GeldanlageForm extends Form implements ObjectManagerAwareInterface
 		$this->add($produktart);
 		$this->add($produktName);
 		$this->add($bank);
-		$this->add($produktHasOnlineAbschluss);
+		$this->add($aktion);
 		$this->add($zinssatz);
+		$this->add($produktHasOnlineAbschluss);
+		$this->add($produktKtofuehrKost);
+		$this->add($produktCheck);
+		$this->add($produktTipp);
+		
+		$this->add($legitimation);
+		$this->add($produktHasAltersbeschraenkung);
+			
 		$this->add($produktMindestanlage);
 		$this->add($produktHoechstanlage);
 		$this->add($produktHasGesetzlEinlagvers);
 		$this->add($einlagensicherungLand);
-		$this->add($aktion);
-		$this->add($produktKtofuehrKost);
 		$this->add($produktZinsgutschrift);
 		$this->add($produktVerfuegbarkeit);
 		$this->add($produktKuendbarkeit);
 		$this->add($produktHasOnlineBanking);
-		$this->add($legitimation);
-		$this->add($produktHasAltersbeschraenkung);
 		$this->add($ktozugriffe);
-		$this->add($produktGueltigSeit);
-		$this->add($produktCheck);
-		$this->add($produktTipp);
+		
 		$this->add($produktInformationen);
+		$this->add($produktGueltigSeit);
 		$this->add($produktUrl);
 		$this->add($produktKlickoutUrl);
-		$this->add($konditionenBearbeiten);
-		$this->add($saveChanges);
-		$this->add($discardChanges);
+		
 		$this->add($modus);
+		
+		$this->add($produktKtofuehrKostFllg);
 // 		$this->setInputFilter($this->createInputFilter());
 	}
 		

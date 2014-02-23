@@ -10,6 +10,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Vergleichsrechner\Entity\Kategorie;
 use DoctrineModule\Form\Element\ObjectMultiCheckbox;
 use Zend\Text\Table\Table;
+use DoctrineModule\Form\Element\ObjectRadio;
 
 class KreditForm extends Form implements ObjectManagerAwareInterface
 {
@@ -18,19 +19,20 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 	public function init()
 	{
 		$jaNein = array(
-					array(
-							'label' =>'Ja', 
-							'label_attributes' => array('class' => ''),
-							'1' => 'Ja',
-							'value' => 1
-					), 
-					array(
-							'label' =>'Nein', 
-							'label_attributes' => array('class' => ''),
-							'0' => 'Nein',
-							'value' => 0
-					),
+			array(
+				'label' =>'ja', 
+				'label_attributes' => array('class' => ''),
+				'1' => 'Ja',
+				'value' => 1
+			), 
+			array(
+				'label' =>'nein', 
+				'label_attributes' => array('class' => ''),
+				'0' => 'Nein',
+				'value' => 0
+			),
 		);
+				
 		$labelAttributes = array('class' => 'col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label');
 		/*
 		 * Setting up the form elements
@@ -42,13 +44,14 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 		$produktHasOnlineAbschluss = new Element\Radio();
 		$produktMinKredit = new Element\Text();
 		$produktMaxKredit = new Element\Text();
-		$zinssatz = new ObjectSelect();
+		$zinssatz = new ObjectRadio();
 		$produktIsBonitabh = new Element\Radio();
 		$aktion = new Element\Select();
 		$produktKtofuehrKost = new Element\Text();
-		$produktKtofuehrKostFllg = new ObjectSelect();
+		$produktKtofuehrKostFllg = new ObjectRadio();
 		$produktBearbeitungsgebuehr = new Element\Text();
 		$produktWiderrufsfrist = new Element\Text();
+		$produktWiderrufsfristZeiteinh = new ObjectRadio();
 		$produktSondertilgungen = new Element\Text();
 		$produktGueltigSeit = new Element\Text();
 		$produktCheck = new Element\Text();
@@ -57,16 +60,14 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 		$produktUrl = new Element\Text();
 		$produktKlickoutUrl = new Element\Text();
 		$ktozugriffe = new ObjectMultiCheckbox();
-// 		$saveChanges = new Element\Button();
-// 		$discardChanges = new Element\Button();
-// 		$konditionenBearbeiten = new Element\Button();
 		$modus = new Element\Hidden();
 		$produktEffektiverJahreszins = new Element\Text();
 		$produktAnnahmerichtlinie = new Element\Textarea();
 		$produktSollzins = new Element\Text();
 		$produktGesamtbetrag = new Element\Text();
 		$produktNettokreditsumme = new Element\Text();
-		$rkvAbschluss = new ObjectSelect();
+		$rkvAbschluss = new ObjectRadio();
+		$produktLaufzeit = new Element\Text();
 		
 		$kategorie	
 			->setName('kategorie')
@@ -142,15 +143,10 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setName('zinssatz')
 			->setLabel('Zinssatz')
 			->setLabelAttributes($labelAttributes)
-			->setAttributes(array(
-				'class' => 'form-control',
-				'id' => 'zinssatz'
-			))
 			->setOptions(array(
-				'object_manager' => $this->getObjectManager(),
-				'target_class' => 'Vergleichsrechner\Entity\Zinssatz',
-				'property' => 'zinssatzName',
-				'empty_option'  => '--- Bitte wählen ---',
+					'object_manager' => $this->getObjectManager(),
+					'target_class' => 'Vergleichsrechner\Entity\Zinssatz',
+					'property' => 'zinssatzName'
 			));
 		$produktMinKredit
 			->setName('produktMinKredit')
@@ -192,6 +188,18 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 				'class' => 'form-control',
 				'id' => 'produktKtofuehrKost'
 			));	
+		$produktKtofuehrKostFllg
+			->setName('produktKtofuehrKostFllg')
+			->setLabel(' ')
+			->setOptions(array(
+					'object_manager' => $this->getObjectManager(),
+					'target_class' => 'Vergleichsrechner\Entity\Zeitabschnitt',
+					'property' => 'zeitabschnittName',
+					'is_method'      => true,
+					'find_method'    => array(
+							'name'   => 'findYearandMonth'
+					),
+			));			
 		$produktBearbeitungsgebuehr
 			->setName('produktBearbeitungsgebuehr')
 			->setLabel('Bearbeitungsgebühr')
@@ -207,6 +215,18 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setAttributes(array(
 				'class' => 'form-control',
 				'id' => 'produktWiderrufsfrist'
+			));
+		$produktWiderrufsfristZeiteinh
+			->setName('produktWiderrufsfristZeiteinh')
+			->setLabel(' ')
+			->setOptions(array(
+					'object_manager' => $this->getObjectManager(),
+					'target_class' => 'Vergleichsrechner\Entity\Zeitabschnitt',
+					'property' => 'zeitabschnittName2',
+					'is_method'      => true,
+					'find_method'    => array(
+							'name'   => 'findMonthandDay'
+					),
 			));
 		$produktSondertilgungen
 			->setName('produktSondertilgungen')
@@ -248,7 +268,7 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setAttributes(array(
 				'class' => 'form-control',
 				'id' => 'produktUrl'
-		));
+			));
 		$produktKlickoutUrl
 			->setName('produktKlickoutUrl')
 			->setLabel('Klickout-URL')
@@ -256,7 +276,7 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setAttributes(array(
 				'class' => 'form-control',
 				'id' => 'produktKlickoutUrl'
-		));
+			));
 		$produktInformationen
 			->setName('produktInformationen')
 			->setLabel('Informationen')
@@ -266,30 +286,6 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 				'id' => 'produktInformationen',
 				'maxlength' => '500'
 			));		
-// 		$saveChanges
-// 			->setName('saveChanges')
-// 			->setLabel('Speichern')
-// 			->setAttributes(array(
-// 				'class' => 'btn btn-success btn-block',
-// 				'id' => 'save-changes'
-// 			))
-// 			->setLabelAttributes($labelAttributes);
-// 		$discardChanges
-// 			->setName('discardChanges')
-// 			->setLabel('Eingaben verwerfen')
-// 			->setAttributes(array(
-// 				'class' => 'btn btn-danger btn-block',
-// 				'id' => 'discard-changes'
-// 			))
-// 			->setLabelAttributes($labelAttributes);			
-// 		$konditionenBearbeiten
-// 			->setName('konditionenBerabeiten')
-// 			->setLabel('Konditionen bearbeiten')
-// 			->setAttributes(array(
-// 				'class' => 'btn btn-default btn-block',
-// 				'id' => 'konditionen-bearbeiten'
-// 			))
-// 			->setLabelAttributes($labelAttributes);	
 		$modus
 			->setName('modus')
 			->setValue('create')
@@ -297,8 +293,7 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Modus')
 			->setLabelAttributes(array(
 				'class' => 'hidden'
-		));
-		
+			));
 		$produktEffektiverJahreszins
 			->setName('produktEffektiverJahreszins')
 			->setLabel('Effektiver Jahreszins')
@@ -306,8 +301,7 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setAttributes(array(
 				'class' => 'form-control validate[custom[numberKom]]',
 				'id' => 'produktEffektiverJahreszins'
-		));
-			
+			));
 		$produktAnnahmerichtlinie
 			->setName('produktAnnahmerichtlinie')
 			->setLabel('Annahmerichtlinie')
@@ -315,8 +309,7 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setAttributes(array(
 				'class' => 'form-control',
 				'id' => 'produktAnnahmerichtlinie'
-		));		
-
+			));		
 		$produktSollzins
 			->setName('produktSollzins')
 			->setLabel('Sollzins')
@@ -324,8 +317,7 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setAttributes(array(
 				'class' => 'form-control validate[custom[numberKom]]',
 				'id' => 'produktSollzins'
-		));
-			
+			));
 		$produktGesamtbetrag
 			->setName('produktGesamtbetrag')
 			->setLabel('Gesamtbetrag')
@@ -333,8 +325,7 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setAttributes(array(
 				'class' => 'form-control validate[custom[numberKom]]',
 				'id' => 'produktGesamtbetrag'
-		));			
-		
+			));			
 		$produktNettokreditsumme			
 			->setName('produktNettokreditsumme')
 			->setLabel('Nettokreditsumme')
@@ -342,22 +333,25 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setAttributes(array(
 				'class' => 'form-control validate[custom[numberKom]]',
 				'id' => 'produktNettokreditsumme'
-		));	
-
+			));	
 		$rkvAbschluss
 			->setName('rkvAbschluss')
 			->setLabel('RKV-Abschluss')
 			->setLabelAttributes($labelAttributes)
-			->setAttributes(array(
-					'class' => 'form-control',
-					'id' => 'rkvAbschluss'
-			))
 			->setOptions(array(
 					'object_manager' => $this->getObjectManager(),
 					'target_class' => 'Vergleichsrechner\Entity\RKVAbschluss',
-					'property' => 'rkvAbschlussName',
-					'empty_option'  => '--- Bitte wählen ---',
+					'property' => 'rkvAbschlussName'
+			));
+		$produktLaufzeit
+			->setName('produktLaufzeit')
+			->setLabel('Laufzeit')
+			->setLabelAttributes($labelAttributes)
+			->setAttributes(array(
+					'class' => 'form-control validate[custom[number]]',
+					'id' => 'produktLaufzeit'
 		));
+			
 		/*
 		 * Setting up the form
 		 */		
@@ -384,6 +378,7 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 		$this->add($produktKtofuehrKost);
 		$this->add($produktCheck);
 		$this->add($produktTipp);
+		
 		$this->add($produktMinKredit);
 		$this->add($produktMaxKredit);
 		$this->add($produktIsBonitabh);
@@ -391,20 +386,23 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 		$this->add($produktWiderrufsfrist);
 		$this->add($produktSondertilgungen);
 		$this->add($rkvAbschluss);
+		
 		$this->add($produktInformationen);
 		$this->add($produktAnnahmerichtlinie);
 		$this->add($produktGueltigSeit);
 		$this->add($produktUrl);
 		$this->add($produktKlickoutUrl);
+		
 		$this->add($produktEffektiverJahreszins);
 		$this->add($produktSollzins);
 		$this->add($produktNettokreditsumme);
 		$this->add($produktGesamtbetrag);
-// 		$this->add($konditionenBearbeiten);
-// 		$this->add($saveChanges);
-// 		$this->add($discardChanges);
+		$this->add($produktLaufzeit);
 		$this->add($modus);
-// 		$this->setInputFilter($this->createInputFilter());
+		
+		$this->add($produktKtofuehrKostFllg);
+		$this->add($produktWiderrufsfristZeiteinh);
+		
 	}
 		
     public function __construct($name = null, $options = array())

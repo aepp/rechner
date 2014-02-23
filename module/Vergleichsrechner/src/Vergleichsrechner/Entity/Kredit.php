@@ -52,9 +52,9 @@ class Kredit extends Produkt
     protected $produktBearbeitungsgebuehr;
     
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="produkt_widerrufsfrist", type="string", length=255, nullable=true)
+     * @ORM\Column(name="produkt_widerrufsfrist", type="integer", nullable=true)
      */
     protected $produktWiderrufsfrist;
 
@@ -112,11 +112,44 @@ class Kredit extends Produkt
      * @ORM\JoinColumn(name="rkv_abschluss_id", referencedColumnName="rkv_abschluss_id", nullable=true)
      */
     protected $rkvAbschluss;
+
+    /**
+     * @var Zeitabschnitt
+     *
+     * @ORM\ManyToOne(targetEntity="Zeitabschnitt")
+     * @ORM\JoinColumn(name="produkt_widerrufsfrist_zeiteinh", referencedColumnName="zeitabschnitt_id", nullable=true)
+     */
+    protected $produktWiderrufsfristZeiteinh;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="produkt_laufzeit", type="integer", nullable=true)
+     */
+    protected $produktLaufzeit;
     
     public function __construct() {
     	$this->konditionen  = new ArrayCollection();
     }
     
+    public function getProduktWiderrufsfristZeiteinh() 
+    {
+      return $this->produktWiderrufsfristZeiteinh;
+    }
+    
+    public function setProduktWiderrufsfristZeiteinh($produktWiderrufsfristZeiteinh) 
+    {
+      $this->produktWiderrufsfristZeiteinh = $produktWiderrufsfristZeiteinh;
+    }
+    public function getProduktLaufzeit() 
+    {
+      return $this->produktLaufzeit;
+    }
+    
+    public function setProduktLaufzeit($produktLaufzeit) 
+    {
+      $this->produktLaufzeit = $produktLaufzeit;
+    }
     public function getRkvAbschluss() 
     {
       return $this->rkvAbschluss;

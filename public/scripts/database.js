@@ -447,9 +447,13 @@ $(document).ready(function() {
 	            width: '5%',
 	        },
 	        zeitabschnittName: {
-	            title: 'Zeitabschnitt',
+	            title: 'Bezeichnung (Adj.)',
 	            type: 'text',
 	            inputClass: 'validate[required]',
+	        },
+	        zeitabschnittName2: {
+	            title: 'Bezeichnung (Subst.)',
+	            type: 'text',
 	        },
 	        zeitabschnittAnzZinsperioden: {
 	            title: 'Anzahl der Zinsperioden',

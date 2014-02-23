@@ -12,19 +12,29 @@ $(document).ready(function() {
 		return;
 	}
 	pageInitialized = true;
-	$('label[for="produktTipp"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="produktTipp"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
 	$('label[for="produktTipp"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
 	$('label[for="produktTipp"]').parent().find('div.col-sm-8').addClass('btn-group');
 	
-//	$('label[for="produktIsBonitabh"]').parent().css('display', 'none');
-	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
 	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
 	$('label[for="produktIsBonitabh"]').parent().find('div.col-sm-8').addClass('btn-group');
 	
-	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default');
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
 	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').attr('id', 'produktHasOnlineAbschluss');
 	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
 	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').addClass('btn-group');
+	
+	$('label[for="zinssatz"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
+	$('label[for="zinssatz"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
+	$('label[for="zinssatz"]').parent().find('div.col-sm-8').addClass('btn-group');
+	
+	$('label[for="rkvAbschluss"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
+	$('label[for="rkvAbschluss"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
+	$('label[for="rkvAbschluss"]').parent().find('div.col-sm-8').addClass('btn-group');
+	
+	$('#produktKtofuehrKostFllg').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
+	$('#produktWiderrufsfristZeiteinh').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
 	
 	$('.btn').button();
 	$('input:checked').each(function(i, radio){
@@ -137,13 +147,13 @@ $(document).ready(function() {
 	    		break;
     	};
     	var alertClass = 'alert-success';
-    	var info = $('#produktInformationen').parent().find('div').eq(0).find('.note-editable').code();
-    	$('#produktInformationen').val(info);
-    	$('#produktInformationen').attr('value', info);
+    	var sn = $('#produktInformationen').parent().find('div').eq(0).find('.note-editable').code();
+    	$('#produktInformationen').val(sn);
+    	$('#produktInformationen').attr('value', sn);
 
-    	var info = $('#produktAnnahmerichtlinie').parent().find('div').eq(0).find('.note-editable').code();
-    	$('#produktAnnahmerichtlinie').val(info);
-    	$('#produktAnnahmerichtlinie').attr('value', info);
+    	sn = $('#produktAnnahmerichtlinie').parent().find('div').eq(0).find('.note-editable').code();
+    	$('#produktAnnahmerichtlinie').val(sn);
+    	$('#produktAnnahmerichtlinie').attr('value', sn);
     	
 //    	if(false){
     	if($('#produkt-form').validationEngine('validate')){
@@ -1034,6 +1044,9 @@ $(document).ready(function() {
      */
     $('.discard-changes').unbind('click').click(function(event){
     	restore();
+    	$('input:checked').each(function(i, radio){
+    		$(radio).parent().button('toggle');
+    	});
     });
     
 //    $(document).on('click', '#fill', function() {

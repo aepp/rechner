@@ -32,11 +32,21 @@ body .table-responsive{
 
 .affix {
   position: fixed;
+  right: inherit;
+  max-width: 250px;
   top: 60px;
 }
 .affix-bottom {
   position: absolute;
+  max-width: 250px;
   top: auto;
 }
 .affix-top {
+	max-width: 250px;
+}
+
+#produktKtofuehrKostFllg,
+#produktWiderrufsfristZeiteinh{
+	padding-left: 0px !important;
+	padding-right: 0px !important;
 }

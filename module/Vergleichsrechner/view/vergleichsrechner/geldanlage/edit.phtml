@@ -1,47 +1,148 @@
 <h2><?php echo sprintf($this->translate($form->getLabel())) ?></h2>
 <?php
 	echo $this->headLink()
-		->prependStylesheet($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css');
+		->prependStylesheet($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')
+		->prependStylesheet($this->basePath() . '/css/geldanlage.css')
+		->prependStylesheet($this->basePath() . '/scripts/summernote/summernote.css')
+	;
 	echo $this->headScript()
 		->prependFile($this->basePath() . '/scripts/geldanlage.js')
 		->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-maxlength.min.js')
 		->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')
-		->prependFile($this->basePath() . '/scripts/moment-with-langs.min.js');
-	echo $this->form()->openTag($form);
+		->prependFile($this->basePath() . '/scripts/moment-with-langs.min.js')
+		->appendFile($this->basePath() . '/scripts/summernote/summernote.min.js')
+		->appendFile($this->basePath() . '/scripts/summernote/summernote-de-DE.js')
+	;
+	
+	$panelProperties = array(
+		'kategorie' => array(
+				'id' => 'pflichtfelder',
+				'text' => 'Pflichtfelder'
+		),
+		'aktion' => array(
+				'id' => 'allgemeine-eigenschaften',
+				'text' => 'Allgemeine Eigenschaften (optional)'
+		),
+		'produktMindestanlage' => array(
+				'id' => 'ga-eigenschaften',
+				'text' => 'Geldanlageneigenschaften (optional)'
+		),
+		'produktInformationen' => array(
+				'id' => 'informationen',
+				'text' => 'Informationen'
+		)
+	);
 ?>
-<input type="hidden" value="<?php echo $produktId ?>" class="produktId"/>
-
-<?php foreach ($form as $element) :?>
-	    <div class="form-group">
-	        <?php
-	            $type = $element->getAttribute('type');
-	            $name = $element->getAttribute('name'); 
-	            $label = $element->getLabel();
-	        ?>
-	        	<?php 
-	        		if($type == 'button') { ?> <div class="col-sm-3"></div> <?php }
-	        		elseif($type == 'hidden') {}
-	        		else echo $this->formLabel($element); 
-	        	?>
-	        	<div class="col-sm-3">
-	        		<?php 
-		        		if($name == 'produktHoechstanlage' ||
-			        	   $name == 'produktMindestanlage'){
-	        				echo '
+<div class="row">
+	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+		<?php echo $this->form()->openTag($form);?>
+			<input type="hidden" value="<?php echo $produktId ?>" class="produktId"/>
+			
+			<?php foreach ($form as $element) :?>
+		        <?php
+		            $type = $element->getAttribute('type');
+		            $name = $element->getAttribute('name'); 
+		            $label = $element->getLabel();
+		        ?>
+				<?php
+		            if($name == 'kategorie' ||
+						$name == 'aktion' ||
+						$name == 'produktMindestanlage' ||
+						$name == 'produktInformationen'
+					):
+		            echo "
+						<div class='panel panel-default'>
+							<div class='panel-heading' id='".$panelProperties[$name]['id']."'>
+								".$panelProperties[$name]['text']."
+							</div>
+							<div class='panel-body'>
+					";
+					endif; 
+				?>			        
+	        	<div class="form-group">
+	        		<?php if($name != 'produktKtofuehrKostFllg') echo $this->formLabel($element);?>
+		        	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+		        		<?php 
+			        		if($name == 'produktHoechstanlage' ||
+				        	   $name == 'produktMindestanlage'){
+		        				echo "
+									<div class='input-group'>
+        								".$this->formElement($element)."
+        								<span class='input-group-addon'><i class='glyphicon glyphicon-euro'></i></span>
+									</div>
+								";
+		        				if($name == 'produktHoechstanlage') echo '<span class="help-block">0 = unbegrenzt</span>';
+			        		} elseif($name == 'produktKtofuehrKost'){ 
+	        					echo '
 									<div class="input-group">'.
-        								$this->formElement($element)
-        								.'<span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
-									</div>';
-	        				if($name == 'produktHoechstanlage') echo '<span class="help-block">0 = unbegrenzt</span>';
-		        		} else {
-		        			echo $this->formElement($element);
-		        		}
-        			?>
-	        	</div>
-	    </div>
-<?php endforeach; ?>
-<?php echo $this->form()->closeTag(); ?>
-
+					  					$this->formElement($element)
+					  					.'<span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
+									</div>
+									<span class="help-block">
+										<div id="produktKtofuehrKostFllg" class="btn-group btn-group-xs col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="buttons">
+											'.$this->formElement($form->get("produktKtofuehrKostFllg")).'
+										</div>
+									</span>';
+	        				} elseif($name != 'produktKtofuehrKostFllg'){
+								echo $this->formElement($element);
+							}
+	        			?>
+		        	</div>
+		    	</div>
+    			<?php
+		            if($name == 'bank' ||
+						$name == 'produktHasAltersbeschraenkung' ||
+						$name == 'ktozugriffe' ||
+						$name == 'produktKlickoutUrl'
+					):
+					echo '
+							</div>
+						</div>
+					';	
+					endif; 
+				?>	
+			<?php endforeach; ?>
+			<div class="hidden-lg hidden-md hidden-sm">
+				<div class="form-group">
+					<label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label"></label>
+					<div class="col-lg-7 col-md-7 col-sm-8 col-xs-12">
+						<button class="btn btn-default btn-block konditionen-bearbeiten" type="button">Konditionen bearbeiten</button>
+					</div>
+				</div>		
+				<div class="form-group">
+					<label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label"></label>
+					<div class="col-lg-7 col-md-7 col-sm-8 col-xs-12">
+						<button class="btn btn-success btn-block save-changes" type="button">Speichern</button>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label"></label>
+					<div class="col-lg-7 col-md-7 col-sm-8 col-xs-12">
+						<button class="btn btn-danger btn-block discard-changes" type="button">Eingaben verwerfen</button>
+					</div>
+				</div>		
+			</div>				
+		<?php echo $this->form()->closeTag(); ?>
+	</div>
+	<div class="col-lg-4 col-md-4 col-sm-4 hidden-xs">
+		<div class="affix">
+			<div class="panel panel-default">
+			  	<div class="panel-heading">Navigation</div>
+			  	<div class="scrollspy-nav">
+					<ul class="nav nav-pills nav-stacked" id="overview-nav">
+						<li><a href="#pflichtfelder">Pflichtfelder</a></li>
+			  			<li><a href="#allgemeine-eigenschaften">Allgemeine Eigenschaften (optional)</a></li>
+			  			<li><a href="#ga-eigenschaften">Geldanlageneigenschaften (optional)</a></li>
+					  	<li><a href="#informationen">Informationen</a></li>
+			  		</ul>
+		  		</div>
+			</div>
+			<button class="btn btn-default btn-block konditionen-bearbeiten" type="button">Konditionen bearbeiten</button>
+			<button class="btn btn-success btn-block save-changes" type="button">Speichern</button>
+			<button class="btn btn-danger btn-block discard-changes" type="button">Eingaben verwerfen</button>
+		</div>
+	</div>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="konditionen-bearbeiten-modal" tabindex="-1" role="dialog" aria-labelledby="konditionen-bearbeiten-modal-label" aria-hidden="true">
 	<div class="modal-dialog">

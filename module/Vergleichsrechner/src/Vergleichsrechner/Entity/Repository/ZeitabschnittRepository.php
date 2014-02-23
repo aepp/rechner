@@ -18,4 +18,16 @@ class ZeitabschnittRepository extends EntityRepository{
     	$query->setFirstResult($jtStartIndex);
     	return $query->getResult();
     }
+    public function findYearandMonth(){
+    	$dql = "SELECT o FROM \Vergleichsrechner\Entity\Zeitabschnitt o 
+    			WHERE o.zeitabschnittId = 2 OR o.zeitabschnittId = 5";
+    	$query = $this->getEntityManager()->createQuery($dql);
+    	return $query->getResult();
+    }
+    public function findMonthAndDay(){
+    	$dql = "SELECT o FROM \Vergleichsrechner\Entity\Zeitabschnitt o
+    			WHERE o.zeitabschnittId = 1 OR o.zeitabschnittId = 2";
+    	$query = $this->getEntityManager()->createQuery($dql);
+    	return $query->getResult();
+    }    
 }

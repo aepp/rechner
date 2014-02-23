@@ -49,9 +49,11 @@ class ZeitabschnittController extends BaseController
     	if ($request->isPost()) {
     		$em = $this->getEntityManager();
     		$zeitabschnittName = $_POST['zeitabschnittName'];
+    		$zeitabschnittName2 = $_POST['zeitabschnittName2'];
     		$zeitabschnittAnzZinsperioden = $_POST['zeitabschnittAnzZinsperioden'];
     		$zeitabschnitt = new Zeitabschnitt();
     		$zeitabschnitt->setZeitabschnittName($zeitabschnittName);
+    		$zeitabschnitt->setZeitabschnittName2($zeitabschnittName2);
     		$zeitabschnitt->setZeitabschnittAnzZinsperioden($zeitabschnittAnzZinsperioden);
     		$em->persist($zeitabschnitt);
     		$em->flush();
@@ -69,9 +71,11 @@ class ZeitabschnittController extends BaseController
     		$zeitabschnitt = $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $id);
     		
     		$zeitabschnittName = $_POST['zeitabschnittName'];
+    		$zeitabschnittName2 = $_POST['zeitabschnittName2'];
     		$zeitabschnittAnzZinsperioden = $_POST['zeitabschnittAnzZinsperioden'];
     		
     		$zeitabschnitt->setZeitabschnittName($zeitabschnittName);
+    		$zeitabschnitt->setZeitabschnittName2($zeitabschnittName2);
     		$zeitabschnitt->setZeitabschnittAnzZinsperioden($zeitabschnittAnzZinsperioden);
     		$em->persist($zeitabschnitt);
     		$em->flush();

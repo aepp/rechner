@@ -4,45 +4,91 @@ $(document).ready(function() {
 		return;
 	}
 	pageInitialized = true;
-	$('label[for="ktozugriffe"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('btn btn-default');
-	$('label[for="ktozugriffe"]').parent().find('div.col-sm-3').attr('data-toggle', 'buttons');
-	$('label[for="ktozugriffe"]').parent().find('div.col-sm-3').addClass('btn-group');
+	$('label[for="ktozugriffe"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-4 col-md-4 col-sm-4 col-xs-4');
+	$('label[for="ktozugriffe"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
+	$('label[for="ktozugriffe"]').parent().find('div.col-sm-8').addClass('btn-group');
 	
-	$('label[for="produktHasAltersbeschraenkung"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('btn btn-default');
-	$('label[for="produktHasAltersbeschraenkung"]').parent().find('div.col-sm-3').attr('data-toggle', 'buttons');
-	$('label[for="produktHasAltersbeschraenkung"]').parent().find('div.col-sm-3').addClass('btn-group');
+	$('label[for="produktHasAltersbeschraenkung"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
+	$('label[for="produktHasAltersbeschraenkung"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
+	$('label[for="produktHasAltersbeschraenkung"]').parent().find('div.col-sm-8').addClass('btn-group');
 	
-	$('label[for="produktHasOnlineBanking"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('btn btn-default');
-	$('label[for="produktHasOnlineBanking"]').parent().find('div.col-sm-3').attr('data-toggle', 'buttons');
-	$('label[for="produktHasOnlineBanking"]').parent().find('div.col-sm-3').addClass('btn-group');
+	$('label[for="produktHasOnlineBanking"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
+	$('label[for="produktHasOnlineBanking"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
+	$('label[for="produktHasOnlineBanking"]').parent().find('div.col-sm-8').addClass('btn-group');
 	
-	$('label[for="produktTipp"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('btn btn-default');
-	$('label[for="produktTipp"]').parent().find('div.col-sm-3').attr('data-toggle', 'buttons');
-	$('label[for="produktTipp"]').parent().find('div.col-sm-3').addClass('btn-group');	
+	$('label[for="produktTipp"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
+	$('label[for="produktTipp"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
+	$('label[for="produktTipp"]').parent().find('div.col-sm-8').addClass('btn-group');	
 	
-	$('label[for="produktHasGesetzlEinlagvers"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('btn btn-default');
-	$('label[for="produktHasGesetzlEinlagvers"]').parent().find('div.col-sm-3').attr('data-toggle', 'buttons');
-	$('label[for="produktHasGesetzlEinlagvers"]').parent().find('div.col-sm-3').addClass('btn-group');		
+	$('label[for="produktHasGesetzlEinlagvers"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
+	$('label[for="produktHasGesetzlEinlagvers"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
+	$('label[for="produktHasGesetzlEinlagvers"]').parent().find('div.col-sm-8').addClass('btn-group');		
 	
-	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-3').find('label').removeClass().addClass('btn btn-default');
-	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-3').attr('data-toggle', 'buttons');
-	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-3').addClass('btn-group');		
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
+	$('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').addClass('btn-group');		
+	
+	$('label[for="zinssatz"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
+	$('label[for="zinssatz"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
+	$('label[for="zinssatz"]').parent().find('div.col-sm-8').addClass('btn-group');
+
+	$('label[for="legitimation"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-4 col-md-4 col-sm-4 col-xs-4');
+	$('label[for="legitimation"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
+	$('label[for="legitimation"]').parent().find('div.col-sm-8').addClass('btn-group');
+	
+	$('#produktKtofuehrKostFllg').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
 	
 	$('.btn').button();
 	$('input:checked').each(function(i, radio){
 		$(radio).parent().button('toggle');
 	});
 	
-	$('#produktInformationen').maxlength({
-		alwaysShow: true,
-		threshold: 10,
-		warningClass: "label label-success",
-		limitReachedClass: "label label-important",
-		separator: ' von ',
-		preText: '',
-		postText: '',
-		validate: true
+	$('body').scrollspy({ 
+		target: '.scrollspy-nav',
+		offset: 70
 	});
+	$('.affix').affix({
+	    offset: {
+	      top: 145,
+	      bottom: 77
+	    }
+	});
+	$('#overview-nav li a').click(function(event) {
+	    event.preventDefault();
+	    $($(this).attr('href'))[0].scrollIntoView();
+	    scrollBy(0, -60);
+	});
+	
+	function summernote_initialize(elem){
+		elem.summernote({
+			height: 150,
+			lang: 'de-DE',
+			toolbar: [
+			          ['style', ['clear', 'bold', 'italic', 'underline', 'style']],
+			          ['fontsize', ['fontsize']],
+			          ['color', ['color']],
+			          ['height', ['height']],
+			          ['para', ['ul', 'ol', 'paragraph']],
+			          ['table', ['table']],
+			          ['insert', ['link', 'picture']],
+			          ['view', ['fullscreen', 'codeview']],
+		          ]
+		});
+	}
+	summernote_initialize($('#produktInformationen'));
+	
+	function addCommas(nStr){
+		nStr += '';
+		x = nStr.split('.');
+		x1 = x[0];
+		x2 = x.length > 1 ? ',' + x[1] : '';
+		var rgx = /(\d+)(\d{3})/;
+		while (rgx.test(x1)) {
+			x1 = x1.replace(rgx, '$1' + '.' + '$2');
+		}
+		return x1 + x2;
+	}
+	
     $('#produktGueltigSeit')
     	.wrap('<div class="input-group date"></div>');
     $('#produktGueltigSeit').parent().append(
@@ -70,7 +116,7 @@ $(document).ready(function() {
     if($('#bank').val()){
     	load_aktionen($('#bank').val());
     }
-    $('#save-changes').unbind('click').click(function(event){
+    $('.save-changes').unbind('click').click(function(event){
     	var produktId = $('.produktId').val();
     	var action = "";
     	var modus = $('#modus').val();
@@ -83,6 +129,13 @@ $(document).ready(function() {
 	    		break;
     	};
     	var alertClass = 'alert-success';
+    	var sn = $('#produktInformationen').parent().find('div').eq(0).find('.note-editable').code();
+    	$('#produktInformationen').val(sn);
+    	$('#produktInformationen').attr('value', sn);
+
+    	sn = $('#produktAnnahmerichtlinie').parent().find('div').eq(0).find('.note-editable').code();
+    	$('#produktAnnahmerichtlinie').val(sn);
+    	$('#produktAnnahmerichtlinie').attr('value', sn);
     	
     	if($('#produkt-form').validationEngine('validate')){
 	    	$.ajax({ 
@@ -176,7 +229,7 @@ $(document).ready(function() {
     	});    	
     };
     
-    $('#konditionen-bearbeiten').unbind('click').click(function(event){
+    $('.konditionen-bearbeiten').unbind('click').click(function(event){
     	var produktId = $('.produktId').val();
     	$('#konditionen-bearbeiten-modal').modal('toggle');
     	$('#alert-modal').css('display', 'none');
@@ -390,7 +443,10 @@ $(document).ready(function() {
         	 input.prop("checked", input.data('initialState'));
         });
     }
-    $('#discard-changes').unbind('click').click(function(event){
+    $('.discard-changes').unbind('click').click(function(event){
     	restore();
+    	$('input:checked').each(function(i, radio){
+    		$(radio).parent().button('toggle');
+    	});
     });
 });

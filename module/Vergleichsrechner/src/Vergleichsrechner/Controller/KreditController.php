@@ -76,8 +76,10 @@ class KreditController extends BaseController
 				$form->get('produktIsBonitabh')->setAttribute('value', $produkt->getProduktIsBonitabh());
 				$form->get('aktion')->setAttribute('value', $produkt->getAktion());
 				$form->get('produktKtofuehrKost')->setAttribute('value', $produkt->getProduktKtofuehrKost());
+				$form->get('produktKtofuehrKostFllg')->setAttribute('value', $produkt->getProduktKtofuehrKostFllg());
 				$form->get('produktBearbeitungsgebuehr')->setAttribute('value', $produkt->getProduktBearbeitungsgebuehr());
 				$form->get('produktWiderrufsfrist')->setAttribute('value', $produkt->getProduktWiderrufsfrist());
+				$form->get('produktWiderrufsfristZeiteinh')->setAttribute('value', $produkt->getProduktWiderrufsfristZeiteinh());
 				$form->get('produktSondertilgungen')->setAttribute('value', $produkt->getProduktSondertilgungen());
 				if($produkt->getProduktGueltigSeit() != null) 
 					$form->get('produktGueltigSeit')->setAttribute('value', $produkt->getProduktGueltigSeit()->format('d.m.Y'));
@@ -94,6 +96,7 @@ class KreditController extends BaseController
 				$form->get('produktGesamtbetrag')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktGesamtbetrag()));
 				$form->get('produktNettokreditsumme')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktNettokreditsumme()));
 				$form->get('rkvAbschluss')->setAttribute('value', $produkt->getRKVAbschluss());
+				$form->get('produktLaufzeit')->setAttribute('value', $produkt->getProduktLaufzeit());
 				
 				$message = "Form erfolgreich geladen!";
 			}
@@ -139,9 +142,11 @@ class KreditController extends BaseController
 				$produktMaxKredit = str_replace( ',', '.', $params()->fromPost('produktMaxKredit'));
 				$produktBearbeitungsgebuehr = str_replace( ',', '.', $params()->fromPost('produktBearbeitungsgebuehr'));
 				$produktWiderrufsfrist = str_replace( ',', '.', $params()->fromPost('produktWiderrufsfrist'));
+				$produktWiderrufsfristZeiteinh = $params()->fromPost('produktWiderrufsfristZeiteinh');
 				$produktIsBonitabh = $params()->fromPost('produktIsBonitabh');
 				$produktSondertilgungen = $params()->fromPost('produktSondertilgungen');
 				$produktKtofuehrKost = $params()->fromPost('produktKtofuehrKost');
+				$produktKtofuehrKostFllg = $params()->fromPost('produktKtofuehrKostFllg');
 				$produktGueltigSeit = $params()->fromPost('produktGueltigSeit');
 				$produktCheck = str_replace( ',', '.', $params()->fromPost('produktCheck'));
 				$produktTipp = $params()->fromPost('produktTipp');
@@ -151,6 +156,7 @@ class KreditController extends BaseController
 				$produktSollzins = str_replace( ',', '.', $params()->fromPost('produktSollzins'));
 				$produktGesamtbetrag = str_replace( ',', '.', $params()->fromPost('produktGesamtbetrag'));
 				$produktNettokreditsumme = str_replace( ',', '.', $params()->fromPost('produktNettokreditsumme'));
+				$produktLaufzeit = $params()->fromPost('produktLaufzeit');
 				
     			$produktUrl = $params()->fromPost('produktUrl');
     			if($produktUrl != null){
@@ -181,6 +187,7 @@ class KreditController extends BaseController
 				if($produktMaxKredit != null) $produkt->setProduktMaxKredit($produktMaxKredit);
 				if($produktInformationen != null) $produkt->setProduktInformationen($produktInformationen);
 				if($produktKtofuehrKost != null) $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
+				if($produktKtofuehrKostFllg != null) $produkt->setProduktKtofuehrKostFllg($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKtofuehrKostFllg));
 				if($produktMinKredit != null) $produkt->setProduktMinKredit($produktMinKredit);
 				if($produktName != null) $produkt->setProduktName($produktName);
 				if($produktTipp != null) $produkt->setProduktTipp($produktTipp);
@@ -188,6 +195,7 @@ class KreditController extends BaseController
 				if($rkvAbschluss != null) $produkt->setRkvAbschluss($em->find('Vergleichsrechner\Entity\RKVAbschluss', $rkvAbschluss));
 				if($produktBearbeitungsgebuehr != null) $produkt->setProduktBearbeitungsgebuehr($produktBearbeitungsgebuehr);
 				if($produktWiderrufsfrist != null) $produkt->setProduktWiderrufsfrist($produktWiderrufsfrist);
+				if($produktWiderrufsfristZeiteinh != null) $produkt->setProduktWiderrufsfristZeiteinh($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktWiderrufsfristZeiteinh));
 				if($produktSondertilgungen != null) $produkt->setProduktSondertilgungen($produktSondertilgungen);
 				if($produktIsBonitabh != null) $produkt->setProduktIsBonitabh($produktIsBonitabh);
 				if($produktEffektiverJahreszins != null) $produkt->setProduktEffektiverJahreszins($produktEffektiverJahreszins);
@@ -195,9 +203,10 @@ class KreditController extends BaseController
 				if($produktGesamtbetrag != null) $produkt->setProduktGesamtbetrag($produktGesamtbetrag);
 				if($produktSollzins != null) $produkt->setProduktSollzins($produktSollzins);
 				if($produktNettokreditsumme != null) $produkt->setProduktNettokreditsumme($produktNettokreditsumme);
+				if($produktLaufzeit != null) $produkt->setProduktLaufzeit($produktLaufzeit);
 				
 				$em->persist($produkt);
-				
+
 				$konditionen = $produkt_session->konditionen;
 				if(!empty($konditionen)){
 					if($produktId == null){
@@ -210,6 +219,7 @@ class KreditController extends BaseController
 				}
 				
 				$em->flush();
+				
 				$produktId = $produkt->getProduktId();
 	    		$message = "Änderungen erfolgreich gespeichert! Sie werden nun zur Produktübersicht weitergeleitet...";
 	    		

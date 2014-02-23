@@ -38,7 +38,12 @@ class Zeitabschnitt
      */
     protected $zeitabschnittAnzZinsperioden;
 
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="zeitabschnitt_name2", type="string", length=100, nullable=false)
+     */
+    protected $zeitabschnittName2;
 
     /**
      * Get zeitabschnittId
@@ -96,10 +101,34 @@ class Zeitabschnitt
         return $this->zeitabschnittAnzZinsperioden;
     }
     
+    /**
+     * Set zeitabschnittName2
+     *
+     * @param string $zeitabschnittName2
+     * @return Zeitabschnitt
+     */
+    public function setZeitabschnittName2($zeitabschnittName2)
+    {
+    	$this->zeitabschnittName2 = $zeitabschnittName2;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get zeitabschnittName2
+     *
+     * @return string
+     */
+    public function getZeitabschnittName2()
+    {
+    	return $this->zeitabschnittName2;
+    }
+    
     public function jsonSerialize() {
     	return [
 	    	'zeitabschnittId' => $this->getZeitabschnittId(),
 	    	'zeitabschnittName' => $this->getZeitabschnittName(),
+	    	'zeitabschnittName2' => $this->getZeitabschnittName2(),
 	    	'zeitabschnittAnzZinsperioden' => $this->getZeitabschnittAnzZinsperioden(),
     	];
     }
