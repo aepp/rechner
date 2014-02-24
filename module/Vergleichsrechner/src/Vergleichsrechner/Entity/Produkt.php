@@ -57,10 +57,11 @@ class Produkt
      */
     protected $aktion;
 
+    
     /**
-     * @var string
+     * @var float
      *
-     * @ORM\Column(name="produkt_ktofuehr_kost", type="text", nullable=true)
+     * @ORM\Column(name="produkt_ktofuehr_kost", type="float", precision=10, scale=0, nullable=true)
      */
     protected $produktKtofuehrKost;
 
