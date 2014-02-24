@@ -185,7 +185,7 @@ class KreditForm extends Form implements ObjectManagerAwareInterface
 			->setLabel('Kontoführungskosten')
 			->setLabelAttributes($labelAttributes)
 			->setAttributes(array(
-				'class' => 'form-control',
+				'class' => 'form-control validate[custom[numberKom]]',
 				'id' => 'produktKtofuehrKost'
 			));	
 		$produktKtofuehrKostFllg

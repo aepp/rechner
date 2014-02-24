@@ -75,7 +75,7 @@ class KreditController extends BaseController
 					$form->get('produktMaxKredit')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktMaxKredit()));
 				$form->get('produktIsBonitabh')->setAttribute('value', $produkt->getProduktIsBonitabh());
 				$form->get('aktion')->setAttribute('value', $produkt->getAktion());
-				$form->get('produktKtofuehrKost')->setAttribute('value', $produkt->getProduktKtofuehrKost());
+				$form->get('produktKtofuehrKost')->setAttribute('value', str_replace( '.', ',', $produkt->getProduktKtofuehrKost()));
 				$form->get('produktKtofuehrKostFllg')->setAttribute('value', $produkt->getProduktKtofuehrKostFllg());
 				$form->get('produktBearbeitungsgebuehr')->setAttribute('value', $produkt->getProduktBearbeitungsgebuehr());
 				$form->get('produktWiderrufsfrist')->setAttribute('value', $produkt->getProduktWiderrufsfrist());
@@ -146,7 +146,7 @@ class KreditController extends BaseController
 				if($produktWiderrufsfristZeiteinh == null) $produktWiderrufsfristZeiteinh = 1;
 				$produktIsBonitabh = $params()->fromPost('produktIsBonitabh');
 				$produktSondertilgungen = $params()->fromPost('produktSondertilgungen');
-				$produktKtofuehrKost = $params()->fromPost('produktKtofuehrKost');
+				$produktKtofuehrKost = str_replace( ',', '.', $params()->fromPost('produktKtofuehrKost'));
 				$produktKtofuehrKostFllg = $params()->fromPost('produktKtofuehrKostFllg');
 				if($produktKtofuehrKostFllg == null) $produktKtofuehrKostFllg = 2;
 				$produktGueltigSeit = $params()->fromPost('produktGueltigSeit');
