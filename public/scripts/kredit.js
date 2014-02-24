@@ -442,7 +442,8 @@ $(document).ready(function() {
 							'</td>'+									
 							'<td class="active"><input type="text" class="form-control kondition-risikoklasse kondition-input input-sm" value="'+risikoklasse+'"/></td>';
 				$.each(laufzeiten[schwellen[i]],function(k, laufzeit){
-					if(!init) zinssatz = zinssaetze[schwellen[i]][risikoklasse][laufzeit].toString().replace('.', ',');
+					if(!init) zinssatz = zinssaetze[schwellen[i]][risikoklasse][laufzeit];
+						if(zinssatz != null) zinssatz = zinssatz.toString().replace('.', ',');
 					table +=
 							'<td><input type="text" class="form-control kondition-zinssatz kondition-input input-sm" value="'+zinssatz+'"/></td>';
 				});
@@ -455,7 +456,8 @@ $(document).ready(function() {
 						'<tr class="active">'+
 							'<th colspan="3">Provision in  € (Lead)</th>';
 			$.each(laufzeiten[schwellen[i]],function(j, laufzeit){
-				if(!init) lead = leads[schwellen[i]][laufzeit].toString().replace('.', ',');
+				if(!init) lead = leads[schwellen[i]][laufzeit];
+					if(lead != null) lead = lead.toString().replace('.', ',');
 				table +=
 							'<th><input type="text" class="form-control kondition-lead kondition-input input-sm" value="'+lead+'"/></th>';
 			});
@@ -464,7 +466,8 @@ $(document).ready(function() {
 						'<tr class="active">'+
 							'<th colspan="3">Provision in  % v.d. Kreditsumme (Sales)</th>';
 			$.each(laufzeiten[schwellen[i]],function(j, laufzeit){
-				if(!init) sale = sales[schwellen[i]][laufzeit].toString().replace('.', ',');
+				if(!init) sale = sales[schwellen[i]][laufzeit];
+					if(sale != null) sale = sale.toString().replace('.', ',');
 				table +=
 							'<th><input type="text" class="form-control kondition-sale kondition-input input-sm" value="'+sale+'"/></th>';
 			});
