@@ -34,7 +34,10 @@ $(document).ready(function() {
 	$('label[for="rkvAbschluss"]').parent().find('div.col-sm-8').addClass('btn-group');
 	
 	$('#produktKtofuehrKostFllg').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
-	$('#produktWiderrufsfristZeiteinh').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
+	$('#produktWiderrufsfristZeiteinh').find('label').each(function(i, elem){
+		$(elem).removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
+		$(elem).append('(-e)');
+	});
 	
 	$('.btn').button();
 	$('input:checked').each(function(i, radio){

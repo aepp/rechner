@@ -37,7 +37,7 @@ $(document).ready(function() {
 	$('label[for="legitimation"]').parent().find('div.col-sm-8').addClass('btn-group');
 	
 	$('#produktKtofuehrKostFllg').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
-	
+
 	$('.btn').button();
 	$('input:checked').each(function(i, radio){
 		$(radio).parent().button('toggle');
