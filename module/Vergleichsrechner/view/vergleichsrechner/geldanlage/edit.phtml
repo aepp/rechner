@@ -1,18 +1,16 @@
-<h2><?php echo sprintf($this->translate($form->getLabel())) ?></h2>
+<h2><?php print(sprintf($this->translate($form->getLabel()))); ?></h2>
 <?php
-echo $this->headLink()
-        ->prependStylesheet($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')
-        ->prependStylesheet($this->basePath() . '/css/geldanlage.css')
-        ->prependStylesheet($this->basePath() . '/scripts/summernote/summernote.css')
-;
-echo $this->headScript()
-        ->prependFile($this->basePath() . '/scripts/geldanlage.js')
-        ->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-maxlength.min.js')
-        ->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')
-        ->prependFile($this->basePath() . '/scripts/moment-with-langs.min.js')
-        ->appendFile($this->basePath() . '/scripts/summernote/summernote.min.js')
-        ->appendFile($this->basePath() . '/scripts/summernote/summernote-de-DE.js')
-;
+print($this->headLink()
+                ->prependStylesheet($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')
+                ->prependStylesheet($this->basePath() . '/css/geldanlage.css')
+                ->prependStylesheet($this->basePath() . '/scripts/summernote/summernote.css'));
+print($this->headScript()
+                ->prependFile($this->basePath() . '/scripts/geldanlage.js')
+                ->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-maxlength.min.js')
+                ->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')
+                ->prependFile($this->basePath() . '/scripts/moment-with-langs.min.js')
+                ->appendFile($this->basePath() . '/scripts/summernote/summernote.min.js')
+                ->appendFile($this->basePath() . '/scripts/summernote/summernote-de-DE.js'));
 
 $panelProperties = array(
     'kategorie' => array(
@@ -35,80 +33,69 @@ $panelProperties = array(
 ?>
 <div class="row">
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-        <?php echo $this->form()->openTag($form); ?>
-        <input type="hidden" value="<?php echo $produktId ?>" class="produktId"/>
+        <?php print($this->form()->openTag($form)); ?>
+        <input type="hidden" value="<?php print($produktId); ?>" class="produktId"/>
 
-        <?php foreach ($form as $element) : ?>
-            <?php
+        <?php
+        foreach ($form as $element) :
             $type = $element->getAttribute('type');
             $name = $element->getAttribute('name');
             $label = $element->getLabel();
-            ?>
-            <?php
-            if ($name == 'kategorie' ||
-                    $name == 'aktion' ||
-                    $name == 'produktMindestanlage' ||
-                    $name == 'produktInformationen'
-            ):
-                echo "
-						<div class='panel panel-default'>
-							<div class='panel-heading' id='" . $panelProperties[$name]['id'] . "'>
-								" . $panelProperties[$name]['text'] . "
-							</div>
-							<div class='panel-body'>
-					";
-            endif;
-            ?>
-            <div class="form-group">
-                <?php if ($name != 'produktKtofuehrKostFllg') echo $this->formLabel($element); ?>
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            if ($name == 'kategorie' || $name == 'aktion' || $name == 'produktMindestanlage' || $name == 'produktInformationen'):
+                ?>
+                <div class='panel panel-default'>
+                    <div class='panel-heading' id='<?php print($panelProperties[$name]['id']); ?>'>
+                        <?php print($panelProperties[$name]['text']); ?>
+                    </div>
+                    <div class='panel-body'>
+                    <?php endif; ?>
+                    <div class="form-group">
+                        <?php if ($name != 'produktKtofuehrKostFllg'): ?>
+                            <?php print($this->formLabel($element)); ?>
+                        <?php endif; ?>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <?php if ($name == 'produktHoechstanlage' || $name == 'produktMindestanlage') : ?>
+                                <div class='input-group'>
+                                    <?php print($this->formElement($element)); ?>
+                                    <span class='input-group-addon'><i class='glyphicon glyphicon-euro'></i></span>
+                                </div>
+                                <?php if ($name == 'produktHoechstanlage'): ?>
+                                    <span class="help-block">0 = unbegrenzt</span>
+                                <?php endif; ?>
+                            <?php elseif ($name == 'produktUrl') : ?>
+                                <div class='input-group'>
+                                    <span class='input-group-addon'>http://www.vergleich24.at/</span>
+                                    <?php print($this->formElement($element)); ?>
+                                </div>
+                                <?php if ($name == 'produktHoechstanlage'): ?>
+                                    <span class="help-block">0 = unbegrenzt</span>
+                                <?php endif; ?>
+                            <?php elseif ($name == 'produktKtofuehrKost') : ?>
+                                <div class="input-group">
+                                    <?php print($this->formElement($element)); ?>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
+                                </div>
+                                <span class="help-block">
+                                    <div id="produktKtofuehrKostFllg"
+                                         class="btn-group btn-group-xs col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                         data-toggle="buttons">
+                                             <?php print($this->formElement($form->get("produktKtofuehrKostFllg"))); ?>
+                                    </div>
+                                </span>
+                            <?php elseif ($name != 'produktKtofuehrKostFllg') : ?>
+                                <?php print($this->formElement($element)); ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                     <?php
-                    if ($name == 'produktHoechstanlage' ||
-                            $name == 'produktMindestanlage') {
-                        echo "
-									<div class='input-group'>
-        								" . $this->formElement($element) . "
-        								<span class='input-group-addon'><i class='glyphicon glyphicon-euro'></i></span>
-									</div>
-								";
-                        if ($name == 'produktHoechstanlage')
-                            echo '<span class="help-block">0 = unbegrenzt</span>';
-                    } elseif ($name == 'produktUrl') {
-                        echo "<div class='input-group'>"
-                        . "<span class='input-group-addon'>http://www.vergleich24.at/</span>"
-                        . $this->formElement($element)
-                        . "</div>";
-                        if ($name == 'produktHoechstanlage')
-                            echo '<span class="help-block">0 = unbegrenzt</span>';
-                    } elseif ($name == 'produktKtofuehrKost') {
-                        echo '
-									<div class="input-group">' .
-                        $this->formElement($element)
-                        . '<span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
-									</div>
-									<span class="help-block">
-										<div id="produktKtofuehrKostFllg" class="btn-group btn-group-xs col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="buttons">
-											' . $this->formElement($form->get("produktKtofuehrKostFllg")) . '
-										</div>
-									</span>';
-                    } elseif ($name != 'produktKtofuehrKostFllg') {
-                        echo $this->formElement($element);
-                    }
-                    ?>
+                    if ($name == 'bank' ||
+                            $name == 'produktHasAltersbeschraenkung' ||
+                            $name == 'ktozugriffe' ||
+                            $name == 'produktKlickoutUrl'):
+                        ?>
+                    </div>
                 </div>
-            </div>
-            <?php
-            if ($name == 'bank' ||
-                    $name == 'produktHasAltersbeschraenkung' ||
-                    $name == 'ktozugriffe' ||
-                    $name == 'produktKlickoutUrl'
-            ):
-                echo '
-							</div>
-						</div>
-					';
-            endif;
-            ?>
+            <?php endif; ?>
         <?php endforeach; ?>
         <div class="hidden-lg hidden-md hidden-sm">
             <div class="form-group">

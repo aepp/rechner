@@ -15,7 +15,7 @@ class Produkt
      * @var Produktart
      *
      * @ORM\ManyToOne(targetEntity="Produktart")
-     * @ORM\JoinColumn(name="produktart_id", referencedColumnName="produktart_id")
+     * @ORM\JoinColumn(name="produktart_id", referencedColumnName="produktart_id", nullable=false)
      */
     protected $produktart;
 
@@ -30,7 +30,7 @@ class Produkt
      * @var Bank
      *
      * @ORM\ManyToOne(targetEntity="Bank")
-     * @ORM\JoinColumn(name="bank_id", referencedColumnName="bank_id")
+     * @ORM\JoinColumn(name="bank_id", referencedColumnName="bank_id", nullable=false)
      */
     protected $bank;
 

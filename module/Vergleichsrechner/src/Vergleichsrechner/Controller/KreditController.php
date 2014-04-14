@@ -166,68 +166,50 @@ class KreditController extends BaseController {
                     if (strpos($produktKlickoutUrl, 'http') === false) {
                         $produktKlickoutUrl = 'http://' . $produktKlickoutUrl;
                     }
-                    $produkt->setProduktKlickoutUrl($produktKlickoutUrl);
                 }
 
                 $aktion = $params()->fromPost('aktion');
                 $zinssatz = $params()->fromPost('zinssatz');
                 $rkvAbschluss = $params()->fromPost('rkvAbschluss');
 
-                if ($aktion != null)
-                    $produkt->setAktion($em->find('Vergleichsrechner\Entity\Aktion', $aktion));
-                if ($bank != null)
+                $produkt->setAktion($em->find('Vergleichsrechner\Entity\Aktion', $aktion));
+                if ($bank != null) {
                     $produkt->setBank($em->find('Vergleichsrechner\Entity\Bank', $bank));
-                if ($kategorie != null)
+                }
+                if ($kategorie != null) {
                     $produkt->setKategorie($em->find('Vergleichsrechner\Entity\Kategorie', $kategorie));
-                if ($produktart != null)
+                }
+                if ($produktart != null) {
                     $produkt->setProduktart($em->find('Vergleichsrechner\Entity\Produktart', $produktart));
-                if ($produktCheck != null)
-                    $produkt->setProduktCheck($produktCheck);
-                if ($produktGueltigSeit != null)
-                    $produkt->setProduktGueltigSeit(date_create_from_format('d.m.Y', $produktGueltigSeit));
-                if ($produktHasOnlineAbschluss != null)
-                    $produkt->setProduktHasOnlineAbschluss($produktHasOnlineAbschluss);
-                if ($produktMaxKredit != null)
-                    $produkt->setProduktMaxKredit($produktMaxKredit);
-                if ($produktInformationen != null)
-                    $produkt->setProduktInformationen($produktInformationen);
-                if ($produktKtofuehrKost != null)
-                    $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
+                }
+                $produkt->setProduktCheck($produktCheck);
+                $produkt->setProduktGueltigSeit(date_create_from_format('d.m.Y', $produktGueltigSeit));
+                $produkt->setProduktHasOnlineAbschluss($produktHasOnlineAbschluss);
+                $produkt->setProduktMaxKredit($produktMaxKredit);
+                $produkt->setProduktInformationen($produktInformationen);
+                $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
                 $produkt->setProduktKtofuehrKostFllg($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKtofuehrKostFllg));
-                if ($produktMinKredit != null)
-                    $produkt->setProduktMinKredit($produktMinKredit);
-                if ($produktName != null)
+                $produkt->setProduktMinKredit($produktMinKredit);
+                if ($produktName != null) {
                     $produkt->setProduktName($produktName);
-                if ($produktTipp != null)
-                    $produkt->setProduktTipp($produktTipp);
-                if ($zinssatz != null)
-                    $produkt->setZinssatz($em->find('Vergleichsrechner\Entity\Zinssatz', $zinssatz));
-                if ($rkvAbschluss != null)
-                    $produkt->setRkvAbschluss($em->find('Vergleichsrechner\Entity\RKVAbschluss', $rkvAbschluss));
-                if ($produktBearbeitungsgebuehr != null)
-                    $produkt->setProduktBearbeitungsgebuehr($produktBearbeitungsgebuehr);
-                if ($produktWiderrufsfrist != null)
-                    $produkt->setProduktWiderrufsfrist($produktWiderrufsfrist);
+                }
+                $produkt->setProduktTipp($produktTipp);
+                $produkt->setZinssatz($em->find('Vergleichsrechner\Entity\Zinssatz', $zinssatz));
+                $produkt->setRkvAbschluss($em->find('Vergleichsrechner\Entity\RKVAbschluss', $rkvAbschluss));
+                $produkt->setProduktBearbeitungsgebuehr($produktBearbeitungsgebuehr);
+                $produkt->setProduktWiderrufsfrist($produktWiderrufsfrist);
                 $produkt->setProduktWiderrufsfristZeiteinh($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktWiderrufsfristZeiteinh));
-                if ($produktSondertilgungen != null)
-                    $produkt->setProduktSondertilgungen($produktSondertilgungen);
-                if ($produktIsBonitabh != null)
-                    $produkt->setProduktIsBonitabh($produktIsBonitabh);
-                if ($produktEffektiverJahreszins != null)
-                    $produkt->setProduktEffektiverJahreszins($produktEffektiverJahreszins);
-                if ($produktAnnahmerichtlinie != null)
-                    $produkt->setProduktAnnahmerichtlinie($produktAnnahmerichtlinie);
-                if ($produktGesamtbetrag != null)
-                    $produkt->setProduktGesamtbetrag($produktGesamtbetrag);
-                if ($produktSollzins != null)
-                    $produkt->setProduktSollzins($produktSollzins);
-                if ($produktNettokreditsumme != null)
-                    $produkt->setProduktNettokreditsumme($produktNettokreditsumme);
-                if ($produktLaufzeit != null)
-                    $produkt->setProduktLaufzeit($produktLaufzeit);
-                if ($produktUrl != null)
-                    $produkt->setProduktUrl($produktUrl);
-
+                $produkt->setProduktSondertilgungen($produktSondertilgungen);
+                $produkt->setProduktIsBonitabh($produktIsBonitabh);
+                $produkt->setProduktEffektiverJahreszins($produktEffektiverJahreszins);
+                $produkt->setProduktAnnahmerichtlinie($produktAnnahmerichtlinie);
+                $produkt->setProduktGesamtbetrag($produktGesamtbetrag);
+                $produkt->setProduktSollzins($produktSollzins);
+                $produkt->setProduktNettokreditsumme($produktNettokreditsumme);
+                $produkt->setProduktLaufzeit($produktLaufzeit);
+                $produkt->setProduktUrl($produktUrl);
+                $produkt->setProduktKlickoutUrl($produktKlickoutUrl);
+                
                 $em->persist($produkt);
 
                 $konditionen = $produkt_session->konditionen;

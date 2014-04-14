@@ -13,8 +13,8 @@ use Zend\Form\Annotation;
  * @Annotation\Name("bank")
  * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
-class Bank
-{
+class Bank {
+
     /**
      * @var integer
      *
@@ -39,14 +39,21 @@ class Bank
     protected $bankLogo;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="bank_dyn_id", type="integer", nullable=false)
+     */
+    protected $bankDynId;
+
+    /**
      * @var Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Aktion", mappedBy="banken")
-     **/
+     * */
     protected $aktionen;
-    
+
     public function __construct() {
-    	$this->aktionen = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->aktionen = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -54,8 +61,7 @@ class Bank
      *
      * @return integer 
      */
-    public function getBankId()
-    {
+    public function getBankId() {
         return $this->bankId;
     }
 
@@ -65,8 +71,7 @@ class Bank
      * @param string $bankName
      * @return Bank
      */
-    public function setBankName($bankName)
-    {
+    public function setBankName($bankName) {
         $this->bankName = $bankName;
 
         return $this;
@@ -77,8 +82,7 @@ class Bank
      *
      * @return string 
      */
-    public function getBankName()
-    {
+    public function getBankName() {
         return $this->bankName;
     }
 
@@ -88,8 +92,7 @@ class Bank
      * @param string $bankLogo
      * @return Bank
      */
-    public function setBankLogo($bankLogo)
-    {
+    public function setBankLogo($bankLogo) {
         $this->bankLogo = $bankLogo;
 
         return $this;
@@ -100,8 +103,7 @@ class Bank
      *
      * @return string 
      */
-    public function getBankLogo()
-    {
+    public function getBankLogo() {
         return $this->bankLogo;
     }
 
@@ -111,58 +113,71 @@ class Bank
      * @param Doctrine\Common\Collections\Collection $aktionen
      * @return Bank
      */
-    public function setAktionen($aktionen)
-    {
-    	$this->aktionen = $aktionen;
-    
-    	return $this;
+    public function setAktionen($aktionen) {
+        $this->aktionen = $aktionen;
+
+        return $this;
     }
-    
+
     /**
      * Get aktionen
      *
      * @return Doctrine\Common\Collections\Collection
      */
-    public function getAktionen()
-    {
-    	return $this->aktionen;
+    public function getAktionen() {
+        return $this->aktionen;
     }
-    
+
     /**
      * Add aktion
      *
      * @param Aktion $aktion
      * @return Bank
      */
-    public function addAktion(Aktion $aktion)
-    {
-    	if(!$this->aktionen->contains($aktion)){
-    		$this->aktionen->add($aktion);
-    	}
-    
-    	return $this;
-    }    
-    
+    public function addAktion(Aktion $aktion) {
+        if (!$this->aktionen->contains($aktion)) {
+            $this->aktionen->add($aktion);
+        }
+
+        return $this;
+    }
+
     /**
      * Remove aktion
      *
      * @param Aktion $aktion
      * @return Bank
      */
-    public function removeAktion(Aktion $aktion)
-    {
-    	if($this->aktionen->contains($aktion)){
-    		$this->aktionen->removeElement($aktion);
-    	}
-    	return $this;
+    public function removeAktion(Aktion $aktion) {
+        if ($this->aktionen->contains($aktion)) {
+            $this->aktionen->removeElement($aktion);
+        }
+        return $this;
     }
 
-    public function jsonSerialize() {
-    	return [
-	    	'bankId' => $this->getBankId(),
-	    	'bankName' => $this->getBankName(),
-	    	'bankLogo' => $this->getBankLogo(),
-	    	'aktionen' => json_encode($this->getAktionen()),
-    	];
+    public function getBankDynId() {
+        return $this->bankDynId;
     }
+
+    public function setBankDynId($bankDynId) {
+        $this->bankDynId = $bankDynId;
+    }
+
+//    public function jsonSerialize() {
+//        return [
+//            'bankId' => $this->getBankId(),
+//            'bankName' => $this->getBankName(),
+//            'bankLogo' => $this->getBankLogo(),
+//            'aktionen' => json_encode($this->getAktionen()),
+//        ];
+//    }
+
+    public function jsonSerialize() {
+        $json = array();
+        foreach ($this as $key => $value) {
+            $json[$key] = $value;
+        }
+        return $json;
+    }
+
 }

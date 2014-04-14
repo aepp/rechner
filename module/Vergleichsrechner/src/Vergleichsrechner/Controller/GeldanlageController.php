@@ -5,10 +5,8 @@ namespace Vergleichsrechner\Controller;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Vergleichsrechner\Entity\Geldanlage;
-use Zend\Json\Json;
 use Vergleichsrechner\Entity\GeldanlageKondition;
 use Zend\Session\Container;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Geldanlage Controller
@@ -80,8 +78,9 @@ class GeldanlageController extends BaseController {
                 $form->get('legitimation')->setAttribute('value', $produkt->getLegitimation());
                 $form->get('produktHasAltersbeschraenkung')->setAttribute('value', $produkt->getProduktHasAltersbeschraenkung());
                 $form->get('ktozugriffe')->setAttribute('value', $produkt->getKtozugriffe());
-                if ($produkt->getProduktGueltigSeit() != null)
+                if ($produkt->getProduktGueltigSeit() != null) {
                     $form->get('produktGueltigSeit')->setAttribute('value', $produkt->getProduktGueltigSeit()->format('d.m.Y'));
+                }
                 $form->get('produktCheck')->setAttribute('value', str_replace('.', ',', $produkt->getProduktCheck()));
                 $form->get('produktTipp')->setAttribute('value', $produkt->getProduktTipp());
                 $form->get('produktInformationen')->setAttribute('value', $produkt->getProduktInformationen());
@@ -119,45 +118,57 @@ class GeldanlageController extends BaseController {
         if ($request->isXmlHttpRequest()) {
             try {
                 $em = $this->getEntityManager();
-                if ($produktId)
+                if ($produktId) {
                     $produkt = $em->getRepository('Vergleichsrechner\Entity\Geldanlage')->find($produktId);
-                else
+                } else {
                     $produkt = new Geldanlage();
+                }
 
-                $produktart = $params()->fromPost('produktart');
+                /** Обязательные поля */
+                $produktartKey = $params()->fromPost('produktart');
                 $produktName = $params()->fromPost('produktName');
-                $bank = $params()->fromPost('bank');
-
+                $bankKey = $params()->fromPost('bank');
+                
+                /** Необязательные поля*/
                 $produktHasOnlineAbschluss = $params()->fromPost('produktHasOnlineAbschluss');
                 $produktMindestanlage = str_replace(',', '.', $params()->fromPost('produktMindestanlage'));
                 $produktHoechstanlage = str_replace(',', '.', $params()->fromPost('produktHoechstanlage'));
                 $produktHasGesetzlEinlagvers = $params()->fromPost('produktHasGesetzlEinlagvers');
                 $produktKtofuehrKost = $params()->fromPost('produktKtofuehrKost');
-                $produktKtofuehrKostFllg = $params()->fromPost('produktKtofuehrKostFllg');
                 $produktHasOnlineBanking = $params()->fromPost('produktHasOnlineBanking');
                 $produktHasAltersbeschraenkung = $params()->fromPost('produktHasAltersbeschraenkung');
-                $produktGueltigSeit = $params()->fromPost('produktGueltigSeit');
+                $produktGueltigSeitString = $params()->fromPost('produktGueltigSeit');
                 $produktCheck = str_replace(',', '.', $params()->fromPost('produktCheck'));
                 $produktTipp = $params()->fromPost('produktTipp');
                 $produktInformationen = $params()->fromPost('produktInformationen');
                 $produktUrl = $params()->fromPost('produktUrl');
                 $produktKlickoutUrl = $params()->fromPost('produktKlickoutUrl');
-                if ($produktKlickoutUrl != null) {
-                    if (strpos($produktKlickoutUrl, 'http') === false) {
-                        $produktKlickoutUrl = 'http://' . $produktKlickoutUrl;
-                    }
-                    $produkt->setProduktKlickoutUrl($produktKlickoutUrl);
-                }
+
+                /** Entity keys */
+                $produktKtofuehrKostFllgKey = $params()->fromPost('produktKtofuehrKostFllg');
+                $aktionKey = $params()->fromPost('aktion');
+                $legitimationKey = $params()->fromPost('legitimation');
+                $einlagensicherungLandKey = $params()->fromPost('einlagensicherungLand');
+                $produktZinsgutschriftKey = $params()->fromPost('produktZinsgutschrift');
+                $produktVerfuegbarkeitKey = $params()->fromPost('produktVerfuegbarkeit');
+                $produktKuendbarkeitKey = $params()->fromPost('produktKuendbarkeit');
+                $zinssatzKey = $params()->fromPost('zinssatz');
+                
+                /** Entity variables */
+                $aktion = null;
+                $bank = null;
+                $einlagensicherungLand = null;
+                $legitimation = null;
+                $produktart = null;
+                $produktGueltigSeit = null;
+                $produktKtofuehrKostFllg = null;
+                $produktKuendbarkeit = null;
+                $produktVerfuegbarkeit = null;
+                $produktZinsgutschrift = null;
+                $zinssatz = null;
+                
+                /** Update Join-Table */
                 $ktozugriffeNew = $params()->fromPost('ktozugriffe');
-
-                $aktion = $params()->fromPost('aktion');
-                $legitimation = $params()->fromPost('legitimation');
-                $einlagensicherungLand = $params()->fromPost('einlagensicherungLand');
-                $produktZinsgutschrift = $params()->fromPost('produktZinsgutschrift');
-                $produktVerfuegbarkeit = $params()->fromPost('produktVerfuegbarkeit');
-                $produktKuendbarkeit = $params()->fromPost('produktKuendbarkeit');
-                $zinssatz = $params()->fromPost('zinssatz');
-
                 if ($ktozugriffeNew) {
                     $ktozugriffeOld = $produkt->getKtozugriffe();
 
@@ -175,55 +186,89 @@ class GeldanlageController extends BaseController {
                     }
                 }
 
-                if ($aktion != null)
-                    $produkt->setAktion($em->find('Vergleichsrechner\Entity\Aktion', $aktion));
-                if ($bank != null)
-                    $produkt->setBank($em->find('Vergleichsrechner\Entity\Bank', $bank));
-                if ($einlagensicherungLand != null)
-                    $produkt->setEinlagensicherungLand($em->find('Vergleichsrechner\Entity\EinlagensicherungLand', $einlagensicherungLand));
-                if ($legitimation != null)
-                    $produkt->setLegitimation($em->find('Vergleichsrechner\Entity\Legitimation', $legitimation));
-                if ($produktart != null)
-                    $produkt->setProduktart($em->find('Vergleichsrechner\Entity\Produktart', $produktart));
-                if ($produktCheck != null)
-                    $produkt->setProduktCheck($produktCheck);
-                if ($produktGueltigSeit != null)
-                    $produkt->setProduktGueltigSeit(date_create_from_format('d.m.Y', $produktGueltigSeit));
-                if ($produktHasAltersbeschraenkung != null)
-                    $produkt->setProduktHasAltersbeschraenkung($produktHasAltersbeschraenkung);
-                if ($produktHasGesetzlEinlagvers != null)
-                    $produkt->setProduktHasGesetzlEinlagvers($produktHasGesetzlEinlagvers);
-                if ($produktHasOnlineAbschluss != null)
-                    $produkt->setProduktHasOnlineAbschluss($produktHasOnlineAbschluss);
-                if ($produktHasOnlineBanking != null)
-                    $produkt->setProduktHasOnlineBanking($produktHasOnlineBanking);
-                if ($produktHoechstanlage != null)
-                    $produkt->setProduktHoechstanlage($produktHoechstanlage);
-                if ($produktInformationen != null)
-                    $produkt->setProduktInformationen($produktInformationen);
-                if ($produktKtofuehrKost != null)
-                    $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
-                if ($produktKtofuehrKostFllg != null)
-                    $produkt->setProduktKtofuehrKostFllg($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKtofuehrKostFllg));
-                if ($produktKuendbarkeit != null)
-                    $produkt->setProduktKuendbarkeit($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKuendbarkeit));
-                if ($produktMindestanlage != null)
-                    $produkt->setProduktMindestanlage($produktMindestanlage);
-                if ($produktName != null)
+                /** Set Entity variables for keys given */
+                if ($aktionKey != null) {
+                    $aktion = $em->find('Vergleichsrechner\Entity\Aktion', $aktionKey);
+                }
+                if ($bankKey != null) {
+                    $bank = $em->find('Vergleichsrechner\Entity\Bank', $bankKey);
+                }
+                if ($einlagensicherungLandKey != null) {
+                    $einlagensicherungLand = $em->find('Vergleichsrechner\Entity\EinlagensicherungLand', $einlagensicherungLandKey);
+                }
+                if ($legitimationKey != null) {
+                    $legitimation = $em->find('Vergleichsrechner\Entity\Legitimation', $legitimationKey);
+                }
+                if ($produktartKey != null) {
+                    $produktart = $em->find('Vergleichsrechner\Entity\Produktart', $produktartKey);
+                }
+                if ($produktGueltigSeitString != null) {
+                    $produktGueltigSeit = date_create_from_format('d.m.Y', $produktGueltigSeitString);
+                }
+                if ($produktKtofuehrKostFllgKey != null) {
+                    $produktKtofuehrKostFllg = $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKtofuehrKostFllgKey);
+                }
+                if ($produktKuendbarkeitKey != null) {
+                    $produktKuendbarkeit = $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKuendbarkeitKey);
+                }
+                if ($produktVerfuegbarkeitKey != null) {
+                    $produktVerfuegbarkeit = $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktVerfuegbarkeitKey);
+                }
+                if ($produktZinsgutschriftKey != null) {
+                    $produktZinsgutschrift = $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktZinsgutschriftKey);
+                } else {
+                    $produktZinsgutschriftKey = 1;
+                    $produktZinsgutschrift = $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktZinsgutschriftKey);
+                }
+                if ($zinssatzKey != null) {
+                    $zinssatz = $em->find('Vergleichsrechner\Entity\Zinssatz', $zinssatzKey);
+                }
+                if ($produktName != null) {
                     $produkt->setProduktName($produktName);
-                if ($produktTipp != null)
-                    $produkt->setProduktTipp($produktTipp);
-                if ($produktVerfuegbarkeit != null)
-                    $produkt->setProduktVerfuegbarkeit($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktVerfuegbarkeit));
-                if ($produktZinsgutschrift != null)
-                    $produkt->setProduktZinsgutschrift($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktZinsgutschrift));
-                if ($zinssatz != null)
-                    $produkt->setZinssatz($em->find('Vergleichsrechner\Entity\Zinssatz', $zinssatz));
-                if ($produktUrl != null)
-                    $produkt->setProduktUrl($produktUrl);
+                }
+                if (empty($produktCheck)) {
+                    $produktCheck = 0;
+                }
+                if (empty($produktHoechstanlage)) {
+                    $produktHoechstanlage = 0;
+                }
+                if (empty($produktHoechstanlage)) {
+                    $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
+                }
+                if (empty($produktMindestanlage)) {
+                    $produkt->setProduktMindestanlage($produktMindestanlage);
+                }
+                if (!empty($produktKlickoutUrl) && strpos($produktKlickoutUrl, 'http') === false) {
+                    $produktKlickoutUrl = 'http://' . $produktKlickoutUrl;
+                }
 
+                /** Записать значиния в поля */
+                $produkt->setProduktCheck($produktCheck);
+                $produkt->setProduktHasAltersbeschraenkung($produktHasAltersbeschraenkung);
+                $produkt->setProduktHasGesetzlEinlagvers($produktHasGesetzlEinlagvers);
+                $produkt->setProduktHasOnlineAbschluss($produktHasOnlineAbschluss);
+                $produkt->setProduktHasOnlineBanking($produktHasOnlineBanking);
+                $produkt->setProduktHoechstanlage($produktHoechstanlage);
+                $produkt->setProduktInformationen($produktInformationen);
+                $produkt->setProduktTipp($produktTipp);
+                $produkt->setProduktUrl($produktUrl);
+                $produkt->setProduktKlickoutUrl($produktKlickoutUrl);
+                $produkt->setZinssatz($zinssatz);
+                $produkt->setProduktZinsgutschrift($produktZinsgutschrift);
+                $produkt->setProduktVerfuegbarkeit($produktVerfuegbarkeit);
+                $produkt->setProduktKuendbarkeit($produktKuendbarkeit);
+                $produkt->setProduktKtofuehrKostFllg($produktKtofuehrKostFllg);
+                $produkt->setProduktGueltigSeit($produktGueltigSeit);
+                $produkt->setProduktart($produktart);
+                $produkt->setLegitimation($legitimation);
+                $produkt->setEinlagensicherungLand($einlagensicherungLand);
+                $produkt->setBank($bank);
+                $produkt->setAktion($aktion);
+
+                /** Сначала сохранить продукт, чтобы получить ключ */
                 $em->persist($produkt);
 
+                /** Сохранить условия */
                 $konditionen = $produkt_session->konditionen;
                 if (!empty($konditionen)) {
                     if ($produktId == null) {
@@ -251,10 +296,9 @@ class GeldanlageController extends BaseController {
         ));
     }
 
-    /*
+    /**
      * Delete product
      */
-
     public function deleteAction() {
         try {
             $em = $this->getEntityManager();

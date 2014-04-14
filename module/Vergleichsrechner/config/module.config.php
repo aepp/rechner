@@ -391,7 +391,6 @@ return array(
             'Zend\Log\LoggerAbstractServiceFactory',
         ),
 		'factories' => array(
-			'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
 			'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
 		),
     ),
