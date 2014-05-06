@@ -5,10 +5,8 @@ namespace Vergleichsrechner\Controller;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Vergleichsrechner\Entity\Kredit;
-use Zend\Json\Json;
 use Vergleichsrechner\Entity\KreditKondition;
 use Zend\Session\Container;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Kredit Controller
@@ -55,10 +53,9 @@ class KreditController extends BaseController {
 
         try {
             if ($this->params()->fromRoute('produktId')) {
-                $produktId = $this->params()->fromRoute('produktId');
-
                 $em = $this->getEntityManager();
 
+                $produktId = $this->params()->fromRoute('produktId');
                 $produkt = $em->getRepository('Vergleichsrechner\Entity\Kredit')->find($produktId);
 
                 $form->setLabel('Produkt bearbeitren');
@@ -95,6 +92,8 @@ class KreditController extends BaseController {
                 $form->get('produktNettokreditsumme')->setAttribute('value', str_replace('.', ',', $produkt->getProduktNettokreditsumme()));
                 $form->get('rkvAbschluss')->setAttribute('value', $produkt->getRKVAbschluss());
                 $form->get('produktLaufzeit')->setAttribute('value', $produkt->getProduktLaufzeit());
+                $form->get('legitimation')->setAttribute('value', $produkt->getLegitimation());
+                $form->get('ktozugriffe')->setAttribute('value', $produkt->getKtozugriffe());
 
                 $message = "Form erfolgreich geladen!";
             }
@@ -126,31 +125,22 @@ class KreditController extends BaseController {
         if ($request->isXmlHttpRequest()) {
             try {
                 $em = $this->getEntityManager();
-                if ($produktId)
+                if ($produktId) {
                     $produkt = $em->getRepository('Vergleichsrechner\Entity\Kredit')->find($produktId);
-                else
+                } else {
                     $produkt = new Kredit();
+                }
 
-                $kategorie = $params()->fromPost('kategorie');
-                $produktart = $params()->fromPost('produktart');
+                /** Simple properties */
                 $produktName = $params()->fromPost('produktName');
-                $bank = $params()->fromPost('bank');
-
                 $produktHasOnlineAbschluss = $params()->fromPost('produktHasOnlineAbschluss');
                 $produktMinKredit = str_replace(',', '.', $params()->fromPost('produktMinKredit'));
                 $produktMaxKredit = str_replace(',', '.', $params()->fromPost('produktMaxKredit'));
                 $produktBearbeitungsgebuehr = str_replace(',', '.', $params()->fromPost('produktBearbeitungsgebuehr'));
                 $produktWiderrufsfrist = str_replace(',', '.', $params()->fromPost('produktWiderrufsfrist'));
-                $produktWiderrufsfristZeiteinh = $params()->fromPost('produktWiderrufsfristZeiteinh');
-                if ($produktWiderrufsfristZeiteinh == null)
-                    $produktWiderrufsfristZeiteinh = 1;
                 $produktIsBonitabh = $params()->fromPost('produktIsBonitabh');
                 $produktSondertilgungen = $params()->fromPost('produktSondertilgungen');
                 $produktKtofuehrKost = str_replace(',', '.', $params()->fromPost('produktKtofuehrKost'));
-                $produktKtofuehrKostFllg = $params()->fromPost('produktKtofuehrKostFllg');
-                if ($produktKtofuehrKostFllg == null)
-                    $produktKtofuehrKostFllg = 2;
-                $produktGueltigSeit = $params()->fromPost('produktGueltigSeit');
                 $produktCheck = str_replace(',', '.', $params()->fromPost('produktCheck'));
                 $produktTipp = $params()->fromPost('produktTipp');
                 $produktInformationen = $params()->fromPost('produktInformationen');
@@ -162,43 +152,154 @@ class KreditController extends BaseController {
                 $produktLaufzeit = $params()->fromPost('produktLaufzeit');
                 $produktUrl = $params()->fromPost('produktUrl');
                 $produktKlickoutUrl = $params()->fromPost('produktKlickoutUrl');
+
+                /** FK properties */
+                $produktartKey = $params()->fromPost('produktart');
+                $bankKey = $params()->fromPost('bank');
+                $produktWiderrufsfristZeiteinhKey = $params()->fromPost('produktWiderrufsfristZeiteinh');
+                $produktKtofuehrKostFllgKey = $params()->fromPost('produktKtofuehrKostFllg');
+                $aktionKey = $params()->fromPost('aktion');
+                $zinssatzKey = $params()->fromPost('zinssatz');
+                $rkvAbschlussKey = $params()->fromPost('rkvAbschluss');
+                $legitimationKey = $params()->fromPost('legitimation');
+
+                /** Date fields */
+                $produktGueltigSeitString = $params()->fromPost('produktGueltigSeit');
+                $produktGueltigSeit = null;
+
+                /** Entity variables */
+                $aktion = null;
+                $bank = null;
+                $legitimation = null;
+                $produktart = null;
+                $produktKtofuehrKostFllg = null;
+                $zinssatz = null;
+                $rkvAbschluss = null;
+                $produktWiderrufsfristZeiteinh = null;
+
+                /** Update kredit_kontozufriff Join-Table */
+                $ktozugriffeNew = $params()->fromPost('ktozugriffe');
+
+                $ktozugriffeOld = $produkt->getKtozugriffe();
+                if ($ktozugriffeOld) {
+                    foreach ($ktozugriffeOld as $id):
+                        $ktozugriff = $em->find('Vergleichsrechner\Entity\Kontozugriff', $id);
+                        $produkt->removeKtozugriff($ktozugriff);
+                    endforeach;
+                }
+                if ($ktozugriffeNew) {
+                    foreach ($ktozugriffeNew as $id):
+                        $ktozugriff = $em->find('Vergleichsrechner\Entity\Kontozugriff', $id);
+                        $produkt->addKtozugriff($ktozugriff);
+                    endforeach;
+                }
+
+
                 if ($produktKlickoutUrl != null) {
                     if (strpos($produktKlickoutUrl, 'http') === false) {
                         $produktKlickoutUrl = 'http://' . $produktKlickoutUrl;
                     }
                 }
 
-                $aktion = $params()->fromPost('aktion');
-                $zinssatz = $params()->fromPost('zinssatz');
-                $rkvAbschluss = $params()->fromPost('rkvAbschluss');
+                /** Find entities for given keys */
+                if ($aktionKey != null) {
+                    $aktion = $em->find('Vergleichsrechner\Entity\Aktion', $aktionKey);
+                }
+                if ($produktWiderrufsfristZeiteinhKey != null) {
+                    $produktWiderrufsfristZeiteinh = $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktWiderrufsfristZeiteinhKey);
+                } else {
+                    $produktWiderrufsfristZeiteinhKey = 1;
+                    $produktWiderrufsfristZeiteinh = $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktWiderrufsfristZeiteinhKey);
+                }
+                if ($produktKtofuehrKostFllgKey != null) {
+                    $produktKtofuehrKostFllg = $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKtofuehrKostFllgKey);
+                } else {
+                    $produktKtofuehrKostFllgKey = 2;
+                    $produktKtofuehrKostFllg = $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKtofuehrKostFllgKey);
+                }
+                if ($bankKey != null) {
+                    $bank = $em->find('Vergleichsrechner\Entity\Bank', $bankKey);
+                } else {
+                    $message = 'Bank-Feld kann nicht leer sein.';
+                    $redirect = null;
+                    throw new \InvalidArgumentException($message);
+                }
+                if ($produktartKey != null) {
+                    $produktart = $em->find('Vergleichsrechner\Entity\Produktart', $produktartKey);
+                } else {
+                    $message = 'Produktart-Feld kann nicht leer sein.';
+                    $redirect = null;
+                    throw new \InvalidArgumentException($message);
+                }
+                if ($aktionKey != null) {
+                    $aktion = $em->find('Vergleichsrechner\Entity\Aktion', $aktionKey);
+                }
+                if ($legitimationKey != null) {
+                    $legitimation = $em->find('Vergleichsrechner\Entity\Legitimation', $legitimationKey);
+                }
+                if ($produktGueltigSeitString != null) {
+                    $produktGueltigSeit = date_create_from_format('d.m.Y', $produktGueltigSeitString);
+                }
+                if ($produktKtofuehrKostFllgKey != null) {
+                    $produktKtofuehrKostFllg = $em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKtofuehrKostFllgKey);
+                }
+                if ($zinssatzKey != null) {
+                    $zinssatz = $em->find('Vergleichsrechner\Entity\Zinssatz', $zinssatzKey);
+                }
+                if ($rkvAbschlussKey != null) {
+                    $rkvAbschluss = $em->find('Vergleichsrechner\Entity\RKVAbschluss', $rkvAbschlussKey);
+                }
+                if (empty($produktCheck)) {
+                    $produktCheck = 0;
+                }
+                if (empty($produktMaxKredit)) {
+                    $produktMaxKredit = 0;
+                }
+                if (empty($produktMinKredit)) {
+                    $produktMinKredit = 0;
+                }
+                if (empty($produktKtofuehrKost)) {
+                    $produktKtofuehrKost = 0;
+                }
+                if (empty($produktBearbeitungsgebuehr)) {
+                    $produktBearbeitungsgebuehr = 0;
+                }
+                if (empty($produktWiderrufsfrist)) {
+                    $produktWiderrufsfrist = 0;
+                }
+                if (empty($produktEffektiverJahreszins)) {
+                    $produktEffektiverJahreszins = 0;
+                }
+                if (empty($produktGesamtbetrag)) {
+                    $produktGesamtbetrag = 0;
+                }
+                if (empty($produktSollzins)) {
+                    $produktSollzins = 0;
+                }
+                if (empty($produktNettokreditsumme)) {
+                    $produktNettokreditsumme = 0;
+                }
+                if (empty($produktLaufzeit)) {
+                    $produktLaufzeit = 0;
+                }
+                if (!empty($produktKlickoutUrl) && strpos($produktKlickoutUrl, 'http') === false) {
+                    $produktKlickoutUrl = 'http://' . $produktKlickoutUrl;
+                }
+                if ($produktName == null) {
+                    $message = 'Produktname muss gefüllt sein.';
+                    $redirect = null;
+                    throw new \InvalidArgumentException($message);
+                }
 
-                $produkt->setAktion($em->find('Vergleichsrechner\Entity\Aktion', $aktion));
-                if ($bank != null) {
-                    $produkt->setBank($em->find('Vergleichsrechner\Entity\Bank', $bank));
-                }
-                if ($kategorie != null) {
-                    $produkt->setKategorie($em->find('Vergleichsrechner\Entity\Kategorie', $kategorie));
-                }
-                if ($produktart != null) {
-                    $produkt->setProduktart($em->find('Vergleichsrechner\Entity\Produktart', $produktart));
-                }
-                $produkt->setProduktCheck($produktCheck);
-                $produkt->setProduktGueltigSeit(date_create_from_format('d.m.Y', $produktGueltigSeit));
-                $produkt->setProduktHasOnlineAbschluss($produktHasOnlineAbschluss);
-                $produkt->setProduktMaxKredit($produktMaxKredit);
-                $produkt->setProduktInformationen($produktInformationen);
-                $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
-                $produkt->setProduktKtofuehrKostFllg($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktKtofuehrKostFllg));
-                $produkt->setProduktMinKredit($produktMinKredit);
-                if ($produktName != null) {
-                    $produkt->setProduktName($produktName);
-                }
+                /** Write values in the fields */
+                $produkt->setProduktName($produktName);
+                $produkt->setAktion($aktion);
                 $produkt->setProduktTipp($produktTipp);
-                $produkt->setZinssatz($em->find('Vergleichsrechner\Entity\Zinssatz', $zinssatz));
-                $produkt->setRkvAbschluss($em->find('Vergleichsrechner\Entity\RKVAbschluss', $rkvAbschluss));
+                $produkt->setZinssatz($zinssatz);
+                $produkt->setRkvAbschluss($rkvAbschluss);
                 $produkt->setProduktBearbeitungsgebuehr($produktBearbeitungsgebuehr);
                 $produkt->setProduktWiderrufsfrist($produktWiderrufsfrist);
-                $produkt->setProduktWiderrufsfristZeiteinh($em->find('Vergleichsrechner\Entity\Zeitabschnitt', $produktWiderrufsfristZeiteinh));
+                $produkt->setProduktWiderrufsfristZeiteinh($produktWiderrufsfristZeiteinh);
                 $produkt->setProduktSondertilgungen($produktSondertilgungen);
                 $produkt->setProduktIsBonitabh($produktIsBonitabh);
                 $produkt->setProduktEffektiverJahreszins($produktEffektiverJahreszins);
@@ -209,9 +310,23 @@ class KreditController extends BaseController {
                 $produkt->setProduktLaufzeit($produktLaufzeit);
                 $produkt->setProduktUrl($produktUrl);
                 $produkt->setProduktKlickoutUrl($produktKlickoutUrl);
-                
+                $produkt->setProduktCheck($produktCheck);
+                $produkt->setProduktGueltigSeit($produktGueltigSeit);
+                $produkt->setProduktHasOnlineAbschluss($produktHasOnlineAbschluss);
+                $produkt->setProduktMaxKredit($produktMaxKredit);
+                $produkt->setProduktInformationen($produktInformationen);
+                $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
+                $produkt->setProduktKtofuehrKostFllg($produktKtofuehrKostFllg);
+                $produkt->setProduktMinKredit($produktMinKredit);
+                $produkt->setZinssatz($zinssatz);
+                $produkt->setProduktart($produktart);
+                $produkt->setLegitimation($legitimation);
+                $produkt->setBank($bank);
+
+                /** Save product */
                 $em->persist($produkt);
 
+                /** Save conditions */
                 $konditionen = $produkt_session->konditionen;
                 if (!empty($konditionen)) {
                     if ($produktId == null) {
@@ -227,9 +342,14 @@ class KreditController extends BaseController {
 
                 $produktId = $produkt->getProduktId();
                 $message = "Änderungen erfolgreich gespeichert! Sie werden nun zur Produktübersicht weitergeleitet...";
-            } catch (Exception $e) {
+            } catch (\InvalidArgumentException $e) {
                 $message = $e->getMessage();
                 $error = true;
+                return new JsonModel(array(
+                    'message' => $message,
+                    'produktId' => $produktId,
+                    'error' => $error,
+                ));
             }
         }
         return new JsonModel(array(

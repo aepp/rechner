@@ -41,108 +41,105 @@ $panelProperties = array(
 <div class="row">
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <?php echo $this->form()->openTag($form); ?>
-        <input type="hidden" value="<?php echo $produktId ?>" class="produktId"/>
+        <input type="hidden" value="<?php print($produktId); ?>" class="produktId"/>
 
-        <?php foreach ($form as $element) : ?>
-            <?php
+        <?php
+        foreach ($form as $element) :
             $type = $element->getAttribute('type');
             $name = $element->getAttribute('name');
             $label = $element->getLabel();
-            ?>
-            <?php
+
             if ($name == 'kategorie' ||
                     $name == 'aktion' ||
                     $name == 'produktMinKredit' ||
                     $name == 'produktInformationen' ||
-                    $name == 'produktLaufzeit'
-            ):
-                echo "
-						<div class='panel panel-default'>
-							<div class='panel-heading' id='" . $panelProperties[$name]['id'] . "'>
-								" . $panelProperties[$name]['text'] . "
-							</div>
-							<div class='panel-body'>
-					";
-            endif;
-            ?>
-            <div class="form-group">
-                <?php if ($name != 'produktKtofuehrKostFllg' && $name != 'produktWiderrufsfristZeiteinh') echo $this->formLabel($element); ?>
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    $name == 'produktLaufzeit'):
+                ?>
+                <div class='panel panel-default'>
+                    <div class='panel-heading' id='<?php print($panelProperties[$name]['id']); ?>'>
+                        <?php print($panelProperties[$name]['text']); ?>
+                    </div>
+                    <div class='panel-body'>
+                    <?php endif; ?>
+                    <div class="form-group">
+                        <?php
+                        if ($name != 'produktKtofuehrKostFllg' && $name != 'produktWiderrufsfristZeiteinh'):
+                            print($this->formLabel($element));
+                        endif;
+                        ?>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <?php
+                            if ($name == 'produktMinKredit' ||
+                                    $name == 'produktMaxKredit' ||
+                                    $name == 'produktBearbeitungsgebuehr' ||
+                                    $name == 'produktGesamtbetrag' ||
+                                    $name == 'produktNettokreditsumme'):
+                                ?>
+                                <div class="input-group">
+                                    <?php print($this->formElement($element)); ?>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
+                                </div>
+                                <?php if ($name == 'produktMaxKredit'): ?>
+                                    <span class="help-block">0 = unbegrenzt</span>
+                                    <?php
+                                endif;
+                            elseif ($name == 'produktSollzins' ||
+                                    $name == 'produktEffektiverJahreszins'):
+                                ?>
+                                <div class="input-group">
+                                    <?php print($this->formElement($element)); ?>
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            <?php elseif ($name == 'produktUrl') : ?>
+                                <div class='input-group'>
+                                    <span class='input-group-addon'>http://www.vergleich24.at/</span>
+                                    <?php print($this->formElement($element)); ?>
+                                </div>
+                                <?php if ($name == 'produktHoechstanlage'): ?>
+                                    <span class="help-block">0 = unbegrenzt</span>
+                                <?php endif; ?>
+                            <?php elseif ($name == 'produktKtofuehrKost'):
+                                ?>
+                                <div class="input-group">
+                                    <?php print($this->formElement($element)); ?>
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-euro"></i>
+                                    </span></div><span class="help-block">
+                                    <div id="produktKtofuehrKostFllg" class="btn-group btn-group-xs col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="buttons">
+                                        <?php print($this->formElement($form->get("produktKtofuehrKostFllg"))); ?>
+                                    </div>
+                                </span>
+                            <?php elseif ($name == 'produktWiderrufsfrist'):
+                                ?>
+                                <?php print($this->formElement($element)); ?>
+                                <span class="help-block">
+                                    <div id="produktWiderrufsfristZeiteinh" class="btn-group btn-group-xs col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="buttons">
+                                        <?php print($this->formElement($form->get("produktWiderrufsfristZeiteinh"))); ?>
+                                    </div>
+                                </span>
+                            <?php elseif ($name == 'produktLaufzeit'): ?>
+                                <div class="input-group">
+                                    <?php print($this->formElement($element)); ?>
+                                    <span class="input-group-addon">Monate</span>
+                                </div>
+                                <?php
+                            elseif ($name != 'produktKtofuehrKostFllg' && $name != 'produktWiderrufsfristZeiteinh'):
+                                print($this->formElement($element));
+                            endif;
+                            ?>
+                        </div>
+                    </div>
                     <?php
-                    if (
-                            $name == 'produktMinKredit' ||
-                            $name == 'produktMaxKredit' ||
-                            $name == 'produktBearbeitungsgebuehr' ||
-                            $name == 'produktGesamtbetrag' ||
-                            $name == 'produktNettokreditsumme'
-                    ) {
-                        echo '
-									<div class="input-group">' .
-                        $this->formElement($element)
-                        . '<span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
-									</div>';
-                        if ($name == 'produktMaxKredit')
-                            echo '<span class="help-block">0 = unbegrenzt</span>';
-                    } elseif (
-                            $name == 'produktSollzins' ||
-                            $name == 'produktEffektiverJahreszins'
-                    ) {
-                        echo '
-									<div class="input-group">' .
-                        $this->formElement($element)
-                        . '<span class="input-group-addon">%</span>
-									</div>';
-                    } elseif ($name == 'produktUrl') {
-                        echo "<div class='input-group'>"
-                        . "<span class='input-group-addon'>http://www.vergleich24.at/</span>"
-                        . $this->formElement($element)
-                        . "</div>";
-                        if ($name == 'produktHoechstanlage')
-                            echo '<span class="help-block">0 = unbegrenzt</span>';
-                    } elseif ($name == 'produktKtofuehrKost') {
-                        echo '
-									<div class="input-group">' .
-                        $this->formElement($element)
-                        . '<span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
-									</div>
-									<span class="help-block">
-										<div id="produktKtofuehrKostFllg" class="btn-group btn-group-xs col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="buttons">
-											' . $this->formElement($form->get("produktKtofuehrKostFllg")) . '
-										</div>
-									</span>';
-                    } elseif ($name == 'produktWiderrufsfrist') {
-
-                        echo $this->formElement($element) . '
-									<span class="help-block">
-										<div id="produktWiderrufsfristZeiteinh" class="btn-group btn-group-xs col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="buttons">
-											' . $this->formElement($form->get("produktWiderrufsfristZeiteinh")) . '
-										</div>
-									</span>';
-                    } elseif ($name == 'produktLaufzeit') {
-                        echo '
-									<div class="input-group">' .
-                        $this->formElement($element)
-                        . '<span class="input-group-addon">Monate</span>
-									</div>';
-                    } else if ($name != 'produktKtofuehrKostFllg' && $name != 'produktWiderrufsfristZeiteinh') {
-                        echo $this->formElement($element);
-                    }
-                    ?>
+                    if ($name == 'bank' ||
+                            $name == 'ktozugriffe' ||
+                            $name == 'rkvAbschluss' ||
+                            $name == 'produktKlickoutUrl' ||
+                            $name == 'produktGesamtbetrag'
+                    ):
+                        ?>
+                    </div>
                 </div>
-            </div>
-            <?php
-            if ($name == 'bank' ||
-                    $name == 'produktTipp' ||
-                    $name == 'rkvAbschluss' ||
-                    $name == 'produktKlickoutUrl' ||
-                    $name == 'produktGesamtbetrag'
-            ):
-                echo '
-							</div>
-						</div>
-					';
-            endif;
-            ?>
+            <?php endif; ?>
         <?php endforeach; ?>
         <!-- <button type="button" class="btn" id="fill-produkt"> -->
         <!-- 	Fill -->

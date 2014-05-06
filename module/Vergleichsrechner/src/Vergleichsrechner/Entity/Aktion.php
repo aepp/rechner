@@ -3,18 +3,15 @@
 namespace Vergleichsrechner\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Form\Annotation;
 
 /**
  * Aktion
  *
  * @ORM\Table(name="aktion")
  * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\AktionRepository")
- * @Annotation\Name("aktion")
- * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
-class Aktion
-{
+class Aktion extends BaseEntity {
+
     /**
      * @var integer
      *
@@ -23,14 +20,14 @@ class Aktion
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $aktionId;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="aktion_name", type="text", nullable=false)
      */
     protected $aktionName;
-    
+
     /**
      * @var string
      *
@@ -69,9 +66,9 @@ class Aktion
      * )
      */
     protected $banken;
-    
+
     public function __construct() {
-    	$this->banken  = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->banken = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -79,42 +76,38 @@ class Aktion
      *
      * @return integer 
      */
-    public function getAktionId()
-    {
+    public function getAktionId() {
         return $this->aktionId;
     }
-    
+
     /**
      * Set aktionName
      *
      * @param string $aktionName
      * @return Aktion
      */
-    public function setAktionName($aktionName)
-    {
-    	$this->aktionName = $aktionName;
-    
-    	return $this;
+    public function setAktionName($aktionName) {
+        $this->aktionName = $aktionName;
+
+        return $this;
     }
-    
+
     /**
      * Get aktionName
      *
      * @return string
      */
-    public function getAktionName()
-    {
-    	return $this->aktionName;
+    public function getAktionName() {
+        return $this->aktionName;
     }
-    
+
     /**
      * Set aktionBeschreibung
      *
      * @param string $aktionBeschreibung
      * @return Aktion
      */
-    public function setAktionBeschreibung($aktionBeschreibung)
-    {
+    public function setAktionBeschreibung($aktionBeschreibung) {
         $this->aktionBeschreibung = $aktionBeschreibung;
 
         return $this;
@@ -125,8 +118,7 @@ class Aktion
      *
      * @return string 
      */
-    public function getAktionBeschreibung()
-    {
+    public function getAktionBeschreibung() {
         return $this->aktionBeschreibung;
     }
 
@@ -136,8 +128,7 @@ class Aktion
      * @param \DateTime $aktionStartOn
      * @return Aktion
      */
-    public function setAktionStartOn($aktionStartOn)
-    {
+    public function setAktionStartOn($aktionStartOn) {
         $this->aktionStartOn = $aktionStartOn;
 
         return $this;
@@ -148,8 +139,7 @@ class Aktion
      *
      * @return \DateTime 
      */
-    public function getAktionStartOn()
-    {
+    public function getAktionStartOn() {
         return $this->aktionStartOn;
     }
 
@@ -159,8 +149,7 @@ class Aktion
      * @param \DateTime $aktionEndeOn
      * @return Aktion
      */
-    public function setAktionEndeOn($aktionEndeOn)
-    {
+    public function setAktionEndeOn($aktionEndeOn) {
         $this->aktionEndeOn = $aktionEndeOn;
 
         return $this;
@@ -171,8 +160,7 @@ class Aktion
      *
      * @return \DateTime 
      */
-    public function getAktionEndeOn()
-    {
+    public function getAktionEndeOn() {
         return $this->aktionEndeOn;
     }
 
@@ -182,8 +170,7 @@ class Aktion
      * @param boolean $aktionIsZuende
      * @return Aktion
      */
-    public function setAktionIsZuende($aktionIsZuende)
-    {
+    public function setAktionIsZuende($aktionIsZuende) {
         $this->aktionIsZuende = $aktionIsZuende;
 
         return $this;
@@ -194,8 +181,7 @@ class Aktion
      *
      * @return boolean 
      */
-    public function getAktionIsZuende()
-    {
+    public function getAktionIsZuende() {
         return $this->aktionIsZuende;
     }
 
@@ -205,66 +191,62 @@ class Aktion
      * @param Doctrine\Common\Collections\Collection $banken
      * @return Aktion
      */
-    public function setBanken($banken)
-    {
-    	$this->banken = $banken;
-    
-    	return $this;
+    public function setBanken($banken) {
+        $this->banken = $banken;
+
+        return $this;
     }
-    
+
     /**
      * Get banken
      *
      * @return Doctrine\Common\Collections\Collection
      */
-    public function getBanken()
-    {
-    	return $this->banken;
+    public function getBanken() {
+        return $this->banken;
     }
-    
+
     /**
      * Add bank
      *
      * @param Bank $bank
      * @return Aktion
      */
-    public function addBank(Bank $bank)
-    {
-    	if(!$this->banken->contains($bank)){
-    		$this->banken->add($bank);
-    		$bank->addAktion($this);
-    	}
-    
-    	return $this;
+    public function addBank(Bank $bank) {
+        if (!$this->banken->contains($bank)) {
+            $this->banken->add($bank);
+            $bank->addAktion($this);
+        }
+
+        return $this;
     }
-    
+
     /**
      * Remove bank
      *
      * @return Aktion
      */
-    public function removeBank(Bank $bank)
-    {
-    	if($this->banken->contains($bank)){
-    		$this->banken->removeElement($bank);
-    		$bank->removeAktion($this);
-    	}
-    	return $this;
+    public function removeBank(Bank $bank) {
+        if ($this->banken->contains($bank)) {
+            $this->banken->removeElement($bank);
+            $bank->removeAktion($this);
+        }
+        return $this;
     }
-        
+
     public function jsonSerialize() {
-    	$banken_json = array();
-    	foreach ($this->getBanken() as $bank){
-    		array_push($banken_json, $bank->jsonSerialize());
-    	}
-    	return [
-	    	'aktionId' => $this->getAktionId(),
-	    	'aktionName' => $this->getAktionName(),
-	    	'aktionBeschreibung' => $this->getAktionBeschreibung(),
-	    	'aktionStartOn' => date_format($this->getAktionStartOn(), 'Y-m-d'),
-	    	'aktionEndeOn' => date_format($this->getAktionEndeOn(), 'Y-m-d'),
-	    	'aktionIsZuende' => $this->getAktionIsZuende() ? 1 : 0,
-	    	'banken' => $banken_json,
-    	];
+        $json = parent::jsonSerialize();
+        
+        $bankenJson = array();
+        foreach ($this->getBanken() as $bank) {
+            array_push($bankenJson, $bank->jsonSerialize());
+        }
+        $json['aktionStartOn'] = date_format($this->getAktionStartOn(), 'Y-m-d');
+        $json['aktionEndeOn'] = date_format($this->getAktionEndeOn(), 'Y-m-d');
+        $json['aktionIsZuende'] = $this->getAktionIsZuende() ? 1 : 0;
+        $json['banken'] = $bankenJson;
+
+        return $json;
     }
+
 }

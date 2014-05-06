@@ -7,9 +7,7 @@ use Zend\Form\Element;
 use DoctrineModule\Persistence\ObjectManagerAwareInterface;
 use DoctrineModule\Form\Element\ObjectSelect;
 use Doctrine\Common\Persistence\ObjectManager;
-use Vergleichsrechner\Entity\Kategorie;
 use DoctrineModule\Form\Element\ObjectMultiCheckbox;
-use Zend\Text\Table\Table;
 use DoctrineModule\Form\Element\ObjectRadio;
 
 class KreditForm extends Form implements ObjectManagerAwareInterface {
@@ -67,6 +65,8 @@ class KreditForm extends Form implements ObjectManagerAwareInterface {
         $produktNettokreditsumme = new Element\Text();
         $rkvAbschluss = new ObjectRadio();
         $produktLaufzeit = new Element\Text();
+        $legitimation = new ObjectRadio();
+        $ktozugriffe = new ObjectMultiCheckbox();
 
         $kategorie
                 ->setName('kategorie')
@@ -350,6 +350,26 @@ class KreditForm extends Form implements ObjectManagerAwareInterface {
                     'class' => 'form-control validate[custom[number]]',
                     'id' => 'produktLaufzeit'
         ));
+        $legitimation
+                ->setName('legitimation')
+                ->setLabel('Legitimation')
+                ->setLabelAttributes($labelAttributes)
+                ->setOptions(array(
+                    'object_manager' => $this->getObjectManager(),
+                    'target_class' => 'Vergleichsrechner\Entity\Legitimation',
+                    'property' => 'legitimationName',
+                    'empty_option' => '--- Bitte wählen ---',
+        ));
+        $ktozugriffe
+                ->setName('ktozugriffe')
+                ->setLabel('Kontozugriff')
+                ->setLabelAttributes($labelAttributes)
+                ->setOptions(array(
+                    'empty_option' => '--- Bitte wählen ---',
+                    'object_manager' => $this->getObjectManager(),
+                    'target_class' => 'Vergleichsrechner\Entity\Kontozugriff',
+                    'property' => 'kontozugriffName',
+        ));
 
         /*
          * Setting up the form
@@ -377,6 +397,8 @@ class KreditForm extends Form implements ObjectManagerAwareInterface {
         $this->add($produktKtofuehrKost);
         $this->add($produktCheck);
         $this->add($produktTipp);
+        $this->add($legitimation);
+        $this->add($ktozugriffe);
 
         $this->add($produktMinKredit);
         $this->add($produktMaxKredit);

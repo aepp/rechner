@@ -9,8 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  * 
  * @ORM\MappedSuperclass 
  */
-class Produkt
-{
+class Produkt {
+
     /**
      * @var Produktart
      *
@@ -40,7 +40,7 @@ class Produkt
      * @ORM\Column(name="produkt_has_online_abschluss", type="boolean", nullable=true)
      */
     protected $produktHasOnlineAbschluss;
-    
+
     /**
      * @var Zinssatz
      *
@@ -57,7 +57,14 @@ class Produkt
      */
     protected $aktion;
 
-    
+    /**
+     * @var Legitimation
+     *
+     * @ORM\ManyToOne(targetEntity="Legitimation")
+     * @ORM\JoinColumn(name="legitimation_id", referencedColumnName="legitimation_id", nullable=true)
+     */
+    protected $legitimation;
+
     /**
      * @var float
      *
@@ -121,8 +128,7 @@ class Produkt
      * @param Produktart $produktart
      * @return Produkt
      */
-    public function setProduktart($produktart)
-    {
+    public function setProduktart($produktart) {
         $this->produktart = $produktart;
 
         return $this;
@@ -133,8 +139,7 @@ class Produkt
      *
      * @return Produktart 
      */
-    public function getProduktart()
-    {
+    public function getProduktart() {
         return $this->produktart;
     }
 
@@ -144,8 +149,7 @@ class Produkt
      * @param string $produktName
      * @return Produkt
      */
-    public function setProduktName($produktName)
-    {
+    public function setProduktName($produktName) {
         $this->produktName = $produktName;
 
         return $this;
@@ -156,8 +160,7 @@ class Produkt
      *
      * @return string 
      */
-    public function getProduktName()
-    {
+    public function getProduktName() {
         return $this->produktName;
     }
 
@@ -167,8 +170,7 @@ class Produkt
      * @param Bank $bank
      * @return Produkt
      */
-    public function setBank($bank)
-    {
+    public function setBank($bank) {
         $this->bank = $bank;
 
         return $this;
@@ -179,8 +181,7 @@ class Produkt
      *
      * @return Bank 
      */
-    public function getBank()
-    {
+    public function getBank() {
         return $this->bank;
     }
 
@@ -190,8 +191,7 @@ class Produkt
      * @param boolean $produktHasOnlineAbschluss
      * @return Produkt
      */
-    public function setProduktHasOnlineAbschluss($produktHasOnlineAbschluss)
-    {
+    public function setProduktHasOnlineAbschluss($produktHasOnlineAbschluss) {
         $this->produktHasOnlineAbschluss = $produktHasOnlineAbschluss;
 
         return $this;
@@ -202,32 +202,29 @@ class Produkt
      *
      * @return boolean 
      */
-    public function getProduktHasOnlineAbschluss()
-    {
+    public function getProduktHasOnlineAbschluss() {
         return $this->produktHasOnlineAbschluss;
     }
-    
+
     /**
      * Set zinssatz
      *
      * @param Zinssatz $zinssatz
      * @return Produkt
      */
-    public function setZinssatz($zinssatz)
-    {
-    	$this->zinssatz = $zinssatz;
-    
-    	return $this;
+    public function setZinssatz($zinssatz) {
+        $this->zinssatz = $zinssatz;
+
+        return $this;
     }
-    
+
     /**
      * Get zinssatz
      *
      * @return Zinssatz
      */
-    public function getZinssatz()
-    {
-    	return $this->zinssatz;
+    public function getZinssatz() {
+        return $this->zinssatz;
     }
 
     /**
@@ -236,8 +233,7 @@ class Produkt
      * @param Aktion $aktionId
      * @return Produkt
      */
-    public function setAktion($aktion)
-    {
+    public function setAktion($aktion) {
         $this->aktion = $aktion;
 
         return $this;
@@ -248,8 +244,7 @@ class Produkt
      *
      * @return Aktion 
      */
-    public function getAktion()
-    {
+    public function getAktion() {
         return $this->aktion;
     }
 
@@ -259,8 +254,7 @@ class Produkt
      * @param float $produktKtofuehrKost
      * @return Produkt
      */
-    public function setProduktKtofuehrKost($produktKtofuehrKost)
-    {
+    public function setProduktKtofuehrKost($produktKtofuehrKost) {
         $this->produktKtofuehrKost = $produktKtofuehrKost;
 
         return $this;
@@ -271,8 +265,7 @@ class Produkt
      *
      * @return float 
      */
-    public function getProduktKtofuehrKost()
-    {
+    public function getProduktKtofuehrKost() {
         return $this->produktKtofuehrKost;
     }
 
@@ -282,8 +275,7 @@ class Produkt
      * @param Zeitabschnitt $produktKtofuehrKostFllg
      * @return Produkt
      */
-    public function setProduktKtofuehrKostFllg($produktKtofuehrKostFllg)
-    {
+    public function setProduktKtofuehrKostFllg($produktKtofuehrKostFllg) {
         $this->produktKtofuehrKostFllg = $produktKtofuehrKostFllg;
 
         return $this;
@@ -294,8 +286,7 @@ class Produkt
      *
      * @return Zeitabschnitt 
      */
-    public function getProduktKtofuehrKostFllg()
-    {
+    public function getProduktKtofuehrKostFllg() {
         return $this->produktKtofuehrKostFllg;
     }
 
@@ -305,8 +296,7 @@ class Produkt
      * @param \DateTime $produktGueltigSeit
      * @return Produkt
      */
-    public function setProduktGueltigSeit($produktGueltigSeit)
-    {
+    public function setProduktGueltigSeit($produktGueltigSeit) {
         $this->produktGueltigSeit = $produktGueltigSeit;
 
         return $this;
@@ -317,8 +307,7 @@ class Produkt
      *
      * @return \DateTime 
      */
-    public function getProduktGueltigSeit()
-    {
+    public function getProduktGueltigSeit() {
         return $this->produktGueltigSeit;
     }
 
@@ -328,8 +317,7 @@ class Produkt
      * @param float $produktCheck
      * @return Produkt
      */
-    public function setProduktCheck($produktCheck)
-    {
+    public function setProduktCheck($produktCheck) {
         $this->produktCheck = $produktCheck;
 
         return $this;
@@ -340,8 +328,7 @@ class Produkt
      *
      * @return float 
      */
-    public function getProduktCheck()
-    {
+    public function getProduktCheck() {
         return $this->produktCheck;
     }
 
@@ -351,8 +338,7 @@ class Produkt
      * @param boolean $produktTipp
      * @return Produkt
      */
-    public function setProduktTipp($produktTipp)
-    {
+    public function setProduktTipp($produktTipp) {
         $this->produktTipp = $produktTipp;
 
         return $this;
@@ -363,8 +349,7 @@ class Produkt
      *
      * @return boolean 
      */
-    public function getProduktTipp()
-    {
+    public function getProduktTipp() {
         return $this->produktTipp;
     }
 
@@ -374,8 +359,7 @@ class Produkt
      * @param string $produktInformationen
      * @return Produkt
      */
-    public function setProduktInformationen($produktInformationen)
-    {
+    public function setProduktInformationen($produktInformationen) {
         $this->produktInformationen = $produktInformationen;
 
         return $this;
@@ -386,8 +370,7 @@ class Produkt
      *
      * @return string 
      */
-    public function getProduktInformationen()
-    {
+    public function getProduktInformationen() {
         return $this->produktInformationen;
     }
 
@@ -397,8 +380,7 @@ class Produkt
      * @param string $produktUrl
      * @return Produkt
      */
-    public function setProduktUrl($produktUrl)
-    {
+    public function setProduktUrl($produktUrl) {
         $this->produktUrl = $produktUrl;
 
         return $this;
@@ -409,8 +391,7 @@ class Produkt
      *
      * @return string 
      */
-    public function getProduktUrl()
-    {
+    public function getProduktUrl() {
         return $this->produktUrl;
     }
 
@@ -420,8 +401,7 @@ class Produkt
      * @param string $produktKlickoutUrl
      * @return Produkt
      */
-    public function setProduktKlickoutUrl($produktKlickoutUrl)
-    {
+    public function setProduktKlickoutUrl($produktKlickoutUrl) {
         $this->produktKlickoutUrl = $produktKlickoutUrl;
 
         return $this;
@@ -432,8 +412,29 @@ class Produkt
      *
      * @return string 
      */
-    public function getProduktKlickoutUrl()
-    {
+    public function getProduktKlickoutUrl() {
         return $this->produktKlickoutUrl;
     }
+
+    /**
+     * Set legitimation
+     *
+     * @param Legitimation $legitimation
+     * @return Produkt
+     */
+    public function setLegitimation($legitimation) {
+        $this->legitimation = $legitimation;
+
+        return $this;
+    }
+
+    /**
+     * Get legitimation
+     *
+     * @return Legitimation 
+     */
+    public function getLegitimation() {
+        return $this->legitimation;
+    }
+
 }

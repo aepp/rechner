@@ -3,7 +3,6 @@
 namespace Vergleichsrechner\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Form\Annotation;
 use Doctrine\Common\Collections;
 
 /**
@@ -11,8 +10,6 @@ use Doctrine\Common\Collections;
  *
  * @ORM\Table(name="kontozugriff")
  * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\KontozugriffRepository")
- * @Annotation\Name("kontozugriff")
- * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
 class Kontozugriff
 {
@@ -32,15 +29,8 @@ class Kontozugriff
      */
     protected $kontozugriffName;
 
-    /**
-     * @var Collections\Collection
-     * 
-     * @ORM\ManyToMany(targetEntity="Geldanlage", mappedBy="ktozugriffe")
-     **/
-    protected $produkte;
-
     public function __construct() {
-    	$this->produkte = new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->produkte = new Collections\ArrayCollection();
     }
     
     /**
@@ -76,35 +66,6 @@ class Kontozugriff
         return $this->kontozugriffName;
     }
 
-
-    /**
-     * Remove produkt
-     *
-     * @param Geldanlage $produkt
-     * @return Kontozugriff
-     */
-    public function removeProdukt(Geldanlage $produkt)
-    {
-    	if($this->produkte->contains($produkt)){
-    		$this->produkte->removeElement($produkt);
-    	}
-    	return $this;
-    }    
-    /**
-     * Add produkt
-     *
-     * @param Geldanlage $produkt
-     * @return Kontozugriff
-     */
-    public function addProdukt(Geldanlage $produkt)
-    {
-    	if(!$this->produkte->contains($produkt)){
-    		$this->produkte->add($produkt);
-    	}
-    
-    	return $this;
-    }
-    
     public function jsonSerialize() {
     	return [
 	    	'kontozugriffId' => $this->getKontozugriffId(),

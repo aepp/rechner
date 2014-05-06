@@ -111,6 +111,7 @@ class GeldanlageController extends BaseController {
         $response = $this->getResponse();
         $params = $this->params();
         $error = false;
+        $redirect = '/produktverwaltung/geldanlage';
 
         $produkt_session = new Container('produkt');
         $produktId = $this->params()->fromRoute('produktId');
@@ -124,12 +125,8 @@ class GeldanlageController extends BaseController {
                     $produkt = new Geldanlage();
                 }
 
-                /** Обязательные поля */
-                $produktartKey = $params()->fromPost('produktart');
+                /** Simple properties */
                 $produktName = $params()->fromPost('produktName');
-                $bankKey = $params()->fromPost('bank');
-                
-                /** Необязательные поля*/
                 $produktHasOnlineAbschluss = $params()->fromPost('produktHasOnlineAbschluss');
                 $produktMindestanlage = str_replace(',', '.', $params()->fromPost('produktMindestanlage'));
                 $produktHoechstanlage = str_replace(',', '.', $params()->fromPost('produktHoechstanlage'));
@@ -144,7 +141,9 @@ class GeldanlageController extends BaseController {
                 $produktUrl = $params()->fromPost('produktUrl');
                 $produktKlickoutUrl = $params()->fromPost('produktKlickoutUrl');
 
-                /** Entity keys */
+                /** FK properties */
+                $produktartKey = $params()->fromPost('produktart');
+                $bankKey = $params()->fromPost('bank');
                 $produktKtofuehrKostFllgKey = $params()->fromPost('produktKtofuehrKostFllg');
                 $aktionKey = $params()->fromPost('aktion');
                 $legitimationKey = $params()->fromPost('legitimation');
@@ -153,7 +152,7 @@ class GeldanlageController extends BaseController {
                 $produktVerfuegbarkeitKey = $params()->fromPost('produktVerfuegbarkeit');
                 $produktKuendbarkeitKey = $params()->fromPost('produktKuendbarkeit');
                 $zinssatzKey = $params()->fromPost('zinssatz');
-                
+
                 /** Entity variables */
                 $aktion = null;
                 $bank = null;
@@ -166,27 +165,26 @@ class GeldanlageController extends BaseController {
                 $produktVerfuegbarkeit = null;
                 $produktZinsgutschrift = null;
                 $zinssatz = null;
-                
-                /** Update Join-Table */
-                $ktozugriffeNew = $params()->fromPost('ktozugriffe');
-                if ($ktozugriffeNew) {
-                    $ktozugriffeOld = $produkt->getKtozugriffe();
 
-                    if ($ktozugriffeOld) {
-                        foreach ($ktozugriffeOld as $id):
-                            $ktozugriff = $em->find('Vergleichsrechner\Entity\Kontozugriff', $id);
-                            $produkt->removeKtozugriff($ktozugriff);
-                            $em->persist($ktozugriff);
-                        endforeach;
-                        foreach ($ktozugriffeNew as $id):
-                            $ktozugriff = $em->find('Vergleichsrechner\Entity\Kontozugriff', $id);
-                            $produkt->addKtozugriff($ktozugriff);
-                            $em->persist($ktozugriff);
-                        endforeach;
-                    }
+                /** Update geldanlage_kontozufriff Join-Table */
+                $ktozugriffeNew = $params()->fromPost('ktozugriffe');
+
+                $ktozugriffeOld = $produkt->getKtozugriffe();
+                if ($ktozugriffeOld) {
+                    foreach ($ktozugriffeOld as $id):
+                        $ktozugriff = $em->find('Vergleichsrechner\Entity\Kontozugriff', $id);
+                        $produkt->removeKtozugriff($ktozugriff);
+                    endforeach;
+                }
+                if ($ktozugriffeNew) {
+                    foreach ($ktozugriffeNew as $id):
+                        $ktozugriff = $em->find('Vergleichsrechner\Entity\Kontozugriff', $id);
+                        $produkt->addKtozugriff($ktozugriff);
+                    endforeach;
                 }
 
-                /** Set Entity variables for keys given */
+
+                /** Find entities for given keys */
                 if ($aktionKey != null) {
                     $aktion = $em->find('Vergleichsrechner\Entity\Aktion', $aktionKey);
                 }
@@ -223,32 +221,37 @@ class GeldanlageController extends BaseController {
                 if ($zinssatzKey != null) {
                     $zinssatz = $em->find('Vergleichsrechner\Entity\Zinssatz', $zinssatzKey);
                 }
-                if ($produktName != null) {
-                    $produkt->setProduktName($produktName);
-                }
                 if (empty($produktCheck)) {
                     $produktCheck = 0;
                 }
                 if (empty($produktHoechstanlage)) {
-                    $produktHoechstanlage = 0;
-                }
-                if (empty($produktHoechstanlage)) {
-                    $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
+                    $produktKtofuehrKost = 0;
                 }
                 if (empty($produktMindestanlage)) {
-                    $produkt->setProduktMindestanlage($produktMindestanlage);
+                    $produktMindestanlage = 0;
+                }
+                if (empty($produktKtofuehrKost)) {
+                    $produktKtofuehrKost = 0;
                 }
                 if (!empty($produktKlickoutUrl) && strpos($produktKlickoutUrl, 'http') === false) {
                     $produktKlickoutUrl = 'http://' . $produktKlickoutUrl;
                 }
+                if ($produktName == null) {
+                    $message = 'Produktname muss gefüllt sein.';
+                    $redirect = null;
+                    throw new \Zend\File\Transfer\Exception\InvalidArgumentException($message);
+                }
 
-                /** Записать значиния в поля */
+                /** Write values in the fields */
+                $produkt->setProduktName($produktName);
                 $produkt->setProduktCheck($produktCheck);
                 $produkt->setProduktHasAltersbeschraenkung($produktHasAltersbeschraenkung);
                 $produkt->setProduktHasGesetzlEinlagvers($produktHasGesetzlEinlagvers);
                 $produkt->setProduktHasOnlineAbschluss($produktHasOnlineAbschluss);
                 $produkt->setProduktHasOnlineBanking($produktHasOnlineBanking);
                 $produkt->setProduktHoechstanlage($produktHoechstanlage);
+                $produkt->setProduktMindestanlage($produktMindestanlage);
+                $produkt->setProduktKtofuehrKost($produktKtofuehrKost);
                 $produkt->setProduktInformationen($produktInformationen);
                 $produkt->setProduktTipp($produktTipp);
                 $produkt->setProduktUrl($produktUrl);
@@ -265,10 +268,10 @@ class GeldanlageController extends BaseController {
                 $produkt->setBank($bank);
                 $produkt->setAktion($aktion);
 
-                /** Сначала сохранить продукт, чтобы получить ключ */
+                /** Save product */
                 $em->persist($produkt);
 
-                /** Сохранить условия */
+                /** Save conditions */
                 $konditionen = $produkt_session->konditionen;
                 if (!empty($konditionen)) {
                     if ($produktId == null) {
@@ -292,7 +295,7 @@ class GeldanlageController extends BaseController {
             'message' => $message,
             'produktId' => $produktId,
             'error' => $error,
-            'redirect' => '/produktverwaltung/geldanlage'
+            'redirect' => $redirect
         ));
     }
 

@@ -11,8 +11,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="produkt_kredit", options={"collate"="utf8_general_ci", "charset"="utf8"})
  * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\KreditRepository")
  */
-class Kredit extends Produkt
-{
+class Kredit extends Produkt {
+
     /**
      * @var integer
      *
@@ -42,15 +42,14 @@ class Kredit extends Produkt
      * @ORM\Column(name="produkt_is_bonitabh", type="boolean", nullable=true)
      */
     protected $produktIsBonitabh;
-    
+
     /**
      * @var float
      *
      * @ORM\Column(name="produkt_bearbeitungsgebuehr", type="float", precision=10, scale=0, nullable=true)
      */
-    
     protected $produktBearbeitungsgebuehr;
-    
+
     /**
      * @var integer
      *
@@ -64,32 +63,32 @@ class Kredit extends Produkt
      * @ORM\Column(name="produkt_sondertilgungen", type="string", length=255, nullable=true)
      */
     protected $produktSondertilgungen;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="KreditKondition", mappedBy="produkt", cascade="remove")
-     **/
+     * */
     protected $konditionen;
-    
+
     /**
      * @var float
      *
      * @ORM\Column(name="produkt_effektiver_jahreszins", type="float", precision=10, scale=0, nullable=true)
      */
     protected $produktEffektiverJahreszins;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="produkt_annahmerichtlinie", type="text", nullable=true)
      */
     protected $produktAnnahmerichtlinie;
-    
+
     /**
      * @var float
      *
      * @ORM\Column(name="produkt_sollzins", type="float", precision=10, scale=0, nullable=true)
      */
-    protected $produktSollzins;    
+    protected $produktSollzins;
 
     /**
      * @var float
@@ -104,7 +103,7 @@ class Kredit extends Produkt
      * @ORM\Column(name="produkt_nettokreditsumme", type="float", precision=10, scale=0, nullable=true)
      */
     protected $produktNettokreditsumme;
-    
+
     /**
      * @var RKVAbschluss
      *
@@ -127,106 +126,103 @@ class Kredit extends Produkt
      * @ORM\Column(name="produkt_laufzeit", type="integer", nullable=true)
      */
     protected $produktLaufzeit;
-    
+
+    /**
+     * @var ArrayCollection
+     * 
+     * @ORM\ManyToMany(targetEntity="Kontozugriff")
+     * @ORM\JoinTable(name="kredit_kontozugriff",
+     *         joinColumns={@ORM\JoinColumn(name="produkt_id", referencedColumnName="produkt_id", onDelete="CASCADE")},
+     *         inverseJoinColumns={@ORM\JoinColumn(name="kontozugriff_id", referencedColumnName="kontozugriff_id", onDelete="CASCADE")}
+     * )
+     */
+    protected $ktozugriffe;
+
     public function __construct() {
-    	$this->konditionen  = new ArrayCollection();
-    }
-    
-    public function getProduktWiderrufsfristZeiteinh() 
-    {
-      return $this->produktWiderrufsfristZeiteinh;
-    }
-    
-    public function setProduktWiderrufsfristZeiteinh($produktWiderrufsfristZeiteinh) 
-    {
-      $this->produktWiderrufsfristZeiteinh = $produktWiderrufsfristZeiteinh;
-    }
-    public function getProduktLaufzeit() 
-    {
-      return $this->produktLaufzeit;
-    }
-    
-    public function setProduktLaufzeit($produktLaufzeit) 
-    {
-      $this->produktLaufzeit = $produktLaufzeit;
-    }
-    public function getRkvAbschluss() 
-    {
-      return $this->rkvAbschluss;
-    }
-    
-    public function setRkvAbschluss($rkvAbschluss) 
-    {
-      $this->rkvAbschluss = $rkvAbschluss;
-    }
-    
-    public function getProduktNettokreditsumme() 
-    {
-      return $this->produktNettokreditsumme;
-    }
-    
-    public function setProduktNettokreditsumme($produktNettokreditsumme) 
-    {
-      $this->produktNettokreditsumme = $produktNettokreditsumme;
-    }
-    public function getProduktGesamtbetrag() 
-    {
-      return $this->produktGesamtbetrag;
-    }
-    
-    public function setProduktGesamtbetrag($produktGesamtbetrag) 
-    {
-      $this->produktGesamtbetrag = $produktGesamtbetrag;
-    }
-    
-    public function getProduktSollzins() 
-    {
-      return $this->produktSollzins;
-    }
-    
-    public function setProduktSollzins($produktSollzins) 
-    {
-      $this->produktSollzins = $produktSollzins;
+        $this->ktozugriffe  = new ArrayCollection();
+        $this->konditionen = new ArrayCollection();
     }
 
-	public function getProduktAnnahmerichtlinie() 
-	{
-	  return $this->produktAnnahmerichtlinie;
-	}
-	
-	public function setProduktAnnahmerichtlinie($produktAnnahmerichtlinie) 
-	{
-	  $this->produktAnnahmerichtlinie = $produktAnnahmerichtlinie;
-	}
-    
-    public function getProduktEffektiverJahreszins()
-    {
-    	return $this->produktEffektiverJahreszins;
+    public function getProduktWiderrufsfristZeiteinh() {
+        return $this->produktWiderrufsfristZeiteinh;
     }
-    
-    public function setProduktEffektiverJahreszins($produktEffektiverJahreszins)
-    {
-    	$this->produktEffektiverJahreszins = $produktEffektiverJahreszins;
+
+    public function setProduktWiderrufsfristZeiteinh($produktWiderrufsfristZeiteinh) {
+        $this->produktWiderrufsfristZeiteinh = $produktWiderrufsfristZeiteinh;
     }
-    
+
+    public function getProduktLaufzeit() {
+        return $this->produktLaufzeit;
+    }
+
+    public function setProduktLaufzeit($produktLaufzeit) {
+        $this->produktLaufzeit = $produktLaufzeit;
+    }
+
+    public function getRkvAbschluss() {
+        return $this->rkvAbschluss;
+    }
+
+    public function setRkvAbschluss($rkvAbschluss) {
+        $this->rkvAbschluss = $rkvAbschluss;
+    }
+
+    public function getProduktNettokreditsumme() {
+        return $this->produktNettokreditsumme;
+    }
+
+    public function setProduktNettokreditsumme($produktNettokreditsumme) {
+        $this->produktNettokreditsumme = $produktNettokreditsumme;
+    }
+
+    public function getProduktGesamtbetrag() {
+        return $this->produktGesamtbetrag;
+    }
+
+    public function setProduktGesamtbetrag($produktGesamtbetrag) {
+        $this->produktGesamtbetrag = $produktGesamtbetrag;
+    }
+
+    public function getProduktSollzins() {
+        return $this->produktSollzins;
+    }
+
+    public function setProduktSollzins($produktSollzins) {
+        $this->produktSollzins = $produktSollzins;
+    }
+
+    public function getProduktAnnahmerichtlinie() {
+        return $this->produktAnnahmerichtlinie;
+    }
+
+    public function setProduktAnnahmerichtlinie($produktAnnahmerichtlinie) {
+        $this->produktAnnahmerichtlinie = $produktAnnahmerichtlinie;
+    }
+
+    public function getProduktEffektiverJahreszins() {
+        return $this->produktEffektiverJahreszins;
+    }
+
+    public function setProduktEffektiverJahreszins($produktEffektiverJahreszins) {
+        $this->produktEffektiverJahreszins = $produktEffektiverJahreszins;
+    }
+
     /**
      * Get produktId
      *
      * @return integer 
      */
-    public function getProduktId()
-    {
+    public function getProduktId() {
         return $this->produktId;
     }
-    
+
     /**
      * Set produktMinKredit
      *
      * @param float $produktMinKredit
      * @return Produkt
      */
-    public function setProduktMinKredit($produktMinKredit)
-    {
+    public function setProduktMinKredit($produktMinKredit) {
         $this->produktMinKredit = $produktMinKredit;
 
         return $this;
@@ -237,8 +233,7 @@ class Kredit extends Produkt
      *
      * @return float 
      */
-    public function getProduktMinKredit()
-    {
+    public function getProduktMinKredit() {
         return $this->produktMinKredit;
     }
 
@@ -248,8 +243,7 @@ class Kredit extends Produkt
      * @param float $produktMaxKredit
      * @return Produkt
      */
-    public function setProduktMaxKredit($produktMaxKredit)
-    {
+    public function setProduktMaxKredit($produktMaxKredit) {
         $this->produktMaxKredit = $produktMaxKredit;
 
         return $this;
@@ -260,8 +254,7 @@ class Kredit extends Produkt
      *
      * @return float 
      */
-    public function getProduktMaxKredit()
-    {
+    public function getProduktMaxKredit() {
         return $this->produktMaxKredit;
     }
 
@@ -271,8 +264,7 @@ class Kredit extends Produkt
      * @param boolean $produktIsBonitabh
      * @return Produkt
      */
-    public function setProduktIsBonitabh($produktIsBonitabh)
-    {
+    public function setProduktIsBonitabh($produktIsBonitabh) {
         $this->produktIsBonitabh = $produktIsBonitabh;
 
         return $this;
@@ -283,32 +275,29 @@ class Kredit extends Produkt
      *
      * @return boolean 
      */
-    public function getProduktIsBonitabh()
-    {
+    public function getProduktIsBonitabh() {
         return $this->produktIsBonitabh;
     }
-    
+
     /**
      * Set produktBearbeitungsgebuehr
      *
      * @param String $produktBearbeitungsgebuehr
      * @return Produkt
      */
-    public function setProduktBearbeitungsgebuehr($produktBearbeitungsgebuehr)
-    {
-    	$this->produktBearbeitungsgebuehr = $produktBearbeitungsgebuehr;
-    
-    	return $this;
+    public function setProduktBearbeitungsgebuehr($produktBearbeitungsgebuehr) {
+        $this->produktBearbeitungsgebuehr = $produktBearbeitungsgebuehr;
+
+        return $this;
     }
-    
+
     /**
      * Get produktBearbeitungsgebuehr
      *
      * @return String
      */
-    public function getProduktBearbeitungsgebuehr()
-    {
-    	return $this->produktBearbeitungsgebuehr;
+    public function getProduktBearbeitungsgebuehr() {
+        return $this->produktBearbeitungsgebuehr;
     }
 
     /**
@@ -317,21 +306,19 @@ class Kredit extends Produkt
      * @param String $produktWiderrufsfrist
      * @return Produkt
      */
-    public function setProduktWiderrufsfrist($produktWiderrufsfrist)
-    {
-    	$this->produktWiderrufsfrist = $produktWiderrufsfrist;
-    
-    	return $this;
+    public function setProduktWiderrufsfrist($produktWiderrufsfrist) {
+        $this->produktWiderrufsfrist = $produktWiderrufsfrist;
+
+        return $this;
     }
-    
+
     /**
      * Get produktWiderrufsfrist
      *
      * @return String
      */
-    public function getProduktWiderrufsfrist()
-    {
-    	return $this->produktWiderrufsfrist;
+    public function getProduktWiderrufsfrist() {
+        return $this->produktWiderrufsfrist;
     }
 
     /**
@@ -340,31 +327,28 @@ class Kredit extends Produkt
      * @param String $produktSondertilgungen
      * @return Produkt
      */
-    public function setProduktSondertilgungen($produktSondertilgungen)
-    {
-    	$this->produktSondertilgungen = $produktSondertilgungen;
-    
-    	return $this;
+    public function setProduktSondertilgungen($produktSondertilgungen) {
+        $this->produktSondertilgungen = $produktSondertilgungen;
+
+        return $this;
     }
-    
+
     /**
      * Get produktWiderrufsfrist
      *
      * @return String
      */
-    public function getProduktSondertilgungen()
-    {
-    	return $this->produktSondertilgungen;
+    public function getProduktSondertilgungen() {
+        return $this->produktSondertilgungen;
     }
-    
+
     /**
      * 
      * Get konditionen
      * 
      * @return ArrayCollection
      */
-    public function getKonditionen()
-    {
+    public function getKonditionen() {
         return $this->konditionen;
     }
 
@@ -374,8 +358,59 @@ class Kredit extends Produkt
      * 
      * @param ArrayCollection $konditionen
      */
-    public function setKonditionen(ArrayCollection $konditionen)
-    {
+    public function setKonditionen(ArrayCollection $konditionen) {
         $this->konditionen = $konditionen;
     }
+    
+    /**
+     * Set ktozugriffe
+     *
+     * @param ArrayCollection $kontozugriffe
+     * @return Produkt
+     */
+    public function setKtozugriffe(ArrayCollection $ktozugriffe)
+    {
+    	$this->ktozugriffe = $ktozugriffe;
+    
+    	return $this;
+    }    
+    
+    /**
+     * Get ktozugriffe
+     *
+     * @return ArrayCollection
+     */
+    public function getKtozugriffe()
+    {
+    	return $this->ktozugriffe;
+    }
+    
+    /**
+     * Add ktozugriff
+     *
+     * @param Kontozugriff $ktozugriff
+     * @return Produkt
+     */
+    public function addKtozugriff(Kontozugriff $ktozugriff)
+    {
+    	if(!$this->ktozugriffe->contains($ktozugriff)){
+    		$this->ktozugriffe->add($ktozugriff);
+    	}
+    
+    	return $this;
+    }
+    
+    /**
+     * Remove ktozugriff
+     *
+     * @return Produkt
+     */
+    public function removeKtozugriff(Kontozugriff $ktozugriff)
+    {
+    	if($this->ktozugriffe->contains($ktozugriff)){
+    		$this->ktozugriffe->removeElement($ktozugriff);
+    	}
+    	return $this;
+    }    
+
 }

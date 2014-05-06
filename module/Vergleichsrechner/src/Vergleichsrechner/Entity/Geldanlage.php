@@ -83,14 +83,6 @@ class Geldanlage extends Produkt
     protected $produktHasOnlineBanking;
 
     /**
-     * @var Legitimation
-     *
-     * @ORM\ManyToOne(targetEntity="Legitimation")
-     * @ORM\JoinColumn(name="legitimation_id", referencedColumnName="legitimation_id", nullable=true)
-     */
-    protected $legitimation;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="produkt_has_altersbeschraenkung", type="boolean", nullable=true)
@@ -314,29 +306,6 @@ class Geldanlage extends Produkt
     }
 
     /**
-     * Set legitimation
-     *
-     * @param Legitimation $legitimation
-     * @return Produkt
-     */
-    public function setLegitimation($legitimation)
-    {
-        $this->legitimation = $legitimation;
-
-        return $this;
-    }
-
-    /**
-     * Get legitimation
-     *
-     * @return Legitimation 
-     */
-    public function getLegitimation()
-    {
-        return $this->legitimation;
-    }
-
-    /**
      * Set produktHasAltersbeschraenkung
      *
      * @param boolean $produktHasAltersbeschraenkung
@@ -392,7 +361,6 @@ class Geldanlage extends Produkt
     {
     	if(!$this->ktozugriffe->contains($ktozugriff)){
     		$this->ktozugriffe->add($ktozugriff);
-    		$ktozugriff->addProdukt($this);
     	}
     
     	return $this;
@@ -407,7 +375,6 @@ class Geldanlage extends Produkt
     {
     	if($this->ktozugriffe->contains($ktozugriff)){
     		$this->ktozugriffe->removeElement($ktozugriff);
-    		$ktozugriff->removeProdukt($this);
     	}
     	return $this;
     }    

@@ -3,17 +3,14 @@
 namespace Vergleichsrechner\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Form\Annotation;
 
 /**
  * Bank
  *
  * @ORM\Table(name="bank")
  * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\BankRepository")
- * @Annotation\Name("bank")
- * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
-class Bank {
+class Bank extends BaseEntity{
 
     /**
      * @var integer
@@ -162,22 +159,4 @@ class Bank {
     public function setBankDynId($bankDynId) {
         $this->bankDynId = $bankDynId;
     }
-
-//    public function jsonSerialize() {
-//        return [
-//            'bankId' => $this->getBankId(),
-//            'bankName' => $this->getBankName(),
-//            'bankLogo' => $this->getBankLogo(),
-//            'aktionen' => json_encode($this->getAktionen()),
-//        ];
-//    }
-
-    public function jsonSerialize() {
-        $json = array();
-        foreach ($this as $key => $value) {
-            $json[$key] = $value;
-        }
-        return $json;
-    }
-
 }
