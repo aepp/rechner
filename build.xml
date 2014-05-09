@@ -8,11 +8,11 @@
 	</target>
     
 	<target name="load.properties">
-		<property file="./build/build.properties"/>
+		<property file="build.properties"/>
     </target>
 	
 	<target name="increment.version">
-		<version releasetype="Bugfix" file="${build.dir}/version.txt" property="version.number"/>
+		<version releasetype="Bugfix" file="version.txt" property="version.number"/>
     </target>	
 
 	<target name="minify" depends="js.minify.loop, css.minify.loop"></target>
