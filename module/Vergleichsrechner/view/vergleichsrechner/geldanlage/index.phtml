@@ -1,10 +1,10 @@
 <?php
-echo $this->headScript()
+$this->headScript()
         ->prependFile($this->basePath() . '/scripts/geldanlage-overview.js')
         ->prependFile($this->basePath() . '/scripts/tablesorter/js/jquery.tablesorter.widgets.min.js')
         ->prependFile($this->basePath() . '/scripts/tablesorter/addons/pager/jquery.tablesorter.pager.min.js')
         ->prependFile($this->basePath() . '/scripts/tablesorter/js/jquery.tablesorter.min.js');
-echo $this->headLink()
+$this->headLink()
         ->prependStylesheet($this->basePath() . '/css/geldanlage-overview.css')
         ->prependStylesheet($this->basePath() . '/scripts/tablesorter/addons/pager/jquery.tablesorter.pager.css')
         ->prependStylesheet($this->basePath() . '/scripts/tablesorter/css/theme.bootstrap.css');

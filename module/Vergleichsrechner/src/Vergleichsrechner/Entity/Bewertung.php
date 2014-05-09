@@ -3,7 +3,6 @@
 namespace Vergleichsrechner\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Form\Annotation;
 
 /**
  * Bewertung
@@ -11,8 +10,8 @@ use Zend\Form\Annotation;
  * @ORM\Table(name="bewertung")
  * @ORM\Entity
  */
-class Bewertung
-{
+class Bewertung {
+
     /**
      * @var integer
      *
@@ -63,15 +62,13 @@ class Bewertung
      * @ORM\Column(name="bewertung_url", type="text", nullable=true)
      */
     protected $bewertungUrl;
-    
 
     /**
      * Get bewertungId
      *
      * @return integer 
      */
-    public function getBewertungId()
-    {
+    public function getBewertungId() {
         return $this->bewertungId;
     }
 
@@ -81,8 +78,7 @@ class Bewertung
      * @param string $bewertungText
      * @return Bewertung
      */
-    public function setBewertungText($bewertungText)
-    {
+    public function setBewertungText($bewertungText) {
         $this->bewertungText = $bewertungText;
 
         return $this;
@@ -93,8 +89,7 @@ class Bewertung
      *
      * @return string 
      */
-    public function getBewertungText()
-    {
+    public function getBewertungText() {
         return $this->bewertungText;
     }
 
@@ -104,8 +99,7 @@ class Bewertung
      * @param \DateTime $bewertungDatum
      * @return Bewertung
      */
-    public function setBewertungDatum($bewertungDatum)
-    {
+    public function setBewertungDatum($bewertungDatum) {
         $this->bewertungDatum = $bewertungDatum;
 
         return $this;
@@ -116,8 +110,7 @@ class Bewertung
      *
      * @return \DateTime 
      */
-    public function getBewertungDatum()
-    {
+    public function getBewertungDatum() {
         return $this->bewertungDatum;
     }
 
@@ -127,8 +120,7 @@ class Bewertung
      * @param string $bewertungVerfasser
      * @return Bewertung
      */
-    public function setBewertungVerfasser($bewertungVerfasser)
-    {
+    public function setBewertungVerfasser($bewertungVerfasser) {
         $this->bewertungVerfasser = $bewertungVerfasser;
 
         return $this;
@@ -139,8 +131,7 @@ class Bewertung
      *
      * @return string 
      */
-    public function getBewertungVerfasser()
-    {
+    public function getBewertungVerfasser() {
         return $this->bewertungVerfasser;
     }
 
@@ -150,8 +141,7 @@ class Bewertung
      * @param string $bewertungVerfasserEmail
      * @return Bewertung
      */
-    public function setBewertungVerfasserEmail($bewertungVerfasserEmail)
-    {
+    public function setBewertungVerfasserEmail($bewertungVerfasserEmail) {
         $this->bewertungVerfasserEmail = $bewertungVerfasserEmail;
 
         return $this;
@@ -162,8 +152,7 @@ class Bewertung
      *
      * @return string 
      */
-    public function getBewertungVerfasserEmail()
-    {
+    public function getBewertungVerfasserEmail() {
         return $this->bewertungVerfasserEmail;
     }
 
@@ -173,8 +162,7 @@ class Bewertung
      * @param float $bewertungNote
      * @return Bewertung
      */
-    public function setBewertungNote($bewertungNote)
-    {
+    public function setBewertungNote($bewertungNote) {
         $this->bewertungNote = $bewertungNote;
 
         return $this;
@@ -185,8 +173,7 @@ class Bewertung
      *
      * @return float 
      */
-    public function getBewertungNote()
-    {
+    public function getBewertungNote() {
         return $this->bewertungNote;
     }
 
@@ -196,8 +183,7 @@ class Bewertung
      * @param string $bewertungUrl
      * @return Bewertung
      */
-    public function setBewertungUrl($bewertungUrl)
-    {
+    public function setBewertungUrl($bewertungUrl) {
         $this->bewertungUrl = $bewertungUrl;
 
         return $this;
@@ -208,8 +194,8 @@ class Bewertung
      *
      * @return string 
      */
-    public function getBewertungUrl()
-    {
+    public function getBewertungUrl() {
         return $this->bewertungUrl;
     }
+
 }

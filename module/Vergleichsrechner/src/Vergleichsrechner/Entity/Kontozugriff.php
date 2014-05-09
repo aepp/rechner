@@ -11,8 +11,8 @@ use Doctrine\Common\Collections;
  * @ORM\Table(name="kontozugriff")
  * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\KontozugriffRepository")
  */
-class Kontozugriff
-{
+class Kontozugriff extends BaseEntity {
+
     /**
      * @var integer
      *
@@ -30,16 +30,15 @@ class Kontozugriff
     protected $kontozugriffName;
 
     public function __construct() {
-    	$this->produkte = new Collections\ArrayCollection();
+        $this->produkte = new Collections\ArrayCollection();
     }
-    
+
     /**
      * Get kontozugriffId
      *
      * @return integer 
      */
-    public function getKontozugriffId()
-    {
+    public function getKontozugriffId() {
         return $this->kontozugriffId;
     }
 
@@ -49,8 +48,7 @@ class Kontozugriff
      * @param string $kontozugriffName
      * @return Kontozugriff
      */
-    public function setKontozugriffName($kontozugriffName)
-    {
+    public function setKontozugriffName($kontozugriffName) {
         $this->kontozugriffName = $kontozugriffName;
 
         return $this;
@@ -61,15 +59,8 @@ class Kontozugriff
      *
      * @return string 
      */
-    public function getKontozugriffName()
-    {
+    public function getKontozugriffName() {
         return $this->kontozugriffName;
     }
 
-    public function jsonSerialize() {
-    	return [
-	    	'kontozugriffId' => $this->getKontozugriffId(),
-	    	'kontozugriffName' => $this->getKontozugriffName(),
-    	];
-    }
 }

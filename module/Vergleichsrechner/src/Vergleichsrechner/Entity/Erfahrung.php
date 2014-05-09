@@ -3,7 +3,6 @@
 namespace Vergleichsrechner\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Form\Annotation;
 
 /**
  * Erfahrung
@@ -11,8 +10,8 @@ use Zend\Form\Annotation;
  * @ORM\Table(name="erfahrung")
  * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\ErfahrungRepository")
  */
-class Erfahrung
-{
+class Erfahrung {
+
     /**
      * @var integer
      *
@@ -29,7 +28,6 @@ class Erfahrung
      */
     protected $erfahrungDatum;
 
-
     /**
      * @var integer
      *
@@ -43,7 +41,7 @@ class Erfahrung
      * @ORM\Column(name="erfahrung_bericht", type="text", nullable=true)
      */
     protected $erfahrungBericht;
-    
+
     /**
      * @var integer
      *
@@ -70,7 +68,7 @@ class Erfahrung
      *
      * @ORM\Column(name="erfahrung_autor_vorname", type="text", nullable=true)
      */
-    protected $erfahrungAutorVorname;    
+    protected $erfahrungAutorVorname;
 
     /**
      * @var string
@@ -78,7 +76,7 @@ class Erfahrung
      * @ORM\Column(name="erfahrung_autor_email", type="text", nullable=true)
      */
     protected $erfahrungAutorEmail;
-    
+
     /**
      * @var string
      *
@@ -99,7 +97,7 @@ class Erfahrung
      * @ORM\Column(name="erfahrung_benachrichtigung", type="boolean", nullable=true)
      */
     protected $erfahrungBenachrichtigung;
-    
+
     /**
      * @var Bank
      *
@@ -107,16 +105,13 @@ class Erfahrung
      * @ORM\JoinColumn(name="bank_id", referencedColumnName="bank_id")
      */
     protected $bank;
-    
-    
-    
+
     /**
      * Get erfahrungId
      *
      * @return integer 
      */
-    public function getErfahrungId()
-    {
+    public function getErfahrungId() {
         return $this->erfahrungId;
     }
 
@@ -126,8 +121,7 @@ class Erfahrung
      * @param string $erfahrungBericht
      * @return Erfahrung
      */
-    public function setErfahrungBericht($erfahrungBericht)
-    {
+    public function setErfahrungBericht($erfahrungBericht) {
         $this->erfahrungBericht = $erfahrungBericht;
 
         return $this;
@@ -138,8 +132,7 @@ class Erfahrung
      *
      * @return string 
      */
-    public function getErfahrungBericht()
-    {
+    public function getErfahrungBericht() {
         return $this->erfahrungBericht;
     }
 
@@ -149,8 +142,7 @@ class Erfahrung
      * @param \DateTime $erfahrungDatum
      * @return Erfahrung
      */
-    public function setErfahrungDatum($erfahrungDatum)
-    {
+    public function setErfahrungDatum($erfahrungDatum) {
         $this->erfahrungDatum = $erfahrungDatum;
 
         return $this;
@@ -161,108 +153,88 @@ class Erfahrung
      *
      * @return \DateTime 
      */
-    public function getErfahrungDatum()
-    {
+    public function getErfahrungDatum() {
         return $this->erfahrungDatum;
     }
-    
-    public function getErfahrungNote() 
-    {
-		return $this->erfahrungNote;
-    }
-    
-    public function setErfahrungNote($erfahrungNote) 
-    {
-      	$this->erfahrungNote = $erfahrungNote;
-    }
-    
-    public function getErfahrungEmpfBank() 
-    {
-      	return $this->erfahrungEmpfBank;
-    }
-    
-    public function setErfahrungEmpfBank($erfahrungEmpfBank ) 
-    {
-      	$this->erfahrungEmpfBank = $erfahrungEmpfBank ;
-    }
-    
-    public function getErfahrungEmpfProdukt() 
-    {
-      	return $this->erfahrungEmpfProdukt;
-    }
-    
-    public function setErfahrungEmpfProdukt($erfahrungEmpfProdukt ) 
-    {
-      	$this->erfahrungEmpfProdukt = $erfahrungEmpfProdukt ;
-    }
-    
-    public function getErfahrungAutorName() 
-    {
-      	return $this->erfahrungAutorName;
-    }
-    
-    public function setErfahrungAutorName($erfahrungAutorName ) 
-    {
-      	$this->erfahrungAutorName = $erfahrungAutorName ;
-    }
-    
-    public function getErfahrungAutorVorname() 
-    {
-      	return $this->erfahrungAutorVorname;
-    }
-    
-    public function setErfahrungAutorVorname($erfahrungAutorVorname ) 
-    {
-      	$this->erfahrungAutorVorname = $erfahrungAutorVorname ;
-    }
-    
-    public function getErfahrungAutorEmail() 
-    {
-      	return $this->erfahrungAutorEmail;
-    }
-    
-    public function setErfahrungAutorEmail($erfahrungAutorEmail ) 
-    {
-      	$this->erfahrungAutorEmail = $erfahrungAutorEmail ;
-    }
-    
-    public function getErfahrungAutorUsername() 
-    {
-      	return $this->erfahrungAutorUsername;
-    }
-    
-    public function setErfahrungAutorUsername($erfahrungAutorUsername ) 
-    {
-      	$this->erfahrungAutorUsername = $erfahrungAutorUsername ;
-    }
-        
-    public function getErfahrungIsFreigeschaltet() 
-    {
-      return $this->erfahrungIsFreigeschaltet;
-    }
-    
-    public function setErfahrungIsFreigeschaltet($erfahrungIsFreigeschaltet ) 
-    {
-      $this->erfahrungIsFreigeschaltet = $erfahrungIsFreigeschaltet ;
+
+    public function getErfahrungNote() {
+        return $this->erfahrungNote;
     }
 
-    public function setBank($bank)
-    {
-    	$this->bank = $bank;
+    public function setErfahrungNote($erfahrungNote) {
+        $this->erfahrungNote = $erfahrungNote;
     }
-    
-    public function getBank()
-    {
-    	return $this->bank;
+
+    public function getErfahrungEmpfBank() {
+        return $this->erfahrungEmpfBank;
     }
-    
-    public function getErfahrungBenachrichtigung() 
-    {
-      return $this->erfahrungBenachrichtigung;
+
+    public function setErfahrungEmpfBank($erfahrungEmpfBank) {
+        $this->erfahrungEmpfBank = $erfahrungEmpfBank;
     }
-    
-    public function setErfahrungBenachrichtigung($erfahrungBenachrichtigung ) 
-    {
-      $this->erfahrungBenachrichtigung = $erfahrungBenachrichtigung ;
+
+    public function getErfahrungEmpfProdukt() {
+        return $this->erfahrungEmpfProdukt;
     }
+
+    public function setErfahrungEmpfProdukt($erfahrungEmpfProdukt) {
+        $this->erfahrungEmpfProdukt = $erfahrungEmpfProdukt;
+    }
+
+    public function getErfahrungAutorName() {
+        return $this->erfahrungAutorName;
+    }
+
+    public function setErfahrungAutorName($erfahrungAutorName) {
+        $this->erfahrungAutorName = $erfahrungAutorName;
+    }
+
+    public function getErfahrungAutorVorname() {
+        return $this->erfahrungAutorVorname;
+    }
+
+    public function setErfahrungAutorVorname($erfahrungAutorVorname) {
+        $this->erfahrungAutorVorname = $erfahrungAutorVorname;
+    }
+
+    public function getErfahrungAutorEmail() {
+        return $this->erfahrungAutorEmail;
+    }
+
+    public function setErfahrungAutorEmail($erfahrungAutorEmail) {
+        $this->erfahrungAutorEmail = $erfahrungAutorEmail;
+    }
+
+    public function getErfahrungAutorUsername() {
+        return $this->erfahrungAutorUsername;
+    }
+
+    public function setErfahrungAutorUsername($erfahrungAutorUsername) {
+        $this->erfahrungAutorUsername = $erfahrungAutorUsername;
+    }
+
+    public function getErfahrungIsFreigeschaltet() {
+        return $this->erfahrungIsFreigeschaltet;
+    }
+
+    public function setErfahrungIsFreigeschaltet($erfahrungIsFreigeschaltet) {
+        $this->erfahrungIsFreigeschaltet = $erfahrungIsFreigeschaltet;
+    }
+
+    public function setBank($bank) {
+        $this->bank = $bank;
+    }
+
+    public function getBank() {
+        return $this->bank;
+    }
+
+    public function getErfahrungBenachrichtigung() {
+        return $this->erfahrungBenachrichtigung;
+    }
+
+    public function setErfahrungBenachrichtigung($erfahrungBenachrichtigung) {
+        $this->erfahrungBenachrichtigung = $erfahrungBenachrichtigung;
+    }
+
 }

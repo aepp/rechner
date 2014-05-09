@@ -1,5 +1,5 @@
 /*
- * Ein Flag der das doppelte Laden der FUnktionen verhindert
+ * Ein Flag der das doppelte Laden der Funktionen verhindert
  */
 var pageInitialized;
 /*
@@ -12,44 +12,12 @@ $(document).ready(function() {
         return;
     }
     pageInitialized = true;
-    $('label[for="produktTipp"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
-    $('label[for="produktTipp"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
-    $('label[for="produktTipp"]').parent().find('div.col-sm-8').addClass('btn-group');
-
-    $('label[for="produktIsBonitabh"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
-    $('label[for="produktIsBonitabh"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
-    $('label[for="produktIsBonitabh"]').parent().find('div.col-sm-8').addClass('btn-group');
-
-    $('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
-    $('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').attr('id', 'produktHasOnlineAbschluss');
-    $('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
-    $('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').addClass('btn-group');
-
-    $('label[for="zinssatz"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
-    $('label[for="zinssatz"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
-    $('label[for="zinssatz"]').parent().find('div.col-sm-8').addClass('btn-group');
-
-    $('label[for="rkvAbschluss"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
-    $('label[for="rkvAbschluss"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
-    $('label[for="rkvAbschluss"]').parent().find('div.col-sm-8').addClass('btn-group');
-
-    $('label[for="legitimation"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-4 col-md-4 col-sm-4 col-xs-4');
-    $('label[for="legitimation"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
-    $('label[for="legitimation"]').parent().find('div.col-sm-8').addClass('btn-group');
-
-    $('label[for="ktozugriffe"]').parent().find('div.col-sm-8').find('label').removeClass().addClass('btn btn-default col-lg-4 col-md-4 col-sm-4 col-xs-4');
-    $('label[for="ktozugriffe"]').parent().find('div.col-sm-8').attr('data-toggle', 'buttons');
-    $('label[for="ktozugriffe"]').parent().find('div.col-sm-8').addClass('btn-group');
+//    $('label[for="produktHasOnlineAbschluss"]').parent().find('div.col-sm-8').attr('id', 'produktHasOnlineAbschluss');
 
     $('#produktKtofuehrKostFllg').find('label').removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
     $('#produktWiderrufsfristZeiteinh').find('label').each(function(i, elem) {
         $(elem).removeClass().addClass('btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6');
         $(elem).append('(-e)');
-    });
-
-    $('.btn').button();
-    $('input:checked').each(function(i, radio) {
-        $(radio).parent().button('toggle');
     });
 
     $('body').scrollspy({
@@ -336,13 +304,12 @@ $(document).ready(function() {
                                         $.parseJSON(response.zinssaetze),
                                         $.parseJSON(response.leads),
                                         $.parseJSON(response.sales),
-                                        $.parseJSON(response.schwellen)
-                                        );
+                                        $.parseJSON(response.schwellen));
                             }
                         }
                         message = response.message;
                     },
-                    error: function(response) {
+                    error: function() {
                         alertClass = 'alert-danger';
                         $('#alert-modal')
                                 .css('display', 'block')

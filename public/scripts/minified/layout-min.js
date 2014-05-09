@@ -1,0 +1,2 @@
+
+$(document).ready(function(){$(".nav-link-layout").on('click',function(event){$('#navLayout').find('li.active').removeClass();$(this).parent().addClass('active');});$('li.dropdown-submenu').on('click',function(event){event.stopPropagation();$('li.dropdown-submenu').parent().parent().removeClass('open');$(this).parent().parent().addClass('open');});});

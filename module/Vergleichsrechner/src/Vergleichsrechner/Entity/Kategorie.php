@@ -3,18 +3,15 @@
 namespace Vergleichsrechner\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Form\Annotation;
 
 /**
  * Kategorie
  *
  * @ORM\Table(name="kategorie")
  * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\KategorieRepository")
- * @Annotation\Name("kategorie")
- * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
-class Kategorie
-{
+class Kategorie extends BaseEntity {
+
     /**
      * @var integer
      *
@@ -31,15 +28,12 @@ class Kategorie
      */
     protected $kategorieName;
 
-
-
     /**
      * Get kategorieId
      *
      * @return integer 
      */
-    public function getKategorieId()
-    {
+    public function getKategorieId() {
         return $this->kategorieId;
     }
 
@@ -49,8 +43,7 @@ class Kategorie
      * @param string $kategorieName
      * @return Kategorie
      */
-    public function setKategorieName($kategorieName)
-    {
+    public function setKategorieName($kategorieName) {
         $this->kategorieName = $kategorieName;
 
         return $this;
@@ -61,15 +54,8 @@ class Kategorie
      *
      * @return string 
      */
-    public function getKategorieName()
-    {
+    public function getKategorieName() {
         return $this->kategorieName;
     }
-    
-    public function jsonSerialize() {
-    	return [
-	    	'kategorieId' => $this->getKategorieId(),
-	    	'kategorieName' => $this->getKategorieName(),
-    	];
-    }
+
 }

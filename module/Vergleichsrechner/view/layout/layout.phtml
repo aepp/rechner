@@ -4,95 +4,98 @@
     <head>
         <meta charset="utf-8">
         <?php echo $this->headTitle('Vergleichsrechner') ?>
-        <?php echo $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        <?php
+        echo $this->headMeta()
+                ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
 
         <!-- Le styles -->
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath().'/img/favicon.ico'))
-	        ->prependStylesheet($this->basePath() . '/css/core.css')
-	        ->prependStylesheet($this->basePath() . '/scripts/jquery-validationEngine/css/validationEngine.jquery.css')
-	        ->prependStylesheet($this->basePath() . '/scripts/jquery-jtable/css/themes/jqueryui/jtable_jqueryui.min.css')
-	        ->prependStylesheet($this->basePath() . '/scripts/jquery-ui/css/smoothness/jquery-ui.min.css')
-	        ->prependStylesheet($this->basePath() . '/scripts/bootstrap/css/bootstrap-theme.min.css')
-	        ->prependStylesheet($this->basePath() . '/scripts/bootstrap/css/bootstrap.min.css')
-	        ->appendStylesheet($this->basePath() . '/scripts/font-awesome/css/font-awesome.min.css')
+        <?php
+        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                ->prependStylesheet($this->basePath() . '/css/core.css')
+                ->prependStylesheet($this->basePath() . '/scripts/jquery-validationEngine/css/validationEngine.jquery.css')
+                ->prependStylesheet($this->basePath() . '/scripts/jquery-jtable/css/themes/jqueryui/jtable_jqueryui.min.css')
+                ->prependStylesheet($this->basePath() . '/scripts/jquery-ui/css/smoothness/jquery-ui.min.css')
+                ->prependStylesheet($this->basePath() . '/scripts/bootstrap/css/bootstrap-theme.min.css')
+                ->prependStylesheet($this->basePath() . '/scripts/bootstrap/css/bootstrap.min.css')
+                ->appendStylesheet($this->basePath() . '/scripts/font-awesome/css/font-awesome.min.css')
         ;
         ?>
         <!-- Scripts -->
         <!--[if !IE]> -->
-		<script type="text/javascript" src="<?php echo $this->basePath() . '/scripts/jquery/jquery.2.0.3.min.js' ?>"></script>
-		<!-- <![endif]-->
-        <?php echo $this->headScript()
-	        ->appendFile($this->basePath() . '/scripts/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9'))
-	        ->appendFile($this->basePath() . '/scripts/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9'))
-	        ->appendFile($this->basePath() . '/scripts/jquery/jquery.1.10.2.min.js', 'text/javascript', array('conditional' => 'lt IE 9'))
-	        ->appendFile($this->basePath() . '/scripts/jquery-ui/js/jquery-ui.js')
-	        ->appendFile($this->basePath() . '/scripts/bootstrap/js/bootstrap.min.js')
-	        ->appendFile($this->basePath() . '/scripts/jquery-jtable/js/jquery.jtable.min.js')
-	        ->appendFile($this->basePath() . '/scripts/jquery-jtable/js/localization/jquery.jtable.de.js')
-	        ->appendFile($this->basePath() . '/scripts/jquery-validationEngine/js/languages/jquery.validationEngine-de.js')
-	        ->appendFile($this->basePath() . '/scripts/jquery-validationEngine/js/jquery.validationEngine.js')
-	        ->appendFile($this->basePath() . '/scripts/layout.js')
-		?>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/scripts/jquery/jquery.2.0.3.min.js' ?>"></script>
+        <!-- <![endif]-->
+        <?php
+        echo $this->headScript()
+                ->appendFile($this->basePath() . '/scripts/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9'))
+                ->appendFile($this->basePath() . '/scripts/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9'))
+                ->appendFile($this->basePath() . '/scripts/jquery/jquery.1.10.2.min.js', 'text/javascript', array('conditional' => 'lt IE 9'))
+                ->appendFile($this->basePath() . '/scripts/jquery-ui/js/jquery-ui.js')
+                ->appendFile($this->basePath() . '/scripts/bootstrap/js/bootstrap.min.js')
+                ->appendFile($this->basePath() . '/scripts/jquery-jtable/js/jquery.jtable.min.js')
+                ->appendFile($this->basePath() . '/scripts/jquery-jtable/js/localization/jquery.jtable.de.js')
+                ->appendFile($this->basePath() . '/scripts/jquery-validationEngine/js/languages/jquery.validationEngine-de.js')
+                ->appendFile($this->basePath() . '/scripts/jquery-validationEngine/js/jquery.validationEngine.js')
+                ->appendFile($this->basePath() . '/scripts/layout.js')
+        ?>
     </head>
     <body>
-   		<div class="container page-container center-block">
-			<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-				<div class="container">
-					<div class="navbar-header">
-						<button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="<?php echo $this->url('index') ?>">
-							<img src="<?php echo $this->basePath('img/vergleich24-at.png') ?>" alt="vergleich24at" id="vergleich24at-logo"/>
-						</a>
-					</div>
-	               	<div class="collapse navbar-collapse">
-	               		<?php if($user = $this->identity()): ?>
-		               		<ul class="nav navbar-nav">
-								
-								<?php echo $this->navigation('navigation')->menu()->setPartial('partial/menu.phtml')->render(); ?>
-							</ul>
-							<ul class="nav navbar-nav navbar-right">
-								<li>
-									<a href="<?php echo $this->url('logout') ?>"><?php echo $this->translate('Logout') ?></a>
-								</li>
-								
-							</ul>
-							<p class="navbar-text navbar-right">
-								<?php echo $this->translate('Angemeldet als').' '.$this->escapeHtml($user->getUserVorname().' '.$user->getUserName()); ?>
-							</p>
-						<?php endif; ?>
-					</div>
-				</div>
-			</div>
-	        <div class="container">
-	        	<div class="breadcrumb-container">
-		        	<?php 
-			        	if($user = $this->identity()){	
-			        		echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0)->setPartial('partial/breadcrumb.phtml');
-			        	} 
-		        	?>
-	            </div>
-	            <div class="container">
-	            	<div class="alert" id="alert">
-	            		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	            		<div id="alert-message"></div>
-	            	</div>
-	            </div>
-	            <div class="center-block content-container">
-		            <?php echo $this->content; ?>
-	            </div>
-			</div>
-			<div class="container footer">
-				<hr>
-			</div>
-			<?php echo $this->inlineScript() ?>
-		</div>
+        <div class="container page-container center-block">
+            <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="<?php echo $this->url('index') ?>">
+                            <img src="<?php echo $this->basePath('img/vergleich24-at.png') ?>" alt="vergleich24at" id="vergleich24at-logo"/>
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <?php if ($user = $this->identity()): ?>
+                            <ul class="nav navbar-nav">
+
+                                <?php echo $this->navigation('navigation')->menu()->setPartial('layout/partial/menu.phtml')->render(); ?>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <a href="<?php echo $this->url('logout') ?>"><?php echo $this->translate('Logout') ?></a>
+                                </li>
+
+                            </ul>
+                            <p class="navbar-text navbar-right">
+                                <?php echo $this->translate('Angemeldet als') . ' ' . $this->escapeHtml($user->getUserVorname() . ' ' . $user->getUserName()); ?>
+                            </p>
+                        <?php endif; ?>
+                    </div>
+                </div> 
+            </div>
+            <div class="container">
+                <div class="breadcrumb-container">
+                    <?php
+                    if ($user = $this->identity()) {
+                        echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0)->setPartial('layout/partial/breadcrumb.phtml');
+                    }
+                    ?>
+                </div>
+                <div class="container">
+                    <div class="alert" id="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <div id="alert-message"></div>
+                    </div>
+                </div>
+                <div class="center-block content-container">
+                    <?php echo $this->content; ?>
+                </div>
+            </div>
+            <div class="container footer">
+                <hr>
+            </div>
+            <?php echo $this->inlineScript() ?>
+        </div>
     </body>
 </html>

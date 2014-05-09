@@ -1,0 +1,66 @@
+<project name="vergleichsrechner" basedir="." default="build">
+
+	<target name="build" 
+			depends="load.properties,
+					increment.version,			
+					clear-cache, 
+					minify">
+	</target>
+    
+	<target name="load.properties">
+		<property file="./build/build.properties"/>
+    </target>
+	
+	<target name="increment.version">
+		<version releasetype="Bugfix" file="${build.dir}/version.txt" property="version.number"/>
+    </target>	
+
+	<target name="minify" depends="js.minify.loop, css.minify.loop"></target>
+	
+	<target name="js.minify.loop">
+		<mkdir dir="${build.dir}/js" />
+		<copy todir="${build.dir}/js">
+			<fileset dir="${res.dir}/scripts">
+                <include name="*.js" />
+            </fileset>
+		</copy>
+		<foreach param="filename" absparam="absfilename" target="js.minify">
+			<fileset dir="${build.dir}/js">
+				<include name="*.js"/>
+			</fileset>
+		</foreach>
+	</target>
+	
+	<target name="js.minify">
+		<echo msg="Minifying js" />
+		<exec command="java -jar ${build.tools}/yuicompressor.jar ${absfilename} -o ${absfilename}" />
+	</target>
+	
+	<target name="css.minify.loop">
+		<mkdir dir="${build.dir}/css" />
+		<copy todir="${build.dir}/css">
+			<fileset dir="${res.dir}/css" id="styles.css">
+				<include name="*.css" />
+			</fileset>	
+		</copy>
+		<foreach param="filename" absparam="absfilename" target="css.minify">
+			<fileset dir="${build.dir}/css">
+				<include name="*.css"/>
+			</fileset>
+		</foreach>
+	</target>
+	
+	<target name="css.minify">
+		<echo msg="Minimizing css" />
+		<exec command="java -jar ${build.tools}/yuicompressor.jar ${absfilename} -o ${absfilename}" />
+	</target>
+	
+	<target name="clear-cache">
+        <echo>Clear cache</echo>
+        <delete>
+            <fileset dir="${doctrine.proxy}">
+                <include name="**"/>
+            </fileset>
+        </delete>
+    </target>
+</project>

@@ -3,18 +3,15 @@
 namespace Vergleichsrechner\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Form\Annotation;
 
 /**
  * Zeitabschnitt
  *
  * @ORM\Table(name="zeitabschnitt")
  * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\ZeitabschnittRepository")
- * @Annotation\Name("zeitabschnitt")
- * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
-class Zeitabschnitt
-{
+class Zeitabschnitt extends BaseEntity {
+
     /**
      * @var integer
      *
@@ -50,8 +47,7 @@ class Zeitabschnitt
      *
      * @return integer 
      */
-    public function getZeitabschnittId()
-    {
+    public function getZeitabschnittId() {
         return $this->zeitabschnittId;
     }
 
@@ -61,8 +57,7 @@ class Zeitabschnitt
      * @param string $zeitabschnittName
      * @return Zeitabschnitt
      */
-    public function setZeitabschnittName($zeitabschnittName)
-    {
+    public function setZeitabschnittName($zeitabschnittName) {
         $this->zeitabschnittName = $zeitabschnittName;
 
         return $this;
@@ -73,8 +68,7 @@ class Zeitabschnitt
      *
      * @return string 
      */
-    public function getZeitabschnittName()
-    {
+    public function getZeitabschnittName() {
         return $this->zeitabschnittName;
     }
 
@@ -84,8 +78,7 @@ class Zeitabschnitt
      * @param integer $zeitabschnittAnzZinsperioden
      * @return Zeitabschnitt
      */
-    public function setZeitabschnittAnzZinsperioden($zeitabschnittAnzZinsperioden)
-    {
+    public function setZeitabschnittAnzZinsperioden($zeitabschnittAnzZinsperioden) {
         $this->zeitabschnittAnzZinsperioden = $zeitabschnittAnzZinsperioden;
 
         return $this;
@@ -96,40 +89,29 @@ class Zeitabschnitt
      *
      * @return integer 
      */
-    public function getZeitabschnittAnzZinsperioden()
-    {
+    public function getZeitabschnittAnzZinsperioden() {
         return $this->zeitabschnittAnzZinsperioden;
     }
-    
+
     /**
      * Set zeitabschnittName2
      *
      * @param string $zeitabschnittName2
      * @return Zeitabschnitt
      */
-    public function setZeitabschnittName2($zeitabschnittName2)
-    {
-    	$this->zeitabschnittName2 = $zeitabschnittName2;
-    
-    	return $this;
+    public function setZeitabschnittName2($zeitabschnittName2) {
+        $this->zeitabschnittName2 = $zeitabschnittName2;
+
+        return $this;
     }
-    
+
     /**
      * Get zeitabschnittName2
      *
      * @return string
      */
-    public function getZeitabschnittName2()
-    {
-    	return $this->zeitabschnittName2;
+    public function getZeitabschnittName2() {
+        return $this->zeitabschnittName2;
     }
-    
-    public function jsonSerialize() {
-    	return [
-	    	'zeitabschnittId' => $this->getZeitabschnittId(),
-	    	'zeitabschnittName' => $this->getZeitabschnittName(),
-	    	'zeitabschnittName2' => $this->getZeitabschnittName2(),
-	    	'zeitabschnittAnzZinsperioden' => $this->getZeitabschnittAnzZinsperioden(),
-    	];
-    }
+
 }

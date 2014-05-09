@@ -1,16 +1,16 @@
 <h2><?php print(sprintf($this->translate($form->getLabel()))); ?></h2>
 <?php
-print($this->headLink()
-                ->prependStylesheet($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')
-                ->prependStylesheet($this->basePath() . '/css/geldanlage.css')
-                ->prependStylesheet($this->basePath() . '/scripts/summernote/summernote.css'));
-print($this->headScript()
-                ->prependFile($this->basePath() . '/scripts/geldanlage.js')
-                ->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-maxlength.min.js')
-                ->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')
-                ->prependFile($this->basePath() . '/scripts/moment-with-langs.min.js')
-                ->appendFile($this->basePath() . '/scripts/summernote/summernote.min.js')
-                ->appendFile($this->basePath() . '/scripts/summernote/summernote-de-DE.js'));
+$this->headLink()
+        ->prependStylesheet($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')
+        ->prependStylesheet($this->basePath() . '/css/geldanlage.css')
+        ->prependStylesheet($this->basePath() . '/scripts/summernote/summernote.css');
+$this->headScript()
+        ->prependFile($this->basePath() . '/scripts/geldanlage.js')
+        ->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-maxlength.min.js')
+        ->prependFile($this->basePath() . '/scripts/bootstrap/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')
+        ->prependFile($this->basePath() . '/scripts/moment-with-langs.min.js')
+        ->appendFile($this->basePath() . '/scripts/summernote/summernote.min.js')
+        ->appendFile($this->basePath() . '/scripts/summernote/summernote-de-DE.js');
 
 $panelProperties = array(
     'kategorie' => array(
@@ -138,59 +138,4 @@ $panelProperties = array(
         </div>
     </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="konditionen-bearbeiten-modal" tabindex="-1" role="dialog" aria-labelledby="konditionen-bearbeiten-modal-label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="konditionen-bearbeiten-modal-label">Konditionen bearbeiten</h4>
-            </div>
-            <div class="modal-body">
-                <form action="" method="post" id="konditionen-modal-form" role="form">
-                    <div class="alert" id="alert-modal">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <div id="alert-modal-message"></div>
-                    </div>
-                    <div class="progress progress-striped active">
-                        <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                        </div>
-                    </div>
-
-                    <input type="hidden" value="<?php echo $produktId ?>" class="produktId"/>
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-hover" id="konditionen-table">
-                            <thead>
-                                <tr>
-                                    <th>Laufzeit</th>
-                                    <th>Einlage von</th>
-                                    <th>Einlage bis</th>
-                                    <th>Zinssatz</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                            <tfoot>
-                                <tr>
-                                    <td>in Monaten</td>
-                                    <td>in €</td>
-                                    <td>in €</td>
-                                    <td>in %</td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-success pull-right" id="add-kondition">
-                                            <span class="glyphicon glyphicon-plus"></span>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
-                <button type="button" class="btn btn-primary" id="save-konditionen">Übernehmen</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<?php echo $this->render('geldanlage/konditionsmatrix'); ?>

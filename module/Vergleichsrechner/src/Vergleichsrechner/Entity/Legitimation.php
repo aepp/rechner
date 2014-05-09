@@ -3,18 +3,15 @@
 namespace Vergleichsrechner\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Form\Annotation;
 
 /**
  * Legitimation
  *
  * @ORM\Table(name="legitimation")
  * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\LegitimationRepository")
- * @Annotation\Name("legitimation")
- * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
-class Legitimation
-{
+class Legitimation extends BaseEntity {
+
     /**
      * @var integer
      *
@@ -31,15 +28,12 @@ class Legitimation
      */
     protected $legitimationName;
 
-
-
     /**
      * Get legitimationId
      *
      * @return integer 
      */
-    public function getLegitimationId()
-    {
+    public function getLegitimationId() {
         return $this->legitimationId;
     }
 
@@ -49,8 +43,7 @@ class Legitimation
      * @param string $legitimationName
      * @return Legitimation
      */
-    public function setLegitimationName($legitimationName)
-    {
+    public function setLegitimationName($legitimationName) {
         $this->legitimationName = $legitimationName;
 
         return $this;
@@ -61,15 +54,8 @@ class Legitimation
      *
      * @return string 
      */
-    public function getLegitimationName()
-    {
+    public function getLegitimationName() {
         return $this->legitimationName;
     }
 
-    public function jsonSerialize() {
-    	return [
-	    	'legitimationId' => $this->getLegitimationId(),
-	    	'legitimationName' => $this->getLegitimationName(),
-    	];
-    }   
 }

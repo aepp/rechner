@@ -1,0 +1,46 @@
+<!-- Modal -->
+<div class="modal large fade" id="konditionen-bearbeiten-modal" tabindex="-1" role="dialog" aria-labelledby="konditionen-bearbeiten-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="konditionen-bearbeiten-modal-label">Konditionen bearbeiten</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="konditionen-modal-form" role="form">
+                    <div class="alert" id="alert-modal">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <div id="alert-modal-message"></div>
+                    </div>
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar modal-progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <input type="hidden" value="<?php echo $produktId ?>" class="produktId"/>
+
+                    <div class="row">
+                        <div class="alert alert-warning">Bonitätsabhängigkeit in der <strong>Produktform</strong> setzen!</div>
+                        <!-- 						<label class="col-sm-3 control-label" for="produktIsBonitabh-helper">Bonitätsabhängig?</label> -->
+                        <!-- 						<div class="col-sm-3 btn-group" data-toggle="buttons"> -->
+                        <!-- 							<label class="btn btn-default"> -->
+                        <!-- 								<input type="radio" value="1" name="produktIsBonitabh-helper"> -->
+                        <!-- 								Ja -->
+                        <!-- 							</label> -->
+                        <!-- 							<label class="btn btn-default"> -->
+                        <!-- 								<input type="radio" value="0" name="produktIsBonitabh-helper"> -->
+                        <!-- 								Nein -->
+                        <!-- 							</label> -->
+                        <!-- 						</div> -->
+                    </div>
+
+                    <div class="table-responsive"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!-- 				<button type="button" class="btn btn-default" id="fill">Füllen</button> -->
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="close-konditionen-modal">Schließen</button>
+                <button type="button" class="btn btn-primary" id="save-konditionen">Übernehmen</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

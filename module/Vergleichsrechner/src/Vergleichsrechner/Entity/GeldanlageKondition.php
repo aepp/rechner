@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="geldanlage_kondition")
  * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\GeldanlageKonditionRepository")
  */
-class GeldanlageKondition
-{
+class GeldanlageKondition extends BaseEntity {
+
     /**
      * @var integer
      *
@@ -27,14 +27,14 @@ class GeldanlageKondition
      * @ORM\Column(name="kondition_laufzeit", type="integer", nullable=false)
      */
     protected $konditionLaufzeit;
-        
+
     /**
      * @var float
      *
      * @ORM\Column(name="kondition_einlage_von", type="float", precision=10, scale=0, nullable=false)
      */
     protected $konditionEinlageVon;
-    
+
     /**
      * @var float
      *
@@ -49,21 +49,19 @@ class GeldanlageKondition
      */
     protected $konditionZinssatz;
 
-
-  	/**
+    /**
      * @var Produkt
      * 
      * @ORM\ManyToOne(targetEntity="Geldanlage", inversedBy="konditionen")
      * @ORM\JoinColumn(name="produkt_id", referencedColumnName="produkt_id", nullable=true)
-     **/
+     * */
     protected $produkt;
-    
+
     /**
      * 
      * @return integer
      */
-    public function getKonditionId()
-    {
+    public function getKonditionId() {
         return $this->konditionId;
     }
 
@@ -71,8 +69,7 @@ class GeldanlageKondition
      * 
      * @return float#
      */
-    public function getKonditionEinlageVon()
-    {
+    public function getKonditionEinlageVon() {
         return $this->konditionEinlageVon;
     }
 
@@ -80,8 +77,7 @@ class GeldanlageKondition
      * 
      * @param float $konditionEinlageVon
      */
-    public function setKonditionEinlageVon($konditionEinlageVon)
-    {
+    public function setKonditionEinlageVon($konditionEinlageVon) {
         $this->konditionEinlageVon = $konditionEinlageVon;
     }
 
@@ -89,8 +85,7 @@ class GeldanlageKondition
      * 
      * @return float
      */
-    public function getKonditionEinlageBis()
-    {
+    public function getKonditionEinlageBis() {
         return $this->konditionEinlageBis;
     }
 
@@ -98,8 +93,7 @@ class GeldanlageKondition
      * 
      * @param float $konditionEinlageBis
      */
-    public function setKonditionEinlageBis($konditionEinlageBis)
-    {
+    public function setKonditionEinlageBis($konditionEinlageBis) {
         $this->konditionEinlageBis = $konditionEinlageBis;
     }
 
@@ -107,8 +101,7 @@ class GeldanlageKondition
      * 
      * @return float
      */
-    public function getKonditionZinssatz()
-    {
+    public function getKonditionZinssatz() {
         return $this->konditionZinssatz;
     }
 
@@ -116,8 +109,7 @@ class GeldanlageKondition
      * 
      * @param float $konditionZinssatz
      */
-    public function setKonditionZinssatz($konditionZinssatz)
-    {
+    public function setKonditionZinssatz($konditionZinssatz) {
         $this->konditionZinssatz = $konditionZinssatz;
     }
 
@@ -125,8 +117,7 @@ class GeldanlageKondition
      * 
      * @return Geldanlage
      */
-    public function getProdukt()
-    {
+    public function getProdukt() {
         return $this->produkt;
     }
 
@@ -134,8 +125,7 @@ class GeldanlageKondition
      * 
      * @param Geldanlage $produkt
      */
-    public function setProdukt($produkt)
-    {
+    public function setProdukt($produkt) {
         $this->produkt = $produkt;
     }
 
@@ -143,8 +133,7 @@ class GeldanlageKondition
      * 
      * @return integer
      */
-    public function getKonditionLaufzeit()
-    {
+    public function getKonditionLaufzeit() {
         return $this->konditionLaufzeit;
     }
 
@@ -152,19 +141,8 @@ class GeldanlageKondition
      * 
      * @param integer $konditionLaufzeit
      */
-    public function setKonditionLaufzeit($konditionLaufzeit)
-    {
+    public function setKonditionLaufzeit($konditionLaufzeit) {
         $this->konditionLaufzeit = $konditionLaufzeit;
     }
-    
-    public function jsonSerialize() {
-    	return [
-	    	'konditionId' => $this->getKonditionId(),
-	    	'konditionEinlageVon' => $this->getKonditionEinlageVon(),
-	    	'konditionEinlageBis' => $this->getKonditionEinlageBis(),
-	    	'konditionZinssatz' => $this->getKonditionZinssatz(),
-	    	'konditionLaufzeit' => $this->getKonditionLaufzeit(),
-	    	'produkt' => $this->getProdukt(),
-    	];
-    }
+
 }

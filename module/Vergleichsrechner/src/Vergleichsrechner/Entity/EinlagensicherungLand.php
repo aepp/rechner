@@ -3,18 +3,15 @@
 namespace Vergleichsrechner\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Form\Annotation;
 
 /**
  * EinlagensicherungLand
  *
  * @ORM\Table(name="einlagensicherung_land")
  * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\EinlagensicherungLandRepository")
- * @Annotation\Name("einlagensicherung_land")
- * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
-class EinlagensicherungLand
-{
+class EinlagensicherungLand extends BaseEntity {
+
     /**
      * @var integer
      *
@@ -31,15 +28,12 @@ class EinlagensicherungLand
      */
     protected $einlagensicherungLandName;
 
-
-
     /**
      * Get einlagensicherungLandId
      *
      * @return integer 
      */
-    public function getEinlagensicherungLandId()
-    {
+    public function getEinlagensicherungLandId() {
         return $this->einlagensicherungLandId;
     }
 
@@ -49,8 +43,7 @@ class EinlagensicherungLand
      * @param string $einlagensicherungLandName
      * @return EinlagensicherungLand
      */
-    public function setEinlagensicherungLandName($einlagensicherungLandName)
-    {
+    public function setEinlagensicherungLandName($einlagensicherungLandName) {
         $this->einlagensicherungLandName = $einlagensicherungLandName;
 
         return $this;
@@ -61,15 +54,8 @@ class EinlagensicherungLand
      *
      * @return string 
      */
-    public function getEinlagensicherungLandName()
-    {
+    public function getEinlagensicherungLandName() {
         return $this->einlagensicherungLandName;
     }
-    
-    public function jsonSerialize() {
-    	return [
-	    	'einlagensicherungLandId' => $this->getEinlagensicherungLandId(),
-	    	'einlagensicherungLandName' => $this->getEinlagensicherungLandName(),
-    	];
-    }
+
 }

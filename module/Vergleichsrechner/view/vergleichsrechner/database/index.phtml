@@ -1,35 +1,34 @@
-<?php 
-	echo $this->headScript()
-		->prependFile($this->basePath() . '/scripts/database.js')
-		->prependFile($this->basePath() . '/scripts/uploadify/jquery.uploadify.min.js');
-	echo $this->headLink()
-		->prependStylesheet($this->basePath() . '/scripts/uploadify/uploadify.css');
+<?php
+echo $this->headScript()
+        ->prependFile($this->basePath() . '/scripts/database.js')
+        ->prependFile($this->basePath() . '/scripts/uploadify/jquery.uploadify.min.js');
+echo $this->headLink()
+        ->prependStylesheet($this->basePath() . '/scripts/uploadify/uploadify.css');
 ?>
 
 <h3>Tabellen</h3>
 <div class="col-md-3">
-	<ul class="nav nav-pills nav-stacked" id="navSelectTable">
-		<li><a href="#" class="editTableLink" id="aktion">Aktionen</a></li>
-		<li><a href="#" class="editTableLink" id="bank">Banken</a><li>
-		<li><a href="#" class="editTableLink" id="user">Benutzer</a><li>
-		<li><a href="#" class="editTableLink" id="bewertung">Bewertungen</a></li>
-		<li><a href="#" class="editTableLink" id="einlagensicherungLand">Einlagensicherungsländer</a><li>
-		<li><a href="#" class="editTableLink" id="kategorie">Kategorien</a><li>
-		<li><a href="#" class="editTableLink" id="kontozugriff">Kontozugriffsarten</a></li>
-		<li><a href="#" class="editTableLink" id="legitimation">Legitimationsformem</a><li>
-		<li><a href="#" class="editTableLink" id="produktart">Produktarten</a><li>
-		<li><a href="#" class="editTableLink" id="zeitabschnitt">Zeitabschnitte</a><li>
-		<li><a href="#" class="editTableLink" id="zinssatz">Zinssätze</a><li>	
-		<li><a href="#" class="editTableLink" id="rkvAbschluss">RKV-Abschluss</a><li>								
-	</ul>
+    <ul class="nav nav-pills nav-stacked" id="navSelectTable">
+        <li><a href="#" class="editTableLink" id="aktion">Aktionen</a></li>
+        <li><a href="#" class="editTableLink" id="bank">Banken</a><li>
+        <li><a href="#" class="editTableLink" id="user">Benutzer</a><li>
+        <li><a href="#" class="editTableLink" id="einlagensicherungLand">Einlagensicherungsländer</a><li>
+        <li><a href="#" class="editTableLink" id="kategorie">Kategorien</a><li>
+        <li><a href="#" class="editTableLink" id="kontozugriff">Kontozugriffsarten</a></li>
+        <li><a href="#" class="editTableLink" id="legitimation">Legitimationsformem</a><li>
+        <li><a href="#" class="editTableLink" id="produktart">Produktarten</a><li>
+        <li><a href="#" class="editTableLink" id="zeitabschnitt">Zeitabschnitte</a><li>
+        <li><a href="#" class="editTableLink" id="zinssatz">Zinssätze</a><li>	
+        <li><a href="#" class="editTableLink" id="rkvAbschluss">RKV-Abschluss</a><li>								
+    </ul>
 </div>
-  
+
 <div class="col-md-9">
-	<h3 id="tableName"></h3>
-	<div id="tableContent">
-		<div class="jumbotron">
-			<h2>Datenbankverwaltung</h2>
-			<p>Hier kannst du die Datenbanktabellen verwalten.</p>
-		</div>
-	</div>
+    <h3 id="tableName"></h3>
+    <div id="tableContent">
+        <div class="jumbotron">
+            <h2>Datenbankverwaltung</h2>
+            <p>Hier kannst du die Datenbanktabellen verwalten.</p>
+        </div>
+    </div>
 </div>

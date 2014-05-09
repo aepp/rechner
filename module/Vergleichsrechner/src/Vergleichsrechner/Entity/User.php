@@ -10,11 +10,9 @@ use Zend\Form\Annotation;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\UserRepository")
- * @Annotation\Name("user")
- * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ClassMethods")
  */
-class User
-{
+class User extends BaseEntity {
+
     /**
      * @var integer
      *
@@ -29,8 +27,8 @@ class User
      *
      * @ORM\Column(name="user_email", type="string", nullable=false)
      * @Annotation\Type("Zend\Form\Element\Email")
-	 * @Annotation\Options({"label":"Email:"})
-	 */
+     * @Annotation\Options({"label":"Email:"})
+     */
     protected $userEmail;
 
     /**
@@ -38,8 +36,8 @@ class User
      *
      * @ORM\Column(name="user_password", type="text", nullable=false)
      * @Annotation\Attributes({"type":"password"})
-	 * @Annotation\Options({"label":"Password:"})        
-	 */
+     * @Annotation\Options({"label":"Password:"})        
+     */
     protected $userPassword;
 
     /**
@@ -55,19 +53,20 @@ class User
      * @ORM\Column(name="user_vorname", type="string", length=100, nullable=true)
      */
     protected $userVorname;
+
     /**
      * @var string
      *
      * @ORM\Column(name="user_name", type="string", length=100, nullable=true)
      */
     protected $userName;
+
     /**
      * Get userId
      *
      * @return integer 
      */
-    public function getUserId()
-    {
+    public function getUserId() {
         return $this->userId;
     }
 
@@ -77,8 +76,7 @@ class User
      * @param string $userName
      * @return User
      */
-    public function setUserName($userName)
-    {
+    public function setUserName($userName) {
         $this->userName = $userName;
 
         return $this;
@@ -89,19 +87,17 @@ class User
      *
      * @return string 
      */
-    public function getUserName()
-    {
+    public function getUserName() {
         return $this->userName;
     }
-    
+
     /**
      * Set userEmail
      *
      * @param string $userEmail
      * @return User
      */
-    public function setUserEmail($userEmail)
-    {
+    public function setUserEmail($userEmail) {
         $this->userEmail = $userEmail;
 
         return $this;
@@ -112,8 +108,7 @@ class User
      *
      * @return string 
      */
-    public function getUserEmail()
-    {
+    public function getUserEmail() {
         return $this->userEmail;
     }
 
@@ -123,8 +118,7 @@ class User
      * @param string $userPassword
      * @return User
      */
-    public function setUserPassword($userPassword)
-    {
+    public function setUserPassword($userPassword) {
         $this->userPassword = $userPassword;
 
         return $this;
@@ -135,8 +129,7 @@ class User
      *
      * @return string 
      */
-    public function getUserPassword()
-    {
+    public function getUserPassword() {
         return $this->userPassword;
     }
 
@@ -146,8 +139,7 @@ class User
      * @param string $userSalt
      * @return User
      */
-    public function setUserSalt($userSalt)
-    {
+    public function setUserSalt($userSalt) {
         $this->userSalt = $userSalt;
 
         return $this;
@@ -158,8 +150,7 @@ class User
      *
      * @return string 
      */
-    public function getUserSalt()
-    {
+    public function getUserSalt() {
         return $this->userSalt;
     }
 
@@ -169,8 +160,7 @@ class User
      * @param string $userVorname
      * @return User
      */
-    public function setUserVorname($userVorname)
-    {
+    public function setUserVorname($userVorname) {
         $this->userVorname = $userVorname;
 
         return $this;
@@ -181,19 +171,8 @@ class User
      *
      * @return string 
      */
-    public function getUserVorname()
-    {
+    public function getUserVorname() {
         return $this->userVorname;
     }
-	
-	    public function jsonSerialize() {
-    	return [
-	    	'userId' => $this->getUserId(),
-	    	'userEmail' => $this->getUserEmail(),
-	    	'userName' => $this->getUserName(),
-			'userVorname' => $this->getUserVorname(),
-			'userPassword' => $this->getUserPassword(),
 
-    	];
-    }
 }
