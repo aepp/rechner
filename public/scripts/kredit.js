@@ -27,7 +27,7 @@ $(document).ready(function() {
     $('.affix').affix({
         offset: {
             top: 145,
-            bottom: 77
+            bottom: 78
         }
     });
     $('#overview-nav li a').click(function(event) {
