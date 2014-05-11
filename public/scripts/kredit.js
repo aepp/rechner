@@ -1,5 +1,5 @@
 /*
- * Ein Flag der das doppelte Laden der Funktionen verhindert
+ * Ein Flag der das doppelte Laden der Funktionen verhindert.
  */
 var pageInitialized;
 /*
