@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="bank")
  * @ORM\Entity(repositoryClass="Vergleichsrechner\Entity\Repository\BankRepository")
  */
-class Bank extends BaseEntity{
+class Bank extends BaseEntity {
 
     /**
      * @var integer
@@ -38,7 +38,7 @@ class Bank extends BaseEntity{
     /**
      * @var integer
      *
-     * @ORM\Column(name="bank_dyn_id", type="integer", nullable=false)
+     * @ORM\Column(name="bank_dyn_id", type="integer", nullable=true)
      */
     protected $bankDynId;
 
@@ -159,4 +159,5 @@ class Bank extends BaseEntity{
     public function setBankDynId($bankDynId) {
         $this->bankDynId = $bankDynId;
     }
+
 }
