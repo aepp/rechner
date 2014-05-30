@@ -123,6 +123,13 @@ class Produkt {
     protected $produktKlickoutUrl;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="produkt_is_active", type="boolean", nullable=true)
+     */
+    protected $produktIsActive;
+
+    /**
      * Set produktart
      *
      * @param Produktart $produktart
@@ -435,6 +442,14 @@ class Produkt {
      */
     public function getLegitimation() {
         return $this->legitimation;
+    }
+
+    public function getProduktIsActive() {
+        return $this->produktIsActive;
+    }
+
+    public function setProduktIsActive($produktIsActive) {
+        $this->produktIsActive = $produktIsActive;
     }
 
 }
