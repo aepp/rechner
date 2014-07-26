@@ -100,7 +100,7 @@ $(document).ready(function() {
     });
 
     /*
-     * Wenn eine Bank vorausgewählt ist (z. B. beim Beiarbeiten eines
+     * Wenn eine Bank vorausgewählt ist (z. B. beim Bearbeiten eines
      * existierenden Produkts), die Aktionen für diese Bank laden
      */
     if ($('#bank').val()) {
