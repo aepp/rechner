@@ -267,6 +267,7 @@ class GeldanlageController extends BaseController {
                 $produkt->setEinlagensicherungLand($einlagensicherungLand);
                 $produkt->setBank($bank);
                 $produkt->setAktion($aktion);
+                $produkt->setProduktIsActive(true);
 
                 /** Save product */
                 $em->persist($produkt);

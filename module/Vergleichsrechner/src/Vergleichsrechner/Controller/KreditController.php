@@ -322,6 +322,7 @@ class KreditController extends BaseController {
                 $produkt->setProduktart($produktart);
                 $produkt->setLegitimation($legitimation);
                 $produkt->setBank($bank);
+                $produkt->setProduktIsActive(true);
 
                 /** Save product */
                 $em->persist($produkt);
