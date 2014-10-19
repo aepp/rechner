@@ -192,7 +192,7 @@ class GeldanlageController extends BaseController {
                     $bank = $em->find('Vergleichsrechner\Entity\Bank', $bankKey);
                 }
                 if ($einlagensicherungLandKey != null) {
-                    $einlagensicherungLand = $em->find('Vergleichsrechner\Entity\EinlagensicherungLand', $einlagensicherungLandKey);
+                    $einlagensicherungLand = $em->find('Vergleichsrechner\Entity\Einlagensicherungsland', $einlagensicherungLandKey);
                 }
                 if ($legitimationKey != null) {
                     $legitimation = $em->find('Vergleichsrechner\Entity\Legitimation', $legitimationKey);
@@ -446,6 +446,32 @@ class GeldanlageController extends BaseController {
             'produktId' => $produktId,
             'error' => $error,
         ));
+    }
+
+    public function toggleProduktStatusAction() {
+        $produktId = $this->params()->fromRoute('produktId');
+        try {
+            $produkt = null;
+            $em = $this->getEntityManager();
+            $produktStatus = $this->params()->fromPost('produktStatus');
+            if ($produktId != null && $produktStatus != null) {
+                $produkt = $em->getRepository('Vergleichsrechner\Entity\Geldanlage')->find($produktId);
+                /* @var $produkt Geldanlage */
+                $produkt->setProduktIsActive($produktStatus === "true" ? true : false);
+                /** Save product */
+                $em->persist($produkt);
+                $em->flush();
+                return new JsonModel(array(
+                    'message' => 'Status updated: ' . $produkt->getProduktName(),
+                    'produktId' => $produktId
+                ));
+            }
+        } catch (Exception $e) {
+            return new JsonModel(array(
+                'message' => 'Error occured: ' . $e,
+                'produktId' => $produktId
+            ));
+        }
     }
 
 }

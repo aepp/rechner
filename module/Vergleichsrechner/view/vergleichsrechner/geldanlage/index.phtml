@@ -32,6 +32,7 @@ $this->headLink()
                 <th class="filter-select" data-placeholder="Aktion?">Aktion</th>
                 <th class="filter-select" data-placeholder="Tipp?">Tipp</th>
                 <th>URLs</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -97,6 +98,10 @@ $this->headLink()
                                 Klickout-URL
                             </a>
                         </div>
+                    </td>
+                    <td>
+                        <input type="checkbox" id="produkt-status-<?php echo $produkt->getProduktId(); ?>"  
+                               class="toggle-produkt-status" <?php echo $produkt->getProduktIsActive() ? 'checked' : ''; ?> />
                     </td>
                 </tr>
             <?php endforeach; ?>

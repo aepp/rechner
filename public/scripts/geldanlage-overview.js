@@ -40,6 +40,10 @@ $(document).ready(function() {
                 sorter: false,
                 filter: false
             },
+            7: {
+                sorter: false,
+                filter: false
+            }
         },
         textExtraction: {
             1: function(node, table, cellIndex) {
@@ -100,6 +104,30 @@ $(document).ready(function() {
 //		            scrollTop: $("#alert").offset().top
                     scrollTop: 0
                 }, 600);
+            }
+        });
+    });
+
+    $('.toggle-produkt-status').unbind('click').click(function(event) {
+        var id = $(this).attr('id').split('-')[2];
+        console.log($(this).prop('checked'));
+        $.ajax({
+            type: 'POST',
+            url: 'geldanlage/toggleProduktStatus/' + id,
+            data: {produktId: id, produktStatus: $(this).prop('checked')},
+            success: function(response) {
+                console.log(response);
+                $('#alert').css('display', 'block')
+                        .removeClass()
+                        .addClass('alert alert-success')
+                        .find("#alert-message").text("Produkt " + ($(this).attr('checked') ? "aktiviert" : "deaktiviert"));
+            },
+            error: function(response) {
+                $('#alert')
+                        .css('display', 'block')
+                        .removeClass()
+                        .addClass('alert alert-warning')
+                        .find("#alert-message").text("Es ist ein Fehler afgetretten!");
             }
         });
     });
