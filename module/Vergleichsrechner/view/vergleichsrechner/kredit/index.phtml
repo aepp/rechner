@@ -32,6 +32,8 @@ $this->headLink()
                 <th class="filter-select" data-placeholder="Aktion?">Aktion</th>
                 <th class="filter-select" data-placeholder="Tipp?">Tipp</th>
                 <th>URLs</th>
+                <th>Status</th>
+                <th>Top Produkt?</th>
             </tr>
         </thead>
         <tbody>
@@ -99,6 +101,14 @@ $this->headLink()
                             </a>
                         </div>
                     </td>
+                    <td>
+                        <input type="checkbox" id="produkt-status-<?php echo $produkt->getProduktId(); ?>"  
+                               class="toggle-produkt-status" <?php echo $produkt->getProduktIsActive() ? 'checked' : ''; ?> />
+                    </td>
+                    <td>
+                        <input type="checkbox" id="produkt-interest-<?php echo $produkt->getProduktId(); ?>"  
+                               class="toggle-produkt-interest" <?php echo $produkt->getProduktInterest() ? 'checked' : ''; ?> />
+                    </td> 
                 </tr>
             <?php endforeach; ?>
         </tbody>

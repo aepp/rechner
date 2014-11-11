@@ -14,7 +14,7 @@ use Zend\Session\Container;
  * @author A. Epp
  * @version 1.0
  */
-class KreditController extends BaseController {
+class KreditController extends ProduktController {
 
     /**
      * Alle Kredit-Produkte ermitteln
@@ -557,6 +557,14 @@ class KreditController extends BaseController {
             'produktId' => $produktId,
             'error' => $error,
         ));
+    }
+
+    public function toggleProduktStatusAction() {
+        return parent::updateProductStatus(get_class(new Kredit()));
+    }
+
+    public function toggleProduktInterestAction() {
+        return parent::updateProductInterest(get_class(new Kredit()));
     }
 
 }

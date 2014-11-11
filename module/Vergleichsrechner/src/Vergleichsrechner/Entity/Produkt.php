@@ -130,6 +130,13 @@ class Produkt {
     protected $produktIsActive;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="produkt_interest", type="boolean", nullable=true)
+     */
+    protected $produktInterest;
+
+    /**
      * Set produktart
      *
      * @param Produktart $produktart
@@ -450,6 +457,14 @@ class Produkt {
 
     public function setProduktIsActive($produktIsActive) {
         $this->produktIsActive = $produktIsActive;
+    }
+
+    public function getProduktInterest() {
+        return $this->produktInterest;
+    }
+
+    public function setProduktInterest($produktInterest) {
+        $this->produktInterest = $produktInterest;
     }
 
 }

@@ -14,7 +14,7 @@ use Zend\Session\Container;
  * @author A. Epp
  * @version 1.0
  */
-class GeldanlageController extends BaseController {
+class GeldanlageController extends ProduktController {
 
     /**
      * Alle Geldanlage-Produkte ermitteln
@@ -449,29 +449,11 @@ class GeldanlageController extends BaseController {
     }
 
     public function toggleProduktStatusAction() {
-        $produktId = $this->params()->fromRoute('produktId');
-        try {
-            $produkt = null;
-            $em = $this->getEntityManager();
-            $produktStatus = $this->params()->fromPost('produktStatus');
-            if ($produktId != null && $produktStatus != null) {
-                $produkt = $em->getRepository('Vergleichsrechner\Entity\Geldanlage')->find($produktId);
-                /* @var $produkt Geldanlage */
-                $produkt->setProduktIsActive($produktStatus === "true" ? true : false);
-                /** Save product */
-                $em->persist($produkt);
-                $em->flush();
-                return new JsonModel(array(
-                    'message' => 'Status updated: ' . $produkt->getProduktName(),
-                    'produktId' => $produktId
-                ));
-            }
-        } catch (Exception $e) {
-            return new JsonModel(array(
-                'message' => 'Error occured: ' . $e,
-                'produktId' => $produktId
-            ));
-        }
+        return parent::updateProductStatus(get_class(new Geldanlage()));
+    }
+
+    public function toggleProduktInterestAction() {
+        return parent::updateProductInterest(get_class(new Geldanlage()));
     }
 
 }

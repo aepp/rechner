@@ -43,6 +43,10 @@ $(document).ready(function() {
             7: {
                 sorter: false,
                 filter: false
+            },
+            8: {
+                sorter: false,
+                filter: false
             }
         },
         textExtraction: {
@@ -109,25 +113,47 @@ $(document).ready(function() {
     });
 
     $('.toggle-produkt-status').unbind('click').click(function(event) {
-        var id = $(this).attr('id').split('-')[2];
-        console.log($(this).prop('checked'));
+        var id = $(this).attr('id').split('-')[2],
+                status = $(this).prop('checked');
         $.ajax({
             type: 'POST',
             url: 'geldanlage/toggleProduktStatus/' + id,
             data: {produktId: id, produktStatus: $(this).prop('checked')},
             success: function(response) {
-                console.log(response);
                 $('#alert').css('display', 'block')
                         .removeClass()
                         .addClass('alert alert-success')
-                        .find("#alert-message").text("Produkt " + ($(this).attr('checked') ? "aktiviert" : "deaktiviert"));
+                        .find("#alert-message").text(response['message']);
             },
             error: function(response) {
                 $('#alert')
                         .css('display', 'block')
                         .removeClass()
                         .addClass('alert alert-warning')
-                        .find("#alert-message").text("Es ist ein Fehler afgetretten!");
+                        .find("#alert-message").text("Error occured: " + response);
+            }
+        });
+    });
+
+    $('.toggle-produkt-interest').unbind('click').click(function(event) {
+        var id = $(this).attr('id').split('-')[2],
+                status = $(this).prop('checked');
+        $.ajax({
+            type: 'POST',
+            url: 'geldanlage/toggleProduktInterest/' + id,
+            data: {produktId: id, produktInterest: $(this).prop('checked')},
+            success: function(response) {
+                $('#alert').css('display', 'block')
+                        .removeClass()
+                        .addClass('alert alert-success')
+                        .find("#alert-message").text(response['message']);
+            },
+            error: function(response) {
+                $('#alert')
+                        .css('display', 'block')
+                        .removeClass()
+                        .addClass('alert alert-warning')
+                        .find("#alert-message").text("Error occured: " + response);
             }
         });
     });

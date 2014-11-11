@@ -40,6 +40,14 @@ $(document).ready(function() {
                 sorter: false,
                 filter: false
             },
+            7: {
+                sorter: false,
+                filter: false
+            },
+            8: {
+                sorter: false,
+                filter: false
+            }
         },
         textExtraction: {
             1: function(node, table, cellIndex) {
@@ -101,6 +109,44 @@ $(document).ready(function() {
 //		            scrollTop: $("#alert").offset().top
                     scrollTop: 0
                 }, 600);
+            }
+        });
+    });
+
+    $('.toggle-produkt-status').unbind('click').click(function(e) {
+        var id = $(this).attr('id').split('-')[2];
+        $.ajax({
+            type: 'POST',
+            url: 'kredit/toggleProduktStatus/' + id,
+            data: {produktId: id, produktStatus: $(this).prop('checked')},
+            success: function(response) {
+                $('#alert').css('display', 'block').removeClass()
+                        .addClass('alert alert-success').find("#alert-message")
+                        .text(response['message']);
+            },
+            error: function(response) {
+                $('#alert').css('display', 'block').removeClass()
+                        .addClass('alert alert-warning').find("#alert-message")
+                        .text(response);
+            }
+        });
+    });
+
+    $('.toggle-produkt-interest').unbind('click').click(function(e) {
+        var id = $(this).attr('id').split('-')[2];
+        $.ajax({
+            type: 'POST',
+            url: 'kredit/toggleProduktInterest/' + id,
+            data: {produktId: id, produktInterest: $(this).prop('checked')},
+            success: function(response) {
+                $('#alert').css('display', 'block').removeClass()
+                        .addClass('alert alert-success').find("#alert-message")
+                        .text(response['message']);
+            },
+            error: function(response) {
+                $('#alert').css('display', 'block').removeClass()
+                        .addClass('alert alert-warning').find("#alert-message")
+                        .text(response);
             }
         });
     });
